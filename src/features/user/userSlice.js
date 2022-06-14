@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 export const API_URL = "https://notflixtv.herokuapp.com/api/v1/";
-export const TOKEN = JSON.parse(localStorage.getItem("token"));
+export const TOKEN = "";
 
 export const auth = createAsyncThunk(
     "user/auth",
