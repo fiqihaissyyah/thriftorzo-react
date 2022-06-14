@@ -1,0 +1,16 @@
+.ant-input-affix-wrapper.search-bar{
+    @apply rounded-2xl text-sm;
+    padding: 11px 24px;
+    height: 48px;
+    border: none !important;
+    background-color: #EEEEEE;
+}
+
+.ant-input-affix-wrapper.search-bar input{
+    background-color: #EEEEEE;
+}
+
+.header{
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+}
