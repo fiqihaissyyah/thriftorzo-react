@@ -14,68 +14,94 @@ export default function Home() {
 	return (
 		<div>
 			<SliderHome />
-			<div className='container'>
-				<h2 className='text-base font-bold mt-10 mb-4'>
-					Telusuri Kategori!
-				</h2>
-				<div className='flex mb-10 w-full'>
-					<Category category='Semua' active />
-					<Category category='Hobi' />
-					<Category category='Kendaraan' />
-					<Category category='Baju' />
-					<Category category='Elektronik' />
-					<Category category='Kesehatan' />
+			<div className='product-section'>
+				<div className='container'>
+					<h2 className='text-base font-bold mt-10 mb-4'>
+						Telusuri Kategori!
+					</h2>
+					<div className='flex mb-10 w-full md:overflow-auto overflow-x-scroll category-warpper'>
+						<Category category='Semua' active />
+						<Category category='Hobi' />
+						<Category category='Kendaraan' />
+						<Category category='Baju' />
+						<Category category='Elektronik' />
+						<Category category='Kesehatan' />
+					</div>
+					<Row gutter={16} className='mb-10'>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+					</Row>
 				</div>
-				<Row gutter={16} className='mb-10'>
-					<Col xs={{ span: 12 }} md={{ span: 6 }} lg={{ span: 4 }}>
-						<Product
-							img={imgProduct}
-							title='Jam Tangan Casio'
-							category='Aksesoris'
-							price='250000'
-						/>
-					</Col>
-					<Col xs={{ span: 12 }} md={{ span: 6 }} lg={{ span: 4 }}>
-						<Product
-							img={imgProduct}
-							title='Jam Tangan Casio'
-							category='Aksesoris'
-							price='250000'
-						/>
-					</Col>
-					<Col xs={{ span: 12 }} md={{ span: 6 }} lg={{ span: 4 }}>
-						<Product
-							img={imgProduct}
-							title='Jam Tangan Casio'
-							category='Aksesoris'
-							price='250000'
-						/>
-					</Col>
-					<Col xs={{ span: 12 }} md={{ span: 6 }} lg={{ span: 4 }}>
-						<Product
-							img={imgProduct}
-							title='Jam Tangan Casio'
-							category='Aksesoris'
-							price='250000'
-						/>
-					</Col>
-					<Col xs={{ span: 12 }} md={{ span: 6 }} lg={{ span: 4 }}>
-						<Product
-							img={imgProduct}
-							title='Jam Tangan Casio'
-							category='Aksesoris'
-							price='250000'
-						/>
-					</Col>
-					<Col xs={{ span: 12 }} md={{ span: 6 }} lg={{ span: 4 }}>
-						<Product
-							img={imgProduct}
-							title='Jam Tangan Casio'
-							category='Aksesoris'
-							price='250000'
-						/>
-					</Col>
-				</Row>
 			</div>
 		</div>
 	);

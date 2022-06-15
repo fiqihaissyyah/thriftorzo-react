@@ -42,7 +42,7 @@
 
 .header.overlay::before {
 	width: 100vw;
-	position: absolute;
+	position: fixed;
 	left: 0;
 	top: 0;
 	bottom: 0;
@@ -56,6 +56,11 @@
 	.header {
 		background: transparent;
 		box-shadow: none;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		z-index: 10;
 	}
 
 	.ant-input-affix-wrapper.search-bar,

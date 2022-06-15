@@ -48,10 +48,10 @@ export default function Header() {
 
 	const userMenu = (
 		<Menu onClick={handleClick} className='mt-3'>
-<Menu.Item key='item-1'>Akun Saya</Menu.Item>
-<Menu.Item key='item-2' onClick={handleLogout}>
-    Logout
-</Menu.Item>
+			<Menu.Item key='item-1'>Akun Saya</Menu.Item>
+			<Menu.Item key='item-2' onClick={handleLogout}>
+				Logout
+			</Menu.Item>
 		</Menu>
 	);
 
