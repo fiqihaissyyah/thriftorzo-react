@@ -9,7 +9,7 @@ export default function Footer() {
 					Second <br />
 					Hand.
 				</span>
-				<span className='text-sm text-white'>
+				<span className='md:text-sm text-xs text-white'>
 					Copyright ©2022 SecondHand. All rights reserved.
 				</span>
 			</div>

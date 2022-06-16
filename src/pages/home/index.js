@@ -4,6 +4,7 @@ import { Col, Row } from 'antd';
 import Category from '../../components/cateogry';
 import Product from '../../components/product';
 import SliderHome from '../../components/slider-home';
+import SellButton from '../../components/sell-button';
 
 import './index.css';
 
@@ -100,9 +101,226 @@ export default function Home() {
 								price='250000'
 							/>
 						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
 					</Row>
 				</div>
 			</div>
+			<SellButton />
 		</div>
 	);
 }
