@@ -1,22 +1,22 @@
 {
-  "env": {
-    "commonjs": true,
-    "es2021": true,
-    "node": true
-  },
-  "extends": "eslint:recommended",
-  "parser": "@babel/eslint-parser",
-  "parserOptions": {
-    "ecmaVersion": "latest",
-    "babelOptions": {
-        "presets": ["@babel/preset-react"]
-     },
-    "requireConfigFile": false
-  },
-  "rules": {
-    "no-unused-vars": "off",
-    "indent": ["warn", "tab"],
-    "quotes": ["error", "single"]
-  },
-  "ignorePatterns": ["*.spec.js", "*.test.js"]
+	"env": {
+		"commonjs": true,
+		"es2021": true,
+		"node": true
+	},
+	"extends": "eslint:recommended",
+	"parser": "@babel/eslint-parser",
+	"parserOptions": {
+		"ecmaVersion": "latest",
+		"babelOptions": {
+			"presets": ["@babel/preset-react"]
+		},
+		"requireConfigFile": false
+	},
+	"rules": {
+		"no-unused-vars": "off",
+		"indent": ["warn", "tab"],
+		"quotes": ["error", "single"]
+	},
+	"ignorePatterns": ["*.spec.js", "*.test.js"]
 }
