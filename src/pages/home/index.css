@@ -1,0 +1,25 @@
+.swiper {
+	width: 100%;
+	height: 100%;
+}
+
+.swiper-slide {
+	max-width: 968px;
+	width: 100%;
+}
+
+.category-warpper {
+	-ms-overflow-style: none; /* Internet Explorer 10+ */
+	scrollbar-width: none; /* Firefox */
+}
+.category-warpper::-webkit-scrollbar {
+	display: none; /* Safari and Chrome */
+}
+
+@media screen and (max-width: 767px) {
+	.product-section {
+		margin-top: -148px;
+		position: relative;
+		z-index: 1;
+	}
+}

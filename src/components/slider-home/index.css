@@ -1,0 +1,23 @@
+.slider-bg::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	background: linear-gradient(90deg, #ffe9ca 0%, rgba(255, 233, 202, 0) 100%);
+	border-radius: 0px 20px 20px 0px;
+}
+
+@media screen and (max-width: 767px) {
+	.slider-bg {
+		display: none;
+	}
+	.slider-item {
+		background: linear-gradient(
+			180deg,
+			#ffe9c9 59.55%,
+			rgba(255, 233, 202, 0) 100%
+		);
+	}
+}
