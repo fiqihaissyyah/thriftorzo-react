@@ -7,9 +7,11 @@ import Footer from '../footer/index';
 export default function DefaultLayout(props) {
 	return (
 		<>
-			<Header />
-			<Outlet {...props} />
-			<Footer />
+			<div className='main-content'>
+				<Header />
+				<Outlet {...props} />
+				<Footer />
+			</div>
 		</>
 	);
 }

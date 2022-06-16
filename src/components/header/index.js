@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Col, Row, Button, Form, Input, Dropdown, Menu } from 'antd';
 import {
 	LogIn,
@@ -17,6 +17,8 @@ export default function Header() {
 	const [form] = Form.useForm();
 	const [user, setUser] = useState(false);
 	const [sidebar, setSidebar] = useState(false);
+
+	const navigate = useNavigate();
 
 	const onFinish = (values) => {
 		console.log('Success:', values);
@@ -39,7 +41,7 @@ export default function Header() {
 	};
 
 	const handleLogin = () => {
-		setUser(true);
+		navigate('/login');
 	};
 
 	const handleLogout = () => {
@@ -68,10 +70,10 @@ export default function Header() {
 					<Col xs={{ span: 24 }} md={{ span: 12 }}>
 						<Row gutter={24}>
 							<Col className='flex items-center'>
-								<span className='text-lg font-bold leading-5 text-[#7126B5] md:block hidden'>
+								<Link to={'/'} className='text-lg font-bold leading-5 text-[#7126B5] md:block hidden'>
 									Second <br />
 									Hand.
-								</span>
+								</Link>
 								<button
 									className='md:hidden navbar-toggler w-12 h-12 bg-white rounded-2xl border-0 flex justify-center items-center'
 									onClick={showSidebar}
