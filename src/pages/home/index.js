@@ -101,7 +101,55 @@ export default function Home() {
 								price='250000'
 							/>
 						</Col>
-                        <Col
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
+						<Col
 							xs={{ span: 12 }}
 							md={{ span: 6 }}
 							lg={{ span: 4 }}
@@ -173,18 +221,6 @@ export default function Home() {
 								price='250000'
 							/>
 						</Col>
-                        <Col
-							xs={{ span: 12 }}
-							md={{ span: 6 }}
-							lg={{ span: 4 }}
-						>
-							<Product
-								img={imgProduct}
-								title='Jam Tangan Casio'
-								category='Aksesoris'
-								price='250000'
-							/>
-						</Col>
 						<Col
 							xs={{ span: 12 }}
 							md={{ span: 6 }}
@@ -210,42 +246,6 @@ export default function Home() {
 							/>
 						</Col>
 						<Col
-							xs={{ span: 12 }}
-							md={{ span: 6 }}
-							lg={{ span: 4 }}
-						>
-							<Product
-								img={imgProduct}
-								title='Jam Tangan Casio'
-								category='Aksesoris'
-								price='250000'
-							/>
-						</Col>
-						<Col
-							xs={{ span: 12 }}
-							md={{ span: 6 }}
-							lg={{ span: 4 }}
-						>
-							<Product
-								img={imgProduct}
-								title='Jam Tangan Casio'
-								category='Aksesoris'
-								price='250000'
-							/>
-						</Col>
-						<Col
-							xs={{ span: 12 }}
-							md={{ span: 6 }}
-							lg={{ span: 4 }}
-						>
-							<Product
-								img={imgProduct}
-								title='Jam Tangan Casio'
-								category='Aksesoris'
-								price='250000'
-							/>
-						</Col>
-                        <Col
 							xs={{ span: 12 }}
 							md={{ span: 6 }}
 							lg={{ span: 4 }}
@@ -320,7 +320,7 @@ export default function Home() {
 					</Row>
 				</div>
 			</div>
-            <SellButton />
+			<SellButton />
 		</div>
 	);
 }

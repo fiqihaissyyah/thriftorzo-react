@@ -7,14 +7,14 @@ body {
 	font-family: 'Poppins', sans-serif;
 }
 
-#root{
-    min-height: 100vh;
-    padding-bottom: 112px;
-    position: relative;
+#root {
+	min-height: 100vh;
+	padding-bottom: 112px;
+	position: relative;
 }
 
-.footer{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
 }
