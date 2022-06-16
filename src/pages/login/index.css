@@ -1,0 +1,13 @@
+.bg-auth {
+	background-image: url(../../assets/images/img.png);
+	background-size: cover;
+	height: 100vh;
+	background-position: left center;
+}
+
+@media screen and (max-width: 767px) {
+	.bg-auth {
+		background-image: none;
+		background-size: 0;
+	}
+}

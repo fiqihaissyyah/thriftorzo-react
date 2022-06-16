@@ -1,49 +1,59 @@
 {
-  "name": "secondhand-fejs",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@craco/craco": "^6.4.3",
-    "@reduxjs/toolkit": "^1.8.2",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^14.2.0",
-    "antd": "^4.21.0",
-    "axios": "^0.27.2",
-    "craco-less": "^2.0.0",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "react-feather": "^2.0.10",
-    "react-redux": "^8.0.2",
-    "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "craco eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "tailwindcss": "^3.1.2"
-  }
+	"name": "secondhand-fejs",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@babel/eslint-parser": "^7.18.2",
+		"@craco/craco": "^6.4.3",
+		"@reduxjs/toolkit": "^1.8.2",
+		"@testing-library/jest-dom": "^5.16.4",
+		"@testing-library/react": "^13.3.0",
+		"@testing-library/user-event": "^14.2.0",
+		"antd": "^4.21.0",
+		"axios": "^0.27.2",
+		"craco-less": "^2.0.0",
+		"eslint": "^8.17.0",
+		"react": "^18.1.0",
+		"react-dom": "^18.1.0",
+		"react-feather": "^2.0.10",
+		"react-redux": "^8.0.2",
+		"react-router-dom": "^6.3.0",
+		"react-scripts": "5.0.1",
+		"swiper": "^8.2.4",
+		"web-vitals": "^2.1.4"
+	},
+	"scripts": {
+		"start": "craco start",
+		"build": "craco build",
+		"test": "craco test",
+		"eject": "craco eject",
+		"format": "prettier --write .",
+		"lint": "prettier --check .",
+		"prepare": "husky install"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"@babel/preset-react": "^7.17.12",
+		"eslint-config-prettier": "8.5.0",
+		"husky": "^8.0.0",
+		"prettier": "2.7.0",
+		"tailwindcss": "^3.1.2"
+	}
 }
