@@ -33,6 +33,14 @@
 	border-radius: 0px 20px 20px 0px;
 }
 
+.slider-bg.purple::before {
+	background: linear-gradient(90deg, #F8D6D5 0%, rgba(255, 233, 202, 0) 100%);
+}
+
+.slider-bg.green::before {
+	background: linear-gradient(90deg, #B6D4A8 0%, rgba(255, 233, 202, 0) 100%);
+}
+
 @media screen and (max-width: 767px) {
 	.slider-bg {
 		display: none;

@@ -1,14 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './index.css';
-import { Col, Row, Form, Input, Button, Typography } from 'antd';
-import { Link } from 'react-router-dom';
+import { Col, Row, Form, Input, Button, message, Alert } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
 
-const { Title } = Typography;
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from '../../features/user/userSlice';
 
 export default function Register() {
-	const onFinish = (values) => {
-		console.log('Success:', values);
+	const { success, error, errorMessage, loading } = useSelector(
+		(state) => state.user.register
+	);
+
+	const dispatch = useDispatch();
+	const [form] = Form.useForm();
+	const navigate = useNavigate();
+
+	const onFinish = async (values) => {
+		dispatch(register(values))
 	};
+
+	useEffect(() => {
+		if (success === true) {
+			message.success('Your registration successful');
+			form.resetFields()
+			navigate('/login');
+		}
+	}, [success]);
 
 	const onFinishFailed = (errorInfo) => {
 		console.log('Failed:', errorInfo);
@@ -26,7 +43,17 @@ export default function Register() {
 					<h1 className='text-2xl text-black mb-6 font-bold'>
 						Daftar
 					</h1>
+					{!!error && (
+						<Alert
+							className='mb-6'
+							message="Error"
+							description={errorMessage}
+							type="error"
+							showIcon
+						/>
+					)}
 					<Form
+						form={form}
 						name='basic'
 						layout='vertical'
 						onFinish={onFinish}
@@ -35,7 +62,7 @@ export default function Register() {
 					>
 						<Form.Item
 							className='mb-4'
-							name={['user', 'name']}
+							name='name'
 							label='Nama'
 							required={false}
 							rules={[
@@ -77,6 +104,7 @@ export default function Register() {
 						</Form.Item>
 						<Form.Item className='mb-10'>
 							<Button
+								loading={loading}
 								type='primary'
 								htmlType='submit'
 								className='w-full btn-custom'

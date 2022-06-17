@@ -6,7 +6,9 @@ import 'swiper/css/pagination';
 import { Autoplay } from 'swiper';
 
 import './index.css';
-import SliderBg from '../../assets/images/slider_bg.png';
+import SliderBgA from '../../assets/images/slider_bg.png';
+import SliderBgB from '../../assets/images/slider_bg_2.png';
+import SliderBgC from '../../assets/images/slider_bg_3.png';
 import Gift from '../../assets/images/png_gift.png';
 
 export default function SliderHome() {
@@ -37,7 +39,7 @@ export default function SliderHome() {
 						</span>
 					</div>
 					<di className='slider-bg absolute right-0 top-0'>
-						<img src={SliderBg} alt='Background' />
+						<img src={SliderBgA} alt='Background' />
 					</di>
 					<img
 						className='absolute md:right-[30%] lg:right-[35%] md:top-[30%] top-[118px] right-6'
@@ -47,20 +49,20 @@ export default function SliderHome() {
 				</div>
 			</SwiperSlide>
 			<SwiperSlide>
-				<div className='slider-item md:bg-[#FFE9CA] md:py-[50px] md:px-20 px-4 pt-[118px] pb-[160px] md:rounded-[20px] rounded-none relative'>
+				<div className='slider-item md:bg-[#F8D6D5] md:py-[50px] md:px-20 px-4 pt-[118px] pb-[160px] md:rounded-[20px] rounded-none relative'>
 					<div className='slider-content relative z-10'>
 						<h2 className='text-[#151515] md:text-4xl text-xl md:leading-[54px] leading-[30px] font-bold mb-4'>
-							Bulan Ramadhan <br /> Banyak diskon!
+							Spesial Hari Valentine <br /> Banyak diskon!
 						</h2>
 						<p className='text-sm text-[#151515] mb-2'>
-							Diskon Hingga
+							Flash Sale Hingga
 						</p>
 						<span className='text-[#FA2C5A] md:text-[32px] text-lg md:leading-9 leading-[26px]'>
-							60%
+							90%
 						</span>
 					</div>
-					<di className='slider-bg absolute right-0 top-0'>
-						<img src={SliderBg} alt='Background' />
+					<di className='slider-bg absolute right-0 top-0 purple'>
+						<img src={SliderBgC} alt='Background' />
 					</di>
 					<img
 						className='absolute md:right-[30%] lg:right-[35%] md:top-[30%] top-[118px] right-6'
@@ -70,20 +72,20 @@ export default function SliderHome() {
 				</div>
 			</SwiperSlide>
 			<SwiperSlide>
-				<div className='slider-item md:bg-[#FFE9CA] md:py-[50px] md:px-20 px-4 pt-[118px] pb-[160px] md:rounded-[20px] rounded-none relative'>
+				<div className='slider-item md:bg-[#B6D4A8] md:py-[50px] md:px-20 px-4 pt-[118px] pb-[160px] md:rounded-[20px] rounded-none relative'>
 					<div className='slider-content relative z-10'>
 						<h2 className='text-[#151515] md:text-4xl text-xl md:leading-[54px] leading-[30px] font-bold mb-4'>
-							Bulan Ramadhan <br /> Banyak diskon!
+							Brand Festival Week <br /> Banyak diskon!
 						</h2>
 						<p className='text-sm text-[#151515] mb-2'>
 							Diskon Hingga
 						</p>
 						<span className='text-[#FA2C5A] md:text-[32px] text-lg md:leading-9 leading-[26px]'>
-							60%
+							99%
 						</span>
 					</div>
-					<di className='slider-bg absolute right-0 top-0'>
-						<img src={SliderBg} alt='Background' />
+					<di className='slider-bg absolute right-0 top-0 green'>
+						<img src={SliderBgB} alt='Background' />
 					</di>
 					<img
 						className='absolute md:right-[30%] lg:right-[35%] md:top-[30%] top-[118px] right-6'

@@ -51,10 +51,10 @@ body {
 	border-radius: 16px;
 }
 
-.ant-upload.ant-upload-select-picture-card{
-    background: #E2D4F0;
-    border-radius: 12px;
-    border: none;
+.ant-upload.ant-upload-select-picture-card {
+	background: #e2d4f0;
+	border-radius: 12px;
+	border: none;
 }
 
 .main-content {
