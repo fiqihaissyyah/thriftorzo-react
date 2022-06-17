@@ -52,12 +52,6 @@
 	visibility: visible;
 }
 
-@media screen and (max-width: 330px) {
-	.header .ant-row {
-		flex-flow: row !important;
-	}
-}
-
 @media screen and (max-width: 767px) {
 	.header {
 		background: transparent;
@@ -72,5 +66,13 @@
 	.ant-input-affix-wrapper.search-bar,
 	.ant-input-affix-wrapper.search-bar input {
 		background-color: #ffffff;
+	}
+
+    .row-on-mobile > .ant-col:first-child{
+        padding-right: 8px !important;
+	}
+
+    .row-on-mobile > .ant-col:last-child{
+        padding-left: 8px !important;
 	}
 }

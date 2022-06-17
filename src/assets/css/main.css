@@ -73,3 +73,20 @@ body {
 	bottom: 0;
 	width: 100%;
 }
+
+.header .ant-row {
+    flex-flow: row !important;
+}
+
+@media screen and (max-width: 767px) {
+    .main-content {
+        min-height: unset;
+        padding-bottom: 0;
+    }
+
+    .footer {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+    }
+}
