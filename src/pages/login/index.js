@@ -1,12 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './index.css';
-import { Col, Row, Form, Input, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { Col, Row, Form, Input, Button, Alert } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { auth } from '../../features/user/userSlice';
 
 export default function Login() {
-	const onFinish = (values) => {
-		console.log('Success:', values);
+	const { success, error, errorMessage, loading } = useSelector(
+		(state) => state.user.auth
+	);
+
+	const dispatch = useDispatch();
+	const [form] = Form.useForm();
+	const navigate = useNavigate();
+
+	const onFinish = async (values) => {
+		dispatch(auth(values));
 	};
+
+	useEffect(() => {
+		if (success === true) {
+			form.resetFields();
+			navigate('/');
+		}
+	}, [success]);
 
 	const onFinishFailed = (errorInfo) => {
 		console.log('Failed:', errorInfo);
@@ -24,7 +42,17 @@ export default function Login() {
 					<h1 className='text-2xl text-black mb-6 font-bold'>
 						Masuk
 					</h1>
+					{!!error && (
+						<Alert
+							className='mb-6'
+							message='Error'
+							description='Email/Password anda Salah!'
+							type='error'
+							showIcon
+						/>
+					)}
 					<Form
+						form={form}
 						name='basic'
 						layout='vertical'
 						onFinish={onFinish}
@@ -61,6 +89,7 @@ export default function Login() {
 						</Form.Item>
 						<Form.Item className='mb-10'>
 							<Button
+								loading={loading}
 								type='primary'
 								htmlType='submit'
 								className='w-full btn-custom'

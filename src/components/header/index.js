@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Col, Row, Button, Form, Input, Dropdown, Menu } from 'antd';
 import {
@@ -13,10 +13,16 @@ import {
 
 import './index.css';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { reset } from '../../features/user/userSlice';
+
 export default function Header() {
+	const { token, success } = useSelector((state) => state.user.auth);
+
 	const [form] = Form.useForm();
-	const [user, setUser] = useState(false);
+	const [isLogin, setLogin] = useState(false);
 	const [sidebar, setSidebar] = useState(false);
+	const dispatch = useDispatch();
 
 	const navigate = useNavigate();
 
@@ -44,13 +50,23 @@ export default function Header() {
 		navigate('/login');
 	};
 
-	const handleLogout = () => {
-		setUser(false);
+	const handleLogout = async () => {
+		await localStorage.removeItem('token');
+		setLogin(false);
+		dispatch(reset());
 	};
+
+	useEffect(() => {
+		if (success === true) {
+			setLogin(true);
+		}
+	}, [token, success]);
 
 	const userMenu = (
 		<Menu onClick={handleClick} className='mt-3'>
-			<Menu.Item key='item-1'>Akun Saya</Menu.Item>
+			<Menu.Item key='item-1'>
+				<Link to='/profile'>Akun Saya</Link>
+			</Menu.Item>
 			<Menu.Item key='item-2' onClick={handleLogout}>
 				Logout
 			</Menu.Item>
@@ -70,7 +86,10 @@ export default function Header() {
 					<Col xs={{ span: 24 }} md={{ span: 12 }}>
 						<Row gutter={24}>
 							<Col className='flex items-center'>
-								<Link to={'/'} className='text-lg font-bold leading-5 text-[#7126B5] md:block hidden'>
+								<Link
+									to={'/'}
+									className='text-lg font-bold leading-5 text-[#7126B5] md:block hidden'
+								>
 									Second <br />
 									Hand.
 								</Link>
@@ -109,7 +128,7 @@ export default function Header() {
 						span={12}
 						className='hidden md:flex justify-end items-center'
 					>
-						{!user && (
+						{!isLogin && (
 							<Button
 								className='py-[14px] px-4 h-12 text-sm flex items-center rounded-xl'
 								onClick={handleLogin}
@@ -120,7 +139,7 @@ export default function Header() {
 								Masuk
 							</Button>
 						)}
-						{user && (
+						{isLogin && (
 							<>
 								<Row gutter={24}>
 									<Col span={8}>
@@ -160,7 +179,7 @@ export default function Header() {
 					<X onClick={hideSidebar} />
 				</div>
 				<div className='sidebar-menu mt-5'>
-					{!user && (
+					{!isLogin && (
 						<Button
 							className='py-[14px] px-4 h-12 text-sm flex items-center rounded-xl'
 							onClick={handleLogin}
@@ -171,7 +190,7 @@ export default function Header() {
 							Masuk
 						</Button>
 					)}
-					{user && (
+					{isLogin && (
 						<>
 							<Link
 								className='text-sm hover:text-[#7126B5] mb-4 block text-black'

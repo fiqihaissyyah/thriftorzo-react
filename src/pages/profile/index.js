@@ -40,7 +40,7 @@ export default function Profile() {
 
 		if (info.file.status === 'done') {
 			setImageUrl(info.file.originFileObj);
-			console.log(info.file.originFileObj)
+			console.log(info.file.originFileObj);
 		}
 	};
 
