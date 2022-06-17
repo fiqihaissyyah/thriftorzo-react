@@ -82,9 +82,9 @@ export default function Header() {
 	return (
 		<div className={`header md:py-[18px] py-9 ${sidebar ? 'overlay' : ''}`}>
 			<div className='container'>
-				<Row gutter={30}>
+				<Row gutter={24}>
 					<Col xs={{ span: 24 }} md={{ span: 12 }}>
-						<Row gutter={24}>
+						<Row gutter={24} className="row-on-mobile">
 							<Col className='flex items-center'>
 								<Link
 									to={'/'}
