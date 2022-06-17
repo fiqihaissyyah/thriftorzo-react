@@ -16,13 +16,13 @@ export default function Register() {
 	const navigate = useNavigate();
 
 	const onFinish = async (values) => {
-		dispatch(register(values))
+		dispatch(register(values));
 	};
 
 	useEffect(() => {
 		if (success === true) {
 			message.success('Your registration successful');
-			form.resetFields()
+			form.resetFields();
 			navigate('/login');
 		}
 	}, [success]);
@@ -46,9 +46,9 @@ export default function Register() {
 					{!!error && (
 						<Alert
 							className='mb-6'
-							message="Error"
+							message='Error'
 							description={errorMessage}
-							type="error"
+							type='error'
 							showIcon
 						/>
 					)}

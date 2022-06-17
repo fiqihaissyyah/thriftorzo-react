@@ -17,9 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { reset } from '../../features/user/userSlice';
 
 export default function Header() {
-	const { token, success } = useSelector(
-		(state) => state.user.auth
-	);
+	const { token, success } = useSelector((state) => state.user.auth);
 
 	const [form] = Form.useForm();
 	const [isLogin, setLogin] = useState(false);
@@ -66,8 +64,12 @@ export default function Header() {
 
 	const userMenu = (
 		<Menu onClick={handleClick} className='mt-3'>
-			<Menu.Item key='item-1'><Link to='/profile'>Akun Saya</Link></Menu.Item>
-			<Menu.Item key='item-2' onClick={handleLogout}>Logout</Menu.Item>
+			<Menu.Item key='item-1'>
+				<Link to='/profile'>Akun Saya</Link>
+			</Menu.Item>
+			<Menu.Item key='item-2' onClick={handleLogout}>
+				Logout
+			</Menu.Item>
 		</Menu>
 	);
 
@@ -166,7 +168,9 @@ export default function Header() {
 				</Row>
 			</div>
 			<div
-				className={`sidebar-mobile w-[180px] fixed top-0 bottom-0 py-9 px-4 bg-white ${sidebar ? 'show' : ''}`}
+				className={`sidebar-mobile w-[180px] fixed top-0 bottom-0 py-9 px-4 bg-white ${
+					sidebar ? 'show' : ''
+				}`}
 			>
 				<div className='sidebar-top flex justify-between items-center'>
 					<span className='mobile-brand text-sm font-bold'>

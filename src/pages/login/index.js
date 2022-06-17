@@ -16,12 +16,12 @@ export default function Login() {
 	const navigate = useNavigate();
 
 	const onFinish = async (values) => {
-		dispatch(auth(values))
+		dispatch(auth(values));
 	};
 
 	useEffect(() => {
 		if (success === true) {
-			form.resetFields()
+			form.resetFields();
 			navigate('/');
 		}
 	}, [success]);
@@ -45,9 +45,9 @@ export default function Login() {
 					{!!error && (
 						<Alert
 							className='mb-6'
-							message="Error"
-							description="Email/Password anda Salah!"
-							type="error"
+							message='Error'
+							description='Email/Password anda Salah!'
+							type='error'
 							showIcon
 						/>
 					)}

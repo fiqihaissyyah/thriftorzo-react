@@ -54,7 +54,7 @@
 
 @media screen and (max-width: 330px) {
 	.header .ant-row {
-        flex-flow: row !important;
+		flex-flow: row !important;
 	}
 }
 
