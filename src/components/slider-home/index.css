@@ -54,7 +54,7 @@
 		);
 	}
 
-    .slider-item.purple {
+	.slider-item.purple {
 		background: linear-gradient(
 			180deg,
 			#f8d6d5 59.55%,
@@ -62,7 +62,7 @@
 		);
 	}
 
-    .slider-item.green {
+	.slider-item.green {
 		background: linear-gradient(
 			180deg,
 			#b6d4a8 59.55%,

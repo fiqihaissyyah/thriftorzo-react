@@ -10,13 +10,14 @@ import {
 	Menu as MenuIcon,
 	X,
 } from 'react-feather';
+import Notification from '../notification';
 
 import './index.css';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { reset } from '../../features/user/userSlice';
 
-export default function Header() {
+export default function Header(props) {
 	const { token, success } = useSelector((state) => state.user.auth);
 
 	const [form] = Form.useForm();
@@ -73,18 +74,25 @@ export default function Header() {
 		</Menu>
 	);
 
-	const notificationDropdown = (
-		<div className='notification p-6 bg-white rounded-2xl'>
-			<div className='notification-item'>Test</div>
-		</div>
-	);
+	const notificationDropdown = <Notification />;
 
 	return (
-		<div className={`header md:py-[18px] py-9 ${sidebar ? 'overlay' : ''}`}>
-			<div className='container'>
+		<div
+			className={`${props.fixed ? 'on-top' : ''} header py-[18px] ${
+				sidebar ? 'overlay' : ''
+			}`}
+		>
+			<div className='container relative'>
+				{props.title && (
+					<div className='absolute left-0 right-0 top-0 bottom-0 flex items-center'>
+						<h1 className='text-base text-center mb-0 w-full'>
+							{props.title ? props.title : 'Page Title'}
+						</h1>
+					</div>
+				)}
 				<Row gutter={24}>
 					<Col xs={{ span: 24 }} md={{ span: 12 }}>
-						<Row gutter={24} className="row-on-mobile">
+						<Row gutter={24} className='row-on-mobile'>
 							<Col className='flex items-center'>
 								<Link
 									to={'/'}
@@ -100,71 +108,85 @@ export default function Header() {
 									<MenuIcon size={24} />
 								</button>
 							</Col>
-							<Col flex='auto'>
-								<Form
-									form={form}
-									name='basic'
-									onFinish={onFinish}
-									onFinishFailed={onFinishFailed}
-									autoComplete='off'
-								>
-									<Form.Item name='search' className='mb-0'>
-										<Input
-											className='search-bar'
-											placeholder='Cari di sini ...'
-											suffix={
-												<Search
-													color='#8A8A8A'
-													size={24}
-												/>
-											}
-										/>
-									</Form.Item>
-								</Form>
-							</Col>
+							{!props.title && !props.blank && (
+								<Col flex='auto'>
+									<Form
+										form={form}
+										name='basic'
+										onFinish={onFinish}
+										onFinishFailed={onFinishFailed}
+										autoComplete='off'
+									>
+										<Form.Item
+											name='search'
+											className='mb-0'
+										>
+											<Input
+												className='search-bar'
+												placeholder='Cari di sini ...'
+												suffix={
+													<Search
+														color='#8A8A8A'
+														size={24}
+													/>
+												}
+											/>
+										</Form.Item>
+									</Form>
+								</Col>
+							)}
 						</Row>
 					</Col>
-					<Col
-						span={12}
-						className='hidden md:flex justify-end items-center'
-					>
-						{!isLogin && (
-							<Button
-								className='py-[14px] px-4 h-12 text-sm flex items-center rounded-xl'
-								onClick={handleLogin}
-								type='primary'
-								icon={<LogIn size={20} className='mr-2' />}
-								size='large'
-							>
-								Masuk
-							</Button>
-						)}
-						{isLogin && (
-							<>
-								<Row gutter={24}>
-									<Col span={8}>
-										<List size={24} color='#7126B5' />
-									</Col>
-									<Col span={8}>
-										<Dropdown
-											overlay={notificationDropdown}
-											trigger={['click']}
-										>
-											<Bell size={24} color='#7126B5' />
-										</Dropdown>
-									</Col>
-									<Col span={8}>
-										<Dropdown
-											overlay={userMenu}
-											trigger={['click']}
-										>
-											<User size={24} color='#7126B5' />
-										</Dropdown>
-									</Col>
-								</Row>
-							</>
-						)}
-					</Col>
+					{!props.title && !props.blank && (
+						<Col
+							span={12}
+							className='hidden md:flex justify-end items-center'
+						>
+							{!isLogin && (
+								<Button
+									className='py-[14px] px-4 h-12 text-sm flex items-center rounded-xl'
+									onClick={handleLogin}
+									type='primary'
+									icon={<LogIn size={20} className='mr-2' />}
+									size='large'
+								>
+									Masuk
+								</Button>
+							)}
+							{isLogin && (
+								<>
+									<Row gutter={24}>
+										<Col span={8}>
+											<List size={24} color='#7126B5' />
+										</Col>
+										<Col span={8}>
+											<Dropdown
+												placement='bottomRight'
+												overlay={notificationDropdown}
+												trigger={['click']}
+											>
+												<Bell
+													size={24}
+													color='#7126B5'
+												/>
+											</Dropdown>
+										</Col>
+										<Col span={8}>
+											<Dropdown
+												overlay={userMenu}
+												trigger={['click']}
+											>
+												<User
+													size={24}
+													color='#7126B5'
+												/>
+											</Dropdown>
+										</Col>
+									</Row>
+								</>
+							)}
+						</Col>
+					)}
 				</Row>
 			</div>
 			<div
@@ -196,6 +218,12 @@ export default function Header() {
 								className='text-sm hover:text-[#7126B5] mb-4 block text-black'
 								to='/'
 							>
+								Home
+							</Link>
+							<Link
+								className='text-sm hover:text-[#7126B5] mb-4 block text-black'
+								to='/notification'
+							>
 								Notifikasi
 							</Link>
 							<Link
@@ -206,7 +234,7 @@ export default function Header() {
 							</Link>
 							<Link
 								className='text-sm hover:text-[#7126B5] mb-4 block text-black'
-								to='/'
+								to='/profile'
 							>
 								Akun Saya
 							</Link>

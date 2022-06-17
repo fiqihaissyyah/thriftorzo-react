@@ -1,10 +1,10 @@
 import './index.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Select, Row, Col, Upload, message } from 'antd';
 import { CameraOutlined, LoadingOutlined } from '@ant-design/icons';
+import { Helmet } from 'react-helmet';
 
 const { Option } = Select;
-
 const beforeUpload = (file) => {
 	const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
 
@@ -23,6 +23,9 @@ const beforeUpload = (file) => {
 };
 
 export default function Profile() {
+	useEffect(() => {
+		document.title = 'Lengkapi Info Akun';
+	}, []);
 	const [form] = Form.useForm();
 
 	const onFinish = (values) => {
@@ -60,11 +63,15 @@ export default function Profile() {
 
 	return (
 		<div className='container'>
-			<div className='update-profile-wrapper max-w-[568px] w-full mx-auto'>
+			<Helmet>
+				<title>Lengkapi Info Akun</title>
+				<meta name='description' content='Helmet application' />
+			</Helmet>
+			<div className='update-profile-wrapper max-w-[568px] md:pt-10 pt-6 w-full mx-auto'>
 				<Upload
 					name='avatar'
 					listType='picture-card'
-					className='avatar-uploader relative mt-10 mb-6 w-24 h-24 mx-auto block'
+					className='avatar-uploader relative mb-6 w-24 h-24 mx-auto block'
 					showUploadList={false}
 					beforeUpload={beforeUpload}
 					onChange={handleChange}
