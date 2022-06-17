@@ -53,11 +53,11 @@
 }
 
 @media screen and (max-width: 767px) {
-    .header{
-        padding: 5px 0 !important;
+	.header {
+		padding: 5px 0 !important;
 		box-shadow: none;
 		background: #ffffff;
-    }
+	}
 
 	.header.on-top {
 		background: transparent;
@@ -66,7 +66,7 @@
 		right: 0;
 		top: 0;
 		z-index: 10;
-        padding: 36px 0 !important;
+		padding: 36px 0 !important;
 	}
 
 	.ant-input-affix-wrapper.search-bar,

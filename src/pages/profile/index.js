@@ -24,7 +24,7 @@ const beforeUpload = (file) => {
 
 export default function Profile() {
 	useEffect(() => {
-		document.title = 'Lengkapi Info Akun'
+		document.title = 'Lengkapi Info Akun';
 	}, []);
 	const [form] = Form.useForm();
 
@@ -65,7 +65,7 @@ export default function Profile() {
 		<div className='container'>
 			<Helmet>
 				<title>Lengkapi Info Akun</title>
-				<meta name="description" content="Helmet application" />
+				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='update-profile-wrapper max-w-[568px] md:pt-10 pt-6 w-full mx-auto'>
 				<Upload

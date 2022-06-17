@@ -74,16 +74,20 @@ export default function Header(props) {
 		</Menu>
 	);
 
-	const notificationDropdown = (
-		<Notification />
-	);
+	const notificationDropdown = <Notification />;
 
 	return (
-		<div className={`${props.fixed ? 'on-top' : ''} header py-[18px] ${sidebar ? 'overlay' : ''}`}>
+		<div
+			className={`${props.fixed ? 'on-top' : ''} header py-[18px] ${
+				sidebar ? 'overlay' : ''
+			}`}
+		>
 			<div className='container relative'>
 				{props.title && (
 					<div className='absolute left-0 right-0 top-0 bottom-0 flex items-center'>
-						<h1 className='text-base text-center mb-0 w-full'>{props.title ? props.title : 'Page Title'}</h1>
+						<h1 className='text-base text-center mb-0 w-full'>
+							{props.title ? props.title : 'Page Title'}
+						</h1>
 					</div>
 				)}
 				<Row gutter={24}>
@@ -113,7 +117,10 @@ export default function Header(props) {
 										onFinishFailed={onFinishFailed}
 										autoComplete='off'
 									>
-										<Form.Item name='search' className='mb-0'>
+										<Form.Item
+											name='search'
+											className='mb-0'
+										>
 											<Input
 												className='search-bar'
 												placeholder='Cari di sini ...'
@@ -154,11 +161,14 @@ export default function Header(props) {
 										</Col>
 										<Col span={8}>
 											<Dropdown
-												placement="bottomRight"
+												placement='bottomRight'
 												overlay={notificationDropdown}
 												trigger={['click']}
 											>
-												<Bell size={24} color='#7126B5' />
+												<Bell
+													size={24}
+													color='#7126B5'
+												/>
 											</Dropdown>
 										</Col>
 										<Col span={8}>
@@ -166,7 +176,10 @@ export default function Header(props) {
 												overlay={userMenu}
 												trigger={['click']}
 											>
-												<User size={24} color='#7126B5' />
+												<User
+													size={24}
+													color='#7126B5'
+												/>
 											</Dropdown>
 										</Col>
 									</Row>
@@ -177,7 +190,9 @@ export default function Header(props) {
 				</Row>
 			</div>
 			<div
-				className={`sidebar-mobile w-[180px] fixed top-0 bottom-0 py-9 px-4 bg-white ${sidebar ? 'show' : ''}`}
+				className={`sidebar-mobile w-[180px] fixed top-0 bottom-0 py-9 px-4 bg-white ${
+					sidebar ? 'show' : ''
+				}`}
 			>
 				<div className='sidebar-top flex justify-between items-center'>
 					<span className='mobile-brand text-sm font-bold'>

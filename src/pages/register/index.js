@@ -35,7 +35,9 @@ export default function Register() {
 
 	return (
 		<>
-			<Link className='py-[14px] px-4 block md:hidden' to='/'><ArrowLeft size={24} className="text-black" /></Link>
+			<Link className='py-[14px] px-4 block md:hidden' to='/'>
+				<ArrowLeft size={24} className='text-black' />
+			</Link>
 			<Row>
 				<Col span={12} className='bg-auth hidden lg:block'></Col>
 				<Col

@@ -34,7 +34,9 @@ export default function Login() {
 
 	return (
 		<>
-			<Link className='py-[14px] px-4 block md:hidden' to='/'><ArrowLeft size={24} className="text-black" /></Link>
+			<Link className='py-[14px] px-4 block md:hidden' to='/'>
+				<ArrowLeft size={24} className='text-black' />
+			</Link>
 			<Row>
 				<Col span={12} className='bg-auth hidden lg:block'></Col>
 				<Col
@@ -43,7 +45,6 @@ export default function Login() {
 					className='lg:py-0 pt-6 flex justify-center items-center'
 				>
 					<div className='max-w-[452px] w-full mx-4'>
-
 						<h1 className='text-2xl text-black mb-6 font-bold'>
 							Masuk
 						</h1>

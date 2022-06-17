@@ -7,9 +7,9 @@ import Footer from '../footer/index';
 export default function DefaultLayoutWithTitle(props) {
 	let title = document.title;
 	useEffect(() => {
-		title = document.title
-		console.log(title)
-	})
+		title = document.title;
+		console.log(title);
+	});
 	return (
 		<>
 			<div className='main-content'>

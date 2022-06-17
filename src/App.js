@@ -21,7 +21,11 @@ function App() {
 				</Route>
 				<Route element={<DefaultLayoutWithTitle />}>
 					<Route exact path='/profile' element={<Profile />} />
-					<Route exact path='/notification' element={<Notification />} />
+					<Route
+						exact
+						path='/notification'
+						element={<Notification />}
+					/>
 				</Route>
 				<Route element={<DefaultLayout />}>
 					<Route exact path='/' element={<Home />} />
