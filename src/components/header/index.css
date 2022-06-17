@@ -53,14 +53,20 @@
 }
 
 @media screen and (max-width: 767px) {
-	.header {
-		background: transparent;
+    .header{
+        padding: 5px 0 !important;
 		box-shadow: none;
+		background: #ffffff;
+    }
+
+	.header.on-top {
+		background: transparent;
 		position: absolute;
 		left: 0;
 		right: 0;
 		top: 0;
 		z-index: 10;
+        padding: 36px 0 !important;
 	}
 
 	.ant-input-affix-wrapper.search-bar,
@@ -68,11 +74,11 @@
 		background-color: #ffffff;
 	}
 
-    .row-on-mobile > .ant-col:first-child{
-        padding-right: 8px !important;
+	.row-on-mobile > .ant-col:first-child {
+		padding-right: 8px !important;
 	}
 
-    .row-on-mobile > .ant-col:last-child{
-        padding-left: 8px !important;
+	.row-on-mobile > .ant-col:last-child {
+		padding-left: 8px !important;
 	}
 }
