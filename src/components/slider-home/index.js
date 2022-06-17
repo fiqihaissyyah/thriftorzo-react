@@ -49,7 +49,7 @@ export default function SliderHome() {
 				</div>
 			</SwiperSlide>
 			<SwiperSlide>
-				<div className='slider-item md:bg-[#F8D6D5] md:py-[50px] md:px-20 px-4 pt-[118px] pb-[160px] md:rounded-[20px] rounded-none relative'>
+				<div className='slider-item purple md:bg-[#F8D6D5] md:py-[50px] md:px-20 px-4 pt-[118px] pb-[160px] md:rounded-[20px] rounded-none relative'>
 					<div className='slider-content relative z-10'>
 						<h2 className='text-[#151515] md:text-4xl text-xl md:leading-[54px] leading-[30px] font-bold mb-4'>
 							Spesial Hari Valentine <br /> Banyak diskon!
@@ -72,7 +72,7 @@ export default function SliderHome() {
 				</div>
 			</SwiperSlide>
 			<SwiperSlide>
-				<div className='slider-item md:bg-[#B6D4A8] md:py-[50px] md:px-20 px-4 pt-[118px] pb-[160px] md:rounded-[20px] rounded-none relative'>
+				<div className='slider-item green md:bg-[#B6D4A8] md:py-[50px] md:px-20 px-4 pt-[118px] pb-[160px] md:rounded-[20px] rounded-none relative'>
 					<div className='slider-content relative z-10'>
 						<h2 className='text-[#151515] md:text-4xl text-xl md:leading-[54px] leading-[30px] font-bold mb-4'>
 							Brand Festival Week <br /> Banyak diskon!
