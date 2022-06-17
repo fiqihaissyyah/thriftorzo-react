@@ -4,7 +4,9 @@ import { Outlet } from 'react-router-dom';
 export default function AuthLayout(props) {
 	return (
 		<>
-			<Outlet {...props} />
+			<div className='main-content no-header'>
+				<Outlet {...props} />
+			</div>
 		</>
 	);
 }

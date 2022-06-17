@@ -13,7 +13,7 @@ export default function Home() {
 		'https://static.remove.bg/remove-bg-web/eb1bb48845c5007c3ec8d72ce7972fc8b76733b1/assets/start-1abfb4fe2980eabfbbaaa4365a0692539f7cd2725f324f904565a9a744f8e214.jpg';
 
 	return (
-		<div>
+		<>
 			<SliderHome />
 			<div className='product-section'>
 				<div className='container'>
@@ -321,6 +321,6 @@ export default function Home() {
 				</div>
 			</div>
 			<SellButton />
-		</div>
+		</>
 	);
 }
