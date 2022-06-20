@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AuthLayout from './components/layouts/auth';
 import DefaultLayout from './components/layouts/default';
 import DefaultLayoutWithTitle from './components/layouts/default-title';
+import DefaultLayoutWithNavigation from './components/layouts/default-navigation';
 
 import Home from './pages/home/index';
 import Login from './pages/login/index';
@@ -21,16 +22,23 @@ function App() {
 					<Route exact path='/register' element={<Register />} />
 				</Route>
 				<Route element={<DefaultLayoutWithTitle />}>
-					<Route exact path='/profile' element={<Profile />} />
-					<Route
-						exact
-						path='/productForm'
-						element={<ProductForm />}
-					/>
 					<Route
 						exact
 						path='/notification'
 						element={<Notification />}
+					/>
+				</Route>
+				<Route element={<DefaultLayoutWithNavigation />}>
+					<Route exact path='/profile' element={<Profile />} />
+					<Route
+						exact
+						path='/product/create'
+						element={<ProductForm />}
+					/>
+					<Route
+						exact
+						path='/product/update'
+						element={<ProductForm />}
 					/>
 				</Route>
 				<Route element={<DefaultLayout />}>

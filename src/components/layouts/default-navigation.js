@@ -6,7 +6,7 @@ import Footer from '../footer/index';
 
 import { useLocation } from 'react-router-dom'
 
-export default function DefaultLayoutWithTitle(props) {
+export default function DefaultLayoutWithNavigation(props) {
 	const location = useLocation();
 	const { state } = useLocation()
 	const [title, setTitle] = useState('');
@@ -20,7 +20,7 @@ export default function DefaultLayoutWithTitle(props) {
 	return (
 		<>
 			<div className='main-content'>
-				<Header title={title} />
+				<Header navigation title={title} />
 				<Outlet {...props} />
 				<Footer />
 			</div>
