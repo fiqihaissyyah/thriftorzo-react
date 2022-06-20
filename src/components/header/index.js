@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Col, Row, Button, Form, Input, Dropdown, Menu } from 'antd';
+import { Col, Row, Button, Form, Input, Dropdown, Menu, Drawer } from 'antd';
 import {
 	LogIn,
 	Search,
@@ -9,22 +9,24 @@ import {
 	User,
 	Menu as MenuIcon,
 	X,
+	ArrowLeft,
 } from 'react-feather';
 import Notification from '../notification';
-
 import './index.css';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { reset } from '../../features/user/userSlice';
+import { useLocation } from 'react-router-dom';
 
 export default function Header(props) {
 	const { token, success } = useSelector((state) => state.user.auth);
 
 	const [form] = Form.useForm();
 	const [isLogin, setLogin] = useState(false);
-	const [sidebar, setSidebar] = useState(false);
-	const dispatch = useDispatch();
+	const [visible, setVisible] = useState(false);
+	const [placement, setPlacement] = useState('left');
 
+	const location = useLocation();
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const onFinish = (values) => {
@@ -39,23 +41,32 @@ export default function Header(props) {
 		console.log(key);
 	};
 
-	const showSidebar = () => {
-		setSidebar(true);
+	const showDrawer = () => {
+		setVisible(true);
 	};
 
-	const hideSidebar = () => {
-		setSidebar(false);
+	const onClose = () => {
+		setVisible(false);
 	};
 
 	const handleLogin = () => {
 		navigate('/login');
 	};
 
+	const navigateBack = () => {
+		navigate(-1);
+	};
+
 	const handleLogout = async () => {
 		await localStorage.removeItem('token');
-		setLogin(false);
 		dispatch(reset());
+		setLogin(false);
+		console.log('logout');
 	};
+
+	useEffect(() => {
+		onClose();
+	}, [location.pathname]);
 
 	useEffect(() => {
 		if (success === true) {
@@ -77,11 +88,7 @@ export default function Header(props) {
 	const notificationDropdown = <Notification />;
 
 	return (
-		<div
-			className={`${props.fixed ? 'on-top' : ''} header py-[18px] ${
-				sidebar ? 'overlay' : ''
-			}`}
-		>
+		<div className={`${props.fixed ? 'on-top' : ''} header py-[18px]`}>
 			<div className='container relative'>
 				{props.title && (
 					<div className='absolute left-0 right-0 top-0 bottom-0 flex items-center'>
@@ -101,12 +108,22 @@ export default function Header(props) {
 									Second <br />
 									Hand.
 								</Link>
-								<button
-									className='md:hidden navbar-toggler w-12 h-12 bg-white rounded-2xl border-0 flex justify-center items-center'
-									onClick={showSidebar}
-								>
-									<MenuIcon size={24} />
-								</button>
+								{props.navigation && (
+									<button
+										className='md:hidden navbar-toggler w-12 h-12 bg-white rounded-2xl border-0 flex justify-center items-center navigation-back md:absolute md:left-[10vw] md:top-[100px] relative'
+										onClick={navigateBack}
+									>
+										<ArrowLeft size={24} color='#000000' />
+									</button>
+								)}
+								{!props.navigation && (
+									<button
+										className='md:hidden navbar-toggler w-12 h-12 bg-white rounded-2xl border-0 flex justify-center items-center'
+										onClick={showDrawer}
+									>
+										<MenuIcon size={24} />
+									</button>
+								)}
 							</Col>
 							{!props.title && !props.blank && (
 								<Col flex='auto'>
@@ -189,16 +206,19 @@ export default function Header(props) {
 					)}
 				</Row>
 			</div>
-			<div
-				className={`sidebar-mobile w-[180px] fixed top-0 bottom-0 py-9 px-4 bg-white ${
-					sidebar ? 'show' : ''
-				}`}
+			<Drawer
+				placement={placement}
+				closable={false}
+				onClose={onClose}
+				visible={visible}
+				key={placement}
+				contentWrapperStyle={{ width: '180px' }}
 			>
 				<div className='sidebar-top flex justify-between items-center'>
 					<span className='mobile-brand text-sm font-bold'>
 						Second Hand
 					</span>
-					<X onClick={hideSidebar} />
+					<X onClick={onClose} />
 				</div>
 				<div className='sidebar-menu mt-5'>
 					{!isLogin && (
@@ -247,7 +267,7 @@ export default function Header(props) {
 						</>
 					)}
 				</div>
-			</div>
+			</Drawer>
 		</div>
 	);
 }
