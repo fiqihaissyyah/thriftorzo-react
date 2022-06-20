@@ -9,13 +9,13 @@ import {
 	User,
 	Menu as MenuIcon,
 	X,
-	ArrowLeft
+	ArrowLeft,
 } from 'react-feather';
 import Notification from '../notification';
 import './index.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset } from '../../features/user/userSlice';
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
 
 export default function Header(props) {
 	const { token, success } = useSelector((state) => state.user.auth);
@@ -61,7 +61,7 @@ export default function Header(props) {
 		await localStorage.removeItem('token');
 		dispatch(reset());
 		setLogin(false);
-		console.log('logout')
+		console.log('logout');
 	};
 
 	useEffect(() => {
@@ -88,9 +88,7 @@ export default function Header(props) {
 	const notificationDropdown = <Notification />;
 
 	return (
-		<div
-			className={`${props.fixed ? 'on-top' : ''} header py-[18px]`}
-		>
+		<div className={`${props.fixed ? 'on-top' : ''} header py-[18px]`}>
 			<div className='container relative'>
 				{props.title && (
 					<div className='absolute left-0 right-0 top-0 bottom-0 flex items-center'>
@@ -115,7 +113,7 @@ export default function Header(props) {
 										className='md:hidden navbar-toggler w-12 h-12 bg-white rounded-2xl border-0 flex justify-center items-center navigation-back md:absolute md:left-[10vw] md:top-[100px] relative'
 										onClick={navigateBack}
 									>
-										<ArrowLeft size={24} color="#000000" />
+										<ArrowLeft size={24} color='#000000' />
 									</button>
 								)}
 								{!props.navigation && (

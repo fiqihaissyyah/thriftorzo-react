@@ -6,12 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import './index.css';
 
 export default function SellButton() {
-
 	const navigate = useNavigate();
 
 	const createProduct = () => {
 		navigate('/product/create');
-	}
+	};
 
 	return (
 		<div className='fixed bottom-[24px] left-0 right-0 z-10'>

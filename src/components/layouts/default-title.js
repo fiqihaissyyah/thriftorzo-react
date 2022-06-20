@@ -4,17 +4,16 @@ import { Outlet } from 'react-router-dom';
 import Header from '../header/index';
 import Footer from '../footer/index';
 
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
 
 export default function DefaultLayoutWithTitle(props) {
 	const location = useLocation();
-	const { state } = useLocation()
+	const { state } = useLocation();
 	const [title, setTitle] = useState('');
 
 	useEffect(() => {
-		console.log(state)
+		console.log(state);
 		setTitle(location.pathname);
-
 	}, [location.pathname]);
 
 	return (
