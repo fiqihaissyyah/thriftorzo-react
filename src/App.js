@@ -9,6 +9,7 @@ import Home from './pages/home/index';
 import Login from './pages/login/index';
 import Register from './pages/register/index';
 import Profile from './pages/profile/index';
+import ProductForm from './pages/productForm/index';
 import Notification from './pages/notification';
 
 function App() {
@@ -21,6 +22,11 @@ function App() {
 				</Route>
 				<Route element={<DefaultLayoutWithTitle />}>
 					<Route exact path='/profile' element={<Profile />} />
+					<Route
+						exact
+						path='/productForm'
+						element={<ProductForm />}
+					/>
 					<Route
 						exact
 						path='/notification'
