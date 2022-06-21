@@ -132,7 +132,10 @@ export default function ProductForm() {
 							},
 						]}
 					>
-						<Input.TextArea rows={2} placeholder='Contoh: Jalan Ikan Hiu 33' />
+						<Input.TextArea
+							rows={2}
+							placeholder='Contoh: Jalan Ikan Hiu 33'
+						/>
 					</Form.Item>
 					<Form.Item
 						className='mb-4'

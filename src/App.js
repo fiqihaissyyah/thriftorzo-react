@@ -31,7 +31,12 @@ function App() {
 						/>
 					</Route>
 					<Route element={<DefaultLayoutWithNavigation />}>
-						<Route exact path='/profile' title="Page Profile" element={<Profile />} />
+						<Route
+							exact
+							path='/profile'
+							title='Page Profile'
+							element={<Profile />}
+						/>
 						<Route
 							exact
 							path='/product/create'

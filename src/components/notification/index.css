@@ -5,15 +5,15 @@
 
 .notification-item:last-child {
 	@apply pb-0 mb-0;
-    margin-bottom: 0 !important;
+	margin-bottom: 0 !important;
 }
 
 .notification-item .notification-content p,
-.notification-item .notification-content span{
-    transition: all .3s;
+.notification-item .notification-content span {
+	transition: all 0.3s;
 }
 
 .notification-item:hover .notification-content p,
-.notification-item:hover .notification-content span{
+.notification-item:hover .notification-content span {
 	@apply text-[#7126b5];
 }

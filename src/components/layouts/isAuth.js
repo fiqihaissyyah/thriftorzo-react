@@ -6,8 +6,8 @@ export default function isAuth(props) {
 	const TOKEN = localStorage.getItem('token');
 
 	if (TOKEN === null) {
-		return <Navigate to="/login" state={{ from: location }} />;
+		return <Navigate to='/login' state={{ from: location }} />;
 	}
 
-	return <Outlet {...props} />
+	return <Outlet {...props} />;
 }

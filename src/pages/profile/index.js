@@ -63,7 +63,11 @@ export default function Profile() {
 
 	const getCity = async () => {
 		const country = { country: 'indonesia' };
-		await axios.post('https://countriesnow.space/api/v0.1/countries/cities', country)
+		await axios
+			.post(
+				'https://countriesnow.space/api/v0.1/countries/cities',
+				country
+			)
 			.then((res) => {
 				const data = res.data.data;
 				setCity(data);
@@ -71,7 +75,7 @@ export default function Profile() {
 			.catch(function (error) {
 				console.log(error);
 			});
-	}
+	};
 
 	useEffect(() => {
 		getCity();
@@ -141,9 +145,11 @@ export default function Profile() {
 							{!cities && cities.length < 0 && (
 								<Option value=''>Loading</Option>
 							)}
-							{!!cities && cities.length > 0 && cities.map((item, index) => (
-								<Option value={item}>{item}</Option>
-							))}
+							{!!cities &&
+								cities.length > 0 &&
+								cities.map((item, index) => (
+									<Option value={item}>{item}</Option>
+								))}
 						</Select>
 					</Form.Item>
 					<Form.Item
