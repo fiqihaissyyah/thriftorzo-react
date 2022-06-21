@@ -39,6 +39,18 @@ body {
 	border-radius: 16px !important;
 }
 
+textarea.ant-input {
+    max-height: unset !important;
+}
+
+.select-city .ant-select-single .ant-select-selector .ant-select-selection-search{
+    left: 16px;
+}
+
+.select-city .ant-select-single:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input{
+    height: 48px;
+}
+
 .btn-custom {
 	padding: 14px 24px;
 	font-weight: 500;

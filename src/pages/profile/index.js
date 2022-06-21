@@ -1,5 +1,6 @@
 import './index.css';
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Button, Form, Input, Select, Row, Col, Upload, message } from 'antd';
 import { CameraOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
@@ -23,9 +24,6 @@ const beforeUpload = (file) => {
 };
 
 export default function Profile() {
-	useEffect(() => {
-		document.title = 'Lengkapi Info Akun';
-	}, []);
 	const [form] = Form.useForm();
 
 	const onFinish = (values) => {
@@ -60,6 +58,25 @@ export default function Profile() {
 			)}
 		</div>
 	);
+
+	const [cities, setCity] = useState([]);
+
+	const getCity = async () => {
+		const country = { country: 'indonesia' };
+		await axios.post('https://countriesnow.space/api/v0.1/countries/cities', country)
+			.then((res) => {
+				const data = res.data.data;
+				setCity(data);
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+	}
+
+	useEffect(() => {
+		getCity();
+		console.log(cities);
+	}, []);
 
 	return (
 		<div className='container'>
@@ -109,7 +126,7 @@ export default function Profile() {
 						<Input placeholder='Nama' />
 					</Form.Item>
 					<Form.Item
-						className='mb-4'
+						className='mb-4 select-city'
 						name='city'
 						label='Kota*'
 						required={false}
@@ -120,10 +137,13 @@ export default function Profile() {
 							},
 						]}
 					>
-						<Select placeholder='Pilih Kota' allowClear>
-							<Option value='bali'>Bali</Option>
-							<Option value='surabaya'>Surabaya</Option>
-							<Option value='jakarta'>Jakarta</Option>
+						<Select placeholder='Pilih Kota' allowClear showSearch>
+							{!cities && cities.length < 0 && (
+								<Option value=''>Loading</Option>
+							)}
+							{!!cities && cities.length > 0 && cities.map((item, index) => (
+								<Option value={item}>{item}</Option>
+							))}
 						</Select>
 					</Form.Item>
 					<Form.Item
@@ -138,7 +158,7 @@ export default function Profile() {
 							},
 						]}
 					>
-						<Input placeholder='Alamat' />
+						<Input.TextArea rows={2} placeholder='Alamat' />
 					</Form.Item>
 					<Form.Item
 						className='mb-6'

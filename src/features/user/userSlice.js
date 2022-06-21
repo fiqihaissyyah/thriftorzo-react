@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
-export const TOKEN = JSON.parse(localStorage.getItem('token'));
+export const TOKEN = localStorage.getItem('token');
 
 export const auth = createAsyncThunk(
 	'user/auth',
@@ -177,7 +177,7 @@ export const userSlice = createSlice({
 		[auth.rejected]: (state, action) => {
 			state.auth.success = false;
 			state.auth.error = action.error.message;
-			state.auth.errorMessage = action.payload.message;
+			state.auth.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.auth.loading = false;
 		},
 		// REGISTER
@@ -192,7 +192,7 @@ export const userSlice = createSlice({
 		},
 		[register.rejected]: (state, action) => {
 			state.register.error = action.error.message;
-			state.register.errorMessage = action.payload.message;
+			state.register.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.register.loading = false;
 			state.register.success = false;
 		},
