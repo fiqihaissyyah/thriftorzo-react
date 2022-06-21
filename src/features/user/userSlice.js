@@ -1,17 +1,18 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-export const API_URL = 'https://notflixtv.herokuapp.com/api/v1/';
-export const TOKEN = '';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
+export const TOKEN = JSON.parse(localStorage.getItem('token'));
 
 export const auth = createAsyncThunk(
 	'user/auth',
 	async (values, { rejectWithValue }) => {
 		try {
-			const response = await axios.post(`${API_URL}users/login`, values);
+			const response = await axios.post(`${API_URL}auth/signin`, values);
 			if (response.status === 200) {
 				localStorage.setItem(
 					'token',
-					JSON.stringify(response.data.data.token)
+					JSON.stringify(response.data.token)
 				);
 				return response;
 			} else {
@@ -30,11 +31,11 @@ export const register = createAsyncThunk(
 	'user/register',
 	async (values, { rejectWithValue }) => {
 		try {
-			const response = await axios.post(`${API_URL}users`, values);
-			if (response.status === 201) {
+			const response = await axios.post(`${API_URL}auth/signup`, values);
+			if (response.status === 200) {
 				localStorage.setItem(
-					'user',
-					JSON.stringify(response.data.data)
+					'token',
+					JSON.stringify(response.data.token)
 				);
 				return response;
 			} else {
@@ -125,7 +126,6 @@ const initialState = {
 		success: TOKEN ? true : false,
 	},
 	register: {
-		token: null,
 		loading: false,
 		error: false,
 		errorMessage: null,
@@ -145,11 +145,22 @@ const initialState = {
 	},
 };
 
+const logoutState = {
+	...initialState,
+	auth: {
+		token: null,
+		loading: false,
+		error: false,
+		errorMessage: null,
+		success: false,
+	},
+};
+
 export const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
-		reset: () => initialState,
+		reset: () => logoutState,
 	},
 	extraReducers: {
 		// AUTH
@@ -157,7 +168,7 @@ export const userSlice = createSlice({
 			state.auth.loading = true;
 		},
 		[auth.fulfilled]: (state, action) => {
-			state.auth.token = action.payload.data.data.token;
+			state.auth.token = action.payload.data.token;
 			state.auth.success = true;
 			state.auth.error = false;
 			state.auth.errorMessage = null;
@@ -174,10 +185,6 @@ export const userSlice = createSlice({
 			state.register.loading = true;
 		},
 		[register.fulfilled]: (state, action) => {
-			state.auth.token = action.payload.data.data.token;
-			state.auth.success = true;
-
-			state.register.token = action.payload.data.data.token;
 			state.register.error = false;
 			state.register.errorMessage = null;
 			state.register.loading = false;
