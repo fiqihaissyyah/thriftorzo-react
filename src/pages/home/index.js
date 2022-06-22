@@ -28,7 +28,19 @@ export default function Home() {
 						<Category category='Elektronik' />
 						<Category category='Kesehatan' />
 					</div>
-					<Row gutter={16} className='mb-10'>
+					<Row gutter={[16, 16]} className='mb-10'>
+						<Col
+							xs={{ span: 12 }}
+							md={{ span: 6 }}
+							lg={{ span: 4 }}
+						>
+							<Product
+								img={imgProduct}
+								title='Jam Tangan Casio'
+								category='Aksesoris'
+								price='250000'
+							/>
+						</Col>
 						<Col
 							xs={{ span: 12 }}
 							md={{ span: 6 }}
