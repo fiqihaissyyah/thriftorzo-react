@@ -5,6 +5,9 @@ import { Button, Form, Input, Select, Row, Col, Upload, message } from 'antd';
 import { CameraOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from '../../features/user/userSlice';
+
 const { Option } = Select;
 const beforeUpload = (file) => {
 	const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -24,13 +27,18 @@ const beforeUpload = (file) => {
 };
 
 export default function Profile() {
+	const { success, error, errorMessage, loading } = useSelector(
+		(state) => state.user.user
+	);
+
+	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 
 	const onFinish = (values) => {
 		console.log(values);
 	};
 
-	const [loading, setLoading] = useState(false);
+	const [imageLoading, setLoading] = useState(false);
 	const [imageUrl, setImageUrl] = useState();
 
 	const handleChange = (info) => {
@@ -47,7 +55,7 @@ export default function Profile() {
 
 	const uploadButton = (
 		<div>
-			{loading ? (
+			{imageLoading ? (
 				<LoadingOutlined
 					style={{ fontSize: '30px', color: '#7126B5' }}
 				/>
@@ -80,6 +88,10 @@ export default function Profile() {
 	useEffect(() => {
 		getCity();
 		console.log(cities);
+	}, []);
+
+	useEffect(() => {
+		dispatch(getUser());
 	}, []);
 
 	return (

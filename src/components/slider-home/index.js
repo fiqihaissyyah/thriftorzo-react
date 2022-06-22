@@ -38,9 +38,9 @@ export default function SliderHome() {
 							60%
 						</span>
 					</div>
-					<di className='slider-bg absolute right-0 top-0'>
+					<div className='slider-bg absolute right-0 top-0'>
 						<img src={SliderBgA} alt='Background' />
-					</di>
+					</div>
 					<img
 						className='absolute md:right-[30%] lg:right-[35%] md:top-[30%] top-[118px] right-6'
 						src={Gift}
@@ -61,9 +61,9 @@ export default function SliderHome() {
 							90%
 						</span>
 					</div>
-					<di className='slider-bg absolute right-0 top-0 purple'>
+					<div className='slider-bg absolute right-0 top-0 purple'>
 						<img src={SliderBgC} alt='Background' />
-					</di>
+					</div>
 					<img
 						className='absolute md:right-[30%] lg:right-[35%] md:top-[30%] top-[118px] right-6'
 						src={Gift}
@@ -84,9 +84,9 @@ export default function SliderHome() {
 							99%
 						</span>
 					</div>
-					<di className='slider-bg absolute right-0 top-0 green'>
+					<div className='slider-bg absolute right-0 top-0 green'>
 						<img src={SliderBgB} alt='Background' />
-					</di>
+					</div>
 					<img
 						className='absolute md:right-[30%] lg:right-[35%] md:top-[30%] top-[118px] right-6'
 						src={Gift}

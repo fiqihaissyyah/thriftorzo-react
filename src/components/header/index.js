@@ -59,6 +59,7 @@ export default function Header(props) {
 
 	const handleLogout = async () => {
 		await localStorage.removeItem('token');
+		await localStorage.removeItem('user');
 		dispatch(reset());
 		setLogin(false);
 		console.log('logout');

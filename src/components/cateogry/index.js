@@ -11,7 +11,6 @@ export default function Category(props) {
 				props.active ? 'active' : ''
 			} mr-4`}
 			type='primary'
-			extra
 			icon={<Search className='mr-2' />}
 			size='large'
 		>

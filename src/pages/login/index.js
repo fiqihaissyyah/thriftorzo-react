@@ -75,6 +75,10 @@ export default function Login() {
 										required: true,
 										message: 'Please input your email!',
 									},
+									{
+										type: 'email',
+										message: 'Please enter valid email!',
+									},
 								]}
 							>
 								<Input placeholder='Contoh: johndee@gmail.com' />
