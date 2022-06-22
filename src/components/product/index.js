@@ -9,7 +9,7 @@ export default function Product(props) {
 		}).format(value);
 
 	return (
-		<div className='product-card pt-2 px-2 pb-4 rounded-[4px] mb-4'>
+		<div className='product-card pt-2 px-2 pb-4 rounded-[4px]'>
 			<img
 				className='mb-2 rounded-[4px] product-image w-full h-28 object-cover'
 				src={props.img}

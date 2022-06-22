@@ -5,6 +5,7 @@ import AuthLayout from './components/layouts/auth';
 import DefaultLayout from './components/layouts/default';
 import DefaultLayoutWithTitle from './components/layouts/default-title';
 import DefaultLayoutWithNavigation from './components/layouts/default-navigation';
+import DefaultLayoutBlank from './components/layouts/default-blank';
 import IsAuth from './components/layouts/isAuth';
 
 import Home from './pages/home/index';
@@ -13,6 +14,7 @@ import Register from './pages/register/index';
 import Profile from './pages/profile/index';
 import ProductForm from './pages/productForm/index';
 import Notification from './pages/notification';
+import DaftarJual from './pages/daftarJual';
 
 function App() {
 	return (
@@ -37,6 +39,8 @@ function App() {
 							title='Page Profile'
 							element={<Profile />}
 						/>
+					</Route>
+					<Route element={<DefaultLayoutBlank />}>
 						<Route
 							exact
 							path='/product/create'
@@ -51,6 +55,7 @@ function App() {
 				</Route>
 				<Route element={<DefaultLayout />}>
 					<Route exact path='/' element={<Home />} />
+					<Route exact path='/daftar-jual' element={<DaftarJual />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>
