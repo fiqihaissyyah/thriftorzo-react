@@ -2,7 +2,8 @@ import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
-export const TOKEN = JSON.parse(localStorage.getItem('token'));
+export const TOKEN = localStorage.getItem('token');
+export const USER = JSON.parse(localStorage.getItem('user'))
 
 export const auth = createAsyncThunk(
 	'user/auth',
@@ -13,6 +14,10 @@ export const auth = createAsyncThunk(
 				localStorage.setItem(
 					'token',
 					JSON.stringify(response.data.token)
+				);
+				localStorage.setItem(
+					'user',
+					JSON.stringify(response.data)
 				);
 				return response;
 			} else {
@@ -52,12 +57,10 @@ export const register = createAsyncThunk(
 
 export const getUser = createAsyncThunk(
 	'user/getUser',
-	async (token, { rejectWithValue }) => {
+	async (_, { rejectWithValue }) => {
 		try {
-			if (token) {
-				const response = await axios.get(`${API_URL}users/me`, {
-					headers: { Authorization: `Bearer ${token}` },
-				});
+			if (TOKEN) {
+				const response = await axios.get(`${API_URL}get-user/${USER.id}`);
 				return response.data;
 			} else {
 				const data = [
@@ -163,7 +166,7 @@ export const userSlice = createSlice({
 		reset: () => logoutState,
 	},
 	extraReducers: {
-		// AUTH
+		// =================================================== LOGIN =================================================== //
 		[auth.pending]: (state) => {
 			state.auth.loading = true;
 		},
@@ -177,10 +180,12 @@ export const userSlice = createSlice({
 		[auth.rejected]: (state, action) => {
 			state.auth.success = false;
 			state.auth.error = action.error.message;
-			state.auth.errorMessage = action.payload.message;
+			state.auth.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
 			state.auth.loading = false;
 		},
-		// REGISTER
+		// =================================================== REGISTER =================================================== //
 		[register.pending]: (state) => {
 			state.register.loading = true;
 		},
@@ -192,11 +197,13 @@ export const userSlice = createSlice({
 		},
 		[register.rejected]: (state, action) => {
 			state.register.error = action.error.message;
-			state.register.errorMessage = action.payload.message;
+			state.register.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
 			state.register.loading = false;
 			state.register.success = false;
 		},
-		// USER
+		// =================================================== USER =================================================== //
 		[getUser.pending]: (state) => {
 			state.user.loading = true;
 		},
@@ -208,10 +215,13 @@ export const userSlice = createSlice({
 		},
 		[getUser.rejected]: (state, action) => {
 			state.user.error = action.error.message;
-			state.user.errorMessage = action.payload.message;
+			state.register.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
 			state.user.loading = false;
 		},
-		// UPDATE USER
+
+		// =================================================== UPDATE USER =================================================== //
 		[updateUser.pending]: (state) => {
 			state.update.loading = true;
 		},
@@ -225,7 +235,9 @@ export const userSlice = createSlice({
 		[updateUser.rejected]: (state, action) => {
 			state.update.success = false;
 			state.update.error = action.error.message;
-			state.update.errorMessage = action.payload.message;
+			state.register.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
 			state.update.loading = false;
 		},
 	},

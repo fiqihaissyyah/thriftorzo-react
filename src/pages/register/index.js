@@ -90,6 +90,10 @@ export default function Register() {
 										required: true,
 										message: 'Please input your email!',
 									},
+									{
+										type: 'email',
+										message: 'Please enter valid email!',
+									},
 								]}
 							>
 								<Input placeholder='Contoh: johndee@gmail.com' />
