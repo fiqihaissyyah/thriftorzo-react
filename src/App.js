@@ -15,6 +15,8 @@ import Profile from './pages/profile/index';
 import ProductForm from './pages/productForm/index';
 import Notification from './pages/notification';
 import DaftarJual from './pages/daftarJual';
+import Wishlist from './pages/wishlist';
+import Terjual from './pages/terjual';
 import InfoPenawaran from './pages/infoPenawaran';
 
 function App() {
@@ -63,6 +65,16 @@ function App() {
 				<Route element={<DefaultLayout />}>
 					<Route exact path='/' element={<Home />} />
 					<Route exact path='/daftar-jual' element={<DaftarJual />} />
+					<Route
+						exact
+						path='/daftar-jual/diminati'
+						element={<Wishlist />}
+					/>
+					<Route
+						exact
+						path='/daftar-jual/terjual'
+						element={<Terjual />}
+					/>
 				</Route>
 			</Routes>
 		</BrowserRouter>

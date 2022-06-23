@@ -23,7 +23,7 @@ export default function SliderHome() {
 				disableOnInteraction: false,
 			}}
 			modules={[Autoplay]}
-			className='md:mt-8 mt-0'
+			className='md:mt-8 mt-0 home-slider'
 		>
 			<SwiperSlide>
 				<div className='slider-item md:bg-[#FFE9CA] md:py-[50px] md:px-20 px-4 pt-[118px] pb-[160px] md:rounded-[20px] rounded-none relative'>

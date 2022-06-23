@@ -2,3 +2,7 @@
 	background-color: #7126b5;
 	color: #ffffff;
 }
+
+.sidebar-product .active {
+	color: #7126b5 !important;
+}
