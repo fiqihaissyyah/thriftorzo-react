@@ -15,6 +15,7 @@ import Profile from './pages/profile/index';
 import ProductForm from './pages/productForm/index';
 import Notification from './pages/notification';
 import DaftarJual from './pages/daftarJual';
+import InfoPenawaran from './pages/infoPenawaran';
 
 function App() {
 	return (
@@ -38,6 +39,12 @@ function App() {
 							path='/profile'
 							title='Page Profile'
 							element={<Profile />}
+						/>
+						<Route
+							exact
+							path='/info-product'
+							title='Page Info Product'
+							element={<InfoPenawaran />}
 						/>
 					</Route>
 					<Route element={<DefaultLayoutBlank />}>
