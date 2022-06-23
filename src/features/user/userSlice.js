@@ -58,7 +58,9 @@ export const getUser = createAsyncThunk(
 		try {
 			if (token) {
 				const response = await axios.get(
-					`${API_URL}users/get-user/${USER.id}`, { headers: { Authorization: `Bearer ${token}` } });
+					`${API_URL}users/get-user/${USER.id}`,
+					{ headers: { Authorization: `Bearer ${token}` } }
+				);
 				return response;
 			} else {
 				const data = [
@@ -85,7 +87,8 @@ export const updateUser = createAsyncThunk(
 			if (TOKEN) {
 				const response = await axios.put(
 					`${API_URL}users/update-data/${USER.id}`,
-					values, { headers: { Authorization: `Bearer ${TOKEN}` } }
+					values,
+					{ headers: { Authorization: `Bearer ${TOKEN}` } }
 				);
 				return response;
 			} else {

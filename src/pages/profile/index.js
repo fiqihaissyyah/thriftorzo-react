@@ -32,9 +32,7 @@ export default function Profile() {
 	const { error, errorMessage, loading } = useSelector(
 		(state) => state.user.update
 	);
-	const { token } = useSelector(
-		(state) => state.user.auth
-	);
+	const { token } = useSelector((state) => state.user.auth);
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [imageLoading, setLoading] = useState(false);
@@ -42,7 +40,7 @@ export default function Profile() {
 	const [cities, setCity] = useState([]);
 
 	const onFinish = async (values) => {
-		values = { ...values, imgUrl: imageUrl }
+		values = { ...values, imgUrl: imageUrl };
 		await dispatch(updateUser(values));
 		await dispatch(getUser());
 		form.setFieldsValue(values);
@@ -50,7 +48,7 @@ export default function Profile() {
 	};
 
 	const handleChange = async (info) => {
-		console.log('change')
+		console.log('change');
 		setLoading(true);
 
 		let bodyFormData = new FormData();
@@ -58,12 +56,20 @@ export default function Profile() {
 
 		await axios
 			.post(
-				'https://staging-secondhand-bej3.herokuapp.com/users/upload-image', bodyFormData,
-				{ headers: { ContentType: 'multipart/form-data', Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}` } },
+				'https://staging-secondhand-bej3.herokuapp.com/users/upload-image',
+				bodyFormData,
+				{
+					headers: {
+						ContentType: 'multipart/form-data',
+						Authorization: `Bearer ${JSON.parse(
+							localStorage.getItem('token')
+						)}`,
+					},
+				}
 			)
 			.then((res) => {
-				console.log(res)
-				console.log('upload')
+				console.log(res);
+				console.log('upload');
 				setLoading(false);
 				setImageUrl(res.data);
 			})
@@ -94,9 +100,8 @@ export default function Profile() {
 
 	useEffect(() => {
 		dispatch(getUser(token));
-		setImageUrl(profileUser ? profileUser.imgUrl : '')
+		setImageUrl(profileUser ? profileUser.imgUrl : '');
 		form.setFieldsValue(profileUser);
-
 	}, [successGetUser]);
 
 	const uploadButton = (
@@ -137,7 +142,7 @@ export default function Profile() {
 								width: '100%',
 								height: '100%',
 								borderRadius: '12px',
-								objectFit: 'cover'
+								objectFit: 'cover',
 							}}
 						/>
 					) : (
