@@ -101,7 +101,7 @@ export default function Header(props) {
 						</h1>
 					</div>
 				)}
-				{location.pathname === '/daftar-jual' && (
+				{location.pathname.includes(['/daftar-jual']) && (
 					<div className='absolute left-0 right-0 top-0 bottom-0 flex items-center md:hidden'>
 						<h1 className='text-base text-center mb-0 w-full'>
 							Daftar Jual Saya
@@ -121,7 +121,7 @@ export default function Header(props) {
 								</Link>
 								{props.navigation && (
 									<button
-										className='md:hidden navbar-toggler w-12 h-12 bg-white rounded-2xl border-0 flex justify-center items-center navigation-back md:absolute md:left-[10vw] md:top-[100px] relative'
+										className='navbar-toggler w-12 h-12 bg-white rounded-2xl border-0 flex justify-center items-center navigation-back md:absolute md:left-[10vw] md:top-[100px] relative'
 										onClick={navigateBack}
 									>
 										<ArrowLeft size={24} color='#000000' />
