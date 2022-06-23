@@ -1,24 +1,24 @@
- .home-slider .swiper {
+.home-slider .swiper {
 	width: 100%;
 	height: 100%;
 }
 
- .home-slider .swiper-slide {
+.home-slider .swiper-slide {
 	max-width: 968px;
 	width: 100%;
 }
 
- .home-slider .swiper-slide .slider-item {
+.home-slider .swiper-slide .slider-item {
 	transform: scale(0.7);
 	transform-origin: right;
 	transition: all ease 0.5s;
 }
 
- .home-slider .swiper-slide-next .slider-item {
+.home-slider .swiper-slide-next .slider-item {
 	transform-origin: left;
 }
 
- .home-slider .swiper-slide-active .slider-item {
+.home-slider .swiper-slide-active .slider-item {
 	transform: scale(1);
 }
 
@@ -70,9 +70,9 @@
 		);
 	}
 
-	 .home-slider .swiper-slide .slider-item,
-	 .home-slider .swiper-slide-next .slider-item,
-	 .home-slider .swiper-slide-active .slider-item {
+	.home-slider .swiper-slide .slider-item,
+	.home-slider .swiper-slide-next .slider-item,
+	.home-slider .swiper-slide-active .slider-item {
 		transform: scale(1);
 	}
 }

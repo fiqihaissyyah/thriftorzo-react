@@ -58,8 +58,16 @@ function App() {
 				<Route element={<DefaultLayout />}>
 					<Route exact path='/' element={<Home />} />
 					<Route exact path='/daftar-jual' element={<DaftarJual />} />
-					<Route exact path='/daftar-jual/diminati' element={<Wishlist />} />
-					<Route exact path='/daftar-jual/terjual' element={<Terjual />} />
+					<Route
+						exact
+						path='/daftar-jual/diminati'
+						element={<Wishlist />}
+					/>
+					<Route
+						exact
+						path='/daftar-jual/terjual'
+						element={<Terjual />}
+					/>
 				</Route>
 			</Routes>
 		</BrowserRouter>

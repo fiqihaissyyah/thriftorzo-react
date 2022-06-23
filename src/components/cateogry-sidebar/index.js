@@ -16,7 +16,11 @@ export default function CategorySidebar(props) {
 					<li className='border-0 pb-4'>
 						<Link
 							to='/daftar-jual'
-							className={`text-black flex w-full justify-between items-center ${location.pathname === '/daftar-jual' ? 'active' : ''}`}
+							className={`text-black flex w-full justify-between items-center ${
+								location.pathname === '/daftar-jual'
+									? 'active'
+									: ''
+							}`}
 						>
 							<span className='flex items-center'>
 								<Box size={24} />
@@ -28,7 +32,11 @@ export default function CategorySidebar(props) {
 					<li className='border-0 py-4'>
 						<Link
 							to='/daftar-jual/diminati'
-							className={`text-black flex w-full justify-between items-center ${location.pathname === '/daftar-jual/diminati' ? 'active' : ''}`}
+							className={`text-black flex w-full justify-between items-center ${
+								location.pathname === '/daftar-jual/diminati'
+									? 'active'
+									: ''
+							}`}
 						>
 							<span className='flex items-center'>
 								<Heart size={24} />
@@ -40,7 +48,11 @@ export default function CategorySidebar(props) {
 					<li className='border-0 pt-4'>
 						<Link
 							to='/daftar-jual/terjual'
-							className={`text-black flex w-full justify-between items-center ${location.pathname === '/daftar-jual/terjual' ? 'active' : ''}`}
+							className={`text-black flex w-full justify-between items-center ${
+								location.pathname === '/daftar-jual/terjual'
+									? 'active'
+									: ''
+							}`}
 						>
 							<span className='flex items-center'>
 								<DollarSign size={24} />
@@ -54,7 +66,9 @@ export default function CategorySidebar(props) {
 			<div className='md:hidden flex w-full md:overflow-auto overflow-x-scroll category-warpper'>
 				<Link to='/daftar-jual'>
 					<Button
-						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-cateogry mr-4 ${location.pathname === '/daftar-jual' ? 'active' : ''}`}
+						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-cateogry mr-4 ${
+							location.pathname === '/daftar-jual' ? 'active' : ''
+						}`}
 						type='primary'
 						icon={<Box className='mr-2' />}
 						size='large'
@@ -64,7 +78,11 @@ export default function CategorySidebar(props) {
 				</Link>
 				<Link to='/daftar-jual/diminati'>
 					<Button
-						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-cateogry mr-4 ${location.pathname === '/daftar-jual/diminati' ? 'active' : ''}`}
+						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-cateogry mr-4 ${
+							location.pathname === '/daftar-jual/diminati'
+								? 'active'
+								: ''
+						}`}
 						type='primary'
 						icon={<Heart className='mr-2' />}
 						size='large'
@@ -74,7 +92,11 @@ export default function CategorySidebar(props) {
 				</Link>
 				<Link to='/daftar-jual/terjual'>
 					<Button
-						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-cateogry mr-4 ${location.pathname === '/daftar-jual/terjual' ? 'active' : ''}`}
+						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-cateogry mr-4 ${
+							location.pathname === '/daftar-jual/terjual'
+								? 'active'
+								: ''
+						}`}
 						type='primary'
 						icon={<DollarSign className='mr-2' />}
 						size='large'
