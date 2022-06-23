@@ -8,7 +8,7 @@ export default function DefaultLayoutBlank(props) {
 	return (
 		<>
 			<div className='main-content'>
-				<Header blank />
+				<Header blank navigation />
 				<Outlet {...props} />
 				<Footer />
 			</div>

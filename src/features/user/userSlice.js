@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
 export const TOKEN = localStorage.getItem('token');
+export const USER = JSON.parse(localStorage.getItem('user'));
 
 export const auth = createAsyncThunk(
 	'user/auth',
@@ -14,6 +15,7 @@ export const auth = createAsyncThunk(
 					'token',
 					JSON.stringify(response.data.token)
 				);
+				localStorage.setItem('user', JSON.stringify(response.data));
 				return response;
 			} else {
 				rejectWithValue(response);
@@ -52,13 +54,13 @@ export const register = createAsyncThunk(
 
 export const getUser = createAsyncThunk(
 	'user/getUser',
-	async (token, { rejectWithValue }) => {
+	async (_, { rejectWithValue }) => {
 		try {
-			if (token) {
-				const response = await axios.get(`${API_URL}users/me`, {
-					headers: { Authorization: `Bearer ${token}` },
-				});
-				return response.data;
+			if (TOKEN) {
+				const response = await axios.get(
+					`${API_URL}user/get-user/${USER.id}`
+				);
+				return response;
 			} else {
 				const data = [
 					{
@@ -79,25 +81,13 @@ export const getUser = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
 	'user/updateUser',
-	async ({ token, values }, { rejectWithValue }) => {
+	async (values, { rejectWithValue }) => {
 		try {
-			if (token) {
-				let bodyFormData = new FormData();
-				bodyFormData.append('first_name', values.first_name);
-				bodyFormData.append('last_name', values.last_name);
-				bodyFormData.append('email', values.email);
-				if (values.image !== undefined) {
-					bodyFormData.append('image', values.image[0].originFileObj);
-				}
-				const response = await axios({
-					method: 'put',
-					url: `${API_URL}users`,
-					data: bodyFormData,
-					headers: {
-						'Content-Type': 'multipart/form-data',
-						Authorization: `Bearer ${token}`,
-					},
-				});
+			if (TOKEN) {
+				const response = await axios.put(
+					`${API_URL}user/update-data/${USER.id}`,
+					values
+				);
 				return response;
 			} else {
 				const data = [
@@ -136,12 +126,14 @@ const initialState = {
 		loading: false,
 		error: false,
 		errorMessage: null,
+		success: false,
 	},
 	update: {
 		response: null,
 		loading: false,
 		error: false,
 		errorMessage: null,
+		success: false,
 	},
 };
 
@@ -163,7 +155,7 @@ export const userSlice = createSlice({
 		reset: () => logoutState,
 	},
 	extraReducers: {
-		// AUTH
+		// =================================================== LOGIN =================================================== //
 		[auth.pending]: (state) => {
 			state.auth.loading = true;
 		},
@@ -177,10 +169,12 @@ export const userSlice = createSlice({
 		[auth.rejected]: (state, action) => {
 			state.auth.success = false;
 			state.auth.error = action.error.message;
-			state.auth.errorMessage = action.payload.message;
+			state.auth.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
 			state.auth.loading = false;
 		},
-		// REGISTER
+		// =================================================== REGISTER =================================================== //
 		[register.pending]: (state) => {
 			state.register.loading = true;
 		},
@@ -192,11 +186,13 @@ export const userSlice = createSlice({
 		},
 		[register.rejected]: (state, action) => {
 			state.register.error = action.error.message;
-			state.register.errorMessage = action.payload.message;
+			state.register.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
 			state.register.loading = false;
 			state.register.success = false;
 		},
-		// USER
+		// =================================================== USER =================================================== //
 		[getUser.pending]: (state) => {
 			state.user.loading = true;
 		},
@@ -205,13 +201,18 @@ export const userSlice = createSlice({
 			state.user.error = false;
 			state.user.errorMessage = null;
 			state.user.loading = false;
+			state.user.success = true;
 		},
 		[getUser.rejected]: (state, action) => {
 			state.user.error = action.error.message;
-			state.user.errorMessage = action.payload.message;
+			state.user.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
 			state.user.loading = false;
+			state.user.success = false;
 		},
-		// UPDATE USER
+
+		// =================================================== UPDATE USER =================================================== //
 		[updateUser.pending]: (state) => {
 			state.update.loading = true;
 		},
@@ -225,7 +226,9 @@ export const userSlice = createSlice({
 		[updateUser.rejected]: (state, action) => {
 			state.update.success = false;
 			state.update.error = action.error.message;
-			state.update.errorMessage = action.payload.message;
+			state.update.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
 			state.update.loading = false;
 		},
 	},

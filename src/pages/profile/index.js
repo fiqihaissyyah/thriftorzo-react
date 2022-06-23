@@ -1,8 +1,12 @@
 import './index.css';
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, Select, Row, Col, Upload, message } from 'antd';
+import axios from 'axios';
+import { Button, Form, Input, Select, Alert, Upload, message } from 'antd';
 import { CameraOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser, updateUser } from '../../features/user/userSlice';
 
 const { Option } = Select;
 const beforeUpload = (file) => {
@@ -23,17 +27,23 @@ const beforeUpload = (file) => {
 };
 
 export default function Profile() {
-	useEffect(() => {
-		document.title = 'Lengkapi Info Akun';
-	}, []);
+	const profileUser = useSelector((state) => state.user.user.data);
+	const successGetUser = useSelector((state) => state.user.user.success);
+	const { success, error, errorMessage, loading } = useSelector(
+		(state) => state.user.update
+	);
+	const dispatch = useDispatch();
 	const [form] = Form.useForm();
-
-	const onFinish = (values) => {
-		console.log(values);
-	};
-
-	const [loading, setLoading] = useState(false);
+	const [imageLoading, setLoading] = useState(false);
 	const [imageUrl, setImageUrl] = useState();
+	const [cities, setCity] = useState([]);
+
+	const onFinish = async (values) => {
+		await dispatch(updateUser(values));
+		await dispatch(getUser());
+		form.setFieldsValue(values);
+		message.success('Update Profile Berhasil');
+	};
 
 	const handleChange = (info) => {
 		if (info.file.status === 'uploading') {
@@ -47,9 +57,34 @@ export default function Profile() {
 		}
 	};
 
+	const getCity = async () => {
+		const country = { country: 'indonesia' };
+		await axios
+			.post(
+				'https://countriesnow.space/api/v0.1/countries/cities',
+				country
+			)
+			.then((res) => {
+				const data = res.data.data;
+				setCity(data);
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+	};
+
+	useEffect(() => {
+		getCity();
+	}, []);
+
+	useEffect(() => {
+		dispatch(getUser());
+		form.setFieldsValue(profileUser);
+	}, [successGetUser]);
+
 	const uploadButton = (
 		<div>
-			{loading ? (
+			{imageLoading ? (
 				<LoadingOutlined
 					style={{ fontSize: '30px', color: '#7126B5' }}
 				/>
@@ -88,9 +123,18 @@ export default function Profile() {
 						uploadButton
 					)}
 				</Upload>
+				{!!error && (
+					<Alert
+						className='mb-6'
+						message='Error'
+						description={errorMessage}
+						type='error'
+						showIcon
+					/>
+				)}
 				<Form
-					layout='vertical'
 					form={form}
+					layout='vertical'
 					name='control-hooks'
 					onFinish={onFinish}
 				>
@@ -109,8 +153,8 @@ export default function Profile() {
 						<Input placeholder='Nama' />
 					</Form.Item>
 					<Form.Item
-						className='mb-4'
-						name='city'
+						className='mb-4 select-city'
+						name='cityName'
 						label='Kota*'
 						required={false}
 						rules={[
@@ -120,10 +164,17 @@ export default function Profile() {
 							},
 						]}
 					>
-						<Select placeholder='Pilih Kota' allowClear>
-							<Option value='bali'>Bali</Option>
-							<Option value='surabaya'>Surabaya</Option>
-							<Option value='jakarta'>Jakarta</Option>
+						<Select placeholder='Pilih Kota' allowClear showSearch>
+							{!cities && cities.length < 0 && (
+								<Option value=''>Loading</Option>
+							)}
+							{!!cities &&
+								cities.length > 0 &&
+								cities.map((item, index) => (
+									<Option key={index} value={item}>
+										{item}
+									</Option>
+								))}
 						</Select>
 					</Form.Item>
 					<Form.Item
@@ -138,7 +189,7 @@ export default function Profile() {
 							},
 						]}
 					>
-						<Input placeholder='Alamat' />
+						<Input.TextArea rows={2} placeholder='Alamat' />
 					</Form.Item>
 					<Form.Item
 						className='mb-6'
@@ -156,6 +207,7 @@ export default function Profile() {
 					</Form.Item>
 					<Form.Item>
 						<Button
+							loading={loading}
 							className='w-full btn-custom'
 							type='primary'
 							htmlType='submit'

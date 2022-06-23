@@ -17,7 +17,11 @@ module.exports = {
 				'2xl': '1496px',
 			},
 		},
-		extends: {},
+		extend: {
+			boxShadow: {
+				custom: '0 0px 4px 0px rgba(0, 0, 0, 0.15)',
+			},
+		},
 	},
 	plugins: [],
 };

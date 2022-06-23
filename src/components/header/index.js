@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Col, Row, Button, Form, Input, Dropdown, Menu, Drawer } from 'antd';
 import {
 	LogIn,
@@ -15,7 +15,6 @@ import Notification from '../notification';
 import './index.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset } from '../../features/user/userSlice';
-import { useLocation } from 'react-router-dom';
 
 export default function Header(props) {
 	const { token, success } = useSelector((state) => state.user.auth);
@@ -59,6 +58,7 @@ export default function Header(props) {
 
 	const handleLogout = async () => {
 		await localStorage.removeItem('token');
+		await localStorage.removeItem('user');
 		dispatch(reset());
 		setLogin(false);
 		console.log('logout');
@@ -88,12 +88,23 @@ export default function Header(props) {
 	const notificationDropdown = <Notification />;
 
 	return (
-		<div className={`${props.fixed ? 'on-top' : ''} header py-[18px]`}>
+		<div
+			className={`${
+				location.pathname === '/' ? 'on-top' : ''
+			} header py-[18px]`}
+		>
 			<div className='container relative'>
 				{props.title && (
 					<div className='absolute left-0 right-0 top-0 bottom-0 flex items-center'>
 						<h1 className='text-base text-center mb-0 w-full'>
 							{props.title ? props.title : 'Page Title'}
+						</h1>
+					</div>
+				)}
+				{location.pathname === '/daftar-jual' && (
+					<div className='absolute left-0 right-0 top-0 bottom-0 flex items-center md:hidden'>
+						<h1 className='text-base text-center mb-0 w-full'>
+							Daftar Jual Saya
 						</h1>
 					</div>
 				)}
@@ -126,7 +137,13 @@ export default function Header(props) {
 								)}
 							</Col>
 							{!props.title && !props.blank && (
-								<Col flex='auto'>
+								<Col
+									flex='auto'
+									className={
+										location.pathname !== '/' &&
+										'md:block hidden'
+									}
+								>
 									<Form
 										form={form}
 										name='basic'
@@ -174,7 +191,12 @@ export default function Header(props) {
 								<>
 									<Row gutter={24}>
 										<Col span={8}>
-											<List size={24} color='#7126B5' />
+											<Link to='/daftar-jual'>
+												<List
+													size={24}
+													color='#7126B5'
+												/>
+											</Link>
 										</Col>
 										<Col span={8}>
 											<Dropdown
@@ -248,7 +270,7 @@ export default function Header(props) {
 							</Link>
 							<Link
 								className='text-sm hover:text-[#7126B5] mb-4 block text-black'
-								to='/'
+								to='/daftar-jual'
 							>
 								Daftar Jual
 							</Link>

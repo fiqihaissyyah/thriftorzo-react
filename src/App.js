@@ -5,6 +5,8 @@ import AuthLayout from './components/layouts/auth';
 import DefaultLayout from './components/layouts/default';
 import DefaultLayoutWithTitle from './components/layouts/default-title';
 import DefaultLayoutWithNavigation from './components/layouts/default-navigation';
+import DefaultLayoutBlank from './components/layouts/default-blank';
+import IsAuth from './components/layouts/isAuth';
 
 import Home from './pages/home/index';
 import Login from './pages/login/index';
@@ -13,6 +15,7 @@ import Profile from './pages/profile/index';
 import ProductForm from './pages/productForm/index';
 import Notification from './pages/notification';
 import Detail from './pages/detail';
+import DaftarJual from './pages/daftarJual';
 
 function App() {
 	return (
@@ -22,29 +25,39 @@ function App() {
 					<Route exact path='/login' element={<Login />} />
 					<Route exact path='/register' element={<Register />} />
 				</Route>
-				<Route element={<DefaultLayoutWithTitle />}>
-					<Route
-						exact
-						path='/notification'
-						element={<Notification />}
-					/>
-				</Route>
-				<Route element={<DefaultLayoutWithNavigation />}>
-					<Route exact path='/profile' element={<Profile />} />
-					<Route
-						exact
-						path='/product/create'
-						element={<ProductForm />}
-					/>
-					<Route
-						exact
-						path='/product/update'
-						element={<ProductForm />}
-					/>
+				<Route element={<IsAuth />}>
+					<Route element={<DefaultLayoutWithTitle />}>
+						<Route
+							exact
+							path='/notification'
+							element={<Notification />}
+						/>
+					</Route>
+					<Route element={<DefaultLayoutWithNavigation />}>
+						<Route
+							exact
+							path='/profile'
+							title='Page Profile'
+							element={<Profile />}
+						/>
+					</Route>
+					<Route element={<DefaultLayoutBlank />}>
+						<Route
+							exact
+							path='/product/create'
+							element={<ProductForm />}
+						/>
+						<Route
+							exact
+							path='/product/update'
+							element={<ProductForm />}
+						/>
+					</Route>
 				</Route>
 				<Route element={<DefaultLayout />}>
 					<Route exact path='/' element={<Home />} />
 					<Route exact path='/detail' element={<Detail />} />
+					<Route exact path='/daftar-jual' element={<DaftarJual />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>
