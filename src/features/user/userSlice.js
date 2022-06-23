@@ -2,8 +2,8 @@ import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
-export const TOKEN = JSON.parse(localStorage.getItem('token'));
-export const USER = JSON.parse(localStorage.getItem('user'));
+export let TOKEN = JSON.parse(localStorage.getItem('token'));
+export let USER = JSON.parse(localStorage.getItem('user'));
 
 export const auth = createAsyncThunk(
 	'user/auth',
@@ -16,6 +16,8 @@ export const auth = createAsyncThunk(
 					JSON.stringify(response.data.token)
 				);
 				localStorage.setItem('user', JSON.stringify(response.data));
+				TOKEN = response.data.token;
+				USER = response.data;
 				return response;
 			} else {
 				rejectWithValue(response);
@@ -54,12 +56,12 @@ export const register = createAsyncThunk(
 
 export const getUser = createAsyncThunk(
 	'user/getUser',
-	async (token, { rejectWithValue }) => {
+	async (_, { rejectWithValue }) => {
 		try {
-			if (token) {
+			if (TOKEN) {
 				const response = await axios.get(
 					`${API_URL}users/get-user/${USER.id}`,
-					{ headers: { Authorization: `Bearer ${token}` } }
+					{ headers: { Authorization: `Bearer ${TOKEN}` } }
 				);
 				return response;
 			} else {
@@ -206,12 +208,12 @@ export const userSlice = createSlice({
 			state.user.success = true;
 		},
 		[getUser.rejected]: (state, action) => {
+			state.user.success = false;
 			state.user.error = action.error.message;
 			state.user.errorMessage = action.payload.message
 				? action.payload.message
 				: action.payload.error;
 			state.user.loading = false;
-			state.user.success = false;
 		},
 
 		// =================================================== UPDATE USER =================================================== //
