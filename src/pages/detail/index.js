@@ -10,9 +10,10 @@ export default function Detail() {
 			<Row>
 				<Col xs={{ span: 24 }} lg={{ span: 16 }}>
 					<SliderProduct />
-					<div className='deskripsi mt-6'>
-						<h3>Deskripsi</h3>
-						<p>
+					<div className='shadow-custom my-6 rounded-2xl'>
+						<div className='p-4'>
+						<h4>Deskripsi</h4>
+						<p className='text-neutralGray'>
 							Lorem ipsum dolor sit amet, consectetur adipiscing
 							elit, sed do eiusmod tempor incididunt ut labore et
 							dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -23,7 +24,7 @@ export default function Detail() {
 							cupidatat non proident, sunt in culpa qui officia
 							deserunt mollit anim id est laborum.
 						</p>
-						<p>
+						<p className='text-neutralGray'>
 							Lorem ipsum dolor sit amet, consectetur adipiscing
 							elit, sed do eiusmod tempor incididunt ut labore et
 							dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -34,6 +35,7 @@ export default function Detail() {
 							cupidatat non proident, sunt in culpa qui officia
 							deserunt mollit anim id est laborum.
 						</p>
+						</div>
 					</div>
 				</Col>
 				<Col></Col>
