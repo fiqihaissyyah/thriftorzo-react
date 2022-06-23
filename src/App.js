@@ -17,6 +17,7 @@ import Notification from './pages/notification';
 import DaftarJual from './pages/daftarJual';
 import Wishlist from './pages/wishlist';
 import Terjual from './pages/terjual';
+import InfoPenawaran from './pages/infoPenawaran';
 
 function App() {
 	return (
@@ -40,6 +41,12 @@ function App() {
 							path='/profile'
 							title='Page Profile'
 							element={<Profile />}
+						/>
+						<Route
+							exact
+							path='/info-product'
+							title='Page Info Product'
+							element={<InfoPenawaran />}
 						/>
 					</Route>
 					<Route element={<DefaultLayoutBlank />}>
