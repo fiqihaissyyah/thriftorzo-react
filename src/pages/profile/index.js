@@ -8,23 +8,7 @@ import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, updateUser } from '../../features/user/userSlice';
 
-const { Option } = Select;
-const beforeUpload = (file) => {
-	const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
 
-	if (!isJpgOrPng) {
-		message.error('You can only upload JPG/PNG file!');
-	}
-
-	const isLt2M = file.size / 1024 / 1024 < 2;
-
-	if (!isLt2M) {
-		message.error('Image must smaller than 2MB!');
-	}
-
-	console.log(file);
-	return isJpgOrPng && isLt2M;
-};
 
 export default function Profile() {
 	const profileUser = useSelector((state) => state.user.user.data);
@@ -32,7 +16,6 @@ export default function Profile() {
 	const { error, errorMessage, loading } = useSelector(
 		(state) => state.user.update
 	);
-	const { token } = useSelector((state) => state.user.auth);
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [imageLoading, setLoading] = useState(false);
@@ -45,6 +28,24 @@ export default function Profile() {
 		await dispatch(getUser());
 		form.setFieldsValue(values);
 		message.success('Update Profile Berhasil');
+	};
+
+	const { Option } = Select;
+	const beforeUpload = (file) => {
+		const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+
+		if (!isJpgOrPng) {
+			message.error('You can only upload JPG/PNG file!');
+		}
+
+		const isLt2M = file.size / 1024 / 1024 < 2;
+
+		if (!isLt2M) {
+			message.error('Image must smaller than 2MB!');
+		}
+
+		console.log(file);
+		return isJpgOrPng && isLt2M;
 	};
 
 	const handleChange = async (info) => {
@@ -99,10 +100,10 @@ export default function Profile() {
 	}, []);
 
 	useEffect(() => {
-		dispatch(getUser(token));
+		dispatch(getUser());
 		setImageUrl(profileUser ? profileUser.imgUrl : '');
 		form.setFieldsValue(profileUser);
-	}, [successGetUser]);
+	}, [dispatch, successGetUser]);
 
 	const uploadButton = (
 		<div>
