@@ -41,7 +41,7 @@ export default function Profile() {
 	const onFinish = async (values) => {
 		await dispatch(updateUser(values));
 		await dispatch(getUser());
-		form.setFieldsValue(values)
+		form.setFieldsValue(values);
 		message.success('Update Profile Berhasil');
 	};
 
@@ -79,7 +79,7 @@ export default function Profile() {
 
 	useEffect(() => {
 		dispatch(getUser());
-		form.setFieldsValue(profileUser)
+		form.setFieldsValue(profileUser);
 	}, [successGetUser]);
 
 	const uploadButton = (
@@ -171,7 +171,9 @@ export default function Profile() {
 							{!!cities &&
 								cities.length > 0 &&
 								cities.map((item, index) => (
-									<Option key={index} value={item}>{item}</Option>
+									<Option key={index} value={item}>
+										{item}
+									</Option>
 								))}
 						</Select>
 					</Form.Item>

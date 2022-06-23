@@ -84,7 +84,10 @@ export const updateUser = createAsyncThunk(
 	async (values, { rejectWithValue }) => {
 		try {
 			if (TOKEN) {
-				const response = await axios.put(`${API_URL}user/update-data/${USER.id}`, values);
+				const response = await axios.put(
+					`${API_URL}user/update-data/${USER.id}`,
+					values
+				);
 				return response;
 			} else {
 				const data = [
@@ -227,7 +230,6 @@ export const userSlice = createSlice({
 				? action.payload.message
 				: action.payload.error;
 			state.update.loading = false;
-
 		},
 	},
 });
