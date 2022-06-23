@@ -88,7 +88,11 @@ export default function Header(props) {
 	const notificationDropdown = <Notification />;
 
 	return (
-		<div className={`${location.pathname === '/' ? 'on-top' : ''} header py-[18px]`}>
+		<div
+			className={`${
+				location.pathname === '/' ? 'on-top' : ''
+			} header py-[18px]`}
+		>
 			<div className='container relative'>
 				{props.title && (
 					<div className='absolute left-0 right-0 top-0 bottom-0 flex items-center'>
@@ -133,7 +137,13 @@ export default function Header(props) {
 								)}
 							</Col>
 							{!props.title && !props.blank && (
-								<Col flex='auto' className={location.pathname !== '/' && 'md:block hidden'}>
+								<Col
+									flex='auto'
+									className={
+										location.pathname !== '/' &&
+										'md:block hidden'
+									}
+								>
 									<Form
 										form={form}
 										name='basic'
@@ -181,7 +191,12 @@ export default function Header(props) {
 								<>
 									<Row gutter={24}>
 										<Col span={8}>
-											<Link to='/daftar-jual'><List size={24} color='#7126B5' /></Link>
+											<Link to='/daftar-jual'>
+												<List
+													size={24}
+													color='#7126B5'
+												/>
+											</Link>
 										</Col>
 										<Col span={8}>
 											<Dropdown
