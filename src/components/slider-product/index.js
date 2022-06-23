@@ -4,7 +4,7 @@ import 'swiper/css/bundle';
 import { Pagination, Navigation } from 'swiper';
 
 import './index.css';
-import SliderProA from '../../assets/images/slider_product.png'
+import SliderProA from '../../assets/images/slider_product.png';
 
 export default function SliderProduct() {
 	return (
@@ -18,7 +18,7 @@ export default function SliderProduct() {
 				}}
 				navigation={true}
 				modules={[Pagination, Navigation]}
-				className="mySwiper"
+				className='mySwiper'
 			>
 				<SwiperSlide>
 					<img src={SliderProA} />
@@ -26,5 +26,5 @@ export default function SliderProduct() {
 				<SwiperSlide>Slide 2</SwiperSlide>
 			</Swiper>
 		</div>
-	)
+	);
 }

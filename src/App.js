@@ -44,7 +44,7 @@ function App() {
 				</Route>
 				<Route element={<DefaultLayout />}>
 					<Route exact path='/' element={<Home />} />
-					<Route exact path='/detail' element={ <Detail /> } />
+					<Route exact path='/detail' element={<Detail />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>
