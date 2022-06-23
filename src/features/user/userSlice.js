@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
-export const TOKEN = localStorage.getItem('token');
+export const TOKEN = JSON.parse(localStorage.getItem('token'));
 export const USER = JSON.parse(localStorage.getItem('user'));
 
 export const auth = createAsyncThunk(
@@ -54,11 +54,12 @@ export const register = createAsyncThunk(
 
 export const getUser = createAsyncThunk(
 	'user/getUser',
-	async (_, { rejectWithValue }) => {
+	async (token, { rejectWithValue }) => {
 		try {
-			if (TOKEN) {
+			if (token) {
 				const response = await axios.get(
-					`${API_URL}user/get-user/${USER.id}`
+					`${API_URL}users/get-user/${USER.id}`,
+					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
 			} else {
@@ -85,8 +86,9 @@ export const updateUser = createAsyncThunk(
 		try {
 			if (TOKEN) {
 				const response = await axios.put(
-					`${API_URL}user/update-data/${USER.id}`,
-					values
+					`${API_URL}users/update-data/${USER.id}`,
+					values,
+					{ headers: { Authorization: `Bearer ${TOKEN}` } }
 				);
 				return response;
 			} else {

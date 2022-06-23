@@ -29,9 +29,10 @@ const beforeUpload = (file) => {
 export default function Profile() {
 	const profileUser = useSelector((state) => state.user.user.data);
 	const successGetUser = useSelector((state) => state.user.user.success);
-	const { success, error, errorMessage, loading } = useSelector(
+	const { error, errorMessage, loading } = useSelector(
 		(state) => state.user.update
 	);
+	const { token } = useSelector((state) => state.user.auth);
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [imageLoading, setLoading] = useState(false);
@@ -39,22 +40,42 @@ export default function Profile() {
 	const [cities, setCity] = useState([]);
 
 	const onFinish = async (values) => {
+		values = { ...values, imgUrl: imageUrl };
 		await dispatch(updateUser(values));
 		await dispatch(getUser());
 		form.setFieldsValue(values);
 		message.success('Update Profile Berhasil');
 	};
 
-	const handleChange = (info) => {
-		if (info.file.status === 'uploading') {
-			setLoading(true);
-			return;
-		}
+	const handleChange = async (info) => {
+		console.log('change');
+		setLoading(true);
 
-		if (info.file.status === 'done') {
-			setImageUrl(info.file.originFileObj);
-			console.log(info.file.originFileObj);
-		}
+		let bodyFormData = new FormData();
+		bodyFormData.append('imageFile', info.file.originFileObj);
+
+		await axios
+			.post(
+				'https://staging-secondhand-bej3.herokuapp.com/users/upload-image',
+				bodyFormData,
+				{
+					headers: {
+						ContentType: 'multipart/form-data',
+						Authorization: `Bearer ${JSON.parse(
+							localStorage.getItem('token')
+						)}`,
+					},
+				}
+			)
+			.then((res) => {
+				console.log(res);
+				console.log('upload');
+				setLoading(false);
+				setImageUrl(res.data);
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
 	};
 
 	const getCity = async () => {
@@ -78,7 +99,8 @@ export default function Profile() {
 	}, []);
 
 	useEffect(() => {
-		dispatch(getUser());
+		dispatch(getUser(token));
+		setImageUrl(profileUser ? profileUser.imgUrl : '');
 		form.setFieldsValue(profileUser);
 	}, [successGetUser]);
 
@@ -110,13 +132,17 @@ export default function Profile() {
 					showUploadList={false}
 					beforeUpload={beforeUpload}
 					onChange={handleChange}
+					customRequest={handleChange}
 				>
-					{imageUrl ? (
+					{imageUrl && !imageLoading ? (
 						<img
 							src={imageUrl}
 							alt='avatar'
 							style={{
 								width: '100%',
+								height: '100%',
+								borderRadius: '12px',
+								objectFit: 'cover',
 							}}
 						/>
 					) : (
