@@ -1,12 +1,12 @@
 import './index.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Button, Form, Input, Select, Row, Col, Upload, message } from 'antd';
+import { Button, Form, Input, Select, Alert, Upload, message } from 'antd';
 import { CameraOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from '../../features/user/userSlice';
+import { getUser, updateUser } from '../../features/user/userSlice';
 
 const { Option } = Select;
 const beforeUpload = (file) => {
@@ -27,19 +27,23 @@ const beforeUpload = (file) => {
 };
 
 export default function Profile() {
+	const profileUser = useSelector((state) => state.user.user.data);
+	const successGetUser = useSelector((state) => state.user.user.success);
 	const { success, error, errorMessage, loading } = useSelector(
-		(state) => state.user.user
+		(state) => state.user.update
 	);
-
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
-
-	const onFinish = (values) => {
-		console.log(values);
-	};
-
 	const [imageLoading, setLoading] = useState(false);
 	const [imageUrl, setImageUrl] = useState();
+	const [cities, setCity] = useState([]);
+
+	const onFinish = async (values) => {
+		await dispatch(updateUser(values));
+		await dispatch(getUser());
+		form.setFieldsValue(values);
+		message.success('Update Profile Berhasil');
+	};
 
 	const handleChange = (info) => {
 		if (info.file.status === 'uploading') {
@@ -52,22 +56,6 @@ export default function Profile() {
 			console.log(info.file.originFileObj);
 		}
 	};
-
-	const uploadButton = (
-		<div>
-			{imageLoading ? (
-				<LoadingOutlined
-					style={{ fontSize: '30px', color: '#7126B5' }}
-				/>
-			) : (
-				<CameraOutlined
-					style={{ fontSize: '24px', color: '#7126B5' }}
-				/>
-			)}
-		</div>
-	);
-
-	const [cities, setCity] = useState([]);
 
 	const getCity = async () => {
 		const country = { country: 'indonesia' };
@@ -87,12 +75,26 @@ export default function Profile() {
 
 	useEffect(() => {
 		getCity();
-		console.log(cities);
 	}, []);
 
 	useEffect(() => {
 		dispatch(getUser());
-	}, []);
+		form.setFieldsValue(profileUser);
+	}, [successGetUser]);
+
+	const uploadButton = (
+		<div>
+			{imageLoading ? (
+				<LoadingOutlined
+					style={{ fontSize: '30px', color: '#7126B5' }}
+				/>
+			) : (
+				<CameraOutlined
+					style={{ fontSize: '24px', color: '#7126B5' }}
+				/>
+			)}
+		</div>
+	);
 
 	return (
 		<div className='container'>
@@ -121,9 +123,18 @@ export default function Profile() {
 						uploadButton
 					)}
 				</Upload>
+				{!!error && (
+					<Alert
+						className='mb-6'
+						message='Error'
+						description={errorMessage}
+						type='error'
+						showIcon
+					/>
+				)}
 				<Form
-					layout='vertical'
 					form={form}
+					layout='vertical'
 					name='control-hooks'
 					onFinish={onFinish}
 				>
@@ -143,7 +154,7 @@ export default function Profile() {
 					</Form.Item>
 					<Form.Item
 						className='mb-4 select-city'
-						name='city'
+						name='cityName'
 						label='Kota*'
 						required={false}
 						rules={[
@@ -160,7 +171,9 @@ export default function Profile() {
 							{!!cities &&
 								cities.length > 0 &&
 								cities.map((item, index) => (
-									<Option value={item}>{item}</Option>
+									<Option key={index} value={item}>
+										{item}
+									</Option>
 								))}
 						</Select>
 					</Form.Item>
@@ -194,6 +207,7 @@ export default function Profile() {
 					</Form.Item>
 					<Form.Item>
 						<Button
+							loading={loading}
 							className='w-full btn-custom'
 							type='primary'
 							htmlType='submit'

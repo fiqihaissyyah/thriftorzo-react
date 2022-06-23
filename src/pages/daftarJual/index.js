@@ -19,7 +19,9 @@ export default function DaftarJual() {
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='container'>
-				<h1 className='text-xl text-black font-bold mb-6 md:block hidden'>Daftar Jual Saya</h1>
+				<h1 className='text-xl text-black font-bold mb-6 md:block hidden'>
+					Daftar Jual Saya
+				</h1>
 				<SalerInformation />
 				<Row gutter={[32, 24]} className='pt-6'>
 					<Col xs={{ span: 24 }} lg={{ span: 6 }}>

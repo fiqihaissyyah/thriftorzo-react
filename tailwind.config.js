@@ -19,9 +19,9 @@ module.exports = {
 		},
 		extend: {
 			boxShadow: {
-				'custom': '0 0px 4px 0px rgba(0, 0, 0, 0.15)',
-			}
-		}
+				custom: '0 0px 4px 0px rgba(0, 0, 0, 0.15)',
+			},
+		},
 	},
 	plugins: [],
 };
