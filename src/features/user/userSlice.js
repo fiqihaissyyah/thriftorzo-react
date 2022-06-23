@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
-export const TOKEN = JSON.parse(localStorage.getItem('token'));
+export const TOKEN = localStorage.getItem('token');
 
 export const auth = createAsyncThunk(
 	'user/auth',
