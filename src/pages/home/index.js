@@ -5,6 +5,7 @@ import Category from '../../components/cateogry';
 import Product from '../../components/product';
 import SliderHome from '../../components/slider-home';
 import SellButton from '../../components/sell-button';
+import { Helmet } from 'react-helmet';
 
 import './index.css';
 
@@ -14,6 +15,10 @@ export default function Home() {
 
 	return (
 		<>
+			<Helmet>
+				<title>SecondHand - Homepage</title>
+				<meta name='description' content='Helmet application' />
+			</Helmet>
 			<SliderHome />
 			<div className='product-section'>
 				<div className='container'>

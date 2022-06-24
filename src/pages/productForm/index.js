@@ -9,13 +9,13 @@ const beforeUpload = (file) => {
 	const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
 
 	if (!isJpgOrPng) {
-		message.error('You can only upload JPG/PNG file!');
+		message.error('Gambar harus berformat JPG/PNG!');
 	}
 
 	const isLt2M = file.size / 1024 / 1024 < 2;
 
 	if (!isLt2M) {
-		message.error('Image must smaller than 2MB!');
+		message.error('Gambar tidak boleh lebih dari 2MB!');
 	}
 
 	console.log(file);
@@ -62,7 +62,7 @@ export default function ProductForm() {
 	return (
 		<div className='container'>
 			<Helmet>
-				<title>Lengkapi Info Akun</title>
+				<title>Tambah Produk</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='update-profile-wrapper max-w-[568px] md:py-10 py-6 w-full mx-auto'>
@@ -80,7 +80,7 @@ export default function ProductForm() {
 						rules={[
 							{
 								required: true,
-								message: 'Please input your Product Name!',
+								message: 'Nama Produk tidak boleh kosong!',
 							},
 						]}
 					>
@@ -94,7 +94,7 @@ export default function ProductForm() {
 						rules={[
 							{
 								required: true,
-								message: 'Please input your Product Price!',
+								message: 'Harga Produk tidak boleh kosong!',
 							},
 						]}
 					>
@@ -108,7 +108,7 @@ export default function ProductForm() {
 						rules={[
 							{
 								required: true,
-								message: 'Please input your Category!',
+								message: 'Kategori tidak boleh kosong!',
 							},
 						]}
 					>
@@ -128,13 +128,13 @@ export default function ProductForm() {
 						rules={[
 							{
 								required: true,
-								message: 'Please input your Description!',
+								message: 'Deskripsi tidak boleh kosong',
 							},
 						]}
 					>
 						<Input.TextArea
 							rows={2}
-							placeholder='Contoh: Jalan Ikan Hiu 33'
+							placeholder='Tentang produk yang anda jual'
 						/>
 					</Form.Item>
 					<Form.Item
@@ -145,7 +145,7 @@ export default function ProductForm() {
 						rules={[
 							{
 								required: true,
-								message: 'Please input your Image Product!',
+								message: 'Foto Produk tidak boleh kosong!',
 							},
 						]}
 					>

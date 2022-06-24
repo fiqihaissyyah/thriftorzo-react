@@ -22,7 +22,7 @@ module.exports = {
 				custom: '0 0px 4px 0px rgba(0, 0, 0, 0.15)',
 			},
 			colors: {
-				'neutralGray': '#8A8A8A'
+				neutralGray: '#8A8A8A',
 			},
 		},
 	},

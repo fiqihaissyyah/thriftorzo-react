@@ -7,6 +7,10 @@ body {
 	font-family: 'Poppins', sans-serif;
 }
 
+.container-internal {
+	max-width: 968px !important;
+}
+
 .ant-form-item-label {
 	font-weight: 400;
 	font-size: 12px;
@@ -15,13 +19,17 @@ body {
 	padding: 0 0 4px !important;
 }
 
+.ant-btn-background-ghost {
+	background: #ffffff !important;
+}
+
 .ant-input-password,
 .ant-input {
 	padding: 14px 16px;
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 20px;
-	color: #8a8a8a;
+	color: #000000;
 	max-height: 48px;
 	border-radius: 16px;
 }

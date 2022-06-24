@@ -11,7 +11,11 @@ export default function SalerInformation(props) {
 	};
 
 	return (
-		<div className='saler-information p-4 shadow-custom rounded-2xl flex justify-between items-center'>
+		<div
+			className={`saler-information p-4 shadow-custom rounded-2xl flex justify-between items-center ${
+				!props.mobile ? 'md:block hidden' : 'md:hidden block'
+			}`}
+		>
 			<div className='saler-profile flex items-center'>
 				<Avatar
 					size={48}
@@ -25,14 +29,16 @@ export default function SalerInformation(props) {
 					</span>
 				</div>
 			</div>
-			<Button
-				onClick={handleProfile}
-				className='text-xs py-1 px-3 rounded-lg'
-				type='primary'
-				ghost
-			>
-				Edit
-			</Button>
+			{props.edit && (
+				<Button
+					onClick={handleProfile}
+					className='text-xs py-1 px-3 rounded-lg'
+					type='primary'
+					ghost
+				>
+					Edit
+				</Button>
+			)}
 		</div>
 	);
 }

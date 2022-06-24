@@ -37,16 +37,10 @@ function App() {
 						/>
 					</Route>
 					<Route element={<DefaultLayoutWithNavigation />}>
+						<Route exact path='/profile' element={<Profile />} />
 						<Route
 							exact
-							path='/profile'
-							title='Page Profile'
-							element={<Profile />}
-						/>
-						<Route
-							exact
-							path='/info-product'
-							title='Page Info Product'
+							path='/penawaran/info-penawaran'
 							element={<InfoPenawaran />}
 						/>
 					</Route>
@@ -65,7 +59,7 @@ function App() {
 				</Route>
 				<Route element={<DefaultLayout />}>
 					<Route exact path='/' element={<Home />} />
-					<Route exact path='/detail' element={<Detail />} />
+					<Route exact path='/product/detail' element={<Detail />} />
 					<Route exact path='/daftar-jual' element={<DaftarJual />} />
 					<Route
 						exact

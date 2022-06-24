@@ -73,11 +73,11 @@ export default function Login() {
 								rules={[
 									{
 										required: true,
-										message: 'Please input your email!',
+										message: 'Email tidak boleh kosong!',
 									},
 									{
 										type: 'email',
-										message: 'Please enter valid email!',
+										message: 'Email tidak valid!',
 									},
 								]}
 							>
@@ -91,7 +91,7 @@ export default function Login() {
 								rules={[
 									{
 										required: true,
-										message: 'Please input your password!',
+										message: 'Password tidak boleh kosong!',
 									},
 								]}
 							>
