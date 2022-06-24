@@ -23,7 +23,7 @@ export default function Register() {
 
 	useEffect(() => {
 		if (success === true) {
-			message.success('Your registration successful');
+			message.success('Registrasi Berhasil!');
 			form.resetFields();
 			navigate('/login');
 		}
@@ -74,7 +74,7 @@ export default function Register() {
 								rules={[
 									{
 										required: true,
-										message: 'Please input your Name!',
+										message: 'Nama tidak boleh kosong!',
 									},
 								]}
 							>
@@ -88,11 +88,11 @@ export default function Register() {
 								rules={[
 									{
 										required: true,
-										message: 'Please input your email!',
+										message: 'Email tidak boleh kosong!',
 									},
 									{
 										type: 'email',
-										message: 'Please enter valid email!',
+										message: 'Email tidak valid!',
 									},
 								]}
 							>
@@ -106,7 +106,7 @@ export default function Register() {
 								rules={[
 									{
 										required: true,
-										message: 'Please input your password!',
+										message: 'Password tidak boleh kosong!',
 									},
 								]}
 							>

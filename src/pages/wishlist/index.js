@@ -17,16 +17,16 @@ export default function Wishlist() {
 				<title>Daftar Diminati</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
-			<div className='container'>
+			<div className='container container-internal'>
 				<h1 className='text-xl text-black font-bold mb-6 md:block hidden'>
 					Daftar Jual Saya
 				</h1>
 				<SalerInformation />
 				<Row gutter={[32, 24]} className='pt-6'>
-					<Col xs={{ span: 24 }} lg={{ span: 6 }}>
+					<Col xs={{ span: 24 }} lg={{ span: 8 }}>
 						<CategorySidebar />
 					</Col>
-					<Col xs={{ span: 24 }} lg={{ span: 18 }}>
+					<Col xs={{ span: 24 }} lg={{ span: 16 }}>
 						<Row gutter={[24, 24]}>
 							<Empty />
 						</Row>

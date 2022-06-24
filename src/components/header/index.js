@@ -89,9 +89,7 @@ export default function Header(props) {
 
 	return (
 		<div
-			className={`${
-				location.pathname === '/' ? 'on-top' : ''
-			} header py-[18px]`}
+			className={`${location.pathname === '/' ? 'on-top' : ''} header py-[18px] ${location.pathname.includes(['/product']) ? 'md:block hidden' : ''}`}
 		>
 			<div className='container relative'>
 				{props.title && (
@@ -200,6 +198,7 @@ export default function Header(props) {
 										</Col>
 										<Col span={8}>
 											<Dropdown
+												className='cursor-pointer'
 												placement='bottomRight'
 												overlay={notificationDropdown}
 												trigger={['click']}
@@ -212,6 +211,7 @@ export default function Header(props) {
 										</Col>
 										<Col span={8}>
 											<Dropdown
+												className='cursor-pointer'
 												overlay={userMenu}
 												trigger={['click']}
 											>

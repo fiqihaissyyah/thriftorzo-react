@@ -8,8 +8,6 @@ import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, updateUser } from '../../features/user/userSlice';
 
-
-
 export default function Profile() {
 	const profileUser = useSelector((state) => state.user.user.data);
 	const successGetUser = useSelector((state) => state.user.user.success);
@@ -32,16 +30,17 @@ export default function Profile() {
 
 	const { Option } = Select;
 	const beforeUpload = (file) => {
-		const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+		const isJpgOrPng =
+			file.type === 'image/jpeg' || file.type === 'image/png';
 
 		if (!isJpgOrPng) {
-			message.error('You can only upload JPG/PNG file!');
+			message.error('Gambar harus berformat JPG/PNG!');
 		}
 
 		const isLt2M = file.size / 1024 / 1024 < 2;
 
 		if (!isLt2M) {
-			message.error('Image must smaller than 2MB!');
+			message.error('Gambar tidak boleh lebih dari 2MB!');
 		}
 
 		console.log(file);
@@ -173,7 +172,7 @@ export default function Profile() {
 						rules={[
 							{
 								required: true,
-								message: 'Please input your Name!',
+								message: 'Nama tidak boleh kosong!',
 							},
 						]}
 					>
@@ -187,7 +186,7 @@ export default function Profile() {
 						rules={[
 							{
 								required: true,
-								message: 'Please input your City!',
+								message: 'Kota tidak boleh kosong!',
 							},
 						]}
 					>
@@ -212,7 +211,7 @@ export default function Profile() {
 						rules={[
 							{
 								required: true,
-								message: 'Please input your Address!',
+								message: 'Alamat tidak boleh kosong!',
 							},
 						]}
 					>
@@ -226,7 +225,7 @@ export default function Profile() {
 						rules={[
 							{
 								required: true,
-								message: 'Please input your Phone!',
+								message: 'No Handphone tidak boleh kosong!',
 							},
 						]}
 					>

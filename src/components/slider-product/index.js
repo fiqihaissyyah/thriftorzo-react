@@ -8,8 +8,8 @@ import SliderProA from '../../assets/images/slider_product.png';
 
 export default function SliderProduct() {
 	return (
-		<div className='slider-product mt-[40px]'>
-			<Swiper 
+		<div className='slider-product'>
+			<Swiper
 				slidesPerView={1}
 				spaceBetween={30}
 				loop={true}
@@ -20,11 +20,11 @@ export default function SliderProduct() {
 				modules={[Pagination, Navigation]}
 				className='mySwiper'
 			>
-				<SwiperSlide className='rounded-2xl' >
-					<img src={SliderProA} />
+				<SwiperSlide>
+					<img className='md:rounded-2xl rounded-none' src={SliderProA} />
 				</SwiperSlide>
-				<SwiperSlide className='rounded-2xl'>
-					<img src={SliderProA} />
+				<SwiperSlide>
+					<img className='md:rounded-2xl rounded-none' src={SliderProA} />
 				</SwiperSlide>
 			</Swiper>
 		</div>
