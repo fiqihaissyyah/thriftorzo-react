@@ -94,7 +94,8 @@ export default function Notification() {
 									Berhasil Ditawar Rp 200.000
 								</p>
 								<span className='text-[10px] text-[#8A8A8A]'>
-									Kamu akan segera dihubungi penjual via whatsapp
+									Kamu akan segera dihubungi penjual via
+									whatsapp
 								</span>
 							</Link>
 						</div>

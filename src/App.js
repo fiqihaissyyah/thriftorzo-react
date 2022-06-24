@@ -37,11 +37,7 @@ function App() {
 						/>
 					</Route>
 					<Route element={<DefaultLayoutWithNavigation />}>
-						<Route
-							exact
-							path='/profile'
-							element={<Profile />}
-						/>
+						<Route exact path='/profile' element={<Profile />} />
 						<Route
 							exact
 							path='/penawaran/info-penawaran'

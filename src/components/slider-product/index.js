@@ -21,10 +21,16 @@ export default function SliderProduct() {
 				className='mySwiper'
 			>
 				<SwiperSlide>
-					<img className='md:rounded-2xl rounded-none' src={SliderProA} />
+					<img
+						className='md:rounded-2xl rounded-none'
+						src={SliderProA}
+					/>
 				</SwiperSlide>
 				<SwiperSlide>
-					<img className='md:rounded-2xl rounded-none' src={SliderProA} />
+					<img
+						className='md:rounded-2xl rounded-none'
+						src={SliderProA}
+					/>
 				</SwiperSlide>
 			</Swiper>
 		</div>

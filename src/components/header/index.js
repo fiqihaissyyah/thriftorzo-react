@@ -89,7 +89,13 @@ export default function Header(props) {
 
 	return (
 		<div
-			className={`${location.pathname === '/' ? 'on-top' : ''} header py-[18px] ${location.pathname.includes(['/product']) ? 'md:block hidden' : ''}`}
+			className={`${
+				location.pathname === '/' ? 'on-top' : ''
+			} header py-[18px] ${
+				location.pathname.includes(['/product'])
+					? 'md:block hidden'
+					: ''
+			}`}
 		>
 			<div className='container relative'>
 				{props.title && (

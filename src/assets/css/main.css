@@ -7,7 +7,7 @@ body {
 	font-family: 'Poppins', sans-serif;
 }
 
-.container-internal{
+.container-internal {
 	max-width: 968px !important;
 }
 
@@ -19,7 +19,7 @@ body {
 	padding: 0 0 4px !important;
 }
 
-.ant-btn-background-ghost{
+.ant-btn-background-ghost {
 	background: #ffffff !important;
 }
 

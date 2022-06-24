@@ -23,7 +23,9 @@ export default function Notification() {
 								<span className='h-2 w-2 rounded-full bg-red-600 inline-block ml-2'></span>
 							</span>
 						</div>
-						<p className='mb-1 text-black text-sm'>Jam Tangan Casio</p>
+						<p className='mb-1 text-black text-sm'>
+							Jam Tangan Casio
+						</p>
 						<p className='mb-1 text-black text-sm'>Rp 250.000</p>
 						<p className='mb-1 text-black text-sm'>
 							Ditawar Rp 200.000
@@ -48,7 +50,9 @@ export default function Notification() {
 								<span className='h-2 w-2 rounded-full bg-red-600 inline-block ml-2'></span>
 							</span>
 						</div>
-						<p className='mb-1 text-black text-sm'>Jam Tangan Casio</p>
+						<p className='mb-1 text-black text-sm'>
+							Jam Tangan Casio
+						</p>
 						<p className='mb-1 text-black text-sm'>Rp 250.000</p>
 					</Link>
 				</div>
@@ -70,7 +74,9 @@ export default function Notification() {
 								<span className='h-2 w-2 rounded-full bg-red-600 inline-block ml-2'></span>
 							</span>
 						</div>
-						<p className='mb-1 text-black text-sm'>Jam Tangan Casio</p>
+						<p className='mb-1 text-black text-sm'>
+							Jam Tangan Casio
+						</p>
 						<p className='mb-1 text-black text-sm line-through'>
 							Rp 250.000
 						</p>
