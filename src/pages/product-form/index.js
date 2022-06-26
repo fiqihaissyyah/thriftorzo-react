@@ -1,6 +1,16 @@
 import './index.css';
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, Select, Row, Col, Upload, message } from 'antd';
+import {
+	InputNumber,
+	Button,
+	Form,
+	Input,
+	Select,
+	Row,
+	Col,
+	Upload,
+	message,
+} from 'antd';
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
 
@@ -96,9 +106,13 @@ export default function ProductForm() {
 								required: true,
 								message: 'Harga Produk tidak boleh kosong!',
 							},
+							{
+								type: 'number',
+								message: 'Harga Produk harus angka!',
+							},
 						]}
 					>
-						<Input placeholder='Rp 0,00' />
+						<InputNumber placeholder='Rp 0,00' />
 					</Form.Item>
 					<Form.Item
 						className='mb-4'

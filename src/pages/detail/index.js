@@ -1,10 +1,11 @@
-import { Row, Col } from 'antd';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Row, Col } from 'antd';
+import { ArrowLeft } from 'react-feather';
+
 import SliderProduct from '../../components/slider-product';
 import ProductSidebar from '../../components/product-sidebar';
 import SalerInformation from '../../components/saler-information';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'react-feather';
 
 import './index.css';
 

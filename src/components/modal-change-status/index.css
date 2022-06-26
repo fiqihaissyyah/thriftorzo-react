@@ -1,0 +1,50 @@
+.ant-modal-content {
+	border-radius: 16px !important;
+}
+
+.ant-modal-close-x {
+	line-height: auto !important;
+	padding: 16px 32px;
+	width: auto !important;
+}
+
+@media (max-width: 767px) {
+	.ant-modal {
+		max-width: 100% !important;
+		top: 0 !important;
+		height: 100%;
+		display: flex;
+		align-items: flex-end;
+		width: 100% !important;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	.ant-modal-content {
+		width: 100% !important;
+		border-bottom-left-radius: 0 !important;
+		border-bottom-right-radius: 0 !important;
+	}
+
+	.ant-modal-close {
+		display: none;
+	}
+
+	.ant-modal-body {
+		position: relative;
+		padding: 38px 32px 24px !important;
+	}
+
+	.ant-modal-body::after {
+		content: '';
+		width: 60px;
+		height: 6px;
+		background: #c4c4c4;
+		border-radius: 20px;
+		display: block;
+		position: absolute;
+		top: 16px;
+		left: 50%;
+		transform: translate(-50%);
+	}
+}
