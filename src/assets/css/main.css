@@ -39,12 +39,12 @@ body {
 	border-radius: 16px;
 }
 
-.ant-input-number-input{
+.ant-input-number-input {
 	padding: 0 16px;
 	height: 48px;
 }
 
-.ant-input-number{
+.ant-input-number {
 	width: 100%;
 	border-radius: 16px;
 	overflow: hidden;

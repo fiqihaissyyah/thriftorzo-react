@@ -12,9 +12,9 @@ export default function InfoPenawaran() {
 	const imgProduct =
 		'https://static.remove.bg/remove-bg-web/eb1bb48845c5007c3ec8d72ce7972fc8b76733b1/assets/start-1abfb4fe2980eabfbbaaa4365a0692539f7cd2725f324f904565a9a744f8e214.jpg';
 
-	const acceptEvents = { click: () => { } };
-	const statusEvents = { click: () => { } };
-	
+	const acceptEvents = { click: () => {} };
+	const statusEvents = { click: () => {} };
+
 	return (
 		<div className='page-info-penawaran md:py-10 py-4'>
 			<Helmet>
@@ -52,8 +52,20 @@ export default function InfoPenawaran() {
 				</div>
 				<div className='notification-action md:w-1/2 w-full ml-auto'>
 					{/* <Button type='primary' ghost>Tolak</Button> */}
-					<Button type='primary' ghost onClick={() => statusEvents.click()}>Status</Button>
-					<Button type='primary' className='ml-4' onClick={() => acceptEvents.click()}>Terima</Button>
+					<Button
+						type='primary'
+						ghost
+						onClick={() => statusEvents.click()}
+					>
+						Status
+					</Button>
+					<Button
+						type='primary'
+						className='ml-4'
+						onClick={() => acceptEvents.click()}
+					>
+						Terima
+					</Button>
 					{/* <Button type='primary' className='ml-4'>Hubungi di <WhatsAppOutlined /></Button> */}
 				</div>
 			</div>

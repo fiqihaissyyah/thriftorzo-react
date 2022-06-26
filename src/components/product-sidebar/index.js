@@ -7,7 +7,7 @@ import './index.css';
 
 export default function ProductSidebar(props) {
 	const location = useLocation();
-	const offersEvents = { click: () => { } };
+	const offersEvents = { click: () => {} };
 
 	return (
 		<>

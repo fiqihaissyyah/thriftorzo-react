@@ -29,9 +29,21 @@ export default function ModalOffer(props) {
 
 	return (
 		<>
-			<Modal closeIcon={<X size={24} />} bodyStyle={{ padding: '56px 32px 24px' }} width={360} footer={null} visible={isModalVisible} onCancel={handleCancel}>
-				<p className='text-sm text-black font-medium mb-2'>Masukkan Harga Tawarmu</p>
-				<p className='text-sm text-[#8A8A8A] mb-4'>Harga tawaranmu akan diketahui penual, jika penjual cocok kamu akan segera dihubungi penjual.</p>
+			<Modal
+				closeIcon={<X size={24} />}
+				bodyStyle={{ padding: '56px 32px 24px' }}
+				width={360}
+				footer={null}
+				visible={isModalVisible}
+				onCancel={handleCancel}
+			>
+				<p className='text-sm text-black font-medium mb-2'>
+					Masukkan Harga Tawarmu
+				</p>
+				<p className='text-sm text-[#8A8A8A] mb-4'>
+					Harga tawaranmu akan diketahui penual, jika penjual cocok
+					kamu akan segera dihubungi penjual.
+				</p>
 				<div className='product-match p-4 md:bg-[#EEEEEE] md:shadow-none shadow-custom bg-white rounded-2xl mb-6'>
 					<div className='product flex'>
 						<Avatar
@@ -40,8 +52,12 @@ export default function ModalOffer(props) {
 							src='https://monochrome-watches.com/wp-content/uploads/2020/04/In-Depth-Pellikan-Watches.jpg'
 						/>
 						<div className='product-info w-full flex flex-col justify-center'>
-							<p className='text-sm text-black font-medium mb-1'>Jam Tangan Casio</p>
-							<p className='text-sm text-black mb-1'>Rp 250.000</p>
+							<p className='text-sm text-black font-medium mb-1'>
+								Jam Tangan Casio
+							</p>
+							<p className='text-sm text-black mb-1'>
+								Rp 250.000
+							</p>
 						</div>
 					</div>
 				</div>
@@ -67,12 +83,12 @@ export default function ModalOffer(props) {
 							},
 						]}
 					>
-						<InputNumber
-							placeholder='Rp 0,00'
-						/>
+						<InputNumber placeholder='Rp 0,00' />
 					</Form.Item>
 					<Form.Item>
-						<Button type='primary' className='btn-custom w-full'>Kirim</Button>
+						<Button type='primary' className='btn-custom w-full'>
+							Kirim
+						</Button>
 					</Form.Item>
 				</Form>
 			</Modal>
