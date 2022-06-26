@@ -14,7 +14,7 @@ export default function Notification() {
 				<div className='container'>
 					<div className='notification-item flex justify-between'>
 						<img
-							className='w-12 h-12 object-cover rounded-xl'
+							className='w-12 h-12 object-cover rounded-xl flex-shrink-0'
 							src='https://images.unsplash.com/photo-1622434641406-a158123450f9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHdhdGNofGVufDB8fDB8fA%3D%3D&w=1000&q=80'
 							alt='product'
 						/>

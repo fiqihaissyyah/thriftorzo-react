@@ -16,7 +16,7 @@ export default function SellButton() {
 		<div className='fixed bottom-[24px] left-0 right-0 z-10'>
 			<Button
 				onClick={createProduct}
-				className='bg-[#7126b5] text-[#ffffff] border border-solid border-[#9f42f3] py-3 px-6 h-[52px] flex items-center rounded-xl sell-btn mx-auto'
+				className='bg-[#7126b5] text-[#ffffff] py-3 px-6 h-[52px] flex items-center rounded-xl sell-btn mx-auto'
 				type='primary'
 				icon={<Plus className='mr-4' />}
 				size='large'

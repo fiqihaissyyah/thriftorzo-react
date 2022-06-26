@@ -125,7 +125,7 @@ export default function Header(props) {
 								</Link>
 								{props.navigation && (
 									<button
-										className='navbar-toggler w-12 h-12 bg-white rounded-2xl border-0 flex justify-center items-center navigation-back md:absolute md:left-[10vw] md:top-[100px] relative'
+										className='navbar-toggler w-12 h-12 bg-white rounded-2xl border-0 flex justify-center items-center navigation-back md:absolute md:left-[10vw] md:top-[100px] relative cursor-pointer'
 										onClick={navigateBack}
 									>
 										<ArrowLeft size={24} color='#000000' />

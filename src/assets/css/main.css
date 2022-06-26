@@ -11,6 +11,10 @@ body {
 	max-width: 968px !important;
 }
 
+.container-small {
+	max-width: 568px !important;
+}
+
 .ant-form-item-label {
 	font-weight: 400;
 	font-size: 12px;
@@ -23,6 +27,7 @@ body {
 	background: #ffffff !important;
 }
 
+.ant-input-number-input,
 .ant-input-password,
 .ant-input {
 	padding: 14px 16px;
@@ -32,6 +37,17 @@ body {
 	color: #000000;
 	max-height: 48px;
 	border-radius: 16px;
+}
+
+.ant-input-number-input{
+	padding: 0 16px;
+	height: 48px;
+}
+
+.ant-input-number{
+	width: 100%;
+	border-radius: 16px;
+	overflow: hidden;
 }
 
 .ant-input-password .ant-input {

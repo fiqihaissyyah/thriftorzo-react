@@ -1,12 +1,13 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Button } from 'antd';
-import { Box, Heart, DollarSign, ChevronRight } from 'react-feather';
+import ModalOffer from '../modal-offer';
 
 import './index.css';
 
 export default function ProductSidebar(props) {
 	const location = useLocation();
+	const offersEvents = { click: () => { } };
 
 	return (
 		<>
@@ -25,7 +26,7 @@ export default function ProductSidebar(props) {
 					Rp 250.000
 				</p>
 				<div className='md:static md:block fixed flex justify-between md:left-auto md:bottom-auto left-4 right-4 bottom-4'>
-					<Button
+					{/* <Button
 						className='w-full btn-custom md:mb-[14px] md:mr-0 mb-0 mr-4 border border-solid border-[#9f42f3]'
 						type='primary'
 						htmlType='submit'
@@ -39,9 +40,18 @@ export default function ProductSidebar(props) {
 						htmlType='submit'
 					>
 						Edit
+					</Button> */}
+					<Button
+						onClick={() => offersEvents.click()}
+						className='w-full btn-custom border border-solid border-[#9f42f3]'
+						type='primary'
+						htmlType='submit'
+					>
+						Saya tertarik dan ingin nego
 					</Button>
 				</div>
 			</div>
+			<ModalOffer events={offersEvents} />
 		</>
 	);
 }
