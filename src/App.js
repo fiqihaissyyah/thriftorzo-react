@@ -47,12 +47,12 @@ function App() {
 					<Route element={<DefaultLayoutBlank />}>
 						<Route
 							exact
-							path='/product/create'
+							path='/create/product'
 							element={<ProductForm />}
 						/>
 						<Route
 							exact
-							path='/product/update'
+							path='/update/product/'
 							element={<ProductForm />}
 						/>
 					</Route>
@@ -60,17 +60,19 @@ function App() {
 				<Route element={<DefaultLayout />}>
 					<Route exact path='/' element={<Home />} />
 					<Route exact path='/product/detail' element={<Detail />} />
-					<Route exact path='/daftar-jual' element={<DaftarJual />} />
-					<Route
-						exact
-						path='/daftar-jual/diminati'
-						element={<Wishlist />}
-					/>
-					<Route
-						exact
-						path='/daftar-jual/terjual'
-						element={<Terjual />}
-					/>
+					<Route element={<IsAuth />}>
+						<Route exact path='/daftar-jual' element={<DaftarJual />} />
+						<Route
+							exact
+							path='/daftar-jual/diminati'
+							element={<Wishlist />}
+						/>
+						<Route
+							exact
+							path='/daftar-jual/terjual'
+							element={<Terjual />}
+						/>
+					</Route>
 				</Route>
 			</Routes>
 		</BrowserRouter>
