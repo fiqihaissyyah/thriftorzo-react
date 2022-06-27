@@ -8,7 +8,7 @@ import { Plus } from 'react-feather';
 export default function NewProduct(props) {
 	const navigate = useNavigate();
 	const handleCreate = () => {
-		navigate('/product/create');
+		navigate('/create/product');
 	};
 
 	return (

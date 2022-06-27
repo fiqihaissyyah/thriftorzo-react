@@ -9,7 +9,7 @@ export default function SellButton() {
 	const navigate = useNavigate();
 
 	const createProduct = () => {
-		navigate('/product/create');
+		navigate('/create/product');
 	};
 
 	return (

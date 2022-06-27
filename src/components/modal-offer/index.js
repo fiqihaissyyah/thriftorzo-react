@@ -86,7 +86,11 @@ export default function ModalOffer(props) {
 						<InputNumber placeholder='Rp 0,00' />
 					</Form.Item>
 					<Form.Item className='mb-0'>
-						<Button type='primary' htmlType='submit' className='btn-custom w-full'>
+						<Button
+							type='primary'
+							htmlType='submit'
+							className='btn-custom w-full'
+						>
 							Kirim
 						</Button>
 					</Form.Item>

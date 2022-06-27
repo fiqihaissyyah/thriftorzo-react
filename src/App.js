@@ -61,7 +61,11 @@ function App() {
 					<Route exact path='/' element={<Home />} />
 					<Route exact path='/product/detail' element={<Detail />} />
 					<Route element={<IsAuth />}>
-						<Route exact path='/daftar-jual' element={<DaftarJual />} />
+						<Route
+							exact
+							path='/daftar-jual'
+							element={<DaftarJual />}
+						/>
 						<Route
 							exact
 							path='/daftar-jual/diminati'
