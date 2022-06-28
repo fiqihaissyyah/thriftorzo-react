@@ -27,11 +27,13 @@
 .slider-product .swiper-button-prev,
 .slider-product .swiper-button-next {
 	@apply w-[30px] h-[30px] flex items-center justify-center bg-white shadow-custom rounded-full transition-all ease-in-out duration-300;
+	transform: scale(1);
 }
 
 .slider-product .swiper-button-prev:hover,
 .slider-product .swiper-button-next:hover {
 	@apply bg-[#7126b5];
+	transform: scale(1.2);
 }
 
 .slider-product .swiper-button-prev::after,
@@ -71,6 +73,6 @@
 	.slider-product
 		.swiper-pagination
 		.swiper-pagination-bullet.swiper-pagination-bullet-active {
-			@apply bg-white;
+		@apply bg-white;
 	}
 }

@@ -20,6 +20,7 @@ module.exports = {
 		extend: {
 			boxShadow: {
 				custom: '0 0px 4px 0px rgba(0, 0, 0, 0.15)',
+				buttonSell: '0 20px 36px 0 #a06ece',
 			},
 			colors: {
 				neutralGray: '#8A8A8A',
