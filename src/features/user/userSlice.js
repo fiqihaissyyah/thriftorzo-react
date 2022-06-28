@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
-export let TOKEN =  localStorage.getItem('token');
+export let TOKEN = localStorage.getItem('token');
 export let USER = JSON.parse(localStorage.getItem('user'));
 
 export const auth = createAsyncThunk(
@@ -11,10 +11,7 @@ export const auth = createAsyncThunk(
 		try {
 			const response = await axios.post(`${API_URL}auth/signin`, values);
 			if (response.status === 200) {
-				localStorage.setItem(
-					'token',
-					response.data.token
-				);
+				localStorage.setItem('token', response.data.token);
 				localStorage.setItem('user', JSON.stringify(response.data));
 				TOKEN = response.data.token;
 				USER = response.data;
