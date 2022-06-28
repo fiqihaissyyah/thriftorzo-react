@@ -4,7 +4,7 @@ import { Row, Col } from 'antd';
 import { Helmet } from 'react-helmet';
 
 import Product from '../../components/product';
-import CategorySidebar from '../../components/cateogry-sidebar';
+import CategorySidebar from '../../components/category-sidebar';
 import SalerInformation from '../../components/saler-information';
 import NewProduct from '../../components/new-product-card';
 import Empty from '../../components/empty';

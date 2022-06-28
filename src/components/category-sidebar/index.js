@@ -66,7 +66,7 @@ export default function CategorySidebar(props) {
 			<div className='md:hidden flex w-full md:overflow-auto overflow-x-scroll category-warpper'>
 				<Link to='/daftar-jual'>
 					<Button
-						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-cateogry mr-4 ${
+						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4 ${
 							location.pathname === '/daftar-jual' ? 'active' : ''
 						}`}
 						type='primary'
@@ -78,7 +78,7 @@ export default function CategorySidebar(props) {
 				</Link>
 				<Link to='/daftar-jual/diminati'>
 					<Button
-						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-cateogry mr-4 ${
+						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4 ${
 							location.pathname === '/daftar-jual/diminati'
 								? 'active'
 								: ''
@@ -92,7 +92,7 @@ export default function CategorySidebar(props) {
 				</Link>
 				<Link to='/daftar-jual/terjual'>
 					<Button
-						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-cateogry mr-4 ${
+						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4 ${
 							location.pathname === '/daftar-jual/terjual'
 								? 'active'
 								: ''

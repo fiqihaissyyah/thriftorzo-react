@@ -3,7 +3,7 @@ import React from 'react';
 import { Row, Col } from 'antd';
 import { Helmet } from 'react-helmet';
 
-import CategorySidebar from '../../components/cateogry-sidebar';
+import CategorySidebar from '../../components/category-sidebar';
 import SalerInformation from '../../components/saler-information';
 import Empty from '../../components/empty';
 
