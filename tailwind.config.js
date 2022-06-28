@@ -23,6 +23,7 @@ module.exports = {
 			},
 			colors: {
 				neutralGray: '#8A8A8A',
+				purplePrimary: '#7126b5',
 			},
 		},
 	},

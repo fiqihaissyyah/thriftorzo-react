@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Row } from 'antd';
 
-import Category from '../../components/cateogry';
+import Category from '../../components/category';
 import Product from '../../components/product';
 import SliderHome from '../../components/slider-home';
 import SellButton from '../../components/sell-button';
