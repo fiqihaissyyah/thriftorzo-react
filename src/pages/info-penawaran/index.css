@@ -10,8 +10,8 @@
 }
 
 .notification-action button {
-	@apply text-sm px-6 rounded-2xl h-auto;
-	padding-top: 7px;
+	@apply text-sm px-6 rounded-2xl h-auto pt-[7px] pb-[7px] w-full;
+	/* padding-top: 7px;
 	padding-bottom: 7px;
-	width: 100%;
+	width: 100%; */
 }
