@@ -1,29 +1,21 @@
 .ant-input-affix-wrapper.search-bar {
-	@apply rounded-2xl text-sm;
-	padding: 11px 24px;
-	height: 48px;
-	border: none !important;
-	background-color: #eeeeee;
+	@apply rounded-2xl text-sm py-[11px] px-6 h-12 bg-[#eeeeee] border-none !important;
 }
 
 .ant-input-affix-wrapper.search-bar input {
-	background-color: #eeeeee;
+	@apply bg-[#eeeeee];
 }
 
 .header {
-	background: #ffffff;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+	@apply bg-[#ffffff] shadow-[0_0_10px_rgba(0,0,0,0.15)];
 }
 
 .notification {
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+	@apply shadow-[0_0_10px_rgba(0,0,0,0.15)];
 }
 
 .header::before {
-	content: '';
-	opacity: 0;
-	visibility: hidden;
-	transition: all ease 0.5s;
+	@apply content-[''] opacity-0 invisible transition-all ease-in-out duration-500;
 }
 
 @media screen and (max-width: 767px) {
