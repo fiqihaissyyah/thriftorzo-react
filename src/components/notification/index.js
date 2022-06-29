@@ -15,7 +15,7 @@ export default function Notification() {
 				<div className='notification-content max-w-[264px] w-full'>
 					<Link to={'/penawaran/info-penawaran'}>
 						<div className='flex justify-between items-center mb-1'>
-							<span className='text-[10px] text-[#8A8A8A]'>
+							<span className='text-[10px] text-neutralGray'>
 								Penawaran produk
 							</span>
 							<span className='flex items-center text-[10px] text-neutral-500'>
@@ -42,7 +42,7 @@ export default function Notification() {
 				<div className='notification-content max-w-[264px] w-full'>
 					<Link to={'/penawaran/info-penawaran'}>
 						<div className='flex justify-between items-center mb-1'>
-							<span className='text-[10px] text-[#8A8A8A]'>
+							<span className='text-[10px] text-neutralGray'>
 								Berhasil di terbitkan
 							</span>
 							<span className='flex items-center text-[10px] text-neutral-500'>
@@ -66,7 +66,7 @@ export default function Notification() {
 				<div className='notification-content max-w-[264px] w-full'>
 					<Link to={'/product/detail'}>
 						<div className='flex justify-between items-center mb-1'>
-							<span className='text-[10px] text-[#8A8A8A]'>
+							<span className='text-[10px] text-neutralGray'>
 								Berhasil di terbitkan
 							</span>
 							<span className='flex items-center text-[10px] text-neutral-500'>
@@ -83,7 +83,7 @@ export default function Notification() {
 						<p className='mb-1 text-black text-sm'>
 							Berhasil Ditawar Rp 200.000
 						</p>
-						<span className='text-[10px] text-[#8A8A8A]'>
+						<span className='text-[10px] text-neutralGray'>
 							Kamu akan segera dihubungi penjual via whatsapp
 						</span>
 					</Link>
