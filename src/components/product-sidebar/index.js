@@ -11,31 +11,31 @@ const ProductStatus = (props) => {
 	return (
 		<>
 			{props.status !== 1 && (
-				< Button
+				<Button
 					className='w-full btn-custom md:mb-[14px] md:mr-0 mb-0 mr-4 border border-solid border-[#9f42f3]'
 					type='primary'
 					htmlType='submit'
 				>
 					Terbitakan
-				</Button >
+				</Button>
 			)}
 			{props.status === 1 && (
-				< Button
+				<Button
 					className='w-full btn-custom md:mb-[14px] md:mr-0 mb-0 mr-4 border border-solid border-red-500 bg-red-500 hover:bg-red-400 hover:border-red-400'
 					type='primary'
 					htmlType='submit'
 				>
 					Hapus
-				</Button >
+				</Button>
 			)}
 		</>
-	)
-}
+	);
+};
 
 export default function ProductSidebar(props) {
 	const profileUser = useSelector((state) => state.user.user.data);
 	const location = useLocation();
-	const offersEvents = { click: () => { } };
+	const offersEvents = { click: () => {} };
 
 	const currency = (value) =>
 		new Intl.NumberFormat('en-ID', {
@@ -46,12 +46,16 @@ export default function ProductSidebar(props) {
 	return (
 		<>
 			<div
-				className={`sidebar-product p-4 shadow-custom md:mb-6 mb-4 rounded-2xl ${!props.mobile ? 'md:block hidden' : 'md:hidden block'} z-10 relative bg-white`}
+				className={`sidebar-product p-4 shadow-custom md:mb-6 mb-4 rounded-2xl ${
+					!props.mobile ? 'md:block hidden' : 'md:hidden block'
+				} z-10 relative bg-white`}
 			>
 				<h4 className='text-base text-black mb-2'>{props.name}</h4>
 				<p className='text-sm text-[#8A8A8A] mb-4'>{props.category}</p>
 				<p
-					className={`text-base text-black ${props.mobile ? 'mb-0' : 'mb-6'}`}
+					className={`text-base text-black ${
+						props.mobile ? 'mb-0' : 'mb-6'
+					}`}
 				>
 					{currency(props.price)}
 				</p>

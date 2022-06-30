@@ -12,7 +12,7 @@ export default function LoadingProduct(props) {
 				md={{ span: 6 }}
 				lg={{ span: 4 }}
 			>
-				<Skeleton.Avatar active size="large" shape='square' />
+				<Skeleton.Avatar active size='large' shape='square' />
 				<Skeleton active style={{ marginBottom: '50px' }}></Skeleton>
 			</Col>
 			<Col
@@ -21,7 +21,7 @@ export default function LoadingProduct(props) {
 				md={{ span: 6 }}
 				lg={{ span: 4 }}
 			>
-				<Skeleton.Avatar active size="large" shape='square' />
+				<Skeleton.Avatar active size='large' shape='square' />
 				<Skeleton active style={{ marginBottom: '50px' }}></Skeleton>
 			</Col>
 			<Col
@@ -30,7 +30,7 @@ export default function LoadingProduct(props) {
 				md={{ span: 6 }}
 				lg={{ span: 4 }}
 			>
-				<Skeleton.Avatar active size="large" shape='square' />
+				<Skeleton.Avatar active size='large' shape='square' />
 				<Skeleton active style={{ marginBottom: '50px' }}></Skeleton>
 			</Col>
 			<Col
@@ -39,7 +39,7 @@ export default function LoadingProduct(props) {
 				md={{ span: 6 }}
 				lg={{ span: 4 }}
 			>
-				<Skeleton.Avatar active size="large" shape='square' />
+				<Skeleton.Avatar active size='large' shape='square' />
 				<Skeleton active style={{ marginBottom: '50px' }}></Skeleton>
 			</Col>
 			<Col
@@ -48,7 +48,7 @@ export default function LoadingProduct(props) {
 				md={{ span: 6 }}
 				lg={{ span: 4 }}
 			>
-				<Skeleton.Avatar active size="large" shape='square' />
+				<Skeleton.Avatar active size='large' shape='square' />
 				<Skeleton active style={{ marginBottom: '50px' }}></Skeleton>
 			</Col>
 			<Col
@@ -57,10 +57,9 @@ export default function LoadingProduct(props) {
 				md={{ span: 6 }}
 				lg={{ span: 4 }}
 			>
-				<Skeleton.Avatar active size="large" shape='square' />
+				<Skeleton.Avatar active size='large' shape='square' />
 				<Skeleton active style={{ marginBottom: '50px' }}></Skeleton>
 			</Col>
 		</>
-
 	);
 }

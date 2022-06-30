@@ -71,7 +71,7 @@ export default function Header(props) {
 	useEffect(() => {
 		if (success === true) {
 			setLogin(true);
-			dispatch(getUser(token))
+			dispatch(getUser(token));
 		}
 	}, [token, success]);
 

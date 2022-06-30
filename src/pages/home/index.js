@@ -21,7 +21,7 @@ export default function Home() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(getProduct())
+		dispatch(getProduct());
 		console.log(response);
 	}, []);
 
@@ -49,13 +49,11 @@ export default function Home() {
 						<Category category='Kesehatan' />
 					</div>
 					<Row gutter={[16, 16]} className='mb-10'>
-						{!!response && response.length === 0 && (
-							<Empty />
-						)}
-						{loading && (
-							<LoadingProduct />
-						)}
-						{!loading && !!response && response.length > 0 &&
+						{!!response && response.length === 0 && <Empty />}
+						{loading && <LoadingProduct />}
+						{!loading &&
+							!!response &&
+							response.length > 0 &&
 							response.map((i, index) => (
 								<Col
 									key={index}

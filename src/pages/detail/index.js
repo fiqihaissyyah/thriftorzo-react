@@ -24,7 +24,7 @@ export default function Detail() {
 	const { id } = useParams();
 
 	useEffect(() => {
-		dispatch(getProductDetail(id))
+		dispatch(getProductDetail(id));
 		console.log(response);
 	}, [id]);
 
@@ -57,7 +57,13 @@ export default function Detail() {
 					xs={{ span: 24 }}
 					md={{ span: 8 }}
 				>
-					<ProductSidebar status={!!response && response.status} name={!!response && response.name} category={!!response && response.category} price={!!response && response.price} userId={!!response && response.userId} />
+					<ProductSidebar
+						status={!!response && response.status}
+						name={!!response && response.name}
+						category={!!response && response.category}
+						price={!!response && response.price}
+						userId={!!response && response.userId}
+					/>
 					<SalerInformation edit={false} />
 				</Col>
 			</Row>

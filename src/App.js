@@ -59,7 +59,11 @@ function App() {
 				</Route>
 				<Route element={<DefaultLayout />}>
 					<Route exact path='/' element={<Home />} />
-					<Route exact path='/product/detail/:id' element={<Detail />} />
+					<Route
+						exact
+						path='/product/detail/:id'
+						element={<Detail />}
+					/>
 					<Route element={<IsAuth />}>
 						<Route
 							exact

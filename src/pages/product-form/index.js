@@ -37,36 +37,32 @@ const beforeUpload = (file) => {
 };
 
 export default function ProductForm() {
-	const token = useSelector(
-		(state) => state.user.auth.token
-	);
-	const user = useSelector(
-		(state) => state.user.user.data
-	);
+	const token = useSelector((state) => state.user.auth.token);
+	const user = useSelector((state) => state.user.user.data);
 	const { response, error, errorMessage, loading } = useSelector(
 		(state) => state.product.create
 	);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [form] = Form.useForm();
-	const [submitType, setSubmitType] = useState(1)
+	const [submitType, setSubmitType] = useState(1);
 	const id = user ? user.id : '';
 
 	const onFinish = async (values) => {
 		if (submitType === 1) {
-			console.log('publish')
-			const value = { ...values, 'status': 1 }
-			const body = { token, id, value }
+			console.log('publish');
+			const value = { ...values, status: 1 };
+			const body = { token, id, value };
 			await dispatch(createProduct(body));
-			navigate('/daftar-jual')
+			navigate('/daftar-jual');
 		}
 		if (submitType === 2) {
-			console.log('draft')
-			const value = { ...values, 'status': 0 }
-			console.log(value)
-			const body = { token, id, value }
+			console.log('draft');
+			const value = { ...values, status: 0 };
+			console.log(value);
+			const body = { token, id, value };
 			await dispatch(createProduct(body));
-			navigate('/daftar-jual')
+			navigate('/daftar-jual');
 		}
 	};
 
@@ -193,12 +189,12 @@ export default function ProductForm() {
 						name='foto'
 						label='Foto Produk'
 						required={false}
-					// rules={[
-					// 	{
-					// 		required: true,
-					// 		message: 'Foto Produk tidak boleh kosong!',
-					// 	},
-					// ]}
+						// rules={[
+						// 	{
+						// 		required: true,
+						// 		message: 'Foto Produk tidak boleh kosong!',
+						// 	},
+						// ]}
 					>
 						<Upload
 							name='avatar'
@@ -230,7 +226,7 @@ export default function ProductForm() {
 									className='w-full btn-custom'
 									type='primary'
 									htmlType='submit'
-									onClick={() => (setSubmitType(2))}
+									onClick={() => setSubmitType(2)}
 								>
 									Preview
 								</Button>
@@ -241,7 +237,7 @@ export default function ProductForm() {
 									className='w-full btn-custom '
 									type='primary'
 									htmlType='submit'
-									onClick={() => (setSubmitType(1))}
+									onClick={() => setSubmitType(1)}
 								>
 									Terbitakan
 								</Button>

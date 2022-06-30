@@ -6,7 +6,9 @@ export const getProduct = createAsyncThunk(
 	'product/getProduct',
 	async (_, { rejectWithValue }) => {
 		try {
-			const response = await axios.get(`${API_URL}product/get-all-products`);
+			const response = await axios.get(
+				`${API_URL}product/get-all-products`
+			);
 			return response;
 		} catch (err) {
 			if (!err.response) {
@@ -21,7 +23,9 @@ export const getProductDetail = createAsyncThunk(
 	'product/getProductDetail',
 	async (id, { rejectWithValue }) => {
 		try {
-			const response = await axios.get(`${API_URL}product/get-product/${id}`);
+			const response = await axios.get(
+				`${API_URL}product/get-product/${id}`
+			);
 			return response;
 		} catch (err) {
 			if (!err.response) {
