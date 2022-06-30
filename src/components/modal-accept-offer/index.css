@@ -1,18 +1,18 @@
 .ant-modal-content {
-	@apply rounded-2xl ;
+	@apply rounded-2xl;
 }
 
 .ant-modal-close-x {
-	@apply leading-normal py-4 px-8 w-auto ;
+	@apply leading-normal py-4 px-8 w-auto;
 }
 
 @media (max-width: 767px) {
 	.ant-modal {
-		@apply max-w-full top-0 h-full flex items-end w-full m-0 p-0 ;
+		@apply max-w-full top-0 h-full flex items-end w-full m-0 p-0;
 	}
 
 	.ant-modal-content {
-		@apply w-full rounded-bl-none rounded-br-none ;
+		@apply w-full rounded-bl-none rounded-br-none;
 	}
 
 	.ant-modal-close {
@@ -20,12 +20,10 @@
 	}
 
 	.ant-modal-body {
-		@apply relative pt-[38px] px-8 pb-6 ;
+		@apply relative pt-[38px] px-8 pb-6;
 	}
 
 	.ant-modal-body::after {
-		@apply w-[60px] h-[6px] bg-[#c4c4c4] rounded-[20px] block absolute top-4 left-1/2 translate-x-[-50%];
-		/* content: '';
-		transform: translate(-50%); */
+		@apply content-[''] w-[60px] h-[6px] bg-[#c4c4c4] rounded-[20px] block absolute top-4 left-1/2 translate-x-[-50%];
 	}
 }
