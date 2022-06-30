@@ -41,7 +41,7 @@ export default function ModalOffer(props) {
 					Masukkan Harga Tawarmu
 				</p>
 				<p className='text-sm text-[#8A8A8A] mb-4'>
-					Harga tawaranmu akan diketahui penual, jika penjual cocok
+					Harga tawaranmu akan diketahui penjual, jika penjual cocok
 					kamu akan segera dihubungi penjual.
 				</p>
 				<div className='product-match p-4 md:bg-[#EEEEEE] md:shadow-none shadow-custom bg-white rounded-2xl mb-6'>
