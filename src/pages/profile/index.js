@@ -56,13 +56,13 @@ export default function Profile() {
 
 		await axios
 			.post(
-				'https://staging-secondhand-bej3.herokuapp.com/users/upload-image',
+				'https://staging-secondhand-bej3.herokuapp.com/user/upload-image',
 				bodyFormData,
 				{
 					headers: {
 						ContentType: 'multipart/form-data',
-						Authorization: `Bearer ${JSON.parse(
-							localStorage.getItem('token')
+						Authorization: `Bearer ${localStorage.getItem(
+							'token'
 						)}`,
 					},
 				}

@@ -14,7 +14,7 @@ import {
 import Notification from '../notification';
 import './index.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { reset } from '../../features/user/userSlice';
+import { getUser, reset } from '../../features/user/userSlice';
 
 export default function Header(props) {
 	const { token, success } = useSelector((state) => state.user.auth);
@@ -71,6 +71,7 @@ export default function Header(props) {
 	useEffect(() => {
 		if (success === true) {
 			setLogin(true);
+			dispatch(getUser(token));
 		}
 	}, [token, success]);
 

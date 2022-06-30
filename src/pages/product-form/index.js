@@ -1,6 +1,7 @@
 import './index.css';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
+	Alert,
 	InputNumber,
 	Button,
 	Form,
@@ -11,8 +12,11 @@ import {
 	Upload,
 	message,
 } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
+import { useDispatch, useSelector } from 'react-redux';
+import { createProduct } from '../../features/product/productSlice';
 
 const { Option } = Select;
 const beforeUpload = (file) => {
@@ -33,16 +37,36 @@ const beforeUpload = (file) => {
 };
 
 export default function ProductForm() {
-	useEffect(() => {
-		document.title = 'Info Akun';
-	}, []);
+	const token = useSelector((state) => state.user.auth.token);
+	const user = useSelector((state) => state.user.user.data);
+	const { response, error, errorMessage, loading } = useSelector(
+		(state) => state.product.create
+	);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const [form] = Form.useForm();
+	const [submitType, setSubmitType] = useState(1);
+	const id = user ? user.id : '';
 
-	const onFinish = (values) => {
-		console.log(values);
+	const onFinish = async (values) => {
+		if (submitType === 1) {
+			console.log('publish');
+			const value = { ...values, status: 1 };
+			const body = { token, id, value };
+			await dispatch(createProduct(body));
+			navigate('/daftar-jual');
+		}
+		if (submitType === 2) {
+			console.log('draft');
+			const value = { ...values, status: 0 };
+			console.log(value);
+			const body = { token, id, value };
+			await dispatch(createProduct(body));
+			navigate('/daftar-jual');
+		}
 	};
 
-	const [loading, setLoading] = useState(false);
+	const [loadingImage, setLoading] = useState(false);
 	const [imageUrl, setImageUrl] = useState();
 
 	const handleChange = (info) => {
@@ -59,7 +83,7 @@ export default function ProductForm() {
 
 	const uploadButton = (
 		<div>
-			{loading ? (
+			{loadingImage ? (
 				<LoadingOutlined
 					style={{ fontSize: '30px', color: '#8A8A8A' }}
 				/>
@@ -76,6 +100,15 @@ export default function ProductForm() {
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='update-profile-wrapper max-w-[568px] md:py-10 py-6 w-full mx-auto'>
+				{!!error && (
+					<Alert
+						className='mb-6'
+						message='Error'
+						description={errorMessage}
+						type='error'
+						showIcon
+					/>
+				)}
 				<Form
 					layout='vertical'
 					form={form}
@@ -84,7 +117,7 @@ export default function ProductForm() {
 				>
 					<Form.Item
 						className='mb-4'
-						name='product-name'
+						name='name'
 						label='Nama Produk'
 						required={false}
 						rules={[
@@ -98,7 +131,7 @@ export default function ProductForm() {
 					</Form.Item>
 					<Form.Item
 						className='mb-4'
-						name='product-price'
+						name='price'
 						label='Harga Produk'
 						required={false}
 						rules={[
@@ -136,7 +169,7 @@ export default function ProductForm() {
 					</Form.Item>
 					<Form.Item
 						className='mb-4'
-						name='deskripsi'
+						name='description'
 						label='Deskripsi'
 						required={false}
 						rules={[
@@ -156,12 +189,12 @@ export default function ProductForm() {
 						name='foto'
 						label='Foto Produk'
 						required={false}
-						rules={[
-							{
-								required: true,
-								message: 'Foto Produk tidak boleh kosong!',
-							},
-						]}
+						// rules={[
+						// 	{
+						// 		required: true,
+						// 		message: 'Foto Produk tidak boleh kosong!',
+						// 	},
+						// ]}
 					>
 						<Upload
 							name='avatar'
@@ -189,18 +222,22 @@ export default function ProductForm() {
 							<Col span={12}>
 								<Button
 									ghost
+									loading={loading}
 									className='w-full btn-custom'
 									type='primary'
 									htmlType='submit'
+									onClick={() => setSubmitType(2)}
 								>
 									Preview
 								</Button>
 							</Col>
 							<Col span={12}>
 								<Button
+									loading={loading}
 									className='w-full btn-custom '
 									type='primary'
 									htmlType='submit'
+									onClick={() => setSubmitType(1)}
 								>
 									Terbitakan
 								</Button>

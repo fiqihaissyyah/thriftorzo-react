@@ -1,11 +1,14 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Row, Col } from 'antd';
 import { ArrowLeft } from 'react-feather';
 
 import SliderProduct from '../../components/slider-product';
 import ProductSidebar from '../../components/product-sidebar';
 import SalerInformation from '../../components/saler-information';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductDetail } from '../../features/product/productSlice';
 
 import './index.css';
 
@@ -14,6 +17,16 @@ export default function Detail() {
 	const navigateBack = () => {
 		navigate(-1);
 	};
+	const { response, error, errorMessage, loading } = useSelector(
+		(state) => state.product.detail
+	);
+	const dispatch = useDispatch();
+	const { id } = useParams();
+
+	useEffect(() => {
+		dispatch(getProductDetail(id));
+		console.log(response);
+	}, [id]);
 
 	return (
 		<div className='container container-internal md:py-10 pt-0 pb-6'>
@@ -34,28 +47,7 @@ export default function Detail() {
 								Deskripsi
 							</h4>
 							<p className='text-neutralGray text-sm'>
-								Lorem ipsum dolor sit amet, consectetur
-								adipiscing elit, sed do eiusmod tempor
-								incididunt ut labore et dolore magna aliqua. Ut
-								enim ad minim veniam, quis nostrud exercitation
-								ullamco laboris nisi ut aliquip ex ea commodo
-								consequat. Duis aute irure dolor in
-								reprehenderit in voluptate velit esse cillum
-								dolore eu fugiat nulla pariatur. Excepteur sint
-								occaecat cupidatat non proident, sunt in culpa
-								qui officia deserunt mollit anim id est laborum.
-							</p>
-							<p className='text-neutralGray mb-0 text-sm'>
-								Lorem ipsum dolor sit amet, consectetur
-								adipiscing elit, sed do eiusmod tempor
-								incididunt ut labore et dolore magna aliqua. Ut
-								enim ad minim veniam, quis nostrud exercitation
-								ullamco laboris nisi ut aliquip ex ea commodo
-								consequat. Duis aute irure dolor in
-								reprehenderit in voluptate velit esse cillum
-								dolore eu fugiat nulla pariatur. Excepteur sint
-								occaecat cupidatat non proident, sunt in culpa
-								qui officia deserunt mollit anim id est laborum.
+								{!!response && response.description}
 							</p>
 						</div>
 					</div>
@@ -65,7 +57,13 @@ export default function Detail() {
 					xs={{ span: 24 }}
 					md={{ span: 8 }}
 				>
-					<ProductSidebar />
+					<ProductSidebar
+						status={!!response && response.status}
+						name={!!response && response.name}
+						category={!!response && response.category}
+						price={!!response && response.price}
+						userId={!!response && response.userId}
+					/>
 					<SalerInformation edit={false} />
 				</Col>
 			</Row>
