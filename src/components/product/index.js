@@ -10,7 +10,7 @@ export default function Product(props) {
 		}).format(value);
 
 	return (
-		<Link to='/product/detail'>
+		<Link to={`/product/detail/${props.link}`}>
 			<div className='product-card pt-2 px-2 pb-4 rounded-[4px]'>
 				<img
 					className='mb-2 rounded-[4px] product-image w-full h-28 object-cover'

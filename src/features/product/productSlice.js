@@ -1,60 +1,46 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
 export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
-export let TOKEN = localStorage.getItem('token');
-export let USER = JSON.parse(localStorage.getItem('user'));
 
-export const auth = createAsyncThunk(
-	'user/auth',
-	async (values, { rejectWithValue }) => {
-		try {
-			const response = await axios.post(`${API_URL}auth/signin`, values);
-			if (response.status === 200) {
-				localStorage.setItem('token', response.data.token);
-				localStorage.setItem('user', JSON.stringify(response.data));
-				TOKEN = response.data.token;
-				USER = response.data;
-				return response;
-			} else {
-				rejectWithValue(response);
-			}
-		} catch (err) {
-			if (!err.response) {
-				throw err;
-			}
-			return rejectWithValue(err.response.data);
-		}
-	}
-);
-
-export const register = createAsyncThunk(
-	'user/register',
-	async (values, { rejectWithValue }) => {
-		try {
-			const response = await axios.post(`${API_URL}auth/signup`, values);
-			if (response.status === 200) {
-				return response;
-			} else {
-				rejectWithValue(response);
-			}
-		} catch (err) {
-			if (!err.response) {
-				throw err;
-			}
-			return rejectWithValue(err.response.data);
-		}
-	}
-);
-
-export const getUser = createAsyncThunk(
-	'user/getUser',
+export const getProduct = createAsyncThunk(
+	'product/getProduct',
 	async (_, { rejectWithValue }) => {
 		try {
-			if (TOKEN) {
-				const response = await axios.get(
-					`${API_URL}users/get-user/${USER.id}`,
-					{ headers: { Authorization: `Bearer ${TOKEN}` } }
+			const response = await axios.get(`${API_URL}product/get-all-products`);
+			return response;
+		} catch (err) {
+			if (!err.response) {
+				throw err;
+			}
+			return rejectWithValue(err.response.data);
+		}
+	}
+);
+
+export const getProductDetail = createAsyncThunk(
+	'product/getProductDetail',
+	async (id, { rejectWithValue }) => {
+		try {
+			const response = await axios.get(`${API_URL}product/get-product/${id}`);
+			return response;
+		} catch (err) {
+			if (!err.response) {
+				throw err;
+			}
+			return rejectWithValue(err.response.data);
+		}
+	}
+);
+
+export const createProduct = createAsyncThunk(
+	'product/createProduct',
+	async ({ token, id, value }, { rejectWithValue }) => {
+		try {
+			if (token) {
+				const response = await axios.post(
+					`${API_URL}product/add-product/${id}`,
+					value,
+					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
 			} else {
@@ -75,15 +61,15 @@ export const getUser = createAsyncThunk(
 	}
 );
 
-export const updateUser = createAsyncThunk(
-	'user/updateUser',
-	async (values, { rejectWithValue }) => {
+export const uploadImage = createAsyncThunk(
+	'product/uploadImage',
+	async ({ token, id, values }, { rejectWithValue }) => {
 		try {
-			if (TOKEN) {
+			if (token) {
 				const response = await axios.put(
-					`${API_URL}users/update-data/${USER.id}`,
+					`${API_URL}image/upload-products-image`,
 					values,
-					{ headers: { Authorization: `Bearer ${TOKEN}` } }
+					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
 			} else {
@@ -105,132 +91,108 @@ export const updateUser = createAsyncThunk(
 );
 
 const initialState = {
-	auth: {
-		token: TOKEN || null,
-		loading: false,
-		error: false,
-		errorMessage: null,
-		success: TOKEN ? true : false,
-	},
-	register: {
-		loading: false,
-		error: false,
-		errorMessage: null,
-		success: false,
-	},
-	user: {
-		data: null,
-		loading: false,
-		error: false,
-		errorMessage: null,
-		success: false,
-	},
-	update: {
+	get: {
 		response: null,
 		loading: false,
 		error: false,
 		errorMessage: null,
-		success: false,
 	},
-};
-
-const logoutState = {
-	...initialState,
-	auth: {
-		token: null,
+	detail: {
+		response: null,
 		loading: false,
 		error: false,
 		errorMessage: null,
-		success: false,
+	},
+	create: {
+		response: null,
+		loading: false,
+		error: false,
+		errorMessage: null,
+	},
+	upload: {
+		response: null,
+		loading: false,
+		error: false,
+		errorMessage: null,
 	},
 };
 
-export const userSlice = createSlice({
-	name: 'user',
+export const productSlice = createSlice({
+	name: 'product',
 	initialState,
-	reducers: {
-		reset: () => logoutState,
-	},
+	reducers: {},
 	extraReducers: {
-		// =================================================== LOGIN =================================================== //
-		[auth.pending]: (state) => {
-			state.auth.loading = true;
+		// =================================================== GET PRODUCT =================================================== //
+		[getProduct.pending]: (state) => {
+			state.get.loading = true;
 		},
-		[auth.fulfilled]: (state, action) => {
-			state.auth.token = action.payload.data.token;
-			state.auth.success = true;
-			state.auth.error = false;
-			state.auth.errorMessage = null;
-			state.auth.loading = false;
+		[getProduct.fulfilled]: (state, action) => {
+			state.get.response = action.payload.data;
+			state.get.error = false;
+			state.get.errorMessage = null;
+			state.get.loading = false;
 		},
-		[auth.rejected]: (state, action) => {
-			state.auth.success = false;
-			state.auth.error = action.error.message;
-			state.auth.errorMessage = action.payload.message
+		[getProduct.rejected]: (state, action) => {
+			state.get.error = action.error.message;
+			state.get.errorMessage = action.payload.message
 				? action.payload.message
 				: action.payload.error;
-			state.auth.loading = false;
+			state.get.loading = false;
 		},
-		// =================================================== REGISTER =================================================== //
-		[register.pending]: (state) => {
-			state.register.loading = true;
+		// =================================================== GET PRODUCT DETAIL =================================================== //
+		[getProductDetail.pending]: (state) => {
+			state.detail.loading = true;
 		},
-		[register.fulfilled]: (state, action) => {
-			state.register.error = false;
-			state.register.errorMessage = null;
-			state.register.loading = false;
-			state.register.success = true;
+		[getProductDetail.fulfilled]: (state, action) => {
+			state.detail.response = action.payload.data;
+			state.detail.error = false;
+			state.detail.errorMessage = null;
+			state.detail.loading = false;
 		},
-		[register.rejected]: (state, action) => {
-			state.register.error = action.error.message;
-			state.register.errorMessage = action.payload.message
+		[getProductDetail.rejected]: (state, action) => {
+			state.get.error = action.error.message;
+			state.get.errorMessage = action.payload.message
 				? action.payload.message
 				: action.payload.error;
-			state.register.loading = false;
-			state.register.success = false;
+			state.get.loading = false;
 		},
-		// =================================================== USER =================================================== //
-		[getUser.pending]: (state) => {
-			state.user.loading = true;
+		// =================================================== CREATE PRODUCT =================================================== //
+		[createProduct.pending]: (state) => {
+			state.create.loading = true;
 		},
-		[getUser.fulfilled]: (state, action) => {
-			state.user.data = action.payload.data;
-			state.user.error = false;
-			state.user.errorMessage = null;
-			state.user.loading = false;
-			state.user.success = true;
+		[createProduct.fulfilled]: (state, action) => {
+			state.create.response = action.payload.data;
+			state.create.error = false;
+			state.create.errorMessage = null;
+			state.create.loading = false;
 		},
-		[getUser.rejected]: (state, action) => {
-			state.user.success = false;
-			state.user.error = action.error.message;
-			state.user.errorMessage = action.payload.message
+		[createProduct.rejected]: (state, action) => {
+			state.create.error = action.error.message;
+			state.create.errorMessage = action.payload.message
 				? action.payload.message
 				: action.payload.error;
-			state.user.loading = false;
+			state.create.loading = false;
 		},
-
-		// =================================================== UPDATE USER =================================================== //
-		[updateUser.pending]: (state) => {
-			state.update.loading = true;
+		// =================================================== UPLOAD IMAGE PRODUCT =================================================== //
+		[uploadImage.pending]: (state) => {
+			state.upload.loading = true;
 		},
-		[updateUser.fulfilled]: (state, action) => {
-			state.update.response = action.payload.data;
-			state.update.success = true;
-			state.update.error = false;
-			state.update.errorMessage = null;
-			state.update.loading = false;
+		[uploadImage.fulfilled]: (state, action) => {
+			state.upload.response = action.payload.data;
+			state.upload.error = false;
+			state.upload.errorMessage = null;
+			state.upload.loading = false;
 		},
-		[updateUser.rejected]: (state, action) => {
-			state.update.success = false;
-			state.update.error = action.error.message;
-			state.update.errorMessage = action.payload.message
+		[uploadImage.rejected]: (state, action) => {
+			state.upload.error = action.error.message;
+			state.upload.errorMessage = action.payload.message
 				? action.payload.message
 				: action.payload.error;
-			state.update.loading = false;
+			state.upload.loading = false;
 		},
 	},
 });
 
-export const { reset } = userSlice.actions;
+export const { reset } = productSlice.actions;
 
-export default userSlice.reducer;
+export default productSlice.reducer;
