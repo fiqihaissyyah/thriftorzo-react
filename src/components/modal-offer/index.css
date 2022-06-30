@@ -12,7 +12,7 @@
 	}
 
 	.ant-modal-content {
-		@apply w-full rounded-bl-none rounded-br-none; 
+		@apply w-full rounded-bl-none rounded-br-none;
 	}
 
 	.ant-modal-close {
