@@ -1,5 +1,5 @@
 .notification-item {
-	@apply pb-4 mb-4 cursor-pointer border-b-[1px] border-[#e5e5e5] ;
+	@apply pb-4 mb-4 cursor-pointer border-b-[1px] border-[#e5e5e5];
 }
 
 .notification-item:last-child {
