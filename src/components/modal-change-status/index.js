@@ -45,7 +45,7 @@ export default function ModalChangeStatus(props) {
 						<span className='text-sm text-black mb-2 block'>
 							Berhasil terjual
 						</span>{' '}
-						<p className='mb-[26px] text-sm text-[#8A8A8A]'>
+						<p className='mb-[26px] text-sm text-neutralGray'>
 							Kamu telah sepakat menjual produk ini kepada pembeli
 						</p>
 					</Radio>
@@ -53,7 +53,7 @@ export default function ModalChangeStatus(props) {
 						<span className='text-sm text-black mb-2 block'>
 							Batalkan transaksi
 						</span>{' '}
-						<p className='mb-0 text-sm text-[#8A8A8A]'>
+						<p className='mb-0 text-sm text-neutralGray'>
 							Kamu telah sepakat menjual produk ini kepada pembeli
 						</p>
 					</Radio>

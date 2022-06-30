@@ -1,50 +1,29 @@
 .ant-modal-content {
-	border-radius: 16px !important;
+	@apply rounded-2xl;
 }
 
 .ant-modal-close-x {
-	line-height: auto !important;
-	padding: 16px 32px;
-	width: auto !important;
+	@apply leading-normal py-4 px-8 w-auto;
 }
 
 @media (max-width: 767px) {
 	.ant-modal {
-		max-width: 100% !important;
-		top: 0 !important;
-		height: 100%;
-		display: flex;
-		align-items: flex-end;
-		width: 100% !important;
-		margin: 0 !important;
-		padding: 0 !important;
+		@apply max-w-full top-0 h-full flex items-end w-full m-0 p-0;
 	}
 
 	.ant-modal-content {
-		width: 100% !important;
-		border-bottom-left-radius: 0 !important;
-		border-bottom-right-radius: 0 !important;
+		@apply w-full rounded-bl-none rounded-br-none;
 	}
 
 	.ant-modal-close {
-		display: none;
+		@apply hidden;
 	}
 
 	.ant-modal-body {
-		position: relative;
-		padding: 38px 32px 24px !important;
+		@apply relative pt-[38px] px-8 pb-6;
 	}
 
 	.ant-modal-body::after {
-		content: '';
-		width: 60px;
-		height: 6px;
-		background: #c4c4c4;
-		border-radius: 20px;
-		display: block;
-		position: absolute;
-		top: 16px;
-		left: 50%;
-		transform: translate(-50%);
+		@apply content-[''] w-[60px] h-[6px] bg-[#c4c4c4] rounded-[20px] block absolute top-4 left-1/2 translate-x-[-50%];
 	}
 }

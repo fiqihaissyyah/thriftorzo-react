@@ -7,7 +7,7 @@ import './index.css';
 export default function Category(props) {
 	return (
 		<Button
-			className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-cateogry ${
+			className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category ${
 				props.active ? 'active' : ''
 			} mr-4`}
 			type='primary'

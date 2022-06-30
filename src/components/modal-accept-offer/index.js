@@ -35,7 +35,7 @@ export default function ModalAcceptOffer(props) {
 				<p className='text-sm text-black font-medium mb-2'>
 					Yeay kamu berhasil mendapat harga yang sesuai
 				</p>
-				<p className='text-sm text-[#8A8A8A] mb-4'>
+				<p className='text-sm text-neutralGray mb-4'>
 					Segera hubungi pembeli melalui whatsapp untuk transaksi
 					selanjutnya
 				</p>
@@ -53,7 +53,7 @@ export default function ModalAcceptOffer(props) {
 							<p className='text-sm text-black font-medium mb-1'>
 								Nama Pembeli
 							</p>
-							<span className='text-[10px] text-[#8A8A8A] block leading-[14px]'>
+							<span className='text-[10px] text-neutralGray block leading-[14px]'>
 								Kota
 							</span>
 						</div>
