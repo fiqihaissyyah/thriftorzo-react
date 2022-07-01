@@ -80,6 +80,8 @@ export const getUser = createAsyncThunk(
 export const updateUser = createAsyncThunk(
 	'user/updateUser',
 	async (values, { rejectWithValue }) => {
+		console.log(values);
+		console.log(TOKEN);
 		try {
 			if (TOKEN) {
 				const response = await axios.put(
