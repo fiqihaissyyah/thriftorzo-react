@@ -1,18 +1,20 @@
 .ant-modal-content {
-	@apply rounded-2xl;
+	@apply rounded-2xl !important;
 }
 
 .ant-modal-close-x {
-	@apply leading-normal py-4 px-8 w-auto;
+	@apply w-auto flex leading-[56px] !important;
+	@apply leading-normal py-4 px-8;
 }
 
 @media (max-width: 767px) {
 	.ant-modal {
-		@apply max-w-full top-0 h-full flex items-end w-full m-0 p-0;
+		@apply max-w-full top-0 h-full flex items-end w-full m-0 p-0 !important;
 	}
 
 	.ant-modal-content {
-		@apply w-full rounded-bl-none rounded-br-none;
+		@apply w-full;
+		@apply rounded-bl-none rounded-br-none !important;
 	}
 
 	.ant-modal-close {
@@ -24,6 +26,7 @@
 	}
 
 	.ant-modal-body::after {
-		@apply content-[''] w-[60px] h-[6px] bg-[#c4c4c4] rounded-[20px] block absolute top-4 left-1/2 translate-x-[-50%];
+		@apply content-[''] w-[60px] h-[6px] bg-[#c4c4c4] rounded-[20px] block absolute top-4 left-1/2;
+		transform: translateX(-50%) !important;
 	}
 }

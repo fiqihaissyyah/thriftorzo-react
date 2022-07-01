@@ -1,5 +1,5 @@
 import './index.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	Alert,
 	InputNumber,
@@ -13,85 +13,68 @@ import {
 	message,
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { PlusOutlined, LoadingOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '../../features/product/productSlice';
 
 const { Option } = Select;
-const beforeUpload = (file) => {
-	const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-
-	if (!isJpgOrPng) {
-		message.error('Gambar harus berformat JPG/PNG!');
-	}
-
-	const isLt2M = file.size / 1024 / 1024 < 2;
-
-	if (!isLt2M) {
-		message.error('Gambar tidak boleh lebih dari 2MB!');
-	}
-
-	console.log(file);
-	return isJpgOrPng && isLt2M;
-};
 
 export default function ProductForm() {
 	const token = useSelector((state) => state.user.auth.token);
 	const user = useSelector((state) => state.user.user.data);
-	const { response, error, errorMessage, loading } = useSelector(
+	const { draft, response, error, errorMessage, loading } = useSelector(
 		(state) => state.product.create
 	);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
 	const [form] = Form.useForm();
 	const [submitType, setSubmitType] = useState(1);
+	const [fileList, setFileList] = useState([]);
 	const id = user ? user.id : '';
+
+	const uploadProps = {
+		onRemove: (file) => {
+			const index = fileList.indexOf(file);
+			const newFileList = fileList.slice();
+			newFileList.splice(index, 1);
+			setFileList(newFileList);
+		},
+		beforeUpload: (file) => {
+			console.log(file)
+			setFileList([...fileList, file]);
+			return false;
+		},
+		fileList,
+	};
+
+	const getFile = (e) => {
+		if (Array.isArray(e)) {
+			return e;
+		}
+		return e && e.fileList;
+	};
 
 	const onFinish = async (values) => {
 		if (submitType === 1) {
-			console.log('publish');
-			const value = { ...values, status: 1 };
-			const body = { token, id, value };
-			await dispatch(createProduct(body));
-			navigate('/daftar-jual');
+			values = { ...values, status: 0, publish: 1, userId: id, imageFiles: fileList };
+			dispatch(createProduct({ token, values }))
+			message.success('Berhasil Menambah Produk!');
+			// navigate('/daftar-jual');
 		}
 		if (submitType === 2) {
-			console.log('draft');
-			const value = { ...values, status: 0 };
-			console.log(value);
-			const body = { token, id, value };
-			await dispatch(createProduct(body));
-			navigate('/daftar-jual');
+			values = { ...values, status: 0, publish: 0, userId: id, imageFiles: fileList };
+			dispatch(createProduct({ token, values }))
+			console.log('real', draft)
+			message.success('Berhasil Menambah Produk!');
+			// navigate('/daftar-jual');
 		}
 	};
 
-	const [loadingImage, setLoading] = useState(false);
-	const [imageUrl, setImageUrl] = useState();
-
-	const handleChange = (info) => {
-		if (info.file.status === 'uploading') {
-			setLoading(true);
-			return;
-		}
-
-		if (info.file.status === 'done') {
-			setImageUrl(info.file.originFileObj);
-			console.log(info.file.originFileObj);
-		}
-	};
-
-	const uploadButton = (
-		<div>
-			{loadingImage ? (
-				<LoadingOutlined
-					style={{ fontSize: '30px', color: '#8A8A8A' }}
-				/>
-			) : (
-				<PlusOutlined style={{ fontSize: '24px', color: '#8A8A8A' }} />
-			)}
-		</div>
-	);
+	useEffect(() => {
+		console.log('useffect', draft)
+	}, [draft]);
 
 	return (
 		<div className='container'>
@@ -186,35 +169,25 @@ export default function ProductForm() {
 					</Form.Item>
 					<Form.Item
 						className='mb-4'
-						name='foto'
+						name='imageFiles'
 						label='Foto Produk'
 						required={false}
-						// rules={[
-						// 	{
-						// 		required: true,
-						// 		message: 'Foto Produk tidak boleh kosong!',
-						// 	},
-						// ]}
+						getValueFromEvent={getFile}
+						rules={[
+							{
+								required: true,
+								message: 'Foto Produk tidak boleh kosong!',
+							},
+						]}
 					>
 						<Upload
-							name='avatar'
+							{...uploadProps}
+							maxCount={4}
 							listType='picture-card'
-							className='product-upload relative mb-6 w-24 h-24'
-							showUploadList={false}
-							beforeUpload={beforeUpload}
-							onChange={handleChange}
+							className='product-upload relative mb-6 w-full h-24'
+							accept='image/*'
 						>
-							{imageUrl ? (
-								<img
-									src={imageUrl}
-									alt='avatar'
-									style={{
-										width: '100%',
-									}}
-								/>
-							) : (
-								uploadButton
-							)}
+							<PlusOutlined style={{ fontSize: '24px', color: '#8A8A8A' }} />
 						</Upload>
 					</Form.Item>
 					<Form.Item>

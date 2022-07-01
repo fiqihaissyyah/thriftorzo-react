@@ -1,17 +1,28 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import { Button } from 'antd';
-import { useSelector } from 'react-redux';
 
 import ModalOffer from '../modal-offer';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteProduct } from '../../features/product/productSlice';
 
 import './index.css';
 
 const ProductStatus = (props) => {
+	const dispatch = useDispatch();
+	const token = useSelector((state) => state.user.auth.token);
+	const { response, error, errorMessage, loading } = useSelector(
+		(state) => state.product.delete
+	);
+
+	const deleteHandler = (id) => {
+		console.log(id)
+		dispatch(deleteProduct({token, id}))
+	}
 	return (
 		<>
-			{props.status !== 1 && (
-				<Button
+			{props.publish !== 1 && (
+				<Button					
 					className='w-full btn-custom md:mb-[14px] md:mr-0 mb-0 mr-4 border border-solid border-[#9f42f3]'
 					type='primary'
 					htmlType='submit'
@@ -19,9 +30,11 @@ const ProductStatus = (props) => {
 					Terbitakan
 				</Button>
 			)}
-			{props.status === 1 && (
+			{props.publish === 1 && (
 				<Button
-					className='w-full btn-custom md:mb-[14px] md:mr-0 mb-0 mr-4 border border-solid border-red-500 bg-red-500 hover:bg-red-400 hover:border-red-400'
+					loading={loading}
+					onClick={() => deleteHandler(props.id)}
+					className='w-full btn-custom md:mb-[14px] md:mr-0 mb-0 mr-4 border border-solid border-red-500 bg-red-500 hover:bg-red-400 active:bg-red-400 hover:border-red-400 active:border-red-400'
 					type='primary'
 					htmlType='submit'
 				>
@@ -34,7 +47,6 @@ const ProductStatus = (props) => {
 
 export default function ProductSidebar(props) {
 	const profileUser = useSelector((state) => state.user.user.data);
-	const location = useLocation();
 	const offersEvents = { click: () => {} };
 
 	const currency = (value) =>
@@ -59,10 +71,11 @@ export default function ProductSidebar(props) {
 				>
 					{currency(props.price)}
 				</p>
+				{props.userResponse}
 				<div className='md:static md:block fixed flex justify-between md:left-auto md:bottom-auto left-4 right-4 bottom-4'>
 					{!!profileUser && profileUser.id === props.userId && (
 						<>
-							<ProductStatus status={props.status} />
+							<ProductStatus id={props.id} publish={props.publish} />
 							<Button
 								ghost
 								className='w-full btn-custom'

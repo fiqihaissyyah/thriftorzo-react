@@ -12,7 +12,7 @@ import Home from './pages/home/index';
 import Login from './pages/login/index';
 import Register from './pages/register/index';
 import Profile from './pages/profile/index';
-import ProductForm from './pages/product-form/index';
+import ProductForm from './pages/create-product/index';
 import Notification from './pages/notification';
 import Detail from './pages/detail';
 import DaftarJual from './pages/daftar-jual';

@@ -4,10 +4,10 @@ export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
 
 export const getProduct = createAsyncThunk(
 	'product/getProduct',
-	async (_, { rejectWithValue }) => {
+	async (current, { rejectWithValue }) => {
 		try {
 			const response = await axios.get(
-				`${API_URL}product/get-all-products`
+				`${API_URL}public/get-all-products-ready?page=${current}&size=18`
 			);
 			return response;
 		} catch (err) {
@@ -24,7 +24,7 @@ export const getProductDetail = createAsyncThunk(
 	async (id, { rejectWithValue }) => {
 		try {
 			const response = await axios.get(
-				`${API_URL}product/get-product/${id}`
+				`${API_URL}public/get-product/${id}`
 			);
 			return response;
 		} catch (err) {
@@ -38,14 +38,29 @@ export const getProductDetail = createAsyncThunk(
 
 export const createProduct = createAsyncThunk(
 	'product/createProduct',
-	async ({ token, id, value }, { rejectWithValue }) => {
+	async ({ token, values }, { rejectWithValue }) => {
 		try {
 			if (token) {
-				const response = await axios.post(
-					`${API_URL}product/add-product/${id}`,
-					value,
-					{ headers: { Authorization: `Bearer ${token}` } }
-				);
+				let bodyFormData = new FormData();
+				bodyFormData.append('userId', values.userId);
+				bodyFormData.append('name', values.name);
+				bodyFormData.append('price', values.price);
+				bodyFormData.append('status', values.status);
+				bodyFormData.append('publish', values.publish);
+				bodyFormData.append('description', values.description);
+				bodyFormData.append('category', values.category);
+
+				for (let index = 0; index < values.imageFiles.length; index++) {
+					bodyFormData.append('imageFiles', values.imageFiles[index]);
+				}
+
+				const response = await axios({
+					method: 'post',
+					url: `${API_URL}product/add-product`,
+					data: bodyFormData,
+					headers: { 'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>', 'Accept': '*/*', 'Authorization': `Bearer ${token}` },
+				})
+
 				return response;
 			} else {
 				const data = [
@@ -65,15 +80,13 @@ export const createProduct = createAsyncThunk(
 	}
 );
 
-export const uploadImage = createAsyncThunk(
-	'product/uploadImage',
-	async ({ token, id, values }, { rejectWithValue }) => {
+export const deleteProduct = createAsyncThunk(
+	'product/deleteProduct',
+	async ({ token, id }, { rejectWithValue }) => {
 		try {
 			if (token) {
-				const response = await axios.put(
-					`${API_URL}image/upload-products-image`,
-					values,
-					{ headers: { Authorization: `Bearer ${token}` } }
+				const response = await axios.delete(
+					`${API_URL}product/delete-product/${id}`
 				);
 				return response;
 			} else {
@@ -108,12 +121,13 @@ const initialState = {
 		errorMessage: null,
 	},
 	create: {
+		draft: null,
 		response: null,
 		loading: false,
 		error: false,
 		errorMessage: null,
 	},
-	upload: {
+	delete: {
 		response: null,
 		loading: false,
 		error: false,
@@ -163,36 +177,39 @@ export const productSlice = createSlice({
 		// =================================================== CREATE PRODUCT =================================================== //
 		[createProduct.pending]: (state) => {
 			state.create.loading = true;
+			state.create.draft = null;
 		},
 		[createProduct.fulfilled]: (state, action) => {
 			state.create.response = action.payload.data;
+			state.create.draft = action.payload.data.id;
 			state.create.error = false;
 			state.create.errorMessage = null;
 			state.create.loading = false;
 		},
 		[createProduct.rejected]: (state, action) => {
+			state.create.draft = null;
 			state.create.error = action.error.message;
 			state.create.errorMessage = action.payload.message
 				? action.payload.message
 				: action.payload.error;
 			state.create.loading = false;
 		},
-		// =================================================== UPLOAD IMAGE PRODUCT =================================================== //
-		[uploadImage.pending]: (state) => {
-			state.upload.loading = true;
+		// =================================================== DELETE PRODUCT =================================================== //
+		[deleteProduct.pending]: (state) => {
+			state.delete.loading = true;
 		},
-		[uploadImage.fulfilled]: (state, action) => {
-			state.upload.response = action.payload.data;
-			state.upload.error = false;
-			state.upload.errorMessage = null;
-			state.upload.loading = false;
+		[deleteProduct.fulfilled]: (state, action) => {
+			state.delete.response = action.payload.data;
+			state.delete.error = false;
+			state.delete.errorMessage = null;
+			state.delete.loading = false;
 		},
-		[uploadImage.rejected]: (state, action) => {
-			state.upload.error = action.error.message;
-			state.upload.errorMessage = action.payload.message
+		[deleteProduct.rejected]: (state, action) => {
+			state.delete.error = action.error.message;
+			state.delete.errorMessage = action.payload.message
 				? action.payload.message
 				: action.payload.error;
-			state.upload.loading = false;
+			state.delete.loading = false;
 		},
 	},
 });
