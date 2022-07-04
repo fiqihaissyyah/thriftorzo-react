@@ -20,7 +20,11 @@ export default function SalerInformation(props) {
 				<Avatar
 					size={48}
 					className='rounded-xl'
-					src={props.user ? props.user.imgUrl : `https://ui-avatars.com/api/?name=${props.user.name}`}
+					src={
+						props.user
+							? props.user.imgUrl
+							: `https://ui-avatars.com/api/?name=${props.user.name}`
+					}
 				/>
 				<div className='ml-4'>
 					<p className='text-sm text-black mb-1'>{props.user.name}</p>

@@ -1,7 +1,18 @@
 import './index.css';
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Alert, InputNumber, Button, Form, Input, Select, Row, Col, Upload, message } from 'antd';
+import {
+	Alert,
+	InputNumber,
+	Button,
+	Form,
+	Input,
+	Select,
+	Row,
+	Col,
+	Upload,
+	message,
+} from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
@@ -44,7 +55,7 @@ export default function ProductForm() {
 	};
 
 	const onFinish = async (values) => {
-		setLoading(true)
+		setLoading(true);
 		if (submitType === 1) {
 			values = {
 				...values,
@@ -91,19 +102,19 @@ export default function ProductForm() {
 				});
 
 				message.success('Berhasil Menambah Produk!');
-				setLoading(false)
+				setLoading(false);
 				if (submitType === 1) {
-					navigate('/daftar-jual')
+					navigate('/daftar-jual');
 				}
 				if (submitType === 2) {
-					navigate('/product/detail/' + response.data.id)
+					navigate('/product/detail/' + response.data.id);
 				}
 			}
 		} catch (err) {
 			if (!err.response) {
 				throw err;
 			}
-			setError(err.response.data)
+			setError(err.response.data);
 		}
 	};
 
@@ -245,7 +256,7 @@ export default function ProductForm() {
 									htmlType='submit'
 									onClick={() => setSubmitType(1)}
 								>
-									Terbitakan
+									Terbitkan
 								</Button>
 							</Col>
 						</Row>

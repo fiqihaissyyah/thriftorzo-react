@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Alert, InputNumber, Button, Form, Input, Select, Row, Col, Upload, message } from 'antd';
+import {
+	Alert,
+	InputNumber,
+	Button,
+	Form,
+	Input,
+	Select,
+	Row,
+	Col,
+	Upload,
+	message,
+} from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
@@ -46,7 +57,7 @@ export default function ProductFormUpdate() {
 	};
 
 	const onFinish = async (values) => {
-		setLoading(true)
+		setLoading(true);
 		values = {
 			...values,
 			status: 0,
@@ -66,8 +77,15 @@ export default function ProductFormUpdate() {
 				bodyFormData.append('category', values.category);
 
 				if (values.imageFiles.length > 0) {
-					for (let index = 0; index < values.imageFiles.length; index++) {
-						bodyFormData.append('imageFiles', values.imageFiles[index]);
+					for (
+						let index = 0;
+						index < values.imageFiles.length;
+						index++
+					) {
+						bodyFormData.append(
+							'imageFiles',
+							values.imageFiles[index]
+						);
 					}
 				}
 
@@ -84,14 +102,14 @@ export default function ProductFormUpdate() {
 				});
 
 				message.success('Berhasil Menambah Produk!');
-				setLoading(false)
-				navigate('/product/detail/' + response.data.id)
+				setLoading(false);
+				navigate('/product/detail/' + response.data.id);
 			}
 		} catch (err) {
 			if (!err.response) {
 				throw err;
 			}
-			setError(err.response.data)
+			setError(err.response.data);
 		}
 	};
 
@@ -212,9 +230,15 @@ export default function ProductFormUpdate() {
 						</Upload>
 					</Form.Item>
 					<div className='flex mb-10'>
-						{!!detail && detail.imgUrl && detail.imgUrl.length > 0 && detail.imgUrl.map((item) => (
-							<img className='w-[120px] h-[120px] mr-4 rounded-xl' src={item} />
-						))}
+						{!!detail &&
+							detail.imgUrl &&
+							detail.imgUrl.length > 0 &&
+							detail.imgUrl.map((item) => (
+								<img
+									className='w-[120px] h-[120px] mr-4 rounded-xl'
+									src={item}
+								/>
+							))}
 					</div>
 					<Form.Item>
 						<Row gutter={16}>

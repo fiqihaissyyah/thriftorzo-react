@@ -22,7 +22,7 @@ const ProductStatus = (props) => {
 		console.log(id);
 		await dispatch(deleteProduct({ token, id }));
 		message.success('Berhasil Menambah Produk!');
-		navigate('/daftar-jual')
+		navigate('/daftar-jual');
 	};
 
 	return (
@@ -53,12 +53,12 @@ const ProductStatus = (props) => {
 
 export default function ProductSidebar(props) {
 	const profileUser = useSelector((state) => state.user.user.data);
-	const offersEvents = { click: () => { } };
+	const offersEvents = { click: () => {} };
 	const navigate = useNavigate();
 
 	const handleEdit = () => {
-		navigate('/update/product/' + props.id)
-	}
+		navigate('/update/product/' + props.id);
+	};
 
 	const currency = (value) =>
 		new Intl.NumberFormat('en-ID', {
@@ -68,10 +68,18 @@ export default function ProductSidebar(props) {
 
 	return (
 		<>
-			<div className={`sidebar-product p-4 shadow-custom md:mb-6 mb-4 rounded-2xl ${!props.mobile ? 'md:block hidden' : 'md:hidden block'} z-10 relative bg-white`}>
+			<div
+				className={`sidebar-product p-4 shadow-custom md:mb-6 mb-4 rounded-2xl ${
+					!props.mobile ? 'md:block hidden' : 'md:hidden block'
+				} z-10 relative bg-white`}
+			>
 				<h4 className='text-base text-black mb-2'>{props.name}</h4>
 				<p className='text-sm text-[#8A8A8A] mb-4'>{props.category}</p>
-				<p className={`text-base text-black ${props.mobile || !profileUser ? 'mb-0' : 'mb-6'}`}>
+				<p
+					className={`text-base text-black ${
+						props.mobile || !profileUser ? 'mb-0' : 'mb-6'
+					}`}
+				>
 					{currency(props.price)}
 				</p>
 				<div className='md:static md:block fixed flex justify-between md:left-auto md:bottom-auto left-4 right-4 bottom-4'>
