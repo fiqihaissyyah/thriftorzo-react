@@ -1,102 +1,116 @@
 import './index.css';
 import React, { useState } from 'react';
-import {
-	Alert,
-	InputNumber,
-	Button,
-	Form,
-	Input,
-	Select,
-	Row,
-	Col,
-	Upload,
-	message,
-} from 'antd';
+import axios from 'axios';
+import { Alert, InputNumber, Button, Form, Input, Select, Row, Col, Upload, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { PlusOutlined, LoadingOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
-import { useDispatch, useSelector } from 'react-redux';
-import { createProduct } from '../../features/product/productSlice';
+import { useSelector } from 'react-redux';
 
 const { Option } = Select;
-const beforeUpload = (file) => {
-	const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-
-	if (!isJpgOrPng) {
-		message.error('Gambar harus berformat JPG/PNG!');
-	}
-
-	const isLt2M = file.size / 1024 / 1024 < 2;
-
-	if (!isLt2M) {
-		message.error('Gambar tidak boleh lebih dari 2MB!');
-	}
-
-	console.log(file);
-	return isJpgOrPng && isLt2M;
-};
 
 export default function ProductForm() {
 	const token = useSelector((state) => state.user.auth.token);
 	const user = useSelector((state) => state.user.user.data);
-	const { response, error, errorMessage, loading } = useSelector(
-		(state) => state.product.create
-	);
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const [form] = Form.useForm();
-	const [submitType, setSubmitType] = useState(1);
 	const id = user ? user.id : '';
 
+	const [form] = Form.useForm();
+	const [submitType, setSubmitType] = useState(1);
+	const [fileList, setFileList] = useState([]);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState();
+
+	const uploadProps = {
+		onRemove: (file) => {
+			const index = fileList.indexOf(file);
+			const newFileList = fileList.slice();
+			newFileList.splice(index, 1);
+			setFileList(newFileList);
+		},
+		beforeUpload: (file) => {
+			console.log(file);
+			setFileList([...fileList, file]);
+			return false;
+		},
+		fileList,
+	};
+
+	const getFile = (e) => {
+		if (Array.isArray(e)) {
+			return e;
+		}
+		return e && e.fileList;
+	};
+
 	const onFinish = async (values) => {
+		setLoading(true)
 		if (submitType === 1) {
-			console.log('publish');
-			const value = { ...values, status: 1 };
-			const body = { token, id, value };
-			await dispatch(createProduct(body));
-			navigate('/daftar-jual');
+			values = {
+				...values,
+				status: 0,
+				publish: 1,
+				userId: id,
+				imageFiles: fileList,
+			};
 		}
 		if (submitType === 2) {
-			console.log('draft');
-			const value = { ...values, status: 0 };
-			console.log(value);
-			const body = { token, id, value };
-			await dispatch(createProduct(body));
-			navigate('/daftar-jual');
+			values = {
+				...values,
+				status: 0,
+				publish: 0,
+				userId: id,
+				imageFiles: fileList,
+			};
+		}
+		try {
+			if (token) {
+				let bodyFormData = new FormData();
+				bodyFormData.append('userId', values.userId);
+				bodyFormData.append('name', values.name);
+				bodyFormData.append('price', values.price);
+				bodyFormData.append('status', values.status);
+				bodyFormData.append('publish', values.publish);
+				bodyFormData.append('description', values.description);
+				bodyFormData.append('category', values.category);
+
+				for (let index = 0; index < values.imageFiles.length; index++) {
+					bodyFormData.append('imageFiles', values.imageFiles[index]);
+				}
+
+				const response = await axios({
+					method: 'post',
+					url: 'https://staging-secondhand-bej3.herokuapp.com/product/add-product',
+					data: bodyFormData,
+					headers: {
+						'Content-Type':
+							'multipart/form-data; boundary=<calculated when request is sent>',
+						Accept: '*/*',
+						Authorization: `Bearer ${token}`,
+					},
+				});
+
+				message.success('Berhasil Menambah Produk!');
+				setLoading(false)
+				if (submitType === 1) {
+					navigate('/daftar-jual')
+				}
+				if (submitType === 2) {
+					navigate('/product/detail/' + response.data.id)
+				}
+			}
+		} catch (err) {
+			if (!err.response) {
+				throw err;
+			}
+			setError(err.response.data)
 		}
 	};
-
-	const [loadingImage, setLoading] = useState(false);
-	const [imageUrl, setImageUrl] = useState();
-
-	const handleChange = (info) => {
-		if (info.file.status === 'uploading') {
-			setLoading(true);
-			return;
-		}
-
-		if (info.file.status === 'done') {
-			setImageUrl(info.file.originFileObj);
-			console.log(info.file.originFileObj);
-		}
-	};
-
-	const uploadButton = (
-		<div>
-			{loadingImage ? (
-				<LoadingOutlined
-					style={{ fontSize: '30px', color: '#8A8A8A' }}
-				/>
-			) : (
-				<PlusOutlined style={{ fontSize: '24px', color: '#8A8A8A' }} />
-			)}
-		</div>
-	);
 
 	return (
 		<div className='container'>
 			<Helmet>
-				<title>Tambah Produk</title>
+				<title>Update Produk</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='update-profile-wrapper max-w-[568px] md:py-10 py-6 w-full mx-auto'>
@@ -104,7 +118,7 @@ export default function ProductForm() {
 					<Alert
 						className='mb-6'
 						message='Error'
-						description={errorMessage}
+						description={error}
 						type='error'
 						showIcon
 					/>
@@ -160,11 +174,11 @@ export default function ProductForm() {
 						]}
 					>
 						<Select placeholder='Pilih Kategori' allowClear>
-							<Option value='hobi'>Hobi</Option>
-							<Option value='kendaraan'>Kendaraan</Option>
-							<Option value='baju'>Baju</Option>
-							<Option value='elektronik'>Elektronik</Option>
-							<Option value='kesehatan'>Kesehatan</Option>
+							<Option value='Hobi'>Hobi</Option>
+							<Option value='Kendaraan'>Kendaraan</Option>
+							<Option value='Baju'>Baju</Option>
+							<Option value='Elektronik'>Elektronik</Option>
+							<Option value='Kesehatan'>Kesehatan</Option>
 						</Select>
 					</Form.Item>
 					<Form.Item
@@ -186,35 +200,27 @@ export default function ProductForm() {
 					</Form.Item>
 					<Form.Item
 						className='mb-4'
-						name='foto'
+						name='imageFiles'
 						label='Foto Produk'
 						required={false}
-						// rules={[
-						// 	{
-						// 		required: true,
-						// 		message: 'Foto Produk tidak boleh kosong!',
-						// 	},
-						// ]}
+						getValueFromEvent={getFile}
+						rules={[
+							{
+								required: true,
+								message: 'Foto Produk tidak boleh kosong!',
+							},
+						]}
 					>
 						<Upload
-							name='avatar'
+							{...uploadProps}
+							maxCount={4}
 							listType='picture-card'
-							className='product-upload relative mb-6 w-24 h-24'
-							showUploadList={false}
-							beforeUpload={beforeUpload}
-							onChange={handleChange}
+							className='product-upload relative mb-6 w-full h-24'
+							accept='image/*'
 						>
-							{imageUrl ? (
-								<img
-									src={imageUrl}
-									alt='avatar'
-									style={{
-										width: '100%',
-									}}
-								/>
-							) : (
-								uploadButton
-							)}
+							<PlusOutlined
+								style={{ fontSize: '24px', color: '#8A8A8A' }}
+							/>
 						</Upload>
 					</Form.Item>
 					<Form.Item>

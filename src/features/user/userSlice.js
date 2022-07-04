@@ -87,7 +87,7 @@ export const updateUser = createAsyncThunk(
 				const response = await axios.put(
 					`${API_URL}user/update-data/${USER.id}`,
 					values,
-					{ headers: { Authorization: `Bearer ${TOKEN}` } }
+					{ headers: { Authorization: `Bearer ${TOKEN}`} }
 				);
 				return response;
 			} else {

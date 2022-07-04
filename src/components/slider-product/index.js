@@ -6,7 +6,7 @@ import { Pagination, Navigation } from 'swiper';
 import './index.css';
 import SliderProA from '../../assets/images/slider_product.png';
 
-export default function SliderProduct() {
+export default function SliderProduct(props) {
 	return (
 		<div className='slider-product'>
 			<Swiper
@@ -20,18 +20,15 @@ export default function SliderProduct() {
 				modules={[Pagination, Navigation]}
 				className='mySwiper'
 			>
-				<SwiperSlide>
-					<img
-						className='md:rounded-2xl rounded-none'
-						src={SliderProA}
-					/>
-				</SwiperSlide>
-				<SwiperSlide>
-					<img
-						className='md:rounded-2xl rounded-none'
-						src={SliderProA}
-					/>
-				</SwiperSlide>
+				{!!props.item &&
+					props.item.map((i, index) => (
+						<SwiperSlide key={index}>
+							<img
+								className='md:rounded-2xl rounded-none'
+								src={i}
+							/>
+						</SwiperSlide>
+					))}
 			</Swiper>
 		</div>
 	);

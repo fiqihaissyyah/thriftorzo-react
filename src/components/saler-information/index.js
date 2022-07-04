@@ -20,12 +20,12 @@ export default function SalerInformation(props) {
 				<Avatar
 					size={48}
 					className='rounded-xl'
-					src='https://joeschmoe.io/api/v1/random'
+					src={props.user ? props.user.imgUrl : `https://ui-avatars.com/api/?name=${props.user.name}`}
 				/>
 				<div className='ml-4'>
-					<p className='text-sm text-black mb-1'>Nama Penjual</p>
+					<p className='text-sm text-black mb-1'>{props.user.name}</p>
 					<span className='text-[10px] text-[#8A8A8A] block leading-[14px]'>
-						Kota
+						{props.user.cityName}
 					</span>
 				</div>
 			</div>

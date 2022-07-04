@@ -12,7 +12,8 @@ import Home from './pages/home/index';
 import Login from './pages/login/index';
 import Register from './pages/register/index';
 import Profile from './pages/profile/index';
-import ProductForm from './pages/product-form/index';
+import ProductForm from './pages/create-product/index';
+import ProductFormUpdate from './pages/update-product/index';
 import Notification from './pages/notification';
 import Detail from './pages/detail';
 import DaftarJual from './pages/daftar-jual';
@@ -52,8 +53,8 @@ function App() {
 						/>
 						<Route
 							exact
-							path='/update/product/'
-							element={<ProductForm />}
+							path='/update/product/:id'
+							element={<ProductFormUpdate />}
 						/>
 					</Route>
 				</Route>

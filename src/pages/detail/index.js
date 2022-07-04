@@ -17,10 +17,10 @@ export default function Detail() {
 	const navigateBack = () => {
 		navigate(-1);
 	};
+	const dispatch = useDispatch();
 	const { response, error, errorMessage, loading } = useSelector(
 		(state) => state.product.detail
 	);
-	const dispatch = useDispatch();
 	const { id } = useParams();
 
 	useEffect(() => {
@@ -38,9 +38,21 @@ export default function Detail() {
 			</div>
 			<Row gutter={[32, 16]}>
 				<Col xs={{ span: 24 }} md={{ span: 16 }}>
-					<SliderProduct />
-					<ProductSidebar mobile />
-					<SalerInformation mobile edit={false} />
+					<SliderProduct item={!!response && response.imgUrl} />
+					<ProductSidebar
+						mobile
+						id={!!response && response.id}
+						publish={!!response && response.publish}
+						name={!!response && response.name}
+						category={!!response && response.category}
+						price={!!response && response.price}
+						userId={
+							!!response &&
+							response.userResponse &&
+							response.userResponse.userId
+						}
+					/>
+					<SalerInformation user={!!response && response.userResponse} mobile edit={false} />
 					<div className='shadow-custom md:mt-6 mt-4 rounded-2xl'>
 						<div className='p-4'>
 							<h4 className='text-sm text-black mb-4'>
@@ -58,13 +70,18 @@ export default function Detail() {
 					md={{ span: 8 }}
 				>
 					<ProductSidebar
-						status={!!response && response.status}
+						id={!!response && response.id}
+						publish={!!response && response.publish}
 						name={!!response && response.name}
 						category={!!response && response.category}
 						price={!!response && response.price}
-						userId={!!response && response.userId}
+						userId={
+							!!response &&
+							response.userResponse &&
+							response.userResponse.userId
+						}
 					/>
-					<SalerInformation edit={false} />
+					<SalerInformation user={!!response && response.userResponse} edit={false} />
 				</Col>
 			</Row>
 		</div>
