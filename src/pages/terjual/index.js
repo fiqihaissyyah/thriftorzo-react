@@ -8,10 +8,10 @@ import CategorySidebar from '../../components/category-sidebar';
 import SalerInformation from '../../components/saler-information';
 import NewProduct from '../../components/new-product-card';
 import Empty from '../../components/empty';
+import { useSelector } from 'react-redux';
 
-export default function Terjual() {
-	const imgProduct =
-		'https://static.remove.bg/remove-bg-web/eb1bb48845c5007c3ec8d72ce7972fc8b76733b1/assets/start-1abfb4fe2980eabfbbaaa4365a0692539f7cd2725f324f904565a9a744f8e214.jpg';
+export default function Terjual() {	
+	const user = useSelector((state) => state.user.user.data);
 
 	return (
 		<div className='page-daftar-jual md:py-10 py-4'>
@@ -23,7 +23,7 @@ export default function Terjual() {
 				<h1 className='text-xl text-black font-bold mb-6 md:block hidden'>
 					Daftar Jual Saya
 				</h1>
-				<SalerInformation edit />
+				<SalerInformation user={user} edit />
 				<Row gutter={[32, 24]} className='pt-6'>
 					<Col xs={{ span: 24 }} lg={{ span: 8 }}>
 						<CategorySidebar />

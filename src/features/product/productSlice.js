@@ -19,6 +19,23 @@ export const getProduct = createAsyncThunk(
 	}
 );
 
+export const getAllProduct = createAsyncThunk(
+	'product/getAllProduct',
+	async (current, { rejectWithValue }) => {
+		try {
+			const response = await axios.get(
+				`${API_URL}public/get-all-products?page=${current}&size=18`
+			);
+			return response;
+		} catch (err) {
+			if (!err.response) {
+				throw err;
+			}
+			return rejectWithValue(err.response.data);
+		}
+	}
+);
+
 export const getProductDetail = createAsyncThunk(
 	'product/getProductDetail',
 	async (id, { rejectWithValue }) => {
@@ -43,7 +60,7 @@ export const deleteProduct = createAsyncThunk(
 			if (token) {
 				const response = await axios.delete(
 					`${API_URL}product/delete-product/${id}`,
-					{ headers: { Authorization: `Bearer ${token}`} }
+					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
 			} else {
@@ -66,6 +83,12 @@ export const deleteProduct = createAsyncThunk(
 
 const initialState = {
 	get: {
+		response: null,
+		loading: false,
+		error: false,
+		errorMessage: null,
+	},
+	getAll: {
 		response: null,
 		loading: false,
 		error: false,
@@ -106,6 +129,23 @@ export const productSlice = createSlice({
 				? action.payload.message
 				: action.payload.error;
 			state.get.loading = false;
+		},
+		// =================================================== GET All PRODUCT =================================================== //
+		[getAllProduct.pending]: (state) => {
+			state.getAll.loading = true;
+		},
+		[getAllProduct.fulfilled]: (state, action) => {
+			state.getAll.response = action.payload.data;
+			state.getAll.error = false;
+			state.getAll.errorMessage = null;
+			state.getAll.loading = false;
+		},
+		[getAllProduct.rejected]: (state, action) => {
+			state.getAll.error = action.error.message;
+			state.getAll.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
+			state.getAll.loading = false;
 		},
 		// =================================================== GET PRODUCT DETAIL =================================================== //
 		[getProductDetail.pending]: (state) => {

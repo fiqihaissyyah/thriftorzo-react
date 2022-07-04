@@ -52,7 +52,11 @@ export default function Detail() {
 							response.userResponse.userId
 						}
 					/>
-					<SalerInformation user={!!response && response.userResponse} mobile edit={false} />
+					<SalerInformation
+						user={!!response && response.userResponse}
+						mobile
+						edit={false}
+					/>
 					<div className='shadow-custom md:mt-6 mt-4 rounded-2xl'>
 						<div className='p-4'>
 							<h4 className='text-sm text-black mb-4'>
@@ -81,7 +85,10 @@ export default function Detail() {
 							response.userResponse.userId
 						}
 					/>
-					<SalerInformation user={!!response && response.userResponse} edit={false} />
+					<SalerInformation
+						user={!!response && response.userResponse}
+						edit={false}
+					/>
 				</Col>
 			</Row>
 		</div>

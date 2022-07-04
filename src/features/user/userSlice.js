@@ -87,7 +87,7 @@ export const updateUser = createAsyncThunk(
 				const response = await axios.put(
 					`${API_URL}user/update-data/${USER.id}`,
 					values,
-					{ headers: { Authorization: `Bearer ${TOKEN}`} }
+					{ headers: { Authorization: `Bearer ${TOKEN}` } }
 				);
 				return response;
 			} else {
@@ -123,11 +123,11 @@ const initialState = {
 		success: false,
 	},
 	user: {
-		data: null,
+		data: USER || null,
 		loading: false,
 		error: false,
 		errorMessage: null,
-		success: false,
+		success: TOKEN ? true : false,
 	},
 	update: {
 		response: null,
@@ -142,6 +142,13 @@ const logoutState = {
 	...initialState,
 	auth: {
 		token: null,
+		loading: false,
+		error: false,
+		errorMessage: null,
+		success: false,
+	},
+	user: {
+		data:null,
 		loading: false,
 		error: false,
 		errorMessage: null,
