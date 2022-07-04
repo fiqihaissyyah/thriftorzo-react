@@ -36,57 +36,14 @@ export const getProductDetail = createAsyncThunk(
 	}
 );
 
-export const createProduct = createAsyncThunk(
-	'product/createProduct',
-	async ({ token, values }, { rejectWithValue }) => {
-		try {
-			if (token) {
-				let bodyFormData = new FormData();
-				bodyFormData.append('userId', values.userId);
-				bodyFormData.append('name', values.name);
-				bodyFormData.append('price', values.price);
-				bodyFormData.append('status', values.status);
-				bodyFormData.append('publish', values.publish);
-				bodyFormData.append('description', values.description);
-				bodyFormData.append('category', values.category);
-
-				for (let index = 0; index < values.imageFiles.length; index++) {
-					bodyFormData.append('imageFiles', values.imageFiles[index]);
-				}
-
-				const response = await axios({
-					method: 'post',
-					url: `${API_URL}product/add-product`,
-					data: bodyFormData,
-					headers: { 'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>', 'Accept': '*/*', 'Authorization': `Bearer ${token}` },
-				})
-
-				return response;
-			} else {
-				const data = [
-					{
-						error: 'Token Not Found',
-						message: 'Token Not Found',
-					},
-				];
-				return rejectWithValue(...data);
-			}
-		} catch (err) {
-			if (!err.response) {
-				throw err;
-			}
-			return rejectWithValue(err.response.data);
-		}
-	}
-);
-
 export const deleteProduct = createAsyncThunk(
 	'product/deleteProduct',
 	async ({ token, id }, { rejectWithValue }) => {
 		try {
 			if (token) {
 				const response = await axios.delete(
-					`${API_URL}product/delete-product/${id}`
+					`${API_URL}product/delete-product/${id}`,
+					{ headers: { Authorization: `Bearer ${token}`} }
 				);
 				return response;
 			} else {
@@ -115,13 +72,6 @@ const initialState = {
 		errorMessage: null,
 	},
 	detail: {
-		response: null,
-		loading: false,
-		error: false,
-		errorMessage: null,
-	},
-	create: {
-		draft: null,
 		response: null,
 		loading: false,
 		error: false,
@@ -173,26 +123,6 @@ export const productSlice = createSlice({
 				? action.payload.message
 				: action.payload.error;
 			state.get.loading = false;
-		},
-		// =================================================== CREATE PRODUCT =================================================== //
-		[createProduct.pending]: (state) => {
-			state.create.loading = true;
-			state.create.draft = null;
-		},
-		[createProduct.fulfilled]: (state, action) => {
-			state.create.response = action.payload.data;
-			state.create.draft = action.payload.data.id;
-			state.create.error = false;
-			state.create.errorMessage = null;
-			state.create.loading = false;
-		},
-		[createProduct.rejected]: (state, action) => {
-			state.create.draft = null;
-			state.create.error = action.error.message;
-			state.create.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
-			state.create.loading = false;
 		},
 		// =================================================== DELETE PRODUCT =================================================== //
 		[deleteProduct.pending]: (state) => {

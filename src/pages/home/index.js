@@ -26,10 +26,10 @@ export default function Home() {
 	}, []);
 
 	const paginationHandler = (current) => {
-		console.log(current - 1)
+		console.log(current - 1);
 		dispatch(getProduct(current - 1));
 		window.scrollTo(0, 0);
-	}
+	};
 
 	const imgProduct =
 		'https://static.remove.bg/remove-bg-web/eb1bb48845c5007c3ec8d72ce7972fc8b76733b1/assets/start-1abfb4fe2980eabfbbaaa4365a0692539f7cd2725f324f904565a9a744f8e214.jpg';
@@ -55,7 +55,9 @@ export default function Home() {
 						<Category category='Kesehatan' />
 					</div>
 					<Row gutter={[16, 16]} className='mb-10'>
-						{!!response && response.productResponses && response.productResponses.length === 0 && <Empty />}
+						{!!response &&
+							response.productResponses &&
+							response.productResponses.length === 0 && <Empty />}
 						{loading && <LoadingProduct />}
 						{!loading &&
 							!!response &&
@@ -78,7 +80,14 @@ export default function Home() {
 								</Col>
 							))}
 					</Row>
-					<Pagination className='mb-10' onChange={paginationHandler} defaultCurrent={1} current={!!response && response.currentPage + 1} total={!!response && response.totalElement} pageSize={18} />
+					<Pagination
+						className='mb-10'
+						onChange={paginationHandler}
+						defaultCurrent={1}
+						current={!!response && response.currentPage + 1}
+						total={!!response && response.totalElement}
+						pageSize={18}
+					/>
 				</div>
 			</div>
 			<SellButton />

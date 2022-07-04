@@ -20,7 +20,6 @@ export default function SliderProduct(props) {
 				modules={[Pagination, Navigation]}
 				className='mySwiper'
 			>
-
 				{!!props.item &&
 					props.item.map((i, index) => (
 						<SwiperSlide key={index}>

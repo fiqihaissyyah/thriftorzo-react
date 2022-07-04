@@ -1,22 +1,24 @@
-import './index.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Alert, InputNumber, Button, Form, Input, Select, Row, Col, Upload, message } from 'antd';
-import { useNavigate } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductDetail } from '../../features/product/productSlice';
+
+import './index.css';
 
 const { Option } = Select;
 
-export default function ProductForm() {
+export default function ProductFormUpdate() {
+	const { id } = useParams();
+	const dispatch = useDispatch();
 	const token = useSelector((state) => state.user.auth.token);
-	const user = useSelector((state) => state.user.user.data);
+	const detail = useSelector((state) => state.product.detail.response);
 	const navigate = useNavigate();
-	const id = user ? user.id : '';
 
 	const [form] = Form.useForm();
-	const [submitType, setSubmitType] = useState(1);
 	const [fileList, setFileList] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState();
@@ -45,28 +47,17 @@ export default function ProductForm() {
 
 	const onFinish = async (values) => {
 		setLoading(true)
-		if (submitType === 1) {
-			values = {
-				...values,
-				status: 0,
-				publish: 1,
-				userId: id,
-				imageFiles: fileList,
-			};
-		}
-		if (submitType === 2) {
-			values = {
-				...values,
-				status: 0,
-				publish: 0,
-				userId: id,
-				imageFiles: fileList,
-			};
-		}
+		values = {
+			...values,
+			status: 0,
+			publish: 1,
+			productId: id,
+			imageFiles: fileList,
+		};
 		try {
 			if (token) {
 				let bodyFormData = new FormData();
-				bodyFormData.append('userId', values.userId);
+				bodyFormData.append('productId', values.productId);
 				bodyFormData.append('name', values.name);
 				bodyFormData.append('price', values.price);
 				bodyFormData.append('status', values.status);
@@ -74,13 +65,15 @@ export default function ProductForm() {
 				bodyFormData.append('description', values.description);
 				bodyFormData.append('category', values.category);
 
-				for (let index = 0; index < values.imageFiles.length; index++) {
-					bodyFormData.append('imageFiles', values.imageFiles[index]);
+				if (values.imageFiles.length > 0) {
+					for (let index = 0; index < values.imageFiles.length; index++) {
+						bodyFormData.append('imageFiles', values.imageFiles[index]);
+					}
 				}
 
 				const response = await axios({
-					method: 'post',
-					url: 'https://staging-secondhand-bej3.herokuapp.com/product/add-product',
+					method: 'put',
+					url: 'https://staging-secondhand-bej3.herokuapp.com/product/update-product',
 					data: bodyFormData,
 					headers: {
 						'Content-Type':
@@ -92,12 +85,7 @@ export default function ProductForm() {
 
 				message.success('Berhasil Menambah Produk!');
 				setLoading(false)
-				if (submitType === 1) {
-					navigate('/daftar-jual')
-				}
-				if (submitType === 2) {
-					navigate('/product/detail/' + response.data.id)
-				}
+				navigate('/product/detail/' + response.data.id)
 			}
 		} catch (err) {
 			if (!err.response) {
@@ -107,10 +95,16 @@ export default function ProductForm() {
 		}
 	};
 
+	useEffect(() => {
+		dispatch(getProductDetail(id));
+		form.setFieldsValue(detail);
+		console.log(detail);
+	}, [id]);
+
 	return (
 		<div className='container'>
 			<Helmet>
-				<title>Update Produk</title>
+				<title>Tambah Produk</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='update-profile-wrapper max-w-[568px] md:py-10 py-6 w-full mx-auto'>
@@ -199,17 +193,11 @@ export default function ProductForm() {
 						/>
 					</Form.Item>
 					<Form.Item
-						className='mb-4'
+						className='mb-0'
 						name='imageFiles'
 						label='Foto Produk'
 						required={false}
 						getValueFromEvent={getFile}
-						rules={[
-							{
-								required: true,
-								message: 'Foto Produk tidak boleh kosong!',
-							},
-						]}
 					>
 						<Upload
 							{...uploadProps}
@@ -223,29 +211,30 @@ export default function ProductForm() {
 							/>
 						</Upload>
 					</Form.Item>
+					<div className='flex mb-10'>
+						{!!detail && detail.imgUrl && detail.imgUrl.length > 0 && detail.imgUrl.map((item) => (
+							<img className='w-[120px] h-[120px] mr-4 rounded-xl' src={item} />
+						))}
+					</div>
 					<Form.Item>
 						<Row gutter={16}>
 							<Col span={12}>
 								<Button
 									ghost
-									loading={loading}
 									className='w-full btn-custom'
 									type='primary'
-									htmlType='submit'
-									onClick={() => setSubmitType(2)}
 								>
-									Preview
+									Batal
 								</Button>
 							</Col>
 							<Col span={12}>
 								<Button
-									loading={loading}
 									className='w-full btn-custom '
 									type='primary'
 									htmlType='submit'
-									onClick={() => setSubmitType(1)}
+									loading={loading}
 								>
-									Terbitakan
+									Terbitkan
 								</Button>
 							</Col>
 						</Row>

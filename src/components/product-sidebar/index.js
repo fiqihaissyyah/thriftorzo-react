@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 
 import ModalOffer from '../modal-offer';
+import { useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteProduct } from '../../features/product/productSlice';
@@ -10,19 +11,24 @@ import './index.css';
 
 const ProductStatus = (props) => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
 	const token = useSelector((state) => state.user.auth.token);
 	const { response, error, errorMessage, loading } = useSelector(
 		(state) => state.product.delete
 	);
 
-	const deleteHandler = (id) => {
-		console.log(id)
-		dispatch(deleteProduct({token, id}))
-	}
+	const deleteHandler = async (id) => {
+		console.log(id);
+		await dispatch(deleteProduct({ token, id }));
+		message.success('Berhasil Menambah Produk!');
+		navigate('/daftar-jual')
+	};
+
 	return (
 		<>
 			{props.publish !== 1 && (
-				<Button					
+				<Button
 					className='w-full btn-custom md:mb-[14px] md:mr-0 mb-0 mr-4 border border-solid border-[#9f42f3]'
 					type='primary'
 					htmlType='submit'
@@ -47,7 +53,12 @@ const ProductStatus = (props) => {
 
 export default function ProductSidebar(props) {
 	const profileUser = useSelector((state) => state.user.user.data);
-	const offersEvents = { click: () => {} };
+	const offersEvents = { click: () => { } };
+	const navigate = useNavigate();
+
+	const handleEdit = () => {
+		navigate('/update/product/' + props.id)
+	}
 
 	const currency = (value) =>
 		new Intl.NumberFormat('en-ID', {
@@ -57,30 +68,24 @@ export default function ProductSidebar(props) {
 
 	return (
 		<>
-			<div
-				className={`sidebar-product p-4 shadow-custom md:mb-6 mb-4 rounded-2xl ${
-					!props.mobile ? 'md:block hidden' : 'md:hidden block'
-				} z-10 relative bg-white`}
-			>
+			<div className={`sidebar-product p-4 shadow-custom md:mb-6 mb-4 rounded-2xl ${!props.mobile ? 'md:block hidden' : 'md:hidden block'} z-10 relative bg-white`}>
 				<h4 className='text-base text-black mb-2'>{props.name}</h4>
 				<p className='text-sm text-[#8A8A8A] mb-4'>{props.category}</p>
-				<p
-					className={`text-base text-black ${
-						props.mobile ? 'mb-0' : 'mb-6'
-					}`}
-				>
+				<p className={`text-base text-black ${props.mobile || !profileUser ? 'mb-0' : 'mb-6'}`}>
 					{currency(props.price)}
 				</p>
-				{props.userResponse}
 				<div className='md:static md:block fixed flex justify-between md:left-auto md:bottom-auto left-4 right-4 bottom-4'>
 					{!!profileUser && profileUser.id === props.userId && (
 						<>
-							<ProductStatus id={props.id} publish={props.publish} />
+							<ProductStatus
+								id={props.id}
+								publish={props.publish}
+							/>
 							<Button
+								onClick={handleEdit}
 								ghost
 								className='w-full btn-custom'
 								type='primary'
-								htmlType='submit'
 							>
 								Edit
 							</Button>

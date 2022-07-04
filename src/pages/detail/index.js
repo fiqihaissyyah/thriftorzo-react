@@ -39,8 +39,20 @@ export default function Detail() {
 			<Row gutter={[32, 16]}>
 				<Col xs={{ span: 24 }} md={{ span: 16 }}>
 					<SliderProduct item={!!response && response.imgUrl} />
-					<ProductSidebar mobile />
-					<SalerInformation mobile edit={false} />
+					<ProductSidebar
+						mobile
+						id={!!response && response.id}
+						publish={!!response && response.publish}
+						name={!!response && response.name}
+						category={!!response && response.category}
+						price={!!response && response.price}
+						userId={
+							!!response &&
+							response.userResponse &&
+							response.userResponse.userId
+						}
+					/>
+					<SalerInformation user={!!response && response.userResponse} mobile edit={false} />
 					<div className='shadow-custom md:mt-6 mt-4 rounded-2xl'>
 						<div className='p-4'>
 							<h4 className='text-sm text-black mb-4'>
@@ -63,9 +75,13 @@ export default function Detail() {
 						name={!!response && response.name}
 						category={!!response && response.category}
 						price={!!response && response.price}
-						userId={!!response && response.userResponse && response.userResponse.userId}
+						userId={
+							!!response &&
+							response.userResponse &&
+							response.userResponse.userId
+						}
 					/>
-					<SalerInformation edit={false} />
+					<SalerInformation user={!!response && response.userResponse} edit={false} />
 				</Col>
 			</Row>
 		</div>
