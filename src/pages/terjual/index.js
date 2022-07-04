@@ -10,7 +10,7 @@ import NewProduct from '../../components/new-product-card';
 import Empty from '../../components/empty';
 import { useSelector } from 'react-redux';
 
-export default function Terjual() {	
+export default function Terjual() {
 	const user = useSelector((state) => state.user.user.data);
 
 	return (

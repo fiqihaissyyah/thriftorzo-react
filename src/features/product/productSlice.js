@@ -81,6 +81,79 @@ export const deleteProduct = createAsyncThunk(
 	}
 );
 
+export const deleteProductImage = createAsyncThunk(
+	'product/deleteProductImage',
+	async ({ token, url, productId }, { rejectWithValue }) => {
+		try {
+			if (token) {
+				const response = await axios.delete(
+					`${API_URL}product/delete-image?url=${url}&productId=${productId}`,
+					{ headers: { Authorization: `Bearer ${token}` } }
+				);
+				return response;
+			} else {
+				const data = [
+					{
+						error: 'Token Not Found',
+						message: 'Token Not Found',
+					},
+				];
+				return rejectWithValue(...data);
+			}
+		} catch (err) {
+			if (!err.response) {
+				throw err;
+			}
+			return rejectWithValue(err.response.data);
+		}
+	}
+);
+
+export const publishProduct = createAsyncThunk(
+	'product/publishProduct',
+	async ({ token, values }, { rejectWithValue }) => {
+		try {
+			if (token) {
+				console.log(values)
+				let bodyFormData = new FormData();
+				bodyFormData.append('productId', values.id);
+				bodyFormData.append('name', values.name);
+				bodyFormData.append('price', values.price);
+				bodyFormData.append('status', values.status);
+				bodyFormData.append('publish', values.publish);
+				bodyFormData.append('description', values.description);
+				bodyFormData.append('category', values.category);
+
+				const response = await axios({
+					method: 'put',
+					url: `${API_URL}product/update-product`,
+					data: bodyFormData,
+					headers: {
+						'Content-Type':
+							'multipart/form-data; boundary=<calculated when request is sent>',
+						Accept: '*/*',
+						Authorization: `Bearer ${token}`,
+					},
+				});
+				return response;
+			} else {
+				const data = [
+					{
+						error: 'Token Not Found',
+						message: 'Token Not Found',
+					},
+				];
+				return rejectWithValue(...data);
+			}
+		} catch (err) {
+			if (!err.response) {
+				throw err;
+			}
+			return rejectWithValue(err.response.data);
+		}
+	}
+);
+
 const initialState = {
 	get: {
 		response: null,
@@ -100,7 +173,19 @@ const initialState = {
 		error: false,
 		errorMessage: null,
 	},
+	deleteImage: {
+		response: null,
+		loading: false,
+		error: false,
+		errorMessage: null,
+	},
 	delete: {
+		response: null,
+		loading: false,
+		error: false,
+		errorMessage: null,
+	},
+	publish: {
 		response: null,
 		loading: false,
 		error: false,
@@ -180,6 +265,40 @@ export const productSlice = createSlice({
 				? action.payload.message
 				: action.payload.error;
 			state.delete.loading = false;
+		},
+		// =================================================== DELETE PRODUCT IMAGE =================================================== //
+		[deleteProductImage.pending]: (state) => {
+			state.deleteImage.loading = true;
+		},
+		[deleteProductImage.fulfilled]: (state, action) => {
+			state.deleteImage.response = action.payload.data;
+			state.deleteImage.error = false;
+			state.deleteImage.errorMessage = null;
+			state.deleteImage.loading = false;
+		},
+		[deleteProductImage.rejected]: (state, action) => {
+			state.deleteImage.error = action.error.message;
+			state.deleteImage.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
+			state.deleteImage.loading = false;
+		},
+		// =================================================== PUBLISH PRODUCT =================================================== //
+		[publishProduct.pending]: (state) => {
+			state.publish.loading = true;
+		},
+		[publishProduct.fulfilled]: (state, action) => {
+			state.publish.response = action.payload.data;
+			state.publish.error = false;
+			state.publish.errorMessage = null;
+			state.publish.loading = false;
+		},
+		[publishProduct.rejected]: (state, action) => {
+			state.publish.error = action.error.message;
+			state.publish.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
+			state.publish.loading = false;
 		},
 	},
 });

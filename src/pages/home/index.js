@@ -52,7 +52,7 @@ export default function Home() {
 						<Category category='Kesehatan' />
 					</div>
 					<Row gutter={[16, 16]} className='mb-10'>
-						{response === null && <Empty />}
+						{!loading && response === null && <Empty />}
 						{loading && <LoadingProduct />}
 						{!loading &&
 							!!response &&
