@@ -2,6 +2,6 @@
 	@apply rounded-2xl;
 }
 
-.product-image-item{
+.product-image-item {
 	@apply mr-4 rounded-xl flex-shrink-0;
 }

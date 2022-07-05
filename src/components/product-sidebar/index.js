@@ -5,7 +5,11 @@ import ModalOffer from '../modal-offer';
 import { useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteProduct, publishProduct, getProductDetail } from '../../features/product/productSlice';
+import {
+	deleteProduct,
+	publishProduct,
+	getProductDetail,
+} from '../../features/product/productSlice';
 
 import './index.css';
 
@@ -14,12 +18,8 @@ const ProductStatus = (props) => {
 	const navigate = useNavigate();
 
 	const token = useSelector((state) => state.user.auth.token);
-	const { loading } = useSelector(
-		(state) => state.product.delete
-	);
-	const { response } = useSelector(
-		(state) => state.product.detail
-	);
+	const { loading } = useSelector((state) => state.product.delete);
+	const { response } = useSelector((state) => state.product.detail);
 	const publishLoading = useSelector(
 		(state) => state.product.publish.loading
 	);
@@ -32,7 +32,7 @@ const ProductStatus = (props) => {
 	};
 
 	const publishHandler = async () => {
-		const values = { ...response, publish: 1 }
+		const values = { ...response, publish: 1 };
 		console.log(values);
 		await dispatch(publishProduct({ token, values }));
 		await dispatch(getProductDetail(values.id));
@@ -55,10 +55,10 @@ const ProductStatus = (props) => {
 			{props.publish === 1 && (
 				<Popconfirm
 					loading={loading}
-					title="Apakah anda yakin menghapus produk ini?"
+					title='Apakah anda yakin menghapus produk ini?'
 					onConfirm={() => deleteHandler(props.id)}
-					okText="Iya"
-					cancelText="Tidak"
+					okText='Iya'
+					cancelText='Tidak'
 				>
 					<Button
 						loading={loading}
@@ -69,7 +69,6 @@ const ProductStatus = (props) => {
 						Hapus
 					</Button>
 				</Popconfirm>
-
 			)}
 		</>
 	);
@@ -77,7 +76,7 @@ const ProductStatus = (props) => {
 
 export default function ProductSidebar(props) {
 	const profileUser = useSelector((state) => state.user.user.data);
-	const offersEvents = { click: () => { } };
+	const offersEvents = { click: () => {} };
 	const navigate = useNavigate();
 
 	const handleEdit = () => {
@@ -93,14 +92,16 @@ export default function ProductSidebar(props) {
 	return (
 		<>
 			<div
-				className={`sidebar-product p-4 shadow-custom md:mb-6 mb-4 rounded-2xl ${!props.mobile ? 'md:block hidden' : 'md:hidden block'
-					} z-10 relative bg-white`}
+				className={`sidebar-product p-4 shadow-custom md:mb-6 mb-4 rounded-2xl ${
+					!props.mobile ? 'md:block hidden' : 'md:hidden block'
+				} z-10 relative bg-white`}
 			>
 				<h4 className='text-base text-black mb-2'>{props.name}</h4>
 				<p className='text-sm text-[#8A8A8A] mb-4'>{props.category}</p>
 				<p
-					className={`text-base text-black ${props.mobile || !profileUser ? 'mb-0' : 'mb-6'
-						}`}
+					className={`text-base text-black ${
+						props.mobile || !profileUser ? 'mb-0' : 'mb-6'
+					}`}
 				>
 					{currency(props.price)}
 				</p>
