@@ -148,7 +148,7 @@ const logoutState = {
 		success: false,
 	},
 	user: {
-		data:null,
+		data: null,
 		loading: false,
 		error: false,
 		errorMessage: null,
