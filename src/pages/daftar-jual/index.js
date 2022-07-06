@@ -57,7 +57,7 @@ export default function DaftarJual() {
 									<NewProduct />
 								</Col>
 							)}
-							{response === null && <Empty />}
+							{!loading && response === null && <Empty />}
 							{loading && <LoadingProductSold />}
 							{!loading &&
 								!!response &&

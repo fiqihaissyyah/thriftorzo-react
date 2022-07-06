@@ -11,12 +11,16 @@ import {
 	Row,
 	Col,
 	Upload,
+	Image,
 	message,
 } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductDetail } from '../../features/product/productSlice';
+import {
+	getProductDetail,
+	deleteProductImage,
+} from '../../features/product/productSlice';
 
 import './index.css';
 
@@ -101,7 +105,7 @@ export default function ProductFormUpdate() {
 					},
 				});
 
-				message.success('Berhasil Menambah Produk!');
+				message.success('Berhasil Mengubah Produk!');
 				setLoading(false);
 				navigate('/product/detail/' + response.data.id);
 			}
@@ -111,6 +115,14 @@ export default function ProductFormUpdate() {
 			}
 			setError(err.response.data);
 		}
+	};
+
+	const deleteImage = async (url, productId) => {
+		await dispatch(deleteProductImage({ token, url, productId }));
+		console.log('url', url);
+		console.log('productId', productId);
+		await dispatch(getProductDetail(id));
+		message.success('Berhasil Menghapus Foto Produk!');
 	};
 
 	useEffect(() => {
@@ -229,15 +241,29 @@ export default function ProductFormUpdate() {
 							/>
 						</Upload>
 					</Form.Item>
-					<div className='flex mb-10'>
+					<div className='mb-10 flex'>
 						{!!detail &&
 							detail.imgUrl &&
 							detail.imgUrl.length > 0 &&
 							detail.imgUrl.map((item) => (
-								<img
-									className='w-[120px] h-[120px] mr-4 rounded-xl'
-									src={item}
-								/>
+								<div className='product-image-item flex flex-col items-center'>
+									<Image
+										width={102}
+										height={102}
+										src={item}
+									/>
+									<Button
+										onClick={() =>
+											deleteImage(item, id ? id : '')
+										}
+										type='primary'
+										danger
+										shape='circle'
+										className='flex-shrink-0 mt-2'
+									>
+										<DeleteOutlined />
+									</Button>
+								</div>
 							))}
 					</div>
 					<Form.Item>
