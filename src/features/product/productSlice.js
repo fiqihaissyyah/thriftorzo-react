@@ -81,6 +81,23 @@ export const deleteProduct = createAsyncThunk(
 	}
 );
 
+export const searchProduct = createAsyncThunk(
+	'product/searchProduct',
+	async ({ productName, current }, { rejectWithValue }) => {
+		try {
+			const response = await axios.get(
+				`${API_URL}public/search?productName=${productName}&page=${current}&size=18`
+			);
+			return response;
+		} catch (err) {
+			if (!err.response) {
+				throw err;
+			}
+			return rejectWithValue(err.response.data);
+		}
+	}
+);
+
 export const deleteProductImage = createAsyncThunk(
 	'product/deleteProductImage',
 	async ({ token, url, productId }, { rejectWithValue }) => {
@@ -362,6 +379,24 @@ export const productSlice = createSlice({
 				? action.payload.message
 				: action.payload.error;
 			state.delete.loading = false;
+		},
+		// =================================================== SEARCH PRODUCT =================================================== //
+		[searchProduct.pending]: (state) => {
+			state.get.loading = true;
+		},
+		[searchProduct.fulfilled]: (state, action) => {
+			state.get.response = action.payload.data;
+			state.get.error = false;
+			state.get.errorMessage = null;
+			state.get.loading = false;
+		},
+		[searchProduct.rejected]: (state, action) => {
+			state.get.response = null;
+			state.get.error = action.error.message;
+			state.get.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
+			state.get.loading = false;
 		},
 		// =================================================== DELETE PRODUCT IMAGE =================================================== //
 		[deleteProductImage.pending]: (state) => {

@@ -15,6 +15,7 @@ import Notification from '../notification';
 import './index.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, reset } from '../../features/user/userSlice';
+import { searchProduct } from '../../features/product/productSlice';
 
 export default function Header(props) {
 	const { token, success } = useSelector((state) => state.user.auth);
@@ -29,7 +30,11 @@ export default function Header(props) {
 	const navigate = useNavigate();
 
 	const onFinish = (values) => {
-		console.log('Success:', values);
+		const productName = values.search;
+		console.log(values.search);
+		const current = 0;
+		dispatch(searchProduct({ productName, current }));
+		window.scrollTo(0, 0);
 	};
 
 	const onFinishFailed = (errorInfo) => {
