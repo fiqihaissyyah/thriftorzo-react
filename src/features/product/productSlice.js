@@ -83,7 +83,7 @@ export const deleteProduct = createAsyncThunk(
 
 export const searchProduct = createAsyncThunk(
 	'product/searchProduct',
-	async ( { productName, current } , { rejectWithValue }) => {
+	async ({ productName, current }, { rejectWithValue }) => {
 		try {
 			const response = await axios.get(
 				`${API_URL}public/search?productName=${productName}&page=${current}&size=18`
@@ -123,12 +123,7 @@ const initialState = {
 		error: false,
 		errorMessage: null,
 	},
-	search: {
-		response: null,
-		loading: false,
-		error: false,
-		errorMessage: null,
-	},
+	
 };
 
 export const productSlice = createSlice({

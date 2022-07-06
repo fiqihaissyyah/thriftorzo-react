@@ -80,8 +80,6 @@ export default function Header(props) {
 		}
 	}, [token, success]);
 
-
-
 	const userMenu = (
 		<Menu onClick={handleClick} className='mt-3'>
 			<Menu.Item key='item-1'>
