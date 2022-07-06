@@ -19,7 +19,7 @@ import {
 import './index.css';
 
 export default function Home() {
-	const [categoryActive, setActive] = useState('');
+	const [categoryActive, setActive] = useState('Semua');
 	const { response, error, errorMessage, loading } = useSelector(
 		(state) => state.product.get
 	);
@@ -64,7 +64,7 @@ export default function Home() {
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => categoryHandler('', 1)}
+							onClick={() => dispatch(getProduct(0))}
 						>
 							Semua
 						</Button>

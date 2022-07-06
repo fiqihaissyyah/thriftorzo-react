@@ -329,6 +329,7 @@ export const productSlice = createSlice({
 			state.get.loading = false;
 		},
 		[filterCategory.rejected]: (state, action) => {
+			state.get.response = null;
 			state.get.error = action.error.message;
 			state.get.errorMessage = action.payload.message
 				? action.payload.message
