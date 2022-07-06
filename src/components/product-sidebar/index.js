@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Button, Popconfirm, message } from 'antd';
 
 import ModalOffer from '../modal-offer';
@@ -9,6 +10,8 @@ import {
 	deleteProduct,
 	publishProduct,
 	getProductDetail,
+	removeWishlist,
+	addToWishlist,
 } from '../../features/product/productSlice';
 
 import './index.css';
@@ -75,13 +78,45 @@ const ProductStatus = (props) => {
 };
 
 export default function ProductSidebar(props) {
-	const profileUser = useSelector((state) => state.user.user.data);
-	const offersEvents = { click: () => {} };
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const profileUser = useSelector((state) => state.user.user.data);
+	const loadingWishlist = useSelector(
+		(state) => state.product.wishlist.loading
+	);
+	const token = useSelector((state) => state.user.auth.token);
+	const offersEvents = { click: () => {} };
+	const [isWishlist, setWishlist] = useState(false);
 
 	const handleEdit = () => {
 		navigate('/update/product/' + props.id);
 	};
+
+	const checkWishlistHandler = async (productId, userId) => {
+		const response = await axios.get(
+			`https://staging-secondhand-bej3.herokuapp.com/wishlist/get-status-wishlist?productId=${productId}&userId=${userId}`,
+			{ headers: { Authorization: `Bearer ${token}` } }
+		);
+		setWishlist(response.data.wishlistStatus);
+	};
+
+	const addWishlistHandler = async (productId, userId) => {
+		await dispatch(addToWishlist({ token, productId, userId }));
+		message.success('Berhasil Menambah Wishlist!');
+		checkWishlistHandler(productId, userId);
+	};
+
+	const removeWishlistHandler = async (productId, userId) => {
+		await dispatch(removeWishlist({ token, productId, userId }));
+		message.success('Berhasil Menghapus Wishlist!');
+		checkWishlistHandler(productId, userId);
+	};
+
+	useEffect(() => {
+		const productId = props.id;
+		const userId = profileUser.id;
+		checkWishlistHandler(productId, userId);
+	}, []);
 
 	const currency = (value) =>
 		new Intl.NumberFormat('en-ID', {
@@ -132,6 +167,41 @@ export default function ProductSidebar(props) {
 							Saya tertarik dan ingin nego
 						</Button>
 					)}
+					{!!profileUser &&
+						profileUser.id !== props.userId &&
+						!isWishlist && (
+							<Button
+								loading={loadingWishlist}
+								onClick={() =>
+									addWishlistHandler(props.id, profileUser.id)
+								}
+								className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
+								type='primary'
+								htmlType='submit'
+								ghost
+							>
+								Tambah ke wishlist
+							</Button>
+						)}
+					{!!profileUser &&
+						profileUser.id !== props.userId &&
+						isWishlist && (
+							<Button
+								loading={loadingWishlist}
+								onClick={() =>
+									removeWishlistHandler(
+										props.id,
+										profileUser.id
+									)
+								}
+								className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
+								type='primary'
+								htmlType='submit'
+								ghost
+							>
+								Hapus dari wishlist
+							</Button>
+						)}
 				</div>
 			</div>
 			<ModalOffer events={offersEvents} />
