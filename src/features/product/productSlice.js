@@ -123,7 +123,6 @@ const initialState = {
 		error: false,
 		errorMessage: null,
 	},
-	
 };
 
 export const productSlice = createSlice({
