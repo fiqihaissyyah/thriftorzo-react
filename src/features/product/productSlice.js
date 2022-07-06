@@ -114,7 +114,7 @@ export const publishProduct = createAsyncThunk(
 	async ({ token, values }, { rejectWithValue }) => {
 		try {
 			if (token) {
-				console.log(values)
+				console.log(values);
 				let bodyFormData = new FormData();
 				bodyFormData.append('productId', values.id);
 				bodyFormData.append('name', values.name);
@@ -135,6 +135,91 @@ export const publishProduct = createAsyncThunk(
 						Authorization: `Bearer ${token}`,
 					},
 				});
+				return response;
+			} else {
+				const data = [
+					{
+						error: 'Token Not Found',
+						message: 'Token Not Found',
+					},
+				];
+				return rejectWithValue(...data);
+			}
+		} catch (err) {
+			if (!err.response) {
+				throw err;
+			}
+			return rejectWithValue(err.response.data);
+		}
+	}
+);
+
+export const getWishlist = createAsyncThunk(
+	'product/getWishlist',
+	async ({ token, userId, current }, { rejectWithValue }) => {
+		try {
+			if (token) {
+				const response = await axios.get(
+					`${API_URL}wishlist/get-all-by/${userId}?page=${current}&size=18`,
+					{ headers: { Authorization: `Bearer ${token}` } }
+				);
+				return response;
+			} else {
+				const data = [
+					{
+						error: 'Token Not Found',
+						message: 'Token Not Found',
+					},
+				];
+				return rejectWithValue(...data);
+			}
+		} catch (err) {
+			if (!err.response) {
+				throw err;
+			}
+			return rejectWithValue(err.response.data);
+		}
+	}
+);
+
+export const addToWishlist = createAsyncThunk(
+	'product/addToWishlist',
+	async ({ token, productId, userId }, { rejectWithValue }) => {
+		try {
+			if (token) {
+				const response = await axios.post(
+					`${API_URL}wishlist/add-wishlist`,
+					{ productId: productId, userId: userId },
+					{ headers: { Authorization: `Bearer ${token}` } }
+				);
+				return response;
+			} else {
+				const data = [
+					{
+						error: 'Token Not Found',
+						message: 'Token Not Found',
+					},
+				];
+				return rejectWithValue(...data);
+			}
+		} catch (err) {
+			if (!err.response) {
+				throw err;
+			}
+			return rejectWithValue(err.response.data);
+		}
+	}
+);
+
+export const removeWishlist = createAsyncThunk(
+	'product/removeWishlist',
+	async ({ token, productId, userId }, { rejectWithValue }) => {
+		try {
+			if (token) {
+				const response = await axios.delete(
+					`${API_URL}wishlist/delete-wishlist?productId=${productId}&userId=${userId}`,
+					{ headers: { Authorization: `Bearer ${token}` } }
+				);
 				return response;
 			} else {
 				const data = [
@@ -186,6 +271,18 @@ const initialState = {
 		errorMessage: null,
 	},
 	publish: {
+		response: null,
+		loading: false,
+		error: false,
+		errorMessage: null,
+	},
+	wishlist: {
+		response: null,
+		loading: false,
+		error: false,
+		errorMessage: null,
+	},
+	userWishlist: {
 		response: null,
 		loading: false,
 		error: false,
@@ -243,11 +340,11 @@ export const productSlice = createSlice({
 			state.detail.loading = false;
 		},
 		[getProductDetail.rejected]: (state, action) => {
-			state.get.error = action.error.message;
-			state.get.errorMessage = action.payload.message
+			state.detail.error = action.error.message;
+			state.detail.errorMessage = action.payload.message
 				? action.payload.message
 				: action.payload.error;
-			state.get.loading = false;
+			state.detail.loading = false;
 		},
 		// =================================================== DELETE PRODUCT =================================================== //
 		[deleteProduct.pending]: (state) => {
@@ -299,6 +396,58 @@ export const productSlice = createSlice({
 				? action.payload.message
 				: action.payload.error;
 			state.publish.loading = false;
+		},
+		// =================================================== GET WISHLIST =================================================== //
+		[getWishlist.pending]: (state) => {
+			state.userWishlist.loading = true;
+		},
+		[getWishlist.fulfilled]: (state, action) => {
+			state.userWishlist.response = action.payload.data;
+			state.userWishlist.error = false;
+			state.userWishlist.errorMessage = null;
+			state.userWishlist.loading = false;
+		},
+		[getWishlist.rejected]: (state, action) => {
+			state.userWishlist.response = null;
+			state.userWishlist.error = action.error.message;
+			state.userWishlist.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
+			state.userWishlist.loading = false;
+		},
+		// =================================================== ADD WISHLIST =================================================== //
+		[addToWishlist.pending]: (state) => {
+			state.wishlist.loading = true;
+		},
+		[addToWishlist.fulfilled]: (state, action) => {
+			state.wishlist.response = action.payload.data;
+			state.wishlist.error = false;
+			state.wishlist.errorMessage = null;
+			state.wishlist.loading = false;
+		},
+		[addToWishlist.rejected]: (state, action) => {
+			state.wishlist.error = action.error.message;
+			state.wishlist.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
+			state.wishlist.loading = false;
+		},
+		// =================================================== REMOVE WISHLIST =================================================== //
+		[removeWishlist.pending]: (state) => {
+			state.wishlist.loading = true;
+		},
+		[removeWishlist.fulfilled]: (state, action) => {
+			state.wishlist.response = action.payload.data;
+			state.wishlist.error = false;
+			state.wishlist.errorMessage = null;
+			state.wishlist.loading = false;
+		},
+		[removeWishlist.rejected]: (state, action) => {
+			state.wishlist.error = action.error.message;
+			state.wishlist.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
+			state.wishlist.loading = false;
 		},
 	},
 });

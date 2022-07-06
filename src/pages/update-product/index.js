@@ -17,7 +17,10 @@ import {
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductDetail, deleteProductImage } from '../../features/product/productSlice';
+import {
+	getProductDetail,
+	deleteProductImage,
+} from '../../features/product/productSlice';
 
 import './index.css';
 
@@ -113,14 +116,14 @@ export default function ProductFormUpdate() {
 			setError(err.response.data);
 		}
 	};
-	
+
 	const deleteImage = async (url, productId) => {
-		await dispatch(deleteProductImage({token, url, productId}));
-		console.log('url', url)
-		console.log('productId', productId)
+		await dispatch(deleteProductImage({ token, url, productId }));
+		console.log('url', url);
+		console.log('productId', productId);
 		await dispatch(getProductDetail(id));
 		message.success('Berhasil Menghapus Foto Produk!');
-	}
+	};
 
 	useEffect(() => {
 		dispatch(getProductDetail(id));
@@ -249,7 +252,17 @@ export default function ProductFormUpdate() {
 										height={102}
 										src={item}
 									/>
-									<Button onClick={() => deleteImage(item, id ? id : '')} type="primary" danger shape="circle" className='flex-shrink-0 mt-2'><DeleteOutlined /></Button>
+									<Button
+										onClick={() =>
+											deleteImage(item, id ? id : '')
+										}
+										type='primary'
+										danger
+										shape='circle'
+										className='flex-shrink-0 mt-2'
+									>
+										<DeleteOutlined />
+									</Button>
 								</div>
 							))}
 					</div>
