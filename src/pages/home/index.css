@@ -3,6 +3,10 @@
 	scrollbar-width: none; /* Firefox */
 }
 
+.btn-category.active {
+	@apply bg-purplePrimary text-white;
+}
+
 .category-warpper::-webkit-scrollbar {
 	@apply hidden;
 }

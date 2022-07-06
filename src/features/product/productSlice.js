@@ -126,6 +126,24 @@ export const deleteProductImage = createAsyncThunk(
 	}
 );
 
+export const filterCategory = createAsyncThunk(
+	'product/filterCategory',
+	async ({ category, current }, { rejectWithValue }) => {
+		console.log(category, current);
+		try {
+			const response = await axios.get(
+				`${API_URL}public/filter-category?category=${category}&page=${current}&size=18`
+			);
+			return response;
+		} catch (err) {
+			if (!err.response) {
+				throw err;
+			}
+			return rejectWithValue(err.response.data);
+		}
+	}
+);
+
 export const publishProduct = createAsyncThunk(
 	'product/publishProduct',
 	async ({ token, values }, { rejectWithValue }) => {
@@ -431,6 +449,24 @@ export const productSlice = createSlice({
 				? action.payload.message
 				: action.payload.error;
 			state.publish.loading = false;
+		},
+		// =================================================== FILTER CATEGORY =================================================== //
+		[filterCategory.pending]: (state) => {
+			state.get.loading = true;
+		},
+		[filterCategory.fulfilled]: (state, action) => {
+			state.get.response = action.payload.data;
+			state.get.error = false;
+			state.get.errorMessage = null;
+			state.get.loading = false;
+		},
+		[filterCategory.rejected]: (state, action) => {
+			state.get.response = null;
+			state.get.error = action.error.message;
+			state.get.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
+			state.get.loading = false;
 		},
 		// =================================================== GET WISHLIST =================================================== //
 		[getWishlist.pending]: (state) => {
