@@ -16,9 +16,7 @@ import LoadingProductSold from '../../components/loadingProductSold';
 export default function Terjual() {
 	const token = useSelector((state) => state.user.auth.token);
 	const user = useSelector((state) => state.user.user.data);
-	const { response, loading } = useSelector(
-		(state) => state.product.sold
-	);
+	const { response, loading } = useSelector((state) => state.product.sold);
 	const dispatch = useDispatch();
 	const location = useLocation();
 
@@ -28,8 +26,8 @@ export default function Terjual() {
 	};
 
 	useEffect(() => {
-		const current = 0
-		dispatch(getSold({ token, current}));
+		const current = 0;
+		dispatch(getSold({ token, current }));
 		console.log(response);
 	}, [location.pathname]);
 
@@ -50,8 +48,8 @@ export default function Terjual() {
 					</Col>
 					<Col xs={{ span: 24 }} lg={{ span: 16 }}>
 						<Row gutter={[24, 24]} className='mb-10'>
-							{!loading && response === null && <Empty /> }
-							{loading && <LoadingProductSold/>}
+							{!loading && response === null && <Empty />}
+							{loading && <LoadingProductSold />}
 							{!loading &&
 								!!response &&
 								response.productResponses &&
