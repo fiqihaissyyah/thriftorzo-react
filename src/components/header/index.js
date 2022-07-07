@@ -30,11 +30,13 @@ export default function Header(props) {
 	const navigate = useNavigate();
 
 	const onFinish = (values) => {
-		const productName = values.search;
-		console.log(values.search);
-		const current = 0;
-		dispatch(searchProduct({ productName, current }));
-		window.scrollTo(0, 0);
+		if(values){
+			const productName = values.search;
+			console.log(values.search);
+			const current = 0;
+			dispatch(searchProduct({ productName, current }));
+			window.scrollTo(0, 0);
+		}
 	};
 
 	const onFinishFailed = (errorInfo) => {
