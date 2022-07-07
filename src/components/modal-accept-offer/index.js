@@ -22,6 +22,12 @@ export default function ModalAcceptOffer(props) {
 		}
 	}, [props.events]);
 
+	const currency = (value) =>
+		new Intl.NumberFormat('en-ID', {
+			style: 'currency',
+			currency: 'IDR',
+		}).format(value);
+
 	return (
 		<>
 			<Modal
@@ -47,14 +53,14 @@ export default function ModalAcceptOffer(props) {
 						<Avatar
 							size={48}
 							className='rounded-xl mr-4 flex-shrink-0'
-							src='https://joeschmoe.io/api/v1/random'
+							src={props.user ? props.user.imgUrl : ''}
 						/>
 						<div className='buyer-info w-full flex flex-col justify-center'>
 							<p className='text-sm text-black font-medium mb-1'>
-								Nama Pembeli
+								{props.user ? props.user.name : ''}
 							</p>
 							<span className='text-[10px] text-neutralGray block leading-[14px]'>
-								Kota
+								{props.user ? props.user.cityName : ''}
 							</span>
 						</div>
 					</div>
@@ -62,24 +68,22 @@ export default function ModalAcceptOffer(props) {
 						<Avatar
 							size={48}
 							className='rounded-xl mr-4 flex-shrink-0'
-							src='https://monochrome-watches.com/wp-content/uploads/2020/04/In-Depth-Pellikan-Watches.jpg'
+							src={props.product ? props.product.imgUrl[0] : ''}
 						/>
 						<div className='product-info w-full flex flex-col justify-center'>
 							<p className='text-sm text-black mb-1'>
-								Jam Tangan Casio
+								{props.product ? props.product.name : ''}
 							</p>
-							<p className='text-sm text-black mb-1'>
-								Rp 250.000
+							<p className='text-sm text-black mb-1 line-through'>
+								{props.product ? currency(props.product.price) : ''}
 							</p>
 							<p className='text-sm text-black mb-0'>
-								Ditawar Rp 200.000
+								Ditawar {props.offer ? currency(props.offer) : ''}
 							</p>
 						</div>
 					</div>
 				</div>
-				<Button type='primary' className='btn-custom w-full'>
-					Hubungi via Whatsapp <WhatsAppOutlined />
-				</Button>
+				<a href={`https://api.whatsapp.com/send?phone=${props.user ? props.user.phone : ''}`} target='_blank'><Button type='primary' className='btn-custom w-full'>Hubungi via Whatsapp <WhatsAppOutlined /></Button></a>
 			</Modal>
 		</>
 	);

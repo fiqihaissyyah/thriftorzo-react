@@ -80,7 +80,7 @@ export default function DaftarJual() {
 									</Col>
 								))}
 						</Row>
-						{response !== null && (
+						{!loading && !!response && response.totalPage > 1 && (
 							<Pagination
 								className='mb-10'
 								onChange={paginationHandler}

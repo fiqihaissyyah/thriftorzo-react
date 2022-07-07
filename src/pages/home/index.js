@@ -1,8 +1,8 @@
+
 import React, { useEffect, useState } from 'react';
 import { Col, Row, Pagination, Button } from 'antd';
 import { Search } from 'react-feather';
 
-import Category from '../../components/category';
 import Product from '../../components/product';
 import SliderHome from '../../components/slider-home';
 import SellButton from '../../components/sell-button';
@@ -13,34 +13,53 @@ import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	getProduct,
-	filterCategory,
 } from '../../features/product/productSlice';
 
 import './index.css';
 
 export default function Home() {
 	const [categoryActive, setActive] = useState('Semua');
-	const { response, error, errorMessage, loading } = useSelector(
+	const [filterCategory, setCategory] = useState('');
+	const [search, setSearch] = useState('');
+
+	const { response, loading } = useSelector(
 		(state) => state.product.get
 	);
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch(getProduct(0));
-		console.log(response);
-	}, []);
-
 	const paginationHandler = (current) => {
-		dispatch(getProduct(current - 1));
+		const productName = search;
+		const category = filterCategory;
+
+		dispatch(getProduct(productName, category, current - 1));
 		window.scrollTo(0, 0);
 	};
 
-	const categoryHandler = (category, current) => {
-		current = current - 1;
-		dispatch(filterCategory({ category, current }));
-		setActive(category);
+	const getAllProduct = () => {
+		const current = 0;
+		const productName = '';
+		const category = '';
+
+		setCategory('');
+		setSearch('');
+
+		dispatch(getProduct({productName, category, current}));
+	}
+
+	const categoryHandler = (category) => {
+		const current = 0;
+		const productName = '';
+
+		setCategory(category);
+		setActive(category)
+
+		dispatch(getProduct({productName, category, current}));
 		window.scrollTo(0, 0);
 	};
+
+	useEffect(() => {
+		getAllProduct()
+	}, []);
 
 	return (
 		<>
@@ -56,68 +75,62 @@ export default function Home() {
 					</h2>
 					<div className='flex mb-10 w-full md:overflow-auto overflow-x-scroll category-warpper'>
 						<Button
-							className={`${
-								categoryActive == 'Semua' ? 'active' : ''
-							} bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4`}
+							className={`${categoryActive == 'Semua' ? 'active' : ''
+								} bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4`}
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => {dispatch(getProduct(0)), setActive('Semua')}}
+							onClick={() => {getAllProduct(), setActive('Semua');}}
 						>
 							Semua
 						</Button>
 						<Button
-							className={`${
-								categoryActive == 'Hobi' ? 'active' : ''
-							} bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4`}
+							className={`${categoryActive == 'Hobi' ? 'active' : ''
+								} bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4`}
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => categoryHandler('Hobi', 1)}
+							onClick={() => categoryHandler('Hobi')}
 						>
 							Hobi
 						</Button>
 						<Button
-							className={`${
-								categoryActive == 'Kendaraan' ? 'active' : ''
-							} bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4`}
+							className={`${categoryActive == 'Kendaraan' ? 'active' : ''
+								} bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4`}
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => categoryHandler('Kendaraan', 1)}
+							onClick={() => categoryHandler('Kendaraan')}
 						>
 							Kendaraan
 						</Button>
 						<Button
-							className={`${
-								categoryActive == 'Baju' ? 'active' : ''
-							} bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4`}
+							className={`${categoryActive == 'Baju' ? 'active' : ''
+								} bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4`}
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => categoryHandler('Baju', 1)}
+							onClick={() => categoryHandler('Baju')}
 						>
 							Baju
 						</Button>
 						<Button
-							className={`${
-								categoryActive == 'Elektronik' ? 'active' : ''
-							} bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4`}
+							className={`${categoryActive == 'Elektronik' ? 'active' : ''
+								} bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4`}
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => categoryHandler('Elektronik', 1)}
+							onClick={() => categoryHandler('Elektronik')}
 						>
 							Elektronik
 						</Button>
 						<Button
-							className={`${
-								categoryActive == 'Kesehatan' ? 'active' : ''
-							} bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4`}
+							className={`${categoryActive == 'Kesehatan' ? 'active' : ''
+								} bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4`}
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => categoryHandler('Kesehatan', 1)}
+							onClick={() => categoryHandler('Kesehatan')}
 						>
 							Kesehatan
 						</Button>
@@ -146,7 +159,7 @@ export default function Home() {
 								</Col>
 							))}
 					</Row>
-					{response !== null && (
+					{!loading && !!response && response.totalPage > 1 && (
 						<Pagination
 							className='mb-10'
 							onChange={paginationHandler}

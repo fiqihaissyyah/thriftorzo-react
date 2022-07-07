@@ -85,7 +85,7 @@ export default function ProductSidebar(props) {
 		(state) => state.product.wishlist.loading
 	);
 	const token = useSelector((state) => state.user.auth.token);
-	const offersEvents = { click: () => {} };
+	const offersEvents = { click: () => { } };
 	const [isWishlist, setWishlist] = useState(false);
 
 	const handleEdit = () => {
@@ -113,9 +113,11 @@ export default function ProductSidebar(props) {
 	};
 
 	useEffect(() => {
-		const productId = props.id;
-		const userId = profileUser.id;
-		checkWishlistHandler(productId, userId);
+		if (profileUser) {
+			const productId = props.id;
+			const userId = profileUser.id;
+			checkWishlistHandler(productId, userId);
+		}
 	}, []);
 
 	const currency = (value) =>
@@ -127,15 +129,13 @@ export default function ProductSidebar(props) {
 	return (
 		<>
 			<div
-				className={`sidebar-product p-4 shadow-custom md:mb-6 mb-4 rounded-2xl ${
-					!props.mobile ? 'md:block hidden' : 'md:hidden block'
+				className={`sidebar-product p-4 shadow-custom md:mb-6 mb-4 rounded-2xl ${!props.mobile ? 'md:block hidden' : 'md:hidden block'
 				} z-10 relative bg-white`}
 			>
 				<h4 className='text-base text-black mb-2'>{props.name}</h4>
 				<p className='text-sm text-[#8A8A8A] mb-4'>{props.category}</p>
 				<p
-					className={`text-base text-black ${
-						props.mobile || !profileUser ? 'mb-0' : 'mb-6'
+					className={`text-base text-black ${props.mobile || !profileUser ? 'mb-0' : 'mb-6'
 					}`}
 				>
 					{currency(props.price)}
@@ -167,44 +167,44 @@ export default function ProductSidebar(props) {
 							Saya tertarik dan ingin nego
 						</Button>
 					)}
-					{!!profileUser &&
-						profileUser.id !== props.userId &&
-						!isWishlist && (
-							<Button
-								loading={loadingWishlist}
-								onClick={() =>
-									addWishlistHandler(props.id, profileUser.id)
-								}
-								className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
-								type='primary'
-								htmlType='submit'
-								ghost
-							>
-								Tambah ke wishlist
-							</Button>
-						)}
-					{!!profileUser &&
-						profileUser.id !== props.userId &&
-						isWishlist && (
-							<Button
-								loading={loadingWishlist}
-								onClick={() =>
-									removeWishlistHandler(
-										props.id,
-										profileUser.id
-									)
-								}
-								className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
-								type='primary'
-								htmlType='submit'
-								ghost
-							>
-								Hapus dari wishlist
-							</Button>
-						)}
 				</div>
+				{!!profileUser &&
+					profileUser.id !== props.userId &&
+					!isWishlist && (
+					<Button
+						loading={loadingWishlist}
+						onClick={() =>
+							addWishlistHandler(props.id, profileUser.id)
+						}
+						className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
+						type='primary'
+						htmlType='submit'
+						ghost
+					>
+						Tambah ke wishlist
+					</Button>
+				)}
+				{!!profileUser &&
+					profileUser.id !== props.userId &&
+					isWishlist && (
+					<Button
+						loading={loadingWishlist}
+						onClick={() =>
+							removeWishlistHandler(
+								props.id,
+								profileUser.id
+							)
+						}
+						className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
+						type='primary'
+						htmlType='submit'
+						ghost
+					>
+						Hapus dari wishlist
+					</Button>
+				)}
 			</div>
-			<ModalOffer events={offersEvents} />
+			<ModalOffer name={props.name} image={props.imgUrl ? props.imgUrl[0] : ''} price={props.price} id={props.id} events={offersEvents} />
 		</>
 	);
 }

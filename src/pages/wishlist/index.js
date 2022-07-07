@@ -30,8 +30,8 @@ export default function Wishlist() {
 	};
 
 	useEffect(() => {
-		const current = 0
-		dispatch(getWishlist({ token, userId, current}));
+		const current = 0;
+		dispatch(getWishlist({ token, userId, current }));
 		console.log(response);
 	}, [location.pathname]);
 
@@ -75,7 +75,7 @@ export default function Wishlist() {
 									</Col>
 								))}
 						</Row>
-						{!loading && !!response && response !== null && (
+						{!loading && !!response && response.totalPage > 1 && (
 							<Pagination
 								className='mb-10'
 								onChange={paginationHandler}

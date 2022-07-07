@@ -46,6 +46,7 @@ export default function Detail() {
 						name={!!response && response.name}
 						category={!!response && response.category}
 						price={!!response && response.price}
+						imgUrl={!!response && response.imgUrl}
 						userId={
 							!!response &&
 							response.userResponse &&
@@ -79,6 +80,7 @@ export default function Detail() {
 						name={!!response && response.name}
 						category={!!response && response.category}
 						price={!!response && response.price}
+						imgUrl={!!response && response.imgUrl}
 						userId={
 							!!response &&
 							response.userResponse &&

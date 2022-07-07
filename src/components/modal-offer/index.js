@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal, Avatar, Form, InputNumber } from 'antd';
+import { Button, Modal, Avatar, Form, InputNumber, message } from 'antd';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { sendOffer } from '../../features/transaction/transactionSlice';
 
 import { X } from 'react-feather';
 
@@ -9,8 +12,20 @@ export default function ModalOffer(props) {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [form] = Form.useForm();
 
-	const onFinish = (values) => {
-		console.log(values);
+	const token = useSelector((state) => state.user.auth.token);
+	const user = useSelector((state) => state.user.user.data);
+	const userId = user ? user.id : '';
+
+	const dispatch = useDispatch();
+	const { response, error, errorMessage, loading } = useSelector(
+		(state) => state.transaction.offer
+	);
+
+	const onFinish = async (values) => {
+		values = {...values, status: 1, productId: props.id};
+		await dispatch(sendOffer({token, userId, values}));
+		setIsModalVisible(false);
+		message.success('Berhasil Mengirimkan Tawaran!');
 	};
 
 	const showModal = () => {
@@ -26,6 +41,12 @@ export default function ModalOffer(props) {
 			props.events.click = showModal;
 		}
 	}, [props.events]);
+
+	const currency = (value) =>
+		new Intl.NumberFormat('en-ID', {
+			style: 'currency',
+			currency: 'IDR',
+		}).format(value);
 
 	return (
 		<>
@@ -49,14 +70,14 @@ export default function ModalOffer(props) {
 						<Avatar
 							size={48}
 							className='rounded-xl mr-4 flex-shrink-0'
-							src='https://monochrome-watches.com/wp-content/uploads/2020/04/In-Depth-Pellikan-Watches.jpg'
+							src={props.image}
 						/>
 						<div className='product-info w-full flex flex-col justify-center'>
 							<p className='text-sm text-black font-medium mb-1'>
-								Jam Tangan Casio
+								{props.name}
 							</p>
 							<p className='text-sm text-black mb-1'>
-								Rp 250.000
+								{currency(props.price)}
 							</p>
 						</div>
 					</div>
@@ -69,7 +90,7 @@ export default function ModalOffer(props) {
 				>
 					<Form.Item
 						className='mb-4'
-						name='product-name'
+						name='offerPrice'
 						label='Harga Tawar'
 						required={false}
 						rules={[
@@ -87,6 +108,7 @@ export default function ModalOffer(props) {
 					</Form.Item>
 					<Form.Item className='mb-0'>
 						<Button
+							loading={loading}
 							type='primary'
 							htmlType='submit'
 							className='btn-custom w-full'
