@@ -22,8 +22,8 @@ export default function ModalOffer(props) {
 	);
 
 	const onFinish = async (values) => {
-		values = {...values, status: 1, productId: props.id};
-		await dispatch(sendOffer({token, userId, values}));
+		values = { ...values, status: 1, productId: props.id };
+		await dispatch(sendOffer({ token, userId, values }));
 		setIsModalVisible(false);
 		message.success('Berhasil Mengirimkan Tawaran!');
 	};

@@ -53,7 +53,7 @@ export default function ModalChangeStatus(props) {
 				>
 					<Form.Item
 						className='mb-8'
-						name="status"
+						name='status'
 						rules={[
 							{
 								required: true,
@@ -61,13 +61,18 @@ export default function ModalChangeStatus(props) {
 							},
 						]}
 					>
-						<Radio.Group onChange={onChange} value={value} className='mb-0'>
+						<Radio.Group
+							onChange={onChange}
+							value={value}
+							className='mb-0'
+						>
 							<Radio value={4}>
 								<span className='text-sm text-black mb-2 block'>
 									Berhasil terjual
 								</span>{' '}
 								<p className='mb-[26px] text-sm text-neutralGray'>
-									Kamu telah sepakat menjual produk ini kepada pembeli
+									Kamu telah sepakat menjual produk ini kepada
+									pembeli
 								</p>
 							</Radio>
 							<Radio value={2}>
@@ -75,13 +80,19 @@ export default function ModalChangeStatus(props) {
 									Batalkan transaksi
 								</span>{' '}
 								<p className='mb-0 text-sm text-neutralGray'>
-									Kamu telah sepakat menjual produk ini kepada pembeli
+									Kamu telah sepakat menjual produk ini kepada
+									pembeli
 								</p>
 							</Radio>
 						</Radio.Group>
 					</Form.Item>
 					<Form.Item>
-						<Button loading={props.loading} htmlType='submit' type='primary' className='btn-custom w-full'>
+						<Button
+							loading={props.loading}
+							htmlType='submit'
+							type='primary'
+							className='btn-custom w-full'
+						>
 							Kirim
 						</Button>
 					</Form.Item>

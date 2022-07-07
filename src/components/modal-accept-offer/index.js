@@ -75,15 +75,27 @@ export default function ModalAcceptOffer(props) {
 								{props.product ? props.product.name : ''}
 							</p>
 							<p className='text-sm text-black mb-1 line-through'>
-								{props.product ? currency(props.product.price) : ''}
+								{props.product
+									? currency(props.product.price)
+									: ''}
 							</p>
 							<p className='text-sm text-black mb-0'>
-								Ditawar {props.offer ? currency(props.offer) : ''}
+								Ditawar{' '}
+								{props.offer ? currency(props.offer) : ''}
 							</p>
 						</div>
 					</div>
 				</div>
-				<a href={`https://api.whatsapp.com/send?phone=${props.user ? props.user.phone : ''}`} target='_blank'><Button type='primary' className='btn-custom w-full'>Hubungi via Whatsapp <WhatsAppOutlined /></Button></a>
+				<a
+					href={`https://api.whatsapp.com/send?phone=${
+						props.user ? props.user.phone : ''
+					}`}
+					target='_blank'
+				>
+					<Button type='primary' className='btn-custom w-full'>
+						Hubungi via Whatsapp <WhatsAppOutlined />
+					</Button>
+				</a>
 			</Modal>
 		</>
 	);

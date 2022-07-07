@@ -90,7 +90,7 @@ export const detailOffer = createAsyncThunk(
 export const updateStatus = createAsyncThunk(
 	'product/updateStatus',
 	async ({ token, id, status }, { rejectWithValue }) => {
-		console.log(token, id, status)
+		console.log(token, id, status);
 		try {
 			if (token) {
 				const response = await axios.put(

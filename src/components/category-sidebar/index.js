@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from 'antd';
-import { Box, Heart, DollarSign, ChevronRight, ShoppingCart } from 'react-feather';
+import {
+	Box,
+	Heart,
+	DollarSign,
+	ChevronRight,
+	ShoppingCart,
+} from 'react-feather';
 
 import './index.css';
 
@@ -65,7 +71,8 @@ export default function CategorySidebar(props) {
 						<Link
 							to='/daftar-jual/sale-history'
 							className={`text-black flex w-full justify-between items-center ${
-								location.pathname === '/daftar-jual/sale-history'
+								location.pathname ===
+								'/daftar-jual/sale-history'
 									? 'active'
 									: ''
 							}`}

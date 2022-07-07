@@ -4,10 +4,14 @@ export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
 
 export const getProduct = createAsyncThunk(
 	'product/getProduct',
-	async ({productName, category, current}, { rejectWithValue }) => {
+	async ({ productName, category, current }, { rejectWithValue }) => {
 		try {
 			const response = await axios.get(
-				`${API_URL}public/get-all-product-search-filter-paginated?${productName ? `productName=${productName}&` : ''}${category ? `category=${category}&` : ''}page=${current}&size=18`
+				`${API_URL}public/get-all-product-search-filter-paginated?${
+					productName ? `productName=${productName}&` : ''
+				}${
+					category ? `category=${category}&` : ''
+				}page=${current}&size=18`
 			);
 			return response;
 		} catch (err) {

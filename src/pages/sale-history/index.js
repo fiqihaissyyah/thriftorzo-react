@@ -55,18 +55,23 @@ export default function SaleHistory() {
 						<Col xs={{ span: 24 }} lg={{ span: 16 }}>
 							{/* {!loading && response === null && <Empty />}
 							{loading && <LoadingProductSold />} */}
-							{!!response && response.map((i) => (
-								<>
-									<p>ID: {i.transactionId}</p>
-									<p>PRODUCT: {i.productResponse.name}</p>
-									<p>USER: {i.buyerResponse.name}</p>
-									<p>PRICE: {i.productResponse.price}</p>
-									<p>OFFER PRICE: {i.offerPrice}</p>
-									<p>STATUS: {i.status}</p>
-									<Link to={`/penawaran/info-penawaran/${i.transactionId}`}>Detail</Link>
-									<hr />
-								</>
-							))}
+							{!!response &&
+								response.map((i) => (
+									<>
+										<p>ID: {i.transactionId}</p>
+										<p>PRODUCT: {i.productResponse.name}</p>
+										<p>USER: {i.buyerResponse.name}</p>
+										<p>PRICE: {i.productResponse.price}</p>
+										<p>OFFER PRICE: {i.offerPrice}</p>
+										<p>STATUS: {i.status}</p>
+										<Link
+											to={`/penawaran/info-penawaran/${i.transactionId}`}
+										>
+											Detail
+										</Link>
+										<hr />
+									</>
+								))}
 						</Col>
 					</Row>
 				</div>

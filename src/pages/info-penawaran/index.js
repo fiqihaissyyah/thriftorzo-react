@@ -1,6 +1,6 @@
 import './index.css';
 import React, { useEffect, useState } from 'react';
-import * as moment from 'moment'
+import * as moment from 'moment';
 import { Helmet } from 'react-helmet';
 import { Button, message } from 'antd';
 import { useParams } from 'react-router-dom';
@@ -11,47 +11,52 @@ import ModalAcceptOffer from '../../components/modal-accept-offer';
 import ModalChangeStatus from '../../components/modal-change-status';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { detailOffer, updateStatus } from '../../features/transaction/transactionSlice';
+import {
+	detailOffer,
+	updateStatus,
+} from '../../features/transaction/transactionSlice';
 
 export default function InfoPenawaran() {
-	const [rejectLoading, setRejectLoading] = useState(false)
-	const [acceptLoading, setAcceptLoading] = useState(false)
+	const [rejectLoading, setRejectLoading] = useState(false);
+	const [acceptLoading, setAcceptLoading] = useState(false);
 
-	const acceptEvents = { click: () => { } };
-	const statusEvents = { click: () => { } };
+	const acceptEvents = { click: () => {} };
+	const statusEvents = { click: () => {} };
 
 	const dispatch = useDispatch();
 	const token = useSelector((state) => state.user.auth.token);
 	const user = useSelector((state) => state.user.user.data);
 
-	const offerDetail = useSelector((state) => state.transaction.showOffer.response);
+	const offerDetail = useSelector(
+		(state) => state.transaction.showOffer.response
+	);
 	const loading = useSelector((state) => state.transaction.status.loading);
 	const { id } = useParams();
 
 	const acceptOffer = async () => {
-		setAcceptLoading(true)
-		const status = 3
+		setAcceptLoading(true);
+		const status = 3;
 		await dispatch(updateStatus({ token, id, status }));
 		await dispatch(detailOffer({ token, id }));
-		await setAcceptLoading(false)
+		await setAcceptLoading(false);
 		await message.success('Berhasil Menerima Tawaran!');
-		acceptEvents.click()
-	}
+		acceptEvents.click();
+	};
 
 	const rejectOffer = async () => {
-		setRejectLoading(true)
-		const status = 2
+		setRejectLoading(true);
+		const status = 2;
 		await dispatch(updateStatus({ token, id, status }));
 		await dispatch(detailOffer({ token, id }));
-		await setRejectLoading(false)
+		await setRejectLoading(false);
 		message.success('Berhasil Menolak Tawaran!');
-	}
+	};
 
 	const updateOfferStatus = async (status) => {
 		await dispatch(updateStatus({ token, id, status }));
 		await dispatch(detailOffer({ token, id }));
 		message.success('Status produk berhasil diperbarui!');
-	}
+	};
 
 	useEffect(() => {
 		dispatch(detailOffer({ token, id }));
@@ -78,7 +83,10 @@ export default function InfoPenawaran() {
 				<div className='notification-item flex w-full border-0 mb-0 pb-4 cursor-text'>
 					<img
 						className='flex-shrink-0 w-12 h-12 object-cover rounded-xl mr-4'
-						src={!!offerDetail && offerDetail.productResponse.imgUrl[0]}
+						src={
+							!!offerDetail &&
+							offerDetail.productResponse.imgUrl[0]
+						}
 						alt='product'
 					/>
 					<div className='notification-content w-full'>
@@ -94,16 +102,27 @@ export default function InfoPenawaran() {
 						<p className='mb-1 text-black text-sm'>
 							{!!offerDetail && offerDetail.productResponse.name}
 						</p>
-						<p className='mb-1 text-black text-sm'>{!!offerDetail && currency(offerDetail.productResponse.price)}</p>
 						<p className='mb-1 text-black text-sm'>
-							Ditawar {!!offerDetail && currency(offerDetail.offerPrice)}
+							{!!offerDetail &&
+								currency(offerDetail.productResponse.price)}
+						</p>
+						<p className='mb-1 text-black text-sm'>
+							Ditawar{' '}
+							{!!offerDetail && currency(offerDetail.offerPrice)}
 						</p>
 					</div>
 				</div>
 				<div className='notification-action md:w-1/2 w-full ml-auto'>
 					{!!offerDetail && offerDetail.status === 1 && (
 						<>
-							<Button loading={rejectLoading} type='primary' ghost onClick={rejectOffer}>Tolak</Button>
+							<Button
+								loading={rejectLoading}
+								type='primary'
+								ghost
+								onClick={rejectOffer}
+							>
+								Tolak
+							</Button>
 							<Button
 								loading={acceptLoading}
 								type='primary'
@@ -123,14 +142,33 @@ export default function InfoPenawaran() {
 							>
 								Status
 							</Button>
-							<a href={`https://api.whatsapp.com/send?phone=${offerDetail ? offerDetail.buyerResponse.phone : ''}`} target='_blank'><Button type='primary' className='ml-4'>Hubungi di <WhatsAppOutlined /></Button></a>
+							<a
+								href={`https://api.whatsapp.com/send?phone=${
+									offerDetail
+										? offerDetail.buyerResponse.phone
+										: ''
+								}`}
+								target='_blank'
+							>
+								<Button type='primary' className='ml-4'>
+									Hubungi di <WhatsAppOutlined />
+								</Button>
+							</a>
 						</>
 					)}
-
 				</div>
 			</div>
-			<ModalAcceptOffer user={!!offerDetail && offerDetail.buyerResponse} product={!!offerDetail && offerDetail.productResponse} offer={!!offerDetail && offerDetail.offerPrice} events={acceptEvents} />
-			<ModalChangeStatus statusSubmited={updateOfferStatus} loading={loading} events={statusEvents} />
+			<ModalAcceptOffer
+				user={!!offerDetail && offerDetail.buyerResponse}
+				product={!!offerDetail && offerDetail.productResponse}
+				offer={!!offerDetail && offerDetail.offerPrice}
+				events={acceptEvents}
+			/>
+			<ModalChangeStatus
+				statusSubmited={updateOfferStatus}
+				loading={loading}
+				events={statusEvents}
+			/>
 		</div>
 	);
 }
