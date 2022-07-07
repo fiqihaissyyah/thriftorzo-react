@@ -1,6 +1,6 @@
 import './index.css';
-import React from 'react';
-import { Row, Col } from 'antd';
+import React, { useEffect } from 'react';
+import { Row, Col, Pagination } from 'antd';
 import { Helmet } from 'react-helmet';
 
 import Product from '../../components/product';
@@ -8,10 +8,30 @@ import CategorySidebar from '../../components/category-sidebar';
 import SalerInformation from '../../components/saler-information';
 import NewProduct from '../../components/new-product-card';
 import Empty from '../../components/empty';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { getSold } from '../../features/product/productSlice';
+import LoadingProductSold from '../../components/loadingProductSold';
 
 export default function Terjual() {
+	const token = useSelector((state) => state.user.auth.token);
 	const user = useSelector((state) => state.user.user.data);
+	const { response, loading } = useSelector(
+		(state) => state.product.sold
+	);
+	const dispatch = useDispatch();
+	const location = useLocation();
+
+	const paginationHandler = (current) => {
+		dispatch(getSold(token, current - 1));
+		window.scrollTo(0, 0);
+	};
+
+	useEffect(() => {
+		const current = 0
+		dispatch(getSold({ token, current}));
+		console.log(response);
+	}, [location.pathname]);
 
 	return (
 		<div className='page-daftar-jual md:py-10 py-4'>
@@ -29,9 +49,40 @@ export default function Terjual() {
 						<CategorySidebar />
 					</Col>
 					<Col xs={{ span: 24 }} lg={{ span: 16 }}>
-						<Row gutter={[24, 24]}>
-							<Empty />
+						<Row gutter={[24, 24]} className='mb-10'>
+							{!loading && response === null && <Empty /> }
+							{loading && <LoadingProductSold/>}
+							{!loading &&
+								!!response &&
+								response.productResponses &&
+								response.productResponses.length > 0 &&
+								response.productResponses.map((i, index) => (
+									<Col
+										key={index}
+										xs={{ span: 12 }}
+										md={{ span: 8 }}
+										lg={{ span: 8 }}
+									>
+										<Product
+											img={i.imgUrl[0]}
+											title={i.name}
+											category={i.category}
+											price={i.price}
+											link={i.id}
+										/>
+									</Col>
+								))}
 						</Row>
+						{!loading && !!response && response.totalPage > 1 && (
+							<Pagination
+								className='mb-10'
+								onChange={paginationHandler}
+								defaultCurrent={1}
+								current={!!response && response.currentPage + 1}
+								total={!!response && response.totalElement}
+								pageSize={18}
+							/>
+						)}
 					</Col>
 				</Row>
 			</div>
