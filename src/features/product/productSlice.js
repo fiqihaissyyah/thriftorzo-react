@@ -302,6 +302,34 @@ export const getProductByUserId = createAsyncThunk(
 	}
 );
 
+export const getSold = createAsyncThunk(
+	'product/getSold',
+	async ({ token, current }, { rejectWithValue }) => {
+		try {
+			if (token) {
+				const response = await axios.get(
+					`${API_URL}product/get-sold-products?page=${current}&size=18`,
+					{ headers: { Authorization: `Bearer ${token}` } }
+				);
+				return response;
+			} else {
+				const data = [
+					{
+						error: 'Token Not Found',
+						message: 'Token Not Found',
+					},
+				];
+				return rejectWithValue(...data);
+			}
+		} catch (err) {
+			if (!err.response) {
+				throw err;
+			}
+			return rejectWithValue(err.response.data);
+		}
+	}
+);
+
 const initialState = {
 	get: {
 		response: null,
@@ -352,6 +380,12 @@ const initialState = {
 		errorMessage: null,
 	},
 	productByUserId: {
+		response: null,
+		loading: false,
+		error: false,
+		errorMessage: null,
+	},
+	sold: {
 		response: null,
 		loading: false,
 		error: false,
@@ -570,6 +604,24 @@ export const productSlice = createSlice({
 				? action.payload.message
 				: action.payload.error;
 			state.productByUserId.loading = false;
+		},
+		// =================================================== GET SOLD PRODUCT =================================================== //
+		[getSold.pending]: (state) => {
+			state.sold.loading = true;
+		},
+		[getSold.fulfilled]: (state, action) => {
+			state.sold.response = action.payload.data;
+			state.sold.error = false;
+			state.sold.errorMessage = null;
+			state.sold.loading = false;
+		},
+		[getSold.rejected]: (state, action) => {
+			state.sold.response = null;
+			state.sold.error = action.error.message;
+			state.sold.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
+			state.sold.loading = false;
 		},
 	},
 });
