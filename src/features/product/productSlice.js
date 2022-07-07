@@ -274,6 +274,34 @@ export const removeWishlist = createAsyncThunk(
 	}
 );
 
+export const getProductByUserId = createAsyncThunk(
+	'product/getProductByUserId',
+	async ({ token, current }, { rejectWithValue }) => {
+		try {
+			if (token) {
+				const response = await axios.get(
+					`${API_URL}product/get-products-by-userid?page=${current}&size=18`,
+					{ headers: { Authorization: `Bearer ${token}` } }
+				);
+				return response;
+			} else {
+				const data = [
+					{
+						error: 'Token Not Found',
+						message: 'Token Not Found',
+					},
+				];
+				return rejectWithValue(...data);
+			}
+		} catch (err) {
+			if (!err.response) {
+				throw err;
+			}
+			return rejectWithValue(err.response.data);
+		}
+	}
+);
+
 export const getSold = createAsyncThunk(
 	'product/getSold',
 	async ({ token, current }, { rejectWithValue }) => {
@@ -346,6 +374,12 @@ const initialState = {
 		errorMessage: null,
 	},
 	userWishlist: {
+		response: null,
+		loading: false,
+		error: false,
+		errorMessage: null,
+	},
+	productByUserId: {
 		response: null,
 		loading: false,
 		error: false,
@@ -553,6 +587,23 @@ export const productSlice = createSlice({
 				? action.payload.message
 				: action.payload.error;
 			state.wishlist.loading = false;
+		},
+		// =================================================== PRODUCT BY USER ID =================================================== //
+		[getProductByUserId.pending]: (state) => {
+			state.productByUserId.loading = true;
+		},
+		[getProductByUserId.fulfilled]: (state, action) => {
+			state.productByUserId.response = action.payload.data;
+			state.productByUserId.error = false;
+			state.productByUserId.errorMessage = null;
+			state.productByUserId.loading = false;
+		},
+		[getProductByUserId.rejected]: (state, action) => {
+			state.productByUserId.error = action.error.message;
+			state.productByUserId.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
+			state.productByUserId.loading = false;
 		},
 		// =================================================== GET SOLD PRODUCT =================================================== //
 		[getSold.pending]: (state) => {
