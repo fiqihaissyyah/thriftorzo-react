@@ -62,7 +62,9 @@ export default function Home() {
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => {dispatch(getProduct(0)), setActive('Semua')}}
+							onClick={() => {
+								dispatch(getProduct(0)), setActive('Semua');
+							}}
 						>
 							Semua
 						</Button>

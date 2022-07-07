@@ -30,7 +30,7 @@ export default function Header(props) {
 	const navigate = useNavigate();
 
 	const onFinish = (values) => {
-		if(values.search){
+		if (values.search) {
 			const productName = values.search;
 			console.log(values.search);
 			const current = 0;
