@@ -113,9 +113,11 @@ export default function ProductSidebar(props) {
 	};
 
 	useEffect(() => {
-		const productId = props.id;
-		const userId = profileUser.id;
-		checkWishlistHandler(productId, userId);
+		if (profileUser) {
+			const productId = props.id;
+			const userId = profileUser.id;
+			checkWishlistHandler(productId, userId);
+		}
 	}, []);
 
 	const currency = (value) =>
@@ -167,44 +169,47 @@ export default function ProductSidebar(props) {
 							Saya tertarik dan ingin nego
 						</Button>
 					)}
-					{!!profileUser &&
-						profileUser.id !== props.userId &&
-						!isWishlist && (
-							<Button
-								loading={loadingWishlist}
-								onClick={() =>
-									addWishlistHandler(props.id, profileUser.id)
-								}
-								className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
-								type='primary'
-								htmlType='submit'
-								ghost
-							>
-								Tambah ke wishlist
-							</Button>
-						)}
-					{!!profileUser &&
-						profileUser.id !== props.userId &&
-						isWishlist && (
-							<Button
-								loading={loadingWishlist}
-								onClick={() =>
-									removeWishlistHandler(
-										props.id,
-										profileUser.id
-									)
-								}
-								className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
-								type='primary'
-								htmlType='submit'
-								ghost
-							>
-								Hapus dari wishlist
-							</Button>
-						)}
 				</div>
+				{!!profileUser &&
+					profileUser.id !== props.userId &&
+					!isWishlist && (
+						<Button
+							loading={loadingWishlist}
+							onClick={() =>
+								addWishlistHandler(props.id, profileUser.id)
+							}
+							className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
+							type='primary'
+							htmlType='submit'
+							ghost
+						>
+							Tambah ke wishlist
+						</Button>
+					)}
+				{!!profileUser &&
+					profileUser.id !== props.userId &&
+					isWishlist && (
+						<Button
+							loading={loadingWishlist}
+							onClick={() =>
+								removeWishlistHandler(props.id, profileUser.id)
+							}
+							className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
+							type='primary'
+							htmlType='submit'
+							ghost
+						>
+							Hapus dari wishlist
+						</Button>
+					)}
 			</div>
-			<ModalOffer events={offersEvents} />
+			<ModalOffer
+				name={props.name}
+				image={props.imgUrl ? props.imgUrl[0] : ''}
+				price={props.price}
+				id={props.id}
+				events={offersEvents}
+			/>
 		</>
 	);
 }

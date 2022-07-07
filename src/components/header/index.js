@@ -15,7 +15,7 @@ import Notification from '../notification';
 import './index.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, reset } from '../../features/user/userSlice';
-import { searchProduct } from '../../features/product/productSlice';
+import { getProduct } from '../../features/product/productSlice';
 
 export default function Header(props) {
 	const { token, success } = useSelector((state) => state.user.auth);
@@ -31,10 +31,11 @@ export default function Header(props) {
 
 	const onFinish = (values) => {
 		if (values.search) {
-			const productName = values.search;
-			console.log(values.search);
 			const current = 0;
-			dispatch(searchProduct({ productName, current }));
+			const category = '';
+			const productName = values.search;
+
+			dispatch(getProduct({ productName, category, current }));
 			window.scrollTo(0, 0);
 		}
 	};
@@ -64,6 +65,7 @@ export default function Header(props) {
 	};
 
 	const handleLogout = async () => {
+		await navigate('/');
 		await localStorage.removeItem('token');
 		await localStorage.removeItem('user');
 		dispatch(reset());

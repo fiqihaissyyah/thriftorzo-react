@@ -20,6 +20,7 @@ import DaftarJual from './pages/daftar-jual';
 import Wishlist from './pages/wishlist';
 import Terjual from './pages/terjual';
 import InfoPenawaran from './pages/info-penawaran';
+import SaleHistory from './pages/sale-history';
 
 function App() {
 	return (
@@ -41,7 +42,7 @@ function App() {
 						<Route exact path='/profile' element={<Profile />} />
 						<Route
 							exact
-							path='/penawaran/info-penawaran'
+							path='/penawaran/info-penawaran/:id'
 							element={<InfoPenawaran />}
 						/>
 					</Route>
@@ -80,6 +81,11 @@ function App() {
 							exact
 							path='/daftar-jual/terjual'
 							element={<Terjual />}
+						/>
+						<Route
+							exact
+							path='/daftar-jual/sale-history'
+							element={<SaleHistory />}
 						/>
 					</Route>
 				</Route>

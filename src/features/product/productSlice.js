@@ -4,10 +4,14 @@ export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
 
 export const getProduct = createAsyncThunk(
 	'product/getProduct',
-	async (current, { rejectWithValue }) => {
+	async ({ productName, category, current }, { rejectWithValue }) => {
 		try {
 			const response = await axios.get(
-				`${API_URL}public/get-all-products-ready?page=${current}&size=18`
+				`${API_URL}public/get-all-product-search-filter-paginated?${
+					productName ? `productName=${productName}&` : ''
+				}${
+					category ? `category=${category}&` : ''
+				}page=${current}&size=18`
 			);
 			return response;
 		} catch (err) {
@@ -81,23 +85,6 @@ export const deleteProduct = createAsyncThunk(
 	}
 );
 
-export const searchProduct = createAsyncThunk(
-	'product/searchProduct',
-	async ({ productName, current }, { rejectWithValue }) => {
-		try {
-			const response = await axios.get(
-				`${API_URL}public/search?productName=${productName}&page=${current}&size=18`
-			);
-			return response;
-		} catch (err) {
-			if (!err.response) {
-				throw err;
-			}
-			return rejectWithValue(err.response.data);
-		}
-	}
-);
-
 export const deleteProductImage = createAsyncThunk(
 	'product/deleteProductImage',
 	async ({ token, url, productId }, { rejectWithValue }) => {
@@ -117,24 +104,6 @@ export const deleteProductImage = createAsyncThunk(
 				];
 				return rejectWithValue(...data);
 			}
-		} catch (err) {
-			if (!err.response) {
-				throw err;
-			}
-			return rejectWithValue(err.response.data);
-		}
-	}
-);
-
-export const filterCategory = createAsyncThunk(
-	'product/filterCategory',
-	async ({ category, current }, { rejectWithValue }) => {
-		console.log(category, current);
-		try {
-			const response = await axios.get(
-				`${API_URL}public/filter-category?category=${category}&page=${current}&size=18`
-			);
-			return response;
 		} catch (err) {
 			if (!err.response) {
 				throw err;
@@ -409,6 +378,7 @@ export const productSlice = createSlice({
 			state.get.loading = false;
 		},
 		[getProduct.rejected]: (state, action) => {
+			state.get.response = null;
 			state.get.error = action.error.message;
 			state.get.errorMessage = action.payload.message
 				? action.payload.message
@@ -466,24 +436,6 @@ export const productSlice = createSlice({
 				: action.payload.error;
 			state.delete.loading = false;
 		},
-		// =================================================== SEARCH PRODUCT =================================================== //
-		[searchProduct.pending]: (state) => {
-			state.get.loading = true;
-		},
-		[searchProduct.fulfilled]: (state, action) => {
-			state.get.response = action.payload.data;
-			state.get.error = false;
-			state.get.errorMessage = null;
-			state.get.loading = false;
-		},
-		[searchProduct.rejected]: (state, action) => {
-			state.get.response = null;
-			state.get.error = action.error.message;
-			state.get.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
-			state.get.loading = false;
-		},
 		// =================================================== DELETE PRODUCT IMAGE =================================================== //
 		[deleteProductImage.pending]: (state) => {
 			state.deleteImage.loading = true;
@@ -517,24 +469,6 @@ export const productSlice = createSlice({
 				? action.payload.message
 				: action.payload.error;
 			state.publish.loading = false;
-		},
-		// =================================================== FILTER CATEGORY =================================================== //
-		[filterCategory.pending]: (state) => {
-			state.get.loading = true;
-		},
-		[filterCategory.fulfilled]: (state, action) => {
-			state.get.response = action.payload.data;
-			state.get.error = false;
-			state.get.errorMessage = null;
-			state.get.loading = false;
-		},
-		[filterCategory.rejected]: (state, action) => {
-			state.get.response = null;
-			state.get.error = action.error.message;
-			state.get.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
-			state.get.loading = false;
 		},
 		// =================================================== GET WISHLIST =================================================== //
 		[getWishlist.pending]: (state) => {

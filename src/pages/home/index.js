@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Col, Row, Pagination, Button } from 'antd';
 import { Search } from 'react-feather';
 
-import Category from '../../components/category';
 import Product from '../../components/product';
 import SliderHome from '../../components/slider-home';
 import SellButton from '../../components/sell-button';
@@ -11,36 +10,51 @@ import LoadingProduct from '../../components/loadingProduct';
 
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	getProduct,
-	filterCategory,
-} from '../../features/product/productSlice';
+import { getProduct } from '../../features/product/productSlice';
 
 import './index.css';
 
 export default function Home() {
 	const [categoryActive, setActive] = useState('Semua');
-	const { response, error, errorMessage, loading } = useSelector(
-		(state) => state.product.get
-	);
+	const [filterCategory, setCategory] = useState('');
+	const [search, setSearch] = useState('');
+
+	const { response, loading } = useSelector((state) => state.product.get);
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch(getProduct(0));
-		console.log(response);
-	}, []);
-
 	const paginationHandler = (current) => {
-		dispatch(getProduct(current - 1));
+		const productName = search;
+		const category = filterCategory;
+
+		dispatch(getProduct(productName, category, current - 1));
 		window.scrollTo(0, 0);
 	};
 
-	const categoryHandler = (category, current) => {
-		current = current - 1;
-		dispatch(filterCategory({ category, current }));
+	const getAllProduct = () => {
+		const current = 0;
+		const productName = '';
+		const category = '';
+
+		setCategory('');
+		setSearch('');
+
+		dispatch(getProduct({ productName, category, current }));
+	};
+
+	const categoryHandler = (category) => {
+		const current = 0;
+		const productName = '';
+
+		setCategory(category);
 		setActive(category);
+
+		dispatch(getProduct({ productName, category, current }));
 		window.scrollTo(0, 0);
 	};
+
+	useEffect(() => {
+		getAllProduct();
+	}, []);
 
 	return (
 		<>
@@ -63,7 +77,7 @@ export default function Home() {
 							icon={<Search className='mr-2' />}
 							size='large'
 							onClick={() => {
-								dispatch(getProduct(0)), setActive('Semua');
+								getAllProduct(), setActive('Semua');
 							}}
 						>
 							Semua
@@ -75,7 +89,7 @@ export default function Home() {
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => categoryHandler('Hobi', 1)}
+							onClick={() => categoryHandler('Hobi')}
 						>
 							Hobi
 						</Button>
@@ -86,7 +100,7 @@ export default function Home() {
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => categoryHandler('Kendaraan', 1)}
+							onClick={() => categoryHandler('Kendaraan')}
 						>
 							Kendaraan
 						</Button>
@@ -97,7 +111,7 @@ export default function Home() {
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => categoryHandler('Baju', 1)}
+							onClick={() => categoryHandler('Baju')}
 						>
 							Baju
 						</Button>
@@ -108,7 +122,7 @@ export default function Home() {
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => categoryHandler('Elektronik', 1)}
+							onClick={() => categoryHandler('Elektronik')}
 						>
 							Elektronik
 						</Button>
@@ -119,7 +133,7 @@ export default function Home() {
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => categoryHandler('Kesehatan', 1)}
+							onClick={() => categoryHandler('Kesehatan')}
 						>
 							Kesehatan
 						</Button>
@@ -148,7 +162,7 @@ export default function Home() {
 								</Col>
 							))}
 					</Row>
-					{response !== null && (
+					{!loading && !!response && response.totalPage > 1 && (
 						<Pagination
 							className='mb-10'
 							onChange={paginationHandler}

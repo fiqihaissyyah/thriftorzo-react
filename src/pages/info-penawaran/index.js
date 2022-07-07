@@ -1,19 +1,73 @@
 import './index.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import * as moment from 'moment';
 import { Helmet } from 'react-helmet';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
+import { useParams } from 'react-router-dom';
 import { WhatsAppOutlined } from '@ant-design/icons';
 
 import SalerInformation from '../../components/saler-information';
 import ModalAcceptOffer from '../../components/modal-accept-offer';
 import ModalChangeStatus from '../../components/modal-change-status';
 
+import { useSelector, useDispatch } from 'react-redux';
+import {
+	detailOffer,
+	updateStatus,
+} from '../../features/transaction/transactionSlice';
+
 export default function InfoPenawaran() {
-	const imgProduct =
-		'https://static.remove.bg/remove-bg-web/eb1bb48845c5007c3ec8d72ce7972fc8b76733b1/assets/start-1abfb4fe2980eabfbbaaa4365a0692539f7cd2725f324f904565a9a744f8e214.jpg';
+	const [rejectLoading, setRejectLoading] = useState(false);
+	const [acceptLoading, setAcceptLoading] = useState(false);
 
 	const acceptEvents = { click: () => {} };
 	const statusEvents = { click: () => {} };
+
+	const dispatch = useDispatch();
+	const token = useSelector((state) => state.user.auth.token);
+	const user = useSelector((state) => state.user.user.data);
+
+	const offerDetail = useSelector(
+		(state) => state.transaction.showOffer.response
+	);
+	const loading = useSelector((state) => state.transaction.status.loading);
+	const { id } = useParams();
+
+	const acceptOffer = async () => {
+		setAcceptLoading(true);
+		const status = 3;
+		await dispatch(updateStatus({ token, id, status }));
+		await dispatch(detailOffer({ token, id }));
+		await setAcceptLoading(false);
+		await message.success('Berhasil Menerima Tawaran!');
+		acceptEvents.click();
+	};
+
+	const rejectOffer = async () => {
+		setRejectLoading(true);
+		const status = 2;
+		await dispatch(updateStatus({ token, id, status }));
+		await dispatch(detailOffer({ token, id }));
+		await setRejectLoading(false);
+		message.success('Berhasil Menolak Tawaran!');
+	};
+
+	const updateOfferStatus = async (status) => {
+		await dispatch(updateStatus({ token, id, status }));
+		await dispatch(detailOffer({ token, id }));
+		message.success('Status produk berhasil diperbarui!');
+	};
+
+	useEffect(() => {
+		dispatch(detailOffer({ token, id }));
+		console.log(offerDetail);
+	}, [id]);
+
+	const currency = (value) =>
+		new Intl.NumberFormat('en-ID', {
+			style: 'currency',
+			currency: 'IDR',
+		}).format(value);
 
 	return (
 		<div className='page-info-penawaran md:py-10 py-4'>
@@ -22,14 +76,17 @@ export default function InfoPenawaran() {
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='container container-small'>
-				<SalerInformation edit={false} />
+				<SalerInformation user={user} edit={false} />
 				<h1 className='text-sm text-black font-medium leading-5 my-6 md:block hidden'>
 					Daftar Produkmu yang Ditawar
 				</h1>
 				<div className='notification-item flex w-full border-0 mb-0 pb-4 cursor-text'>
 					<img
 						className='flex-shrink-0 w-12 h-12 object-cover rounded-xl mr-4'
-						src='https://images.unsplash.com/photo-1622434641406-a158123450f9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHdhdGNofGVufDB8fDB8fA%3D%3D&w=1000&q=80'
+						src={
+							!!offerDetail &&
+							offerDetail.productResponse.imgUrl[0]
+						}
 						alt='product'
 					/>
 					<div className='notification-content w-full'>
@@ -39,38 +96,79 @@ export default function InfoPenawaran() {
 							</span>
 							<span className='flex items-center text-[10px] text-neutral-500'>
 								20 Apr, 14:04
+								{!!offerDetail && offerDetail.transactionDate}
 							</span>
 						</div>
 						<p className='mb-1 text-black text-sm'>
-							Jam Tangan Casio
+							{!!offerDetail && offerDetail.productResponse.name}
 						</p>
-						<p className='mb-1 text-black text-sm'>Rp 250.000</p>
 						<p className='mb-1 text-black text-sm'>
-							Ditawar Rp 200.000
+							{!!offerDetail &&
+								currency(offerDetail.productResponse.price)}
+						</p>
+						<p className='mb-1 text-black text-sm'>
+							Ditawar{' '}
+							{!!offerDetail && currency(offerDetail.offerPrice)}
 						</p>
 					</div>
 				</div>
 				<div className='notification-action md:w-1/2 w-full ml-auto'>
-					{/* <Button type='primary' ghost>Tolak</Button> */}
-					<Button
-						type='primary'
-						ghost
-						onClick={() => statusEvents.click()}
-					>
-						Status
-					</Button>
-					<Button
-						type='primary'
-						className='ml-4'
-						onClick={() => acceptEvents.click()}
-					>
-						Terima
-					</Button>
-					{/* <Button type='primary' className='ml-4'>Hubungi di <WhatsAppOutlined /></Button> */}
+					{!!offerDetail && offerDetail.status === 1 && (
+						<>
+							<Button
+								loading={rejectLoading}
+								type='primary'
+								ghost
+								onClick={rejectOffer}
+							>
+								Tolak
+							</Button>
+							<Button
+								loading={acceptLoading}
+								type='primary'
+								className='ml-4'
+								onClick={acceptOffer}
+							>
+								Terima
+							</Button>
+						</>
+					)}
+					{!!offerDetail && offerDetail.status === 3 && (
+						<>
+							<Button
+								type='primary'
+								ghost
+								onClick={() => statusEvents.click()}
+							>
+								Status
+							</Button>
+							<a
+								href={`https://api.whatsapp.com/send?phone=${
+									offerDetail
+										? offerDetail.buyerResponse.phone
+										: ''
+								}`}
+								target='_blank'
+							>
+								<Button type='primary' className='ml-4'>
+									Hubungi di <WhatsAppOutlined />
+								</Button>
+							</a>
+						</>
+					)}
 				</div>
 			</div>
-			<ModalAcceptOffer events={acceptEvents} />
-			<ModalChangeStatus events={statusEvents} />
+			<ModalAcceptOffer
+				user={!!offerDetail && offerDetail.buyerResponse}
+				product={!!offerDetail && offerDetail.productResponse}
+				offer={!!offerDetail && offerDetail.offerPrice}
+				events={acceptEvents}
+			/>
+			<ModalChangeStatus
+				statusSubmited={updateOfferStatus}
+				loading={loading}
+				events={statusEvents}
+			/>
 		</div>
 	);
 }
