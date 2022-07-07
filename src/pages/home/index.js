@@ -31,13 +31,11 @@ export default function Home() {
 	}, []);
 
 	const paginationHandler = (current) => {
-		console.log(current - 1);
 		dispatch(getProduct(current - 1));
 		window.scrollTo(0, 0);
 	};
 
 	const categoryHandler = (category, current) => {
-		console.log(category);
 		current = current - 1;
 		dispatch(filterCategory({ category, current }));
 		setActive(category);
@@ -64,7 +62,7 @@ export default function Home() {
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => dispatch(getProduct(0))}
+							onClick={() => {dispatch(getProduct(0)), setActive('Semua')}}
 						>
 							Semua
 						</Button>
