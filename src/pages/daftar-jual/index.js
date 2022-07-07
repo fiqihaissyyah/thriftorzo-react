@@ -1,6 +1,7 @@
 import './index.css';
 import React, { useEffect } from 'react';
 import { Row, Col, Pagination } from 'antd';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import Product from '../../components/product';
@@ -11,25 +12,27 @@ import Empty from '../../components/empty';
 import LoadingProductSold from '../../components/loadingProductSold';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllProduct } from '../../features/product/productSlice';
+import { getProductByUserId } from '../../features/product/productSlice';
 
 export default function DaftarJual() {
+	const token = useSelector((state) => state.user.auth.token);
 	const user = useSelector((state) => state.user.user.data);
 	const { response, error, errorMessage, loading } = useSelector(
-		(state) => state.product.getAll
+		(state) => state.product.productByUserId
 	);
 	const dispatch = useDispatch();
-
-	useEffect(() => {
-		dispatch(getAllProduct(0));
-		console.log(response);
-	}, []);
+	const location = useLocation();
 
 	const paginationHandler = (current) => {
-		console.log(current - 1);
-		dispatch(getAllProduct(current - 1));
+		dispatch(getProductByUserId(token, current - 1));
 		window.scrollTo(0, 0);
 	};
+
+	useEffect(() => {
+		const current = 0;
+		dispatch(getProductByUserId({ token, current }));
+		console.log(response);
+	}, [location.pathname]);
 
 	return (
 		<div className='page-daftar-jual md:py-10 py-4'>
