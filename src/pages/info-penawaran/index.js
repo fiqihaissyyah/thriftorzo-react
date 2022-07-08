@@ -39,8 +39,8 @@ export default function InfoPenawaran() {
 		await dispatch(updateStatus({ token, id, status }));
 		await dispatch(detailOffer({ token, id }));
 		await setAcceptLoading(false);
-		await message.success('Berhasil Menerima Tawaran!');
 		acceptEvents.click();
+		message.success('Berhasil Menerima Tawaran!');
 	};
 
 	const rejectOffer = async () => {
