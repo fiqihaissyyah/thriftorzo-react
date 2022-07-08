@@ -23,12 +23,12 @@ export default function Home() {
 	const dispatch = useDispatch();
 
 	const paginationHandler = (current) => {
-		console.log('page', current)
+		console.log('page', current);
 		const productName = search;
 		const category = filterCategory;
 		const page = current - 1;
 
-		dispatch(getProduct({productName, category, page}));
+		dispatch(getProduct({ productName, category, page }));
 		window.scrollTo(0, 0);
 	};
 

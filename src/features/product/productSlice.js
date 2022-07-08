@@ -9,9 +9,7 @@ export const getProduct = createAsyncThunk(
 			const response = await axios.get(
 				`${API_URL}public/get-all-product-search-filter-paginated?${
 					productName ? `productName=${productName}&` : ''
-				}${
-					category ? `category=${category}&` : ''
-				}page=${page}&size=18`
+				}${category ? `category=${category}&` : ''}page=${page}&size=18`
 			);
 			return response;
 		} catch (err) {
