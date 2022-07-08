@@ -64,7 +64,7 @@ export default function ProductFormUpdate() {
 		setLoading(true);
 		values = {
 			...values,
-			status: 0,
+			status: 1,
 			publish: 1,
 			productId: id,
 			imageFiles: fileList,

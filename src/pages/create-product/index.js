@@ -59,7 +59,7 @@ export default function ProductForm() {
 		if (submitType === 1) {
 			values = {
 				...values,
-				status: 0,
+				status: 1,
 				publish: 1,
 				userId: id,
 				imageFiles: fileList,
@@ -68,7 +68,7 @@ export default function ProductForm() {
 		if (submitType === 2) {
 			values = {
 				...values,
-				status: 0,
+				status: 1,
 				publish: 0,
 				userId: id,
 				imageFiles: fileList,
