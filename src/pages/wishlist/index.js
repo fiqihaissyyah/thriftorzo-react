@@ -82,7 +82,7 @@ export default function Wishlist() {
 								defaultCurrent={1}
 								current={!!response && response.currentPage + 1}
 								total={!!response && response.totalElement}
-								pageSize={18}
+								pageSize={14}
 							/>
 						)}
 					</Col>
