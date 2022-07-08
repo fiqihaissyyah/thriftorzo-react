@@ -4,31 +4,14 @@ export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
 
 export const getProduct = createAsyncThunk(
 	'product/getProduct',
-	async ({ productName, category, current }, { rejectWithValue }) => {
+	async ({ productName, category, page }, { rejectWithValue }) => {
 		try {
 			const response = await axios.get(
 				`${API_URL}public/get-all-product-search-filter-paginated?${
 					productName ? `productName=${productName}&` : ''
 				}${
 					category ? `category=${category}&` : ''
-				}page=${current}&size=18`
-			);
-			return response;
-		} catch (err) {
-			if (!err.response) {
-				throw err;
-			}
-			return rejectWithValue(err.response.data);
-		}
-	}
-);
-
-export const getAllProduct = createAsyncThunk(
-	'product/getAllProduct',
-	async (current, { rejectWithValue }) => {
-		try {
-			const response = await axios.get(
-				`${API_URL}public/get-all-products?page=${current}&size=18`
+				}page=${page}&size=18`
 			);
 			return response;
 		} catch (err) {
@@ -63,7 +46,7 @@ export const deleteProduct = createAsyncThunk(
 		try {
 			if (token) {
 				const response = await axios.delete(
-					`${API_URL}product/delete-product/${id}`,
+					`${API_URL}product/delete-product?productId=${id}`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
@@ -164,7 +147,7 @@ export const getWishlist = createAsyncThunk(
 		try {
 			if (token) {
 				const response = await axios.get(
-					`${API_URL}wishlist/get-all-by/${userId}?page=${current}&size=18`,
+					`${API_URL}wishlist/get-all-by/${userId}?page=${current}&size=14`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
@@ -249,7 +232,7 @@ export const getProductByUserId = createAsyncThunk(
 		try {
 			if (token) {
 				const response = await axios.get(
-					`${API_URL}product/get-products-by-userid?page=${current}&size=18`,
+					`${API_URL}product/get-products-by-userid?page=${current}&size=14`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
@@ -277,7 +260,7 @@ export const getSold = createAsyncThunk(
 		try {
 			if (token) {
 				const response = await axios.get(
-					`${API_URL}product/get-sold-products?page=${current}&size=18`,
+					`${API_URL}product/get-sold-products?page=${current}&size=14`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
@@ -301,12 +284,6 @@ export const getSold = createAsyncThunk(
 
 const initialState = {
 	get: {
-		response: null,
-		loading: false,
-		error: false,
-		errorMessage: null,
-	},
-	getAll: {
 		response: null,
 		loading: false,
 		error: false,
@@ -384,23 +361,6 @@ export const productSlice = createSlice({
 				? action.payload.message
 				: action.payload.error;
 			state.get.loading = false;
-		},
-		// =================================================== GET All PRODUCT =================================================== //
-		[getAllProduct.pending]: (state) => {
-			state.getAll.loading = true;
-		},
-		[getAllProduct.fulfilled]: (state, action) => {
-			state.getAll.response = action.payload.data;
-			state.getAll.error = false;
-			state.getAll.errorMessage = null;
-			state.getAll.loading = false;
-		},
-		[getAllProduct.rejected]: (state, action) => {
-			state.getAll.error = action.error.message;
-			state.getAll.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
-			state.getAll.loading = false;
 		},
 		// =================================================== GET PRODUCT DETAIL =================================================== //
 		[getProductDetail.pending]: (state) => {

@@ -23,32 +23,34 @@ export default function Home() {
 	const dispatch = useDispatch();
 
 	const paginationHandler = (current) => {
+		console.log('page', current)
 		const productName = search;
 		const category = filterCategory;
+		const page = current - 1;
 
-		dispatch(getProduct(productName, category, current - 1));
+		dispatch(getProduct({productName, category, page}));
 		window.scrollTo(0, 0);
 	};
 
 	const getAllProduct = () => {
-		const current = 0;
+		const page = 0;
 		const productName = '';
 		const category = '';
 
 		setCategory('');
 		setSearch('');
 
-		dispatch(getProduct({ productName, category, current }));
+		dispatch(getProduct({ productName, category, page }));
 	};
 
 	const categoryHandler = (category) => {
-		const current = 0;
+		const page = 0;
 		const productName = '';
 
 		setCategory(category);
 		setActive(category);
 
-		dispatch(getProduct({ productName, category, current }));
+		dispatch(getProduct({ productName, category, page }));
 		window.scrollTo(0, 0);
 	};
 
