@@ -31,11 +31,11 @@ export default function Header(props) {
 
 	const onFinish = (values) => {
 		if (values.search) {
-			const current = 0;
+			const page = 0;
 			const category = '';
 			const productName = values.search;
 
-			dispatch(getProduct({ productName, category, current }));
+			dispatch(getProduct({ productName, category, page }));
 			window.scrollTo(0, 0);
 		}
 	};
