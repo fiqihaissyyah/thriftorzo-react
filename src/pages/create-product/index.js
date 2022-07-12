@@ -11,6 +11,7 @@ import {
 	Row,
 	Col,
 	Upload,
+	Modal,
 	message,
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -27,9 +28,13 @@ export default function ProductForm() {
 	const id = user ? user.id : '';
 
 	const [form] = Form.useForm();
+	const [loadingPreview, setloadingPreview] = useState(false);
+	const [loadingPublish, setloadingPublish] = useState(false);
+	const [previewVisible, setPreviewVisible] = useState(false);
+	const [previewImage, setPreviewImage] = useState('');
+	const [previewTitle, setPreviewTitle] = useState('');
 	const [submitType, setSubmitType] = useState(1);
 	const [fileList, setFileList] = useState([]);
-	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState();
 	const Promise = require('promise');
 
@@ -40,7 +45,8 @@ export default function ProductForm() {
 			newFileList.splice(index, 1);
 			setFileList(newFileList);
 		},
-		beforeUpload: (file) => {
+		beforeUpload: async (file) => {
+			console.log(fileList)
 			const isJpgOrPng =
 				file.type === 'image/jpeg' || file.type === 'image/png';
 			if (!isJpgOrPng) {
@@ -52,36 +58,41 @@ export default function ProductForm() {
 				message.error('Gambar tidak boleh lebih dari 2MB!');
 			}
 
-			if (!fileList.length < 4) {
+			if (fileList.length > 3) {
 				message.error('Gambar tidak boleh lebih dari 4!');
 			}
+			console.log(fileList.length)
 
-			if (isLt2M && fileList.length < 4 && isJpgOrPng) {
+			if (isLt2M && fileList.length <= 3 && isJpgOrPng) {
 				setFileList([...fileList, file]);
-				console.log('test');
 				return false;
 			}
 		},
 		fileList,
 	};
 
-	const onPreview = async (file) => {
-		let src = file.url;
+	const getBase64 = (file) =>
+		new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
 
-		if (!src) {
-			src = await new Promise((resolve) => {
-				const reader = new FileReader();
-				reader.readAsDataURL(file.originFileObj);
+			reader.onload = () => resolve(reader.result);
 
-				reader.onload = () => resolve(reader.result);
-			});
+			reader.onerror = (error) => reject(error);
+		});
+
+	const handlePreview = async (file) => {
+		if (!file.url && !file.preview) {
+			file.preview = await getBase64(file.originFileObj);
 		}
 
-		const image = new Image();
-		image.src = src;
-		const imgWindow = window.open(src);
-		imgWindow?.document.write(image.outerHTML);
+		setPreviewImage(file.url || file.preview);
+		setPreviewVisible(true);
+		setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
 	};
+
+	const handleCancel = () => setPreviewVisible(false);
+	const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
 
 	const getFile = (e) => {
 		if (Array.isArray(e)) {
@@ -91,8 +102,8 @@ export default function ProductForm() {
 	};
 
 	const onFinish = async (values) => {
-		setLoading(true);
 		if (submitType === 1) {
+			setloadingPublish(true)
 			values = {
 				...values,
 				status: 1,
@@ -102,6 +113,7 @@ export default function ProductForm() {
 			};
 		}
 		if (submitType === 2) {
+			setloadingPreview(true)
 			values = {
 				...values,
 				status: 1,
@@ -121,8 +133,23 @@ export default function ProductForm() {
 				bodyFormData.append('description', values.description);
 				bodyFormData.append('category', values.category);
 
+				if(!values.imageFiles.length) {
+					message.error('Gambar tidak boleh kosong!');
+					setloadingPreview(false)
+					setloadingPublish(false)
+					return 0;
+				}
+
+				if(values.imageFiles.length > 4) {
+					message.error('Gambar tidak boleh lebih dari 4!');
+					setloadingPreview(false)
+					setloadingPublish(false)
+					console.log(values.imageFiles.length)
+					return 0;
+				}
+
 				for (let index = 0; index < values.imageFiles.length; index++) {
-					bodyFormData.append('imageFiles', values.imageFiles[index]);
+					bodyFormData.append('imageFiles', values.imageFiles[index].originFileObj);
 				}
 
 				const response = await axios({
@@ -138,11 +165,12 @@ export default function ProductForm() {
 				});
 
 				message.success('Berhasil Menambah Produk!');
-				setLoading(false);
 				if (submitType === 1) {
+					setloadingPublish(false)
 					navigate('/daftar-jual');
 				}
 				if (submitType === 2) {
+					setloadingPreview(false)
 					navigate('/product/detail/' + response.data.id);
 				}
 			}
@@ -251,30 +279,36 @@ export default function ProductForm() {
 						label='Foto Produk'
 						required={false}
 						getValueFromEvent={getFile}
-						rules={[
-							{
-								required: true,
-								message: 'Foto Produk tidak boleh kosong!',
-							},
-						]}
 					>
 						<Upload
 							{...uploadProps}
 							listType='picture-card'
 							className='product-upload relative mb-6 w-full h-24'
 							accept='image/*'
+							fileList={fileList}
+							onPreview={handlePreview}
+							onChange={handleChange}
 						>
 							<PlusOutlined
 								style={{ fontSize: '24px', color: '#8A8A8A' }}
 							/>
 						</Upload>
+						<Modal visible={previewVisible} title={previewTitle} footer={null} onCancel={handleCancel}>
+							<img
+								alt="example"
+								style={{
+									width: '100%',
+								}}
+								src={previewImage}
+							/>
+						</Modal>
 					</Form.Item>
 					<Form.Item>
 						<Row gutter={16}>
 							<Col span={12}>
 								<Button
 									ghost
-									loading={loading}
+									loading={loadingPreview}
 									className='w-full btn-custom'
 									type='primary'
 									htmlType='submit'
@@ -285,7 +319,7 @@ export default function ProductForm() {
 							</Col>
 							<Col span={12}>
 								<Button
-									loading={loading}
+									loading={loadingPublish}
 									className='w-full btn-custom '
 									type='primary'
 									htmlType='submit'
