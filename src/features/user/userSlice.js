@@ -5,8 +5,6 @@ export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
 export let TOKEN = localStorage.getItem('token');
 export let USER = JSON.parse(localStorage.getItem('user'));
 
-console.log(TOKEN);
-
 export const auth = createAsyncThunk(
 	'user/auth',
 	async (values, { rejectWithValue }) => {
@@ -80,8 +78,6 @@ export const getUser = createAsyncThunk(
 export const updateUser = createAsyncThunk(
 	'user/updateUser',
 	async (values, { rejectWithValue }) => {
-		console.log(values);
-		console.log(TOKEN);
 		try {
 			if (TOKEN) {
 				const response = await axios.put(

@@ -28,7 +28,6 @@ export default function Terjual() {
 	useEffect(() => {
 		const current = 0;
 		dispatch(getSold({ token, current }));
-		console.log(response);
 	}, [location.pathname]);
 
 	return (

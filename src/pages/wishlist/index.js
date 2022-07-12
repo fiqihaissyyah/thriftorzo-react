@@ -32,7 +32,6 @@ export default function Wishlist() {
 	useEffect(() => {
 		const current = 0;
 		dispatch(getWishlist({ token, userId, current }));
-		console.log(response);
 	}, [location.pathname]);
 
 	return (

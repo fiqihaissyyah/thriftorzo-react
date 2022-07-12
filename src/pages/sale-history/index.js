@@ -29,7 +29,6 @@ export default function SaleHistory() {
 
 	useEffect(() => {
 		dispatch(saleHistory({ token, userId }));
-		console.log(response);
 	}, [location.pathname]);
 
 	return (

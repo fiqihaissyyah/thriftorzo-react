@@ -30,25 +30,20 @@ export default function Profile() {
 
 	const { Option } = Select;
 	const beforeUpload = (file) => {
-		const isJpgOrPng =
-			file.type === 'image/jpeg' || file.type === 'image/png';
-
+		const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
 		if (!isJpgOrPng) {
 			message.error('Gambar harus berformat JPG/PNG!');
 		}
 
 		const isLt2M = file.size / 1024 / 1024 < 2;
-
 		if (!isLt2M) {
 			message.error('Gambar tidak boleh lebih dari 2MB!');
 		}
 
-		console.log(file);
 		return isJpgOrPng && isLt2M;
 	};
 
 	const handleChange = async (info) => {
-		console.log('change');
 		setLoading(true);
 
 		let bodyFormData = new FormData();
@@ -68,8 +63,6 @@ export default function Profile() {
 				}
 			)
 			.then((res) => {
-				console.log(res);
-				console.log('upload');
 				setLoading(false);
 				setImageUrl(res.data);
 			})

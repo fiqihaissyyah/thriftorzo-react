@@ -19,6 +19,7 @@ import { getProduct } from '../../features/product/productSlice';
 
 export default function Header(props) {
 	const { token, success } = useSelector((state) => state.user.auth);
+	const { error } = useSelector((state) => state.user.user);
 
 	const [form] = Form.useForm();
 	const [isLogin, setLogin] = useState(false);
@@ -70,7 +71,6 @@ export default function Header(props) {
 		await localStorage.removeItem('user');
 		dispatch(reset());
 		setLogin(false);
-		console.log('logout');
 	};
 
 	useEffect(() => {
@@ -83,6 +83,12 @@ export default function Header(props) {
 			dispatch(getUser(token));
 		}
 	}, [token, success]);
+
+	useEffect(() => {
+		if(error == 'Rejected'){
+			handleLogout();
+		}
+	}, [error]);
 
 	const userMenu = (
 		<Menu onClick={handleClick} className='mt-3'>
@@ -203,12 +209,11 @@ export default function Header(props) {
 							)}
 							{isLogin && (
 								<>
-									<Row gutter={24}>
+									<Row gutter={24} className='header-link'>
 										<Col span={8}>
 											<Link to='/daftar-jual'>
 												<List
 													size={24}
-													color='#7126B5'
 												/>
 											</Link>
 										</Col>
@@ -221,7 +226,6 @@ export default function Header(props) {
 											>
 												<Bell
 													size={24}
-													color='#7126B5'
 												/>
 											</Dropdown>
 										</Col>
@@ -233,7 +237,6 @@ export default function Header(props) {
 											>
 												<User
 													size={24}
-													color='#7126B5'
 												/>
 											</Dropdown>
 										</Col>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Row, Col } from 'antd';
+import { Row, Col, Skeleton } from 'antd';
 import { ArrowLeft } from 'react-feather';
 
 import SliderProduct from '../../components/slider-product';
@@ -18,14 +18,13 @@ export default function Detail() {
 		navigate(-1);
 	};
 	const dispatch = useDispatch();
-	const { response, error, errorMessage, loading } = useSelector(
+	const { response, loading } = useSelector(
 		(state) => state.product.detail
 	);
 	const { id } = useParams();
 
 	useEffect(() => {
 		dispatch(getProductDetail(id));
-		console.log(response);
 	}, [id]);
 
 	return (
@@ -38,10 +37,11 @@ export default function Detail() {
 			</div>
 			<Row gutter={[32, 16]}>
 				<Col xs={{ span: 24 }} md={{ span: 16 }}>
-					<SliderProduct item={!!response && response.imgUrl} />
+					<SliderProduct loading={loading} item={!!response && response.imgUrl} />
 					<ProductSidebar
+						loading={loading}
 						mobile
-						id={!!response && response.id}
+						id={id}
 						publish={!!response && response.publish}
 						name={!!response && response.name}
 						category={!!response && response.category}
@@ -57,15 +57,20 @@ export default function Detail() {
 						user={!!response && response.userResponse}
 						mobile
 						edit={false}
+						loading={loading}
 					/>
 					<div className='shadow-custom md:mt-6 mt-4 rounded-2xl'>
 						<div className='p-4'>
 							<h4 className='text-sm text-black mb-4'>
 								Deskripsi
 							</h4>
-							<p className='text-neutralGray text-sm'>
-								{!!response && response.description}
-							</p>
+							{!loading && !!response ? (
+								<p className='text-neutralGray text-sm'>
+									{response.description}
+								</p>
+							) : (
+								<Skeleton active />
+							)}
 						</div>
 					</div>
 				</Col>
@@ -75,7 +80,8 @@ export default function Detail() {
 					md={{ span: 8 }}
 				>
 					<ProductSidebar
-						id={!!response && response.id}
+						loading={loading}
+						id={id}
 						publish={!!response && response.publish}
 						name={!!response && response.name}
 						category={!!response && response.category}
@@ -88,6 +94,7 @@ export default function Detail() {
 						}
 					/>
 					<SalerInformation
+						loading={loading}
 						user={!!response && response.userResponse}
 						edit={false}
 					/>

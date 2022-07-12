@@ -3,6 +3,7 @@ import { Button, Modal, Avatar, Form, InputNumber, message } from 'antd';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { sendOffer } from '../../features/transaction/transactionSlice';
+import { useNavigate } from 'react-router-dom';
 
 import { X } from 'react-feather';
 
@@ -17,15 +18,22 @@ export default function ModalOffer(props) {
 	const userId = user ? user.id : '';
 
 	const dispatch = useDispatch();
-	const { response, error, errorMessage, loading } = useSelector(
+	const { loading } = useSelector(
 		(state) => state.transaction.offer
 	);
 
+	const navigate = useNavigate();
+
 	const onFinish = async (values) => {
-		values = { ...values, status: 1, productId: props.id };
-		await dispatch(sendOffer({ token, userId, values }));
-		setIsModalVisible(false);
-		message.success('Berhasil Mengirimkan Tawaran!');
+		if (user.address == null && user.phone == null && user.phone == null && user.cityName == null && user.imgUrl == null){
+			message.error('Lengkapi profile anda sebelum menawar!');
+			navigate('/profile')
+		} else {
+			values = { ...values, status: 1, productId: props.id };
+			await dispatch(sendOffer({ token, userId, values }));
+			setIsModalVisible(false);
+			message.success('Berhasil Mengirimkan Tawaran!');
+		}
 	};
 
 	const showModal = () => {

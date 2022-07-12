@@ -18,6 +18,14 @@
 	@apply content-[''] opacity-0 invisible transition-all ease-in-out duration-500;
 }
 
+.header .header-link svg{
+	stroke: #151515;
+}
+
+.header .header-link svg:hover{
+	stroke: #7126B5;
+}
+
 @media screen and (max-width: 767px) {
 	.header {
 		@apply py-[5px] px-0 shadow-none bg-white;

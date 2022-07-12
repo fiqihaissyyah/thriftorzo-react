@@ -31,6 +31,7 @@ export default function ProductForm() {
 	const [fileList, setFileList] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState();
+	const Promise = require('promise');
 
 	const uploadProps = {
 		onRemove: (file) => {
@@ -40,11 +41,45 @@ export default function ProductForm() {
 			setFileList(newFileList);
 		},
 		beforeUpload: (file) => {
-			console.log(file);
-			setFileList([...fileList, file]);
-			return false;
+			const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+			if (!isJpgOrPng) {
+				message.error('Gambar harus berformat JPG/PNG!');
+			}
+
+			const isLt2M = file.size / 1024 / 1024 < 2;
+			if (!isLt2M) {
+				message.error('Gambar tidak boleh lebih dari 2MB!');
+			}
+
+			if (!fileList.length < 4) {
+				message.error('Gambar tidak boleh lebih dari 4!');
+			}
+
+			if (isLt2M && fileList.length < 4 && isJpgOrPng) {
+				setFileList([...fileList, file]);
+				console.log('test');
+				return false;
+			}
 		},
 		fileList,
+	};
+
+	const onPreview = async (file) => {
+		let src = file.url;
+
+		if (!src) {
+			src = await new Promise((resolve) => {
+				const reader = new FileReader();
+				reader.readAsDataURL(file.originFileObj);
+
+				reader.onload = () => resolve(reader.result);
+			});
+		}
+
+		const image = new Image();
+		image.src = src;
+		const imgWindow = window.open(src);
+		imgWindow?.document.write(image.outerHTML);
 	};
 
 	const getFile = (e) => {
@@ -224,7 +259,6 @@ export default function ProductForm() {
 					>
 						<Upload
 							{...uploadProps}
-							maxCount={4}
 							listType='picture-card'
 							className='product-upload relative mb-6 w-full h-24'
 							accept='image/*'

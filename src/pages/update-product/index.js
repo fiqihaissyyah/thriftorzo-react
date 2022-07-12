@@ -46,9 +46,25 @@ export default function ProductFormUpdate() {
 			setFileList(newFileList);
 		},
 		beforeUpload: (file) => {
-			console.log(file);
-			setFileList([...fileList, file]);
-			return false;
+			const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+			if (!isJpgOrPng) {
+				message.error('Gambar harus berformat JPG/PNG!');
+			}
+	
+			const isLt2M = file.size / 1024 / 1024 < 2;
+			if (!isLt2M) {
+				message.error('Gambar tidak boleh lebih dari 2MB!');
+			}
+
+			if (!fileList.length < 4) {
+				message.error('Gambar tidak boleh lebih dari 4!');
+			}
+
+			if(isLt2M && fileList.length < 4 && isJpgOrPng){
+				setFileList([...fileList, file]);
+				console.log('test');
+				return false;
+			}
 		},
 		fileList,
 	};
@@ -119,8 +135,6 @@ export default function ProductFormUpdate() {
 
 	const deleteImage = async (url, productId) => {
 		await dispatch(deleteProductImage({ token, url, productId }));
-		console.log('url', url);
-		console.log('productId', productId);
 		await dispatch(getProductDetail(id));
 		message.success('Berhasil Menghapus Foto Produk!');
 	};
@@ -128,7 +142,6 @@ export default function ProductFormUpdate() {
 	useEffect(() => {
 		dispatch(getProductDetail(id));
 		form.setFieldsValue(detail);
-		console.log(detail);
 	}, [id]);
 
 	return (
@@ -231,7 +244,6 @@ export default function ProductFormUpdate() {
 					>
 						<Upload
 							{...uploadProps}
-							maxCount={4}
 							listType='picture-card'
 							className='product-upload relative mb-6 w-full h-24'
 							accept='image/*'

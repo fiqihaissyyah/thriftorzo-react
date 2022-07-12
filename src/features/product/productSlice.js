@@ -99,7 +99,6 @@ export const publishProduct = createAsyncThunk(
 	async ({ token, values }, { rejectWithValue }) => {
 		try {
 			if (token) {
-				console.log(values);
 				let bodyFormData = new FormData();
 				bodyFormData.append('productId', values.id);
 				bodyFormData.append('name', values.name);
