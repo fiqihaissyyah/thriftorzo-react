@@ -47,6 +47,28 @@ export default function ProductForm() {
 		fileList,
 	};
 
+	const onChange = ({ fileList: newFileList }) => {
+		setFileList(newFileList);
+	};
+
+	const onPreview = async (file) => {
+		console.log(file);
+		let src = file.url;
+
+		if (!src) {
+			src = await new Promise((resolve) => {
+				const reader = new FileReader();
+				reader.readAsDataURL(file.originFileObj);
+				reader.onload = () => resolve(reader.result);
+			});
+		}
+
+		const image = new Image();
+		image.src = src;
+		const imgWindow = window.open(src);
+		imgWindow?.document.write(image.outerHTML);
+	};
+
 	const getFile = (e) => {
 		if (Array.isArray(e)) {
 			return e;
@@ -228,6 +250,9 @@ export default function ProductForm() {
 							listType='picture-card'
 							className='product-upload relative mb-6 w-full h-24'
 							accept='image/*'
+							fileList={fileList}
+							onPreview={onPreview}
+							onChange={onChange}
 						>
 							<PlusOutlined
 								style={{ fontSize: '24px', color: '#8A8A8A' }}
