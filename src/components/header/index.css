@@ -18,12 +18,12 @@
 	@apply content-[''] opacity-0 invisible transition-all ease-in-out duration-500;
 }
 
-.header .header-link svg{
+.header .header-link svg {
 	stroke: #151515;
 }
 
-.header .header-link svg:hover{
-	stroke: #7126B5;
+.header .header-link svg:hover {
+	stroke: #7126b5;
 }
 
 @media screen and (max-width: 767px) {

@@ -31,11 +31,15 @@ export default function SliderProduct(props) {
 								/>
 							</SwiperSlide>
 						))}
-
 				</Swiper>
 			)}
 			{props.loading && (
-				<Skeleton.Avatar className='slider-skeleton' active size='large' shape='square' />
+				<Skeleton.Avatar
+					className='slider-skeleton'
+					active
+					size='large'
+					shape='square'
+				/>
 			)}
 		</div>
 	);

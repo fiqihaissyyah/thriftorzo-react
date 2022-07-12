@@ -30,7 +30,8 @@ export default function Profile() {
 
 	const { Option } = Select;
 	const beforeUpload = (file) => {
-		const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+		const isJpgOrPng =
+			file.type === 'image/jpeg' || file.type === 'image/png';
 		if (!isJpgOrPng) {
 			message.error('Gambar harus berformat JPG/PNG!');
 		}

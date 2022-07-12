@@ -12,7 +12,8 @@ export default function SalerInformation(props) {
 
 	return (
 		<div
-			className={`saler-information p-4 shadow-custom rounded-2xl flex justify-between items-center ${!props.mobile ? 'md:flex hidden' : 'md:hidden flex'
+			className={`saler-information p-4 shadow-custom rounded-2xl flex justify-between items-center ${
+				!props.mobile ? 'md:flex hidden' : 'md:hidden flex'
 			}`}
 		>
 			{!props.loading && (
@@ -27,7 +28,9 @@ export default function SalerInformation(props) {
 						}
 					/>
 					<div className='ml-4'>
-						<p className='text-sm text-black mb-1'>{props.user.name}</p>
+						<p className='text-sm text-black mb-1'>
+							{props.user.name}
+						</p>
 						<span className='text-[10px] text-[#8A8A8A] block leading-[14px]'>
 							{props.user.cityName}
 						</span>

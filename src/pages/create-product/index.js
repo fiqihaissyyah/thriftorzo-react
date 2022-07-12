@@ -41,7 +41,8 @@ export default function ProductForm() {
 			setFileList(newFileList);
 		},
 		beforeUpload: (file) => {
-			const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+			const isJpgOrPng =
+				file.type === 'image/jpeg' || file.type === 'image/png';
 			if (!isJpgOrPng) {
 				message.error('Gambar harus berformat JPG/PNG!');
 			}

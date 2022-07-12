@@ -18,9 +18,7 @@ export default function Detail() {
 		navigate(-1);
 	};
 	const dispatch = useDispatch();
-	const { response, loading } = useSelector(
-		(state) => state.product.detail
-	);
+	const { response, loading } = useSelector((state) => state.product.detail);
 	const { id } = useParams();
 
 	useEffect(() => {
@@ -37,7 +35,10 @@ export default function Detail() {
 			</div>
 			<Row gutter={[32, 16]}>
 				<Col xs={{ span: 24 }} md={{ span: 16 }}>
-					<SliderProduct loading={loading} item={!!response && response.imgUrl} />
+					<SliderProduct
+						loading={loading}
+						item={!!response && response.imgUrl}
+					/>
 					<ProductSidebar
 						loading={loading}
 						mobile

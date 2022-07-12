@@ -51,7 +51,7 @@ export default function Wishlist() {
 					</Col>
 					<Col xs={{ span: 24 }} lg={{ span: 16 }}>
 						<Row gutter={[24, 24]} className='mb-10'>
-							{!loading && response === null && <Empty />}
+							{!loading && response.length === 0 && <Empty />}
 							{loading && <LoadingProductSold />}
 							{!loading &&
 								!!response &&

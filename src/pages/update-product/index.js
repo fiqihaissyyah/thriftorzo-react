@@ -46,11 +46,12 @@ export default function ProductFormUpdate() {
 			setFileList(newFileList);
 		},
 		beforeUpload: (file) => {
-			const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+			const isJpgOrPng =
+				file.type === 'image/jpeg' || file.type === 'image/png';
 			if (!isJpgOrPng) {
 				message.error('Gambar harus berformat JPG/PNG!');
 			}
-	
+
 			const isLt2M = file.size / 1024 / 1024 < 2;
 			if (!isLt2M) {
 				message.error('Gambar tidak boleh lebih dari 2MB!');
@@ -60,7 +61,7 @@ export default function ProductFormUpdate() {
 				message.error('Gambar tidak boleh lebih dari 4!');
 			}
 
-			if(isLt2M && fileList.length < 4 && isJpgOrPng){
+			if (isLt2M && fileList.length < 4 && isJpgOrPng) {
 				setFileList([...fileList, file]);
 				console.log('test');
 				return false;

@@ -52,7 +52,7 @@ export default function SaleHistory() {
 							<CategorySidebar />
 						</Col>
 						<Col xs={{ span: 24 }} lg={{ span: 16 }}>
-							{/* {!loading && response === null && <Empty />}
+							{/* {!loading && response.length === 0 && <Empty />}
 							{loading && <LoadingProductSold />} */}
 							{!!response &&
 								response.map((i) => (

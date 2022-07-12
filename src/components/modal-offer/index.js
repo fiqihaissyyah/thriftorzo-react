@@ -18,16 +18,20 @@ export default function ModalOffer(props) {
 	const userId = user ? user.id : '';
 
 	const dispatch = useDispatch();
-	const { loading } = useSelector(
-		(state) => state.transaction.offer
-	);
+	const { loading } = useSelector((state) => state.transaction.offer);
 
 	const navigate = useNavigate();
 
 	const onFinish = async (values) => {
-		if (user.address == null && user.phone == null && user.phone == null && user.cityName == null && user.imgUrl == null){
+		if (
+			user.address == null &&
+			user.phone == null &&
+			user.phone == null &&
+			user.cityName == null &&
+			user.imgUrl == null
+		) {
 			message.error('Lengkapi profile anda sebelum menawar!');
-			navigate('/profile')
+			navigate('/profile');
 		} else {
 			values = { ...values, status: 1, productId: props.id };
 			await dispatch(sendOffer({ token, userId, values }));

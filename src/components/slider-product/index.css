@@ -1,8 +1,8 @@
-.slider-skeleton{
+.slider-skeleton {
 	@apply h-auto mb-0 !important;
 }
 
-.slider-skeleton .ant-skeleton-avatar{
+.slider-skeleton .ant-skeleton-avatar {
 	@apply h-[436px] !important;
 	@apply rounded-2xl;
 }

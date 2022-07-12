@@ -85,7 +85,7 @@ export default function Header(props) {
 	}, [token, success]);
 
 	useEffect(() => {
-		if(error == 'Rejected'){
+		if (error == 'Rejected') {
 			handleLogout();
 		}
 	}, [error]);
@@ -212,9 +212,7 @@ export default function Header(props) {
 									<Row gutter={24} className='header-link'>
 										<Col span={8}>
 											<Link to='/daftar-jual'>
-												<List
-													size={24}
-												/>
+												<List size={24} />
 											</Link>
 										</Col>
 										<Col span={8}>
@@ -224,9 +222,7 @@ export default function Header(props) {
 												overlay={notificationDropdown}
 												trigger={['click']}
 											>
-												<Bell
-													size={24}
-												/>
+												<Bell size={24} />
 											</Dropdown>
 										</Col>
 										<Col span={8}>
@@ -235,9 +231,7 @@ export default function Header(props) {
 												overlay={userMenu}
 												trigger={['click']}
 											>
-												<User
-													size={24}
-												/>
+												<User size={24} />
 											</Dropdown>
 										</Col>
 									</Row>
