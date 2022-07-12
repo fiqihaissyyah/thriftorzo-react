@@ -58,7 +58,6 @@ export const readNotif = createAsyncThunk(
 	}
 );
 
-
 const initialState = {
 	notif: {
 		response: null,
