@@ -30,8 +30,11 @@ export default function Header(props) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const onFinish = (values) => {
+	const onFinish = async (values) => {
 		if (values.search) {
+			if(location.pathname !== '/'){
+				await navigate('/');
+			}
 			const page = 0;
 			const category = '';
 			const productName = values.search;
@@ -75,6 +78,7 @@ export default function Header(props) {
 
 	useEffect(() => {
 		onClose();
+		form.resetFields()
 	}, [location.pathname]);
 
 	useEffect(() => {
@@ -228,6 +232,7 @@ export default function Header(props) {
 										<Col span={8}>
 											<Dropdown
 												className='cursor-pointer'
+												placement='bottomRight'
 												overlay={userMenu}
 												trigger={['click']}
 											>

@@ -25,7 +25,6 @@ export default function ProductForm() {
 	const token = useSelector((state) => state.user.auth.token);
 	const user = useSelector((state) => state.user.user.data);
 	const navigate = useNavigate();
-	const id = user ? user.id : '';
 
 	const [form] = Form.useForm();
 	const [loadingPreview, setloadingPreview] = useState(false);
@@ -46,7 +45,7 @@ export default function ProductForm() {
 			setFileList(newFileList);
 		},
 		beforeUpload: async (file) => {
-			console.log(fileList)
+			console.log(fileList);
 			const isJpgOrPng =
 				file.type === 'image/jpeg' || file.type === 'image/png';
 			if (!isJpgOrPng) {
@@ -61,7 +60,7 @@ export default function ProductForm() {
 			if (fileList.length > 3) {
 				message.error('Gambar tidak boleh lebih dari 4!');
 			}
-			console.log(fileList.length)
+			console.log(fileList.length);
 
 			if (isLt2M && fileList.length <= 3 && isJpgOrPng) {
 				setFileList([...fileList, file]);
@@ -88,11 +87,14 @@ export default function ProductForm() {
 
 		setPreviewImage(file.url || file.preview);
 		setPreviewVisible(true);
-		setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
+		setPreviewTitle(
+			file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
+		);
 	};
 
 	const handleCancel = () => setPreviewVisible(false);
-	const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
+	const handleChange = ({ fileList: newFileList }) =>
+		setFileList(newFileList);
 
 	const getFile = (e) => {
 		if (Array.isArray(e)) {
@@ -103,29 +105,26 @@ export default function ProductForm() {
 
 	const onFinish = async (values) => {
 		if (submitType === 1) {
-			setloadingPublish(true)
+			setloadingPublish(true);
 			values = {
 				...values,
 				status: 1,
 				publish: 1,
-				userId: id,
 				imageFiles: fileList,
 			};
 		}
 		if (submitType === 2) {
-			setloadingPreview(true)
+			setloadingPreview(true);
 			values = {
 				...values,
 				status: 1,
 				publish: 0,
-				userId: id,
 				imageFiles: fileList,
 			};
 		}
 		try {
 			if (token) {
 				let bodyFormData = new FormData();
-				bodyFormData.append('userId', values.userId);
 				bodyFormData.append('name', values.name);
 				bodyFormData.append('price', values.price);
 				bodyFormData.append('status', values.status);
@@ -133,23 +132,26 @@ export default function ProductForm() {
 				bodyFormData.append('description', values.description);
 				bodyFormData.append('category', values.category);
 
-				if(!values.imageFiles.length) {
+				if (!values.imageFiles.length) {
 					message.error('Gambar tidak boleh kosong!');
-					setloadingPreview(false)
-					setloadingPublish(false)
+					setloadingPreview(false);
+					setloadingPublish(false);
 					return 0;
 				}
 
-				if(values.imageFiles.length > 4) {
+				if (values.imageFiles.length > 4) {
 					message.error('Gambar tidak boleh lebih dari 4!');
-					setloadingPreview(false)
-					setloadingPublish(false)
-					console.log(values.imageFiles.length)
+					setloadingPreview(false);
+					setloadingPublish(false);
+					console.log(values.imageFiles.length);
 					return 0;
 				}
 
 				for (let index = 0; index < values.imageFiles.length; index++) {
-					bodyFormData.append('imageFiles', values.imageFiles[index].originFileObj);
+					bodyFormData.append(
+						'imageFiles',
+						values.imageFiles[index].originFileObj
+					);
 				}
 
 				const response = await axios({
@@ -166,11 +168,11 @@ export default function ProductForm() {
 
 				message.success('Berhasil Menambah Produk!');
 				if (submitType === 1) {
-					setloadingPublish(false)
+					setloadingPublish(false);
 					navigate('/daftar-jual');
 				}
 				if (submitType === 2) {
-					setloadingPreview(false)
+					setloadingPreview(false);
 					navigate('/product/detail/' + response.data.id);
 				}
 			}
@@ -293,9 +295,14 @@ export default function ProductForm() {
 								style={{ fontSize: '24px', color: '#8A8A8A' }}
 							/>
 						</Upload>
-						<Modal visible={previewVisible} title={previewTitle} footer={null} onCancel={handleCancel}>
+						<Modal
+							visible={previewVisible}
+							title={previewTitle}
+							footer={null}
+							onCancel={handleCancel}
+						>
 							<img
-								alt="example"
+								alt='example'
 								style={{
 									width: '100%',
 								}}

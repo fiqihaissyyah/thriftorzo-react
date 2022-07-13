@@ -54,7 +54,9 @@ export default function Home() {
 	};
 
 	useEffect(() => {
-		getAllProduct();
+		if(!response){
+			getAllProduct();
+		}
 	}, []);
 
 	return (
@@ -140,7 +142,7 @@ export default function Home() {
 						</Button>
 					</div>
 					<Row gutter={[16, 16]} className='mb-10'>
-						{!loading && response === null && <Empty />}
+						{!loading && !response && <Empty />}
 						{loading && <LoadingProduct />}
 						{!loading &&
 							!!response &&

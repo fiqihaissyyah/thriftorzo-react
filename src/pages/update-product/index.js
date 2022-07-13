@@ -12,6 +12,7 @@ import {
 	Col,
 	Upload,
 	Image,
+	Modal,
 	message,
 } from 'antd';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
@@ -34,9 +35,13 @@ export default function ProductFormUpdate() {
 	const navigate = useNavigate();
 
 	const [form] = Form.useForm();
+	const [previewVisible, setPreviewVisible] = useState(false);
+	const [previewImage, setPreviewImage] = useState('');
+	const [previewTitle, setPreviewTitle] = useState('');
 	const [fileList, setFileList] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState();
+	const Promise = require('promise');
 
 	const uploadProps = {
 		onRemove: (file) => {
@@ -45,7 +50,8 @@ export default function ProductFormUpdate() {
 			newFileList.splice(index, 1);
 			setFileList(newFileList);
 		},
-		beforeUpload: (file) => {
+		beforeUpload: async (file) => {
+			console.log(fileList);
 			const isJpgOrPng =
 				file.type === 'image/jpeg' || file.type === 'image/png';
 			if (!isJpgOrPng) {
@@ -57,18 +63,43 @@ export default function ProductFormUpdate() {
 				message.error('Gambar tidak boleh lebih dari 2MB!');
 			}
 
-			if (!fileList.length < 4) {
+			if ((detail.imgUrl.length + fileList.length) > 3) {
 				message.error('Gambar tidak boleh lebih dari 4!');
 			}
 
-			if (isLt2M && fileList.length < 4 && isJpgOrPng) {
+			if (isLt2M && ((detail.imgUrl.length + fileList.length) <= 3) && isJpgOrPng) {
 				setFileList([...fileList, file]);
-				console.log('test');
 				return false;
 			}
 		},
 		fileList,
 	};
+
+	const getBase64 = (file) =>
+		new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+
+			reader.onload = () => resolve(reader.result);
+
+			reader.onerror = (error) => reject(error);
+		});
+
+	const handlePreview = async (file) => {
+		if (!file.url && !file.preview) {
+			file.preview = await getBase64(file.originFileObj);
+		}
+
+		setPreviewImage(file.url || file.preview);
+		setPreviewVisible(true);
+		setPreviewTitle(
+			file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
+		);
+	};
+
+	const handleCancel = () => setPreviewVisible(false);
+	const handleChange = ({ fileList: newFileList }) =>
+		setFileList(newFileList);
 
 	const getFile = (e) => {
 		if (Array.isArray(e)) {
@@ -97,15 +128,18 @@ export default function ProductFormUpdate() {
 				bodyFormData.append('description', values.description);
 				bodyFormData.append('category', values.category);
 
+				if ((detail.imgUrl.length + values.imageFiles.length) > 4) {
+					message.error('Gambar tidak boleh lebih dari 4!');
+					setLoading(false);
+					console.log(values.imageFiles.length);
+					return 0;
+				}
+
 				if (values.imageFiles.length > 0) {
-					for (
-						let index = 0;
-						index < values.imageFiles.length;
-						index++
-					) {
+					for (let index = 0; index < values.imageFiles.length; index++) {
 						bodyFormData.append(
 							'imageFiles',
-							values.imageFiles[index]
+							values.imageFiles[index].originFileObj
 						);
 					}
 				}
@@ -138,6 +172,10 @@ export default function ProductFormUpdate() {
 		await dispatch(deleteProductImage({ token, url, productId }));
 		await dispatch(getProductDetail(id));
 		message.success('Berhasil Menghapus Foto Produk!');
+	};
+
+	const navigateBack = () => {
+		navigate(-1);
 	};
 
 	useEffect(() => {
@@ -248,11 +286,28 @@ export default function ProductFormUpdate() {
 							listType='picture-card'
 							className='product-upload relative mb-6 w-full h-24'
 							accept='image/*'
+							fileList={fileList}
+							onPreview={handlePreview}
+							onChange={handleChange}
 						>
 							<PlusOutlined
 								style={{ fontSize: '24px', color: '#8A8A8A' }}
 							/>
 						</Upload>
+						<Modal
+							visible={previewVisible}
+							title={previewTitle}
+							footer={null}
+							onCancel={handleCancel}
+						>
+							<img
+								alt='example'
+								style={{
+									width: '100%',
+								}}
+								src={previewImage}
+							/>
+						</Modal>
 					</Form.Item>
 					<div className='mb-10 flex'>
 						{!!detail &&
@@ -283,6 +338,7 @@ export default function ProductFormUpdate() {
 						<Row gutter={16}>
 							<Col span={12}>
 								<Button
+									onClick={navigateBack}
 									ghost
 									className='w-full btn-custom'
 									type='primary'

@@ -51,7 +51,7 @@ export default function Detail() {
 						userId={
 							!!response &&
 							response.userResponse &&
-							response.userResponse.userId
+							response.userResponse.id
 						}
 					/>
 					<SalerInformation
@@ -91,7 +91,7 @@ export default function Detail() {
 						userId={
 							!!response &&
 							response.userResponse &&
-							response.userResponse.userId
+							response.userResponse.id
 						}
 					/>
 					<SalerInformation

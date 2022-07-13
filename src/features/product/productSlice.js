@@ -140,11 +140,11 @@ export const publishProduct = createAsyncThunk(
 
 export const getWishlist = createAsyncThunk(
 	'product/getWishlist',
-	async ({ token, userId, current }, { rejectWithValue }) => {
+	async ({ token, current }, { rejectWithValue }) => {
 		try {
 			if (token) {
 				const response = await axios.get(
-					`${API_URL}wishlist/get-all-by/${userId}?page=${current}&size=14`,
+					`${API_URL}wishlist/get-user-wishlist?page=${current}&size=14`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
@@ -168,12 +168,12 @@ export const getWishlist = createAsyncThunk(
 
 export const addToWishlist = createAsyncThunk(
 	'product/addToWishlist',
-	async ({ token, productId, userId }, { rejectWithValue }) => {
+	async ({ token, productId }, { rejectWithValue }) => {
 		try {
 			if (token) {
 				const response = await axios.post(
 					`${API_URL}wishlist/add-wishlist`,
-					{ productId: productId, userId: userId },
+					{ productId: productId },
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
@@ -197,11 +197,11 @@ export const addToWishlist = createAsyncThunk(
 
 export const removeWishlist = createAsyncThunk(
 	'product/removeWishlist',
-	async ({ token, productId, userId }, { rejectWithValue }) => {
+	async ({ token, productId }, { rejectWithValue }) => {
 		try {
 			if (token) {
 				const response = await axios.delete(
-					`${API_URL}wishlist/delete-wishlist?productId=${productId}&userId=${userId}`,
+					`${API_URL}wishlist/delete-wishlist?productId=${productId}`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;

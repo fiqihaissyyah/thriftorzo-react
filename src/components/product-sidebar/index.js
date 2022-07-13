@@ -90,31 +90,30 @@ export default function ProductSidebar(props) {
 		navigate('/update/product/' + props.id);
 	};
 
-	const checkWishlistHandler = async (productId, userId) => {
+	const checkWishlistHandler = async (productId) => {
 		const response = await axios.get(
-			`https://staging-secondhand-bej3.herokuapp.com/wishlist/get-status-wishlist?productId=${productId}&userId=${userId}`,
+			`https://staging-secondhand-bej3.herokuapp.com/wishlist/get-status-wishlist?productId=${productId}`,
 			{ headers: { Authorization: `Bearer ${token}` } }
 		);
 		setWishlist(response.data.wishlistStatus);
 	};
 
-	const addWishlistHandler = async (productId, userId) => {
-		await dispatch(addToWishlist({ token, productId, userId }));
+	const addWishlistHandler = async (productId) => {
+		await dispatch(addToWishlist({ token, productId }));
 		message.success('Berhasil Menambah Wishlist!');
-		checkWishlistHandler(productId, userId);
+		checkWishlistHandler(productId);
 	};
 
-	const removeWishlistHandler = async (productId, userId) => {
-		await dispatch(removeWishlist({ token, productId, userId }));
+	const removeWishlistHandler = async (productId) => {
+		await dispatch(removeWishlist({ token, productId }));
 		message.success('Berhasil Menghapus Wishlist!');
-		checkWishlistHandler(productId, userId);
+		checkWishlistHandler(productId);
 	};
 
 	useEffect(() => {
 		if (profileUser) {
 			const productId = props.id;
-			const userId = profileUser.id;
-			checkWishlistHandler(productId, userId);
+			checkWishlistHandler(productId);
 		}
 	}, []);
 
@@ -151,70 +150,69 @@ export default function ProductSidebar(props) {
 				{props.loading && <Skeleton active paragraph={{ rows: 4 }} />}
 				<div className='md:static md:block fixed flex justify-between md:left-auto md:bottom-auto left-4 right-4 bottom-4'>
 					{!props.loading &&
-						!!profileUser &&
-						profileUser.id === props.userId && (
-							<>
-								<ProductStatus
-									id={props.id}
-									publish={props.publish}
-								/>
-								<Button
-									onClick={handleEdit}
-									ghost
-									className='w-full btn-custom'
-									type='primary'
-								>
-									Edit
-								</Button>
-							</>
-						)}
+						!!profileUser && profileUser.id === props.userId && (
+						<>
+							<ProductStatus
+								id={props.id}
+								publish={props.publish}
+							/>
+							<Button
+								onClick={handleEdit}
+								ghost
+								className='w-full btn-custom'
+								type='primary'
+							>
+								Edit
+							</Button>
+						</>
+					)}
 					{!props.loading &&
 						!!profileUser &&
 						profileUser.id !== props.userId && (
-							<Button
-								onClick={() => offersEvents.click()}
-								className='w-full btn-custom border border-solid border-[#9f42f3]'
-								type='primary'
-								htmlType='submit'
-							>
-								Saya tertarik dan ingin nego
-							</Button>
-						)}
+						<Button
+							onClick={() => offersEvents.click()}
+							className='w-full btn-custom border border-solid border-[#9f42f3]'
+							type='primary'
+							htmlType='submit'
+						>
+							Saya tertarik dan ingin nego
+						</Button>
+					)}
 				</div>
 				{!props.loading &&
 					!!profileUser &&
 					profileUser.id !== props.userId &&
 					!isWishlist && (
-						<Button
-							loading={loadingWishlist}
-							onClick={() =>
-								addWishlistHandler(props.id, profileUser.id)
-							}
-							className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
-							type='primary'
-							htmlType='submit'
-							ghost
-						>
-							Tambah ke wishlist
-						</Button>
-					)}
+					<Button
+						loading={loadingWishlist}
+						onClick={() =>
+							addWishlistHandler(props.id)
+						}
+						className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
+						type='primary'
+						htmlType='submit'
+						ghost
+					>
+						Tambah ke wishlist
+					</Button>
+				)}
 				{!props.loading &&
 					!!profileUser &&
 					profileUser.id !== props.userId &&
 					isWishlist && (
-						<Button
-							loading={loadingWishlist}
-							onClick={() =>
-								removeWishlistHandler(props.id, profileUser.id)
-							}
-							className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
-							type='primary'
-							htmlType='submit'
-							ghost
-						>
-							Hapus dari wishlist
-						</Button>
-					)}
+					<Button
+						loading={loadingWishlist}
+						onClick={() =>
+							removeWishlistHandler(props.id)
+						}
+						className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
+						type='primary'
+						htmlType='submit'
+						ghost
+					>
+						Hapus dari wishlist
+					</Button>
+				)}
 			</div>
 			<ModalOffer
 				name={props.name}
