@@ -17,13 +17,13 @@ export default function Notification() {
 	const dispatch = useDispatch();
 	const location = useLocation();
 
-	const readNotification = async ( id, transactionId ) => {
+	const readNotification = async (id, transactionId) => {
 		await dispatch(readNotif({ token, id }));
 		const current = 0;
 		const size = 4;
 		dispatch(getNotification({ token, current, size }));
 		console.log(response);
-		navigate('/penawaran/info-penawaran/'+ transactionId)
+		navigate('/penawaran/info-penawaran/' + transactionId);
 	};
 
 	useEffect(() => {
@@ -74,7 +74,6 @@ export default function Notification() {
 						</div>
 					</div>
 				))}
-				
 		</div>
 	);
 }

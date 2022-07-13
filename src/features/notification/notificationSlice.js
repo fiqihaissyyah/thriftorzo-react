@@ -37,7 +37,7 @@ export const readNotif = createAsyncThunk(
 			if (token) {
 				const response = await axios.put(
 					`${API_URL}notification/read`,
-					{id: id},
+					{ id: id },
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;

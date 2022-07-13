@@ -10,7 +10,7 @@ import {
 } from '../../features/notification/notificationSlice';
 
 export default function Notification() {
-	const navigate = useNavigate ();
+	const navigate = useNavigate();
 	const token = useSelector((state) => state.user.auth.token);
 	const { response, loading } = useSelector(
 		(state) => state.notification.notif
@@ -24,13 +24,13 @@ export default function Notification() {
 		const size = 4;
 		dispatch(getNotification({ token, current, size }));
 		console.log(response);
-		navigate('/penawaran/info-penawaran/'+ transactionId)
+		navigate('/penawaran/info-penawaran/' + transactionId);
 	};
 
 	const paginationHandler = (current) => {
 		const size = 8;
-		current = current - 1
-		dispatch(getNotification({token, current, size}));
+		current = current - 1;
+		dispatch(getNotification({ token, current, size }));
 		window.scrollTo(0, 0);
 	};
 
@@ -57,7 +57,9 @@ export default function Notification() {
 						response.notificationResponses.map((i) => (
 							<div
 								className='notification-item flex justify-between'
-								onClick={() => readNotification(i.id, i.transactionId)}
+								onClick={() =>
+									readNotification(i.id, i.transactionId)
+								}
 							>
 								<img
 									className='w-12 h-12 object-cover rounded-xl flex-shrink-0'
@@ -89,15 +91,15 @@ export default function Notification() {
 							</div>
 						))}
 					{!loading && !!response && response.totalPage > 1 && (
-								<Pagination
-									className='mb-10 mt-10'
-									onChange={paginationHandler}
-									defaultCurrent={1}
-									current={!!response && response.currentPage + 1}
-									total={!!response && response.totalElement}
-									pageSize={8}
-								/>
-							)}
+						<Pagination
+							className='mb-10 mt-10'
+							onChange={paginationHandler}
+							defaultCurrent={1}
+							current={!!response && response.currentPage + 1}
+							total={!!response && response.totalElement}
+							pageSize={8}
+						/>
+					)}
 				</div>
 			</div>
 		</>
