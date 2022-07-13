@@ -1,6 +1,6 @@
 import './index.css';
 import React, { useEffect } from 'react';
-import moment from 'moment/moment.js'
+import moment from 'moment/moment.js';
 import { Helmet } from 'react-helmet';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -56,10 +56,13 @@ export default function Notification() {
 			</Helmet>
 			<div className='notifiation-page pt-4 md:pt-10'>
 				<div className='container container-internal'>
-					{loading && Array(10).fill('a').map((i) => (
-						<Skeleton key={i} className='mb-10' active />
-					))}
-					{!loading && response === null && <p>Tidak ada Notifikasi</p>}
+					{loading &&
+						Array(10)
+							.fill('a')
+							.map((i) => (
+								<Skeleton key={i} className='mb-10' active />
+							))}
+					{!loading && !!response && response.notificationResponses.length === 0 &&  (<p className='text-center'>Tidak ada Notifikasi</p>)}
 					{!loading &&
 						!!response &&
 						response.notificationResponses &&
@@ -82,7 +85,9 @@ export default function Notification() {
 											{i.title}
 										</span>
 										<span className='flex items-center text-[10px] text-neutral-500'>
-											{moment(i.lastUpdated).format('DD MMM, kk:mm')}
+											{moment(i.lastUpdated).format(
+												'DD MMM, kk:mm'
+											)}
 											{!i.isRead && (
 												<span className='h-2 w-2 rounded-full bg-red-600 inline-block ml-2'></span>
 											)}

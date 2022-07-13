@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Skeleton } from 'antd';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import moment from 'moment/moment.js'
+import moment from 'moment/moment.js';
 
 import './index.css';
 import {
@@ -43,10 +43,11 @@ export default function Notification() {
 
 	return (
 		<div className='notification p-6 bg-white rounded-2xl w-[376px] mt-4'>
-			{loading && Array(3).fill('a').map((i) => (
-				<Skeleton key={i} className='mb-3' active />
-			))}
-			{!loading && response === null && <p>Tidak ada Notifikasi</p>}
+			{loading &&
+				Array(3)
+					.fill('a')
+					.map((i) => <Skeleton key={i} className='mb-3' active />)}
+			{!loading && !!response && response.notificationResponses.length === 0 &&  (<p className='text-center mb-0'>Tidak ada Notifikasi</p>)}
 			{!loading &&
 				!!response &&
 				response.notificationResponses &&
@@ -67,7 +68,9 @@ export default function Notification() {
 									{i.title}
 								</span>
 								<span className='flex items-center text-[10px] text-neutral-500'>
-									{moment(i.lastUpdated).format('DD MMM, kk:mm')}
+									{moment(i.lastUpdated).format(
+										'DD MMM, kk:mm'
+									)}
 									{!i.isRead && (
 										<span className='h-2 w-2 rounded-full bg-red-600 inline-block ml-2'></span>
 									)}
@@ -78,7 +81,6 @@ export default function Notification() {
 							</p>
 							<p className='mb-1 text-black text-sm'>
 								{currency(i.productResponse.price)}
-
 							</p>
 							<p className='mb-1 text-black text-sm'>
 								Ditawar {currency(i.offerPrice)}
@@ -86,7 +88,11 @@ export default function Notification() {
 						</div>
 					</div>
 				))}
-				{!loading && !!response && (<Link className='block text-center' to={'/notification'}>Lihat Semua Notification</Link>)}
+			{!loading && !!response && response.notificationResponses.length !== 0 &&  (
+				<Link className='block text-center' to={'/notification'}>
+					Lihat Semua Notification
+				</Link>
+			)}
 		</div>
 	);
 }
