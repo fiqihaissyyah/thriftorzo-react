@@ -1,32 +1,46 @@
 import './index.css';
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { Pagination } from 'antd';
 import {
 	getNotification,
 	readNotif,
 } from '../../features/notification/notificationSlice';
 
 export default function Notification() {
+	const navigate = useNavigate ();
 	const token = useSelector((state) => state.user.auth.token);
-	const user = useSelector((state) => state.user.user.data);
 	const { response, loading } = useSelector(
 		(state) => state.notification.notif
 	);
 	const dispatch = useDispatch();
-	const userId = user ? user.id : '';
 	const location = useLocation();
 
-	const readNotification = (id) => {
-		dispatch(readNotif({ token, id }));
+	const readNotification = async (id, transactionId) => {
+		await dispatch(readNotif({ token, id }));
+		const current = 0;
+		const size = 4;
+		dispatch(getNotification({ token, current, size }));
+		console.log(response);
+		navigate('/penawaran/info-penawaran/'+ transactionId)
+	};
+
+	const paginationHandler = (current) => {
+		const size = 8;
+		current = current - 1
+		dispatch(getNotification({token, current, size}));
+		window.scrollTo(0, 0);
 	};
 
 	useEffect(() => {
-		dispatch(getNotification({ token, userId }));
+		const current = 0;
+		const size = 8;
+		dispatch(getNotification({ token, current, size }));
 		console.log(response);
 	}, [location.pathname]);
+
 	return (
 		<>
 			<Helmet>
@@ -38,15 +52,16 @@ export default function Notification() {
 					{!loading && response === null && <p>empty</p>}
 					{!loading &&
 						!!response &&
-						response.length > 0 &&
-						response.map((i) => (
+						response.notificationResponses &&
+						response.notificationResponses.length > 0 &&
+						response.notificationResponses.map((i) => (
 							<div
 								className='notification-item flex justify-between'
-								onClick={() => readNotification(i.id)}
+								onClick={() => readNotification(i.id, i.transactionId)}
 							>
 								<img
 									className='w-12 h-12 object-cover rounded-xl flex-shrink-0'
-									src={i.productUrl}
+									src={i.productResponse.imgUrl}
 									alt='product'
 								/>
 								<div className='notification-content w-full ml-4'>
@@ -62,10 +77,10 @@ export default function Notification() {
 										</span>
 									</div>
 									<p className='mb-1 text-black text-sm'>
-										{i.productName}
+										{i.productResponse.name}
 									</p>
 									<p className='mb-1 text-black text-sm'>
-										{i.productPrice}
+										{i.productResponse.price}
 									</p>
 									<p className='mb-1 text-black text-sm'>
 										Ditawar {i.offerPrice}
@@ -73,6 +88,16 @@ export default function Notification() {
 								</div>
 							</div>
 						))}
+					{!loading && !!response && response.totalPage > 1 && (
+								<Pagination
+									className='mb-10 mt-10'
+									onChange={paginationHandler}
+									defaultCurrent={1}
+									current={!!response && response.currentPage + 1}
+									total={!!response && response.totalElement}
+									pageSize={8}
+								/>
+							)}
 				</div>
 			</div>
 		</>

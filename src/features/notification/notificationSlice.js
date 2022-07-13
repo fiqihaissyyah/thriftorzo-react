@@ -4,11 +4,11 @@ export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
 
 export const getNotification = createAsyncThunk(
 	'notification/getnotification',
-	async ({ token, userId }, { rejectWithValue }) => {
+	async ({ token, current, size }, { rejectWithValue }) => {
 		try {
 			if (token) {
 				const response = await axios.get(
-					`${API_URL}notification/get/${userId}`,
+					`${API_URL}notification/get?page=${current}&size=${size}`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
@@ -36,7 +36,8 @@ export const readNotif = createAsyncThunk(
 		try {
 			if (token) {
 				const response = await axios.put(
-					`${API_URL}notification/read/${id}`,
+					`${API_URL}notification/read`,
+					{id: id},
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
