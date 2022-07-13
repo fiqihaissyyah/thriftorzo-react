@@ -23,7 +23,6 @@ export default function Home() {
 	const dispatch = useDispatch();
 
 	const paginationHandler = (current) => {
-		console.log('page', current);
 		const productName = search;
 		const category = filterCategory;
 		const page = current - 1;
@@ -55,7 +54,9 @@ export default function Home() {
 	};
 
 	useEffect(() => {
-		getAllProduct();
+		if(!response){
+			getAllProduct();
+		}
 	}, []);
 
 	return (
@@ -141,7 +142,7 @@ export default function Home() {
 						</Button>
 					</div>
 					<Row gutter={[16, 16]} className='mb-10'>
-						{!loading && response === null && <Empty />}
+						{!loading && !response && <Empty />}
 						{loading && <LoadingProduct />}
 						{!loading &&
 							!!response &&

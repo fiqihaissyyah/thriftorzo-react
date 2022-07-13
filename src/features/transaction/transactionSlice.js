@@ -3,12 +3,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
 
 export const saleHistory = createAsyncThunk(
-	'product/saleHistory',
-	async ({ token, userId }, { rejectWithValue }) => {
+	'transaction/saleHistory',
+	async (token, { rejectWithValue }) => {
 		try {
 			if (token) {
 				const response = await axios.get(
-					`${API_URL}history/seller-history/${userId}`,
+					`${API_URL}history/seller-history`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
@@ -31,12 +31,12 @@ export const saleHistory = createAsyncThunk(
 );
 
 export const sendOffer = createAsyncThunk(
-	'product/sendOffer',
+	'transaction/sendOffer',
 	async ({ token, userId, values }, { rejectWithValue }) => {
 		try {
 			if (token) {
 				const response = await axios.post(
-					`${API_URL}transaction/buy-transaction/${userId}`,
+					`${API_URL}transaction/buy-transaction`,
 					values,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
@@ -60,7 +60,7 @@ export const sendOffer = createAsyncThunk(
 );
 
 export const detailOffer = createAsyncThunk(
-	'product/detailOffer',
+	'transaction/detailOffer',
 	async ({ token, id }, { rejectWithValue }) => {
 		try {
 			if (token) {
@@ -88,9 +88,8 @@ export const detailOffer = createAsyncThunk(
 );
 
 export const updateStatus = createAsyncThunk(
-	'product/updateStatus',
+	'transaction/updateStatus',
 	async ({ token, id, status }, { rejectWithValue }) => {
-		console.log(token, id, status);
 		try {
 			if (token) {
 				const response = await axios.put(
@@ -145,7 +144,7 @@ const initialState = {
 };
 
 export const transactionSlice = createSlice({
-	name: 'product',
+	name: 'transaction',
 	initialState,
 	reducers: {},
 	extraReducers: {

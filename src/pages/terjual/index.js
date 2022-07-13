@@ -28,7 +28,6 @@ export default function Terjual() {
 	useEffect(() => {
 		const current = 0;
 		dispatch(getSold({ token, current }));
-		console.log(response);
 	}, [location.pathname]);
 
 	return (
@@ -48,7 +47,7 @@ export default function Terjual() {
 					</Col>
 					<Col xs={{ span: 24 }} lg={{ span: 16 }}>
 						<Row gutter={[24, 24]} className='mb-10'>
-							{!loading && response === null && <Empty />}
+							{!loading && !response && <Empty />}
 							{loading && <LoadingProductSold />}
 							{!loading &&
 								!!response &&

@@ -19,6 +19,7 @@ import { getProduct } from '../../features/product/productSlice';
 
 export default function Header(props) {
 	const { token, success } = useSelector((state) => state.user.auth);
+	const { error } = useSelector((state) => state.user.user);
 
 	const [form] = Form.useForm();
 	const [isLogin, setLogin] = useState(false);
@@ -29,8 +30,11 @@ export default function Header(props) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const onFinish = (values) => {
+	const onFinish = async (values) => {
 		if (values.search) {
+			if(location.pathname !== '/'){
+				await navigate('/');
+			}
 			const page = 0;
 			const category = '';
 			const productName = values.search;
@@ -70,11 +74,11 @@ export default function Header(props) {
 		await localStorage.removeItem('user');
 		dispatch(reset());
 		setLogin(false);
-		console.log('logout');
 	};
 
 	useEffect(() => {
 		onClose();
+		form.resetFields()
 	}, [location.pathname]);
 
 	useEffect(() => {
@@ -83,6 +87,12 @@ export default function Header(props) {
 			dispatch(getUser(token));
 		}
 	}, [token, success]);
+
+	useEffect(() => {
+		if (error == 'Rejected') {
+			handleLogout();
+		}
+	}, [error]);
 
 	const userMenu = (
 		<Menu onClick={handleClick} className='mt-3'>
@@ -203,13 +213,10 @@ export default function Header(props) {
 							)}
 							{isLogin && (
 								<>
-									<Row gutter={24}>
+									<Row gutter={24} className='header-link'>
 										<Col span={8}>
 											<Link to='/daftar-jual'>
-												<List
-													size={24}
-													color='#7126B5'
-												/>
+												<List size={24} />
 											</Link>
 										</Col>
 										<Col span={8}>
@@ -219,22 +226,17 @@ export default function Header(props) {
 												overlay={notificationDropdown}
 												trigger={['click']}
 											>
-												<Bell
-													size={24}
-													color='#7126B5'
-												/>
+												<Bell size={24} />
 											</Dropdown>
 										</Col>
 										<Col span={8}>
 											<Dropdown
 												className='cursor-pointer'
+												placement='bottomRight'
 												overlay={userMenu}
 												trigger={['click']}
 											>
-												<User
-													size={24}
-													color='#7126B5'
-												/>
+												<User size={24} />
 											</Dropdown>
 										</Col>
 									</Row>

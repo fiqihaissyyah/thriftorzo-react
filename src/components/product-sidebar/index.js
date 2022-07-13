@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Button, Popconfirm, message } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Popconfirm, message, Skeleton } from 'antd';
 
 import ModalOffer from '../modal-offer';
 import { useNavigate } from 'react-router-dom';
@@ -28,7 +28,6 @@ const ProductStatus = (props) => {
 	);
 
 	const deleteHandler = async (id) => {
-		console.log(id);
 		await dispatch(deleteProduct({ token, id }));
 		message.success('Berhasil Menghapus Produk!');
 		navigate('/daftar-jual');
@@ -36,7 +35,6 @@ const ProductStatus = (props) => {
 
 	const publishHandler = async () => {
 		const values = { ...response, publish: 1 };
-		console.log(values);
 		await dispatch(publishProduct({ token, values }));
 		await dispatch(getProductDetail(values.id));
 		message.success('Berhasil Menerbitkan Produk!');
@@ -92,31 +90,30 @@ export default function ProductSidebar(props) {
 		navigate('/update/product/' + props.id);
 	};
 
-	const checkWishlistHandler = async (productId, userId) => {
+	const checkWishlistHandler = async (productId) => {
 		const response = await axios.get(
-			`https://staging-secondhand-bej3.herokuapp.com/wishlist/get-status-wishlist?productId=${productId}&userId=${userId}`,
+			`https://staging-secondhand-bej3.herokuapp.com/wishlist/get-status-wishlist?productId=${productId}`,
 			{ headers: { Authorization: `Bearer ${token}` } }
 		);
 		setWishlist(response.data.wishlistStatus);
 	};
 
-	const addWishlistHandler = async (productId, userId) => {
-		await dispatch(addToWishlist({ token, productId, userId }));
+	const addWishlistHandler = async (productId) => {
+		await dispatch(addToWishlist({ token, productId }));
 		message.success('Berhasil Menambah Wishlist!');
-		checkWishlistHandler(productId, userId);
+		checkWishlistHandler(productId);
 	};
 
-	const removeWishlistHandler = async (productId, userId) => {
-		await dispatch(removeWishlist({ token, productId, userId }));
+	const removeWishlistHandler = async (productId) => {
+		await dispatch(removeWishlist({ token, productId }));
 		message.success('Berhasil Menghapus Wishlist!');
-		checkWishlistHandler(productId, userId);
+		checkWishlistHandler(productId);
 	};
 
 	useEffect(() => {
 		if (profileUser) {
 			const productId = props.id;
-			const userId = profileUser.id;
-			checkWishlistHandler(productId, userId);
+			checkWishlistHandler(productId);
 		}
 	}, []);
 
@@ -133,17 +130,27 @@ export default function ProductSidebar(props) {
 					!props.mobile ? 'md:block hidden' : 'md:hidden block'
 				} z-10 relative bg-white`}
 			>
-				<h4 className='text-base text-black mb-2'>{props.name}</h4>
-				<p className='text-sm text-[#8A8A8A] mb-4'>{props.category}</p>
-				<p
-					className={`text-base text-black ${
-						props.mobile || !profileUser ? 'mb-0' : 'mb-6'
-					}`}
-				>
-					{currency(props.price)}
-				</p>
+				{!props.loading && (
+					<>
+						<h4 className='text-base text-black mb-2'>
+							{props.name}
+						</h4>
+						<p className='text-sm text-[#8A8A8A] mb-4'>
+							{props.category}
+						</p>
+						<p
+							className={`text-base text-black ${
+								props.mobile || !profileUser ? 'mb-0' : 'mb-6'
+							}`}
+						>
+							{currency(props.price)}
+						</p>
+					</>
+				)}
+				{props.loading && <Skeleton active paragraph={{ rows: 4 }} />}
 				<div className='md:static md:block fixed flex justify-between md:left-auto md:bottom-auto left-4 right-4 bottom-4'>
-					{!!profileUser && profileUser.id === props.userId && (
+					{!props.loading &&
+						!!profileUser && profileUser.id === props.userId && (
 						<>
 							<ProductStatus
 								id={props.id}
@@ -159,7 +166,9 @@ export default function ProductSidebar(props) {
 							</Button>
 						</>
 					)}
-					{!!profileUser && profileUser.id !== props.userId && (
+					{!props.loading &&
+						!!profileUser &&
+						profileUser.id !== props.userId && (
 						<Button
 							onClick={() => offersEvents.click()}
 							className='w-full btn-custom border border-solid border-[#9f42f3]'
@@ -170,38 +179,40 @@ export default function ProductSidebar(props) {
 						</Button>
 					)}
 				</div>
-				{!!profileUser &&
+				{!props.loading &&
+					!!profileUser &&
 					profileUser.id !== props.userId &&
 					!isWishlist && (
-						<Button
-							loading={loadingWishlist}
-							onClick={() =>
-								addWishlistHandler(props.id, profileUser.id)
-							}
-							className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
-							type='primary'
-							htmlType='submit'
-							ghost
-						>
-							Tambah ke wishlist
-						</Button>
-					)}
-				{!!profileUser &&
+					<Button
+						loading={loadingWishlist}
+						onClick={() =>
+							addWishlistHandler(props.id)
+						}
+						className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
+						type='primary'
+						htmlType='submit'
+						ghost
+					>
+						Tambah ke wishlist
+					</Button>
+				)}
+				{!props.loading &&
+					!!profileUser &&
 					profileUser.id !== props.userId &&
 					isWishlist && (
-						<Button
-							loading={loadingWishlist}
-							onClick={() =>
-								removeWishlistHandler(props.id, profileUser.id)
-							}
-							className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
-							type='primary'
-							htmlType='submit'
-							ghost
-						>
-							Hapus dari wishlist
-						</Button>
-					)}
+					<Button
+						loading={loadingWishlist}
+						onClick={() =>
+							removeWishlistHandler(props.id)
+						}
+						className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
+						type='primary'
+						htmlType='submit'
+						ghost
+					>
+						Hapus dari wishlist
+					</Button>
+				)}
 			</div>
 			<ModalOffer
 				name={props.name}

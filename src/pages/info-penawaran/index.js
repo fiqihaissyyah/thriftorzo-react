@@ -60,7 +60,6 @@ export default function InfoPenawaran() {
 
 	useEffect(() => {
 		dispatch(detailOffer({ token, id }));
-		console.log(offerDetail);
 	}, [id]);
 
 	const currency = (value) =>

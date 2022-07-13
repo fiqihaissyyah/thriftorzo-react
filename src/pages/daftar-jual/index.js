@@ -31,7 +31,6 @@ export default function DaftarJual() {
 	useEffect(() => {
 		const current = 0;
 		dispatch(getProductByUserId({ token, current }));
-		console.log(response);
 	}, [location.pathname]);
 
 	return (
@@ -60,7 +59,6 @@ export default function DaftarJual() {
 									<NewProduct />
 								</Col>
 							)}
-							{!loading && response === null && <Empty />}
 							{loading && <LoadingProductSold />}
 							{!loading &&
 								!!response &&

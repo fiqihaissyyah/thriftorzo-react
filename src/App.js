@@ -7,6 +7,7 @@ import DefaultLayoutWithTitle from './components/layouts/default-title';
 import DefaultLayoutWithNavigation from './components/layouts/default-navigation';
 import DefaultLayoutBlank from './components/layouts/default-blank';
 import IsAuth from './components/layouts/isAuth';
+import CheckUserProfile from './components/layouts/checkUserProfile';
 
 import Home from './pages/home/index';
 import Login from './pages/login/index';
@@ -47,16 +48,18 @@ function App() {
 						/>
 					</Route>
 					<Route element={<DefaultLayoutBlank />}>
-						<Route
-							exact
-							path='/create/product'
-							element={<ProductForm />}
-						/>
-						<Route
-							exact
-							path='/update/product/:id'
-							element={<ProductFormUpdate />}
-						/>
+						<Route element={<CheckUserProfile />}>
+							<Route
+								exact
+								path='/create/product'
+								element={<ProductForm />}
+							/>
+							<Route
+								exact
+								path='/update/product/:id'
+								element={<ProductFormUpdate />}
+							/>
+						</Route>
 					</Route>
 				</Route>
 				<Route element={<DefaultLayout />}>
