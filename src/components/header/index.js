@@ -32,7 +32,7 @@ export default function Header(props) {
 
 	const onFinish = async (values) => {
 		if (values.search) {
-			if(location.pathname !== '/'){
+			if (location.pathname !== '/') {
 				await navigate('/');
 			}
 			const page = 0;
@@ -78,7 +78,7 @@ export default function Header(props) {
 
 	useEffect(() => {
 		onClose();
-		form.resetFields()
+		form.resetFields();
 	}, [location.pathname]);
 
 	useEffect(() => {

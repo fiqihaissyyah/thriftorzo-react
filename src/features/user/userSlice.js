@@ -52,10 +52,9 @@ export const getUser = createAsyncThunk(
 	async (_, { rejectWithValue }) => {
 		try {
 			if (TOKEN) {
-				const response = await axios.get(
-					`${API_URL}user/get-user`,
-					{ headers: { Authorization: `Bearer ${TOKEN}` } }
-				);
+				const response = await axios.get(`${API_URL}user/get-user`, {
+					headers: { Authorization: `Bearer ${TOKEN}` },
+				});
 				return response;
 			} else {
 				const data = [

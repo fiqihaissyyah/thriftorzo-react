@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Skeleton } from 'antd';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import moment from 'moment/moment.js'
 
 import './index.css';
 import {
@@ -33,9 +35,18 @@ export default function Notification() {
 		console.log(response);
 	}, [location.pathname]);
 
+	const currency = (value) =>
+		new Intl.NumberFormat('en-ID', {
+			style: 'currency',
+			currency: 'IDR',
+		}).format(value);
+
 	return (
 		<div className='notification p-6 bg-white rounded-2xl w-[376px] mt-4'>
-			{!loading && response === null && <p>empty</p>}
+			{loading && Array(3).fill('a').map((i) => (
+				<Skeleton key={i} className='mb-3' active />
+			))}
+			{!loading && response === null && <p>Tidak ada Notifikasi</p>}
 			{!loading &&
 				!!response &&
 				response.notificationResponses &&
@@ -47,7 +58,7 @@ export default function Notification() {
 					>
 						<img
 							className='w-12 h-12 object-cover rounded-xl mr-4'
-							src={i.productResponse.imgUrl}
+							src={i.productResponse.imgUrl[0]}
 							alt='product'
 						/>
 						<div className='notification-content max-w-[264px] w-full'>
@@ -56,7 +67,7 @@ export default function Notification() {
 									{i.title}
 								</span>
 								<span className='flex items-center text-[10px] text-neutral-500'>
-									{i.lastUpdated}{' '}
+									{moment(i.lastUpdated).format('DD MMM, kk:mm')}
 									{!i.isRead && (
 										<span className='h-2 w-2 rounded-full bg-red-600 inline-block ml-2'></span>
 									)}
@@ -66,14 +77,16 @@ export default function Notification() {
 								{i.productResponse.name}
 							</p>
 							<p className='mb-1 text-black text-sm'>
-								{i.productResponse.price}
+								{currency(i.productResponse.price)}
+
 							</p>
 							<p className='mb-1 text-black text-sm'>
-								Ditawar {i.offerPrice}
+								Ditawar {currency(i.offerPrice)}
 							</p>
 						</div>
 					</div>
 				))}
+				{!loading && !!response && (<Link className='block text-center' to={'/notification'}>Lihat Semua Notification</Link>)}
 		</div>
 	);
 }

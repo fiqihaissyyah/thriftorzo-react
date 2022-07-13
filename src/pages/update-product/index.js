@@ -63,11 +63,15 @@ export default function ProductFormUpdate() {
 				message.error('Gambar tidak boleh lebih dari 2MB!');
 			}
 
-			if ((detail.imgUrl.length + fileList.length) > 3) {
+			if (detail.imgUrl.length + fileList.length > 3) {
 				message.error('Gambar tidak boleh lebih dari 4!');
 			}
 
-			if (isLt2M && ((detail.imgUrl.length + fileList.length) <= 3) && isJpgOrPng) {
+			if (
+				isLt2M &&
+				detail.imgUrl.length + fileList.length <= 3 &&
+				isJpgOrPng
+			) {
 				setFileList([...fileList, file]);
 				return false;
 			}
@@ -128,7 +132,7 @@ export default function ProductFormUpdate() {
 				bodyFormData.append('description', values.description);
 				bodyFormData.append('category', values.category);
 
-				if ((detail.imgUrl.length + values.imageFiles.length) > 4) {
+				if (detail.imgUrl.length + values.imageFiles.length > 4) {
 					message.error('Gambar tidak boleh lebih dari 4!');
 					setLoading(false);
 					console.log(values.imageFiles.length);
@@ -136,7 +140,11 @@ export default function ProductFormUpdate() {
 				}
 
 				if (values.imageFiles.length > 0) {
-					for (let index = 0; index < values.imageFiles.length; index++) {
+					for (
+						let index = 0;
+						index < values.imageFiles.length;
+						index++
+					) {
 						bodyFormData.append(
 							'imageFiles',
 							values.imageFiles[index].originFileObj

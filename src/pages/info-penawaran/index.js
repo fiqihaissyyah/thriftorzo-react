@@ -1,6 +1,6 @@
 import './index.css';
 import React, { useEffect, useState } from 'react';
-import * as moment from 'moment';
+import moment from 'moment/moment.js'
 import { Helmet } from 'react-helmet';
 import { Button, message } from 'antd';
 import { useParams } from 'react-router-dom';
@@ -25,7 +25,6 @@ export default function InfoPenawaran() {
 
 	const dispatch = useDispatch();
 	const token = useSelector((state) => state.user.auth.token);
-	const user = useSelector((state) => state.user.user.data);
 
 	const offerDetail = useSelector(
 		(state) => state.transaction.showOffer.response
@@ -75,7 +74,7 @@ export default function InfoPenawaran() {
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='container container-small'>
-				<SalerInformation user={user} edit={false} />
+				<SalerInformation user={!!offerDetail && offerDetail.buyerResponse} edit={false} />
 				<h1 className='text-sm text-black font-medium leading-5 my-6 md:block hidden'>
 					Daftar Produkmu yang Ditawar
 				</h1>
@@ -94,8 +93,7 @@ export default function InfoPenawaran() {
 								Penawaran produk
 							</span>
 							<span className='flex items-center text-[10px] text-neutral-500'>
-								20 Apr, 14:04
-								{!!offerDetail && offerDetail.transactionDate}
+								{moment(!!offerDetail && offerDetail.transactionDate).format('DD MMM, kk:mm')}
 							</span>
 						</div>
 						<p className='mb-1 text-black text-sm'>

@@ -1,9 +1,10 @@
 import './index.css';
 import React, { useEffect } from 'react';
+import moment from 'moment/moment.js'
 import { Helmet } from 'react-helmet';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { Pagination } from 'antd';
+import { Pagination, Skeleton } from 'antd';
 import {
 	getNotification,
 	readNotif,
@@ -41,15 +42,24 @@ export default function Notification() {
 		console.log(response);
 	}, [location.pathname]);
 
+	const currency = (value) =>
+		new Intl.NumberFormat('en-ID', {
+			style: 'currency',
+			currency: 'IDR',
+		}).format(value);
+
 	return (
 		<>
 			<Helmet>
 				<title>Notifikasi</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
-			<div className='notifiation-page pt-4'>
-				<div className='container'>
-					{!loading && response === null && <p>empty</p>}
+			<div className='notifiation-page pt-4 md:pt-10'>
+				<div className='container container-internal'>
+					{loading && Array(10).fill('a').map((i) => (
+						<Skeleton key={i} className='mb-10' active />
+					))}
+					{!loading && response === null && <p>Tidak ada Notifikasi</p>}
 					{!loading &&
 						!!response &&
 						response.notificationResponses &&
@@ -63,7 +73,7 @@ export default function Notification() {
 							>
 								<img
 									className='w-12 h-12 object-cover rounded-xl flex-shrink-0'
-									src={i.productResponse.imgUrl}
+									src={i.productResponse.imgUrl[0]}
 									alt='product'
 								/>
 								<div className='notification-content w-full ml-4'>
@@ -72,7 +82,7 @@ export default function Notification() {
 											{i.title}
 										</span>
 										<span className='flex items-center text-[10px] text-neutral-500'>
-											20 Apr, 14:04{' '}
+											{moment(i.lastUpdated).format('DD MMM, kk:mm')}
 											{!i.isRead && (
 												<span className='h-2 w-2 rounded-full bg-red-600 inline-block ml-2'></span>
 											)}
@@ -82,10 +92,10 @@ export default function Notification() {
 										{i.productResponse.name}
 									</p>
 									<p className='mb-1 text-black text-sm'>
-										{i.productResponse.price}
+										{currency(i.productResponse.price)}
 									</p>
 									<p className='mb-1 text-black text-sm'>
-										Ditawar {i.offerPrice}
+										Ditawar {currency(i.offerPrice)}
 									</p>
 								</div>
 							</div>
