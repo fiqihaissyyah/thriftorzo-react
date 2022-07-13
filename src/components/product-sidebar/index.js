@@ -78,13 +78,15 @@ const ProductStatus = (props) => {
 export default function ProductSidebar(props) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const offerDetail = useSelector((state) => state.transaction.offer.response);
+	const offerDetail = useSelector(
+		(state) => state.transaction.offer.response
+	);
 	const profileUser = useSelector((state) => state.user.user.data);
 	const loadingWishlist = useSelector(
 		(state) => state.product.wishlist.loading
 	);
 	const token = useSelector((state) => state.user.auth.token);
-	const offersEvents = { click: () => { } };
+	const offersEvents = { click: () => {} };
 	const [isWishlist, setWishlist] = useState(false);
 	const [isOffered, setOffered] = useState(false);
 
@@ -144,7 +146,8 @@ export default function ProductSidebar(props) {
 	return (
 		<>
 			<div
-				className={`sidebar-product p-4 shadow-custom md:mb-6 mb-4 rounded-2xl ${!props.mobile ? 'md:block hidden' : 'md:hidden block'
+				className={`sidebar-product p-4 shadow-custom md:mb-6 mb-4 rounded-2xl ${
+					!props.mobile ? 'md:block hidden' : 'md:hidden block'
 				} z-10 relative bg-white`}
 			>
 				{!props.loading && (
@@ -156,8 +159,9 @@ export default function ProductSidebar(props) {
 							{props.category}
 						</p>
 						<p
-							className={`text-base text-black ${props.mobile || !profileUser ? 'mb-0' : 'mb-6'
-								}`}
+							className={`text-base text-black ${
+								props.mobile || !profileUser ? 'mb-0' : 'mb-6'
+							}`}
 						>
 							{currency(props.price)}
 						</p>
