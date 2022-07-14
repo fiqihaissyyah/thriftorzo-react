@@ -22,6 +22,7 @@ import Wishlist from './pages/wishlist';
 import Terjual from './pages/terjual';
 import InfoPenawaran from './pages/info-penawaran';
 import SaleHistory from './pages/sale-history';
+import Setting from './pages/setting';
 
 function App() {
 	return (
@@ -40,6 +41,7 @@ function App() {
 						/>
 					</Route>
 					<Route element={<DefaultLayoutWithNavigation />}>
+						<Route exact path='/setting' element={<Setting />} />
 						<Route exact path='/profile' element={<Profile />} />
 						<Route
 							exact

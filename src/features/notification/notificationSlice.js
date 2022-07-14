@@ -30,6 +30,34 @@ export const getNotification = createAsyncThunk(
 	}
 );
 
+export const countUnreadNotif = createAsyncThunk(
+	'notification/countUnreadNotif',
+	async (token, { rejectWithValue }) => {
+		try {
+			if (token) {
+				const response = await axios.get(
+					`${API_URL}notification/unread-count`,
+					{ headers: { Authorization: `Bearer ${token}` } }
+				);
+				return response;
+			} else {
+				const data = [
+					{
+						error: 'Token Not Found',
+						message: 'Token Not Found',
+					},
+				];
+				return rejectWithValue(...data);
+			}
+		} catch (err) {
+			if (!err.response) {
+				throw err;
+			}
+			return rejectWithValue(err.response.data);
+		}
+	}
+);
+
 export const readNotif = createAsyncThunk(
 	'notification/readNotif',
 	async ({ token, id }, { rejectWithValue }) => {
@@ -66,6 +94,12 @@ const initialState = {
 		error: false,
 		errorMessage: null,
 	},
+	count: {
+		response: null,
+		loading: false,
+		error: false,
+		errorMessage: null,
+	},
 	read: {
 		response: null,
 		loading: false,
@@ -96,6 +130,24 @@ export const notificationSlice = createSlice({
 				? action.payload.message
 				: action.payload.error;
 			state.notif.loading = false;
+		},
+		// =================================================== COUNT NOTIFICATION =================================================== //
+		[countUnreadNotif.pending]: (state) => {
+			state.count.loading = true;
+		},
+		[countUnreadNotif.fulfilled]: (state, action) => {
+			state.count.response = action.payload.data;
+			state.count.error = false;
+			state.count.errorMessage = null;
+			state.count.loading = false;
+		},
+		[countUnreadNotif.rejected]: (state, action) => {
+			state.count.response = null;
+			state.count.error = action.error.message;
+			state.count.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
+			state.count.loading = false;
 		},
 		// =================================================== READ NOTIFICATION =================================================== //
 		[readNotif.pending]: (state) => {
