@@ -19,13 +19,21 @@ export default function Notification() {
 	const dispatch = useDispatch();
 	const location = useLocation();
 
-	const readNotification = async (id, transactionId) => {
+	const readNotification = async (id, transactionId, title, productId, roles) => {
 		await dispatch(readNotif({ token, id }));
 		const current = 0;
-		const size = 4;
+		const size = 8;
 		dispatch(getNotification({ token, current, size }));
 		console.log(response);
-		navigate('/penawaran/info-penawaran/' + transactionId);
+		if (title !== 'Berhasil diterbitkan') {
+			if (roles === 2) {
+				navigate('/product/detail/' + productId);
+			} else {
+				navigate('/penawaran/info-penawaran/' + transactionId);
+			}
+		} else {
+			navigate('/product/detail/' + productId);
+		}
 	};
 
 	const paginationHandler = (current) => {
@@ -62,7 +70,11 @@ export default function Notification() {
 							.map((i) => (
 								<Skeleton key={i} className='mb-10' active />
 							))}
-					{!loading && !!response && response.notificationResponses.length === 0 &&  (<p className='text-center'>Tidak ada Notifikasi</p>)}
+					{!loading &&
+						!!response &&
+						response.notificationResponses.length === 0 && (
+							<p className='text-center'>Tidak ada Notifikasi</p>
+						)}
 					{!loading &&
 						!!response &&
 						response.notificationResponses &&
@@ -70,9 +82,7 @@ export default function Notification() {
 						response.notificationResponses.map((i) => (
 							<div
 								className='notification-item flex justify-between'
-								onClick={() =>
-									readNotification(i.id, i.transactionId)
-								}
+								onClick={() => readNotification(i.id, i.transactionId, i.title, i.productResponse.id, i.roles)}
 							>
 								<img
 									className='w-12 h-12 object-cover rounded-xl flex-shrink-0'
@@ -99,9 +109,14 @@ export default function Notification() {
 									<p className='mb-1 text-black text-sm'>
 										{currency(i.productResponse.price)}
 									</p>
-									<p className='mb-1 text-black text-sm'>
-										Ditawar {currency(i.offerPrice)}
-									</p>
+									{i.title !== 'Berhasil diterbitkan' && (
+										<p className='mb-1 text-black text-sm'>
+											{i.roles === 2 ? 'Menawar' : 'Ditawar'} {currency(i.offerPrice)}
+										</p>
+									)}
+									<span className='text-[10px] text-neutralGray leading-[10px]'>
+										{i.info}
+									</span>
 								</div>
 							</div>
 						))}
