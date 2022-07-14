@@ -47,7 +47,11 @@ export default function Notification() {
 				Array(3)
 					.fill('a')
 					.map((i) => <Skeleton key={i} className='mb-3' active />)}
-			{!loading && !!response && response.notificationResponses.length === 0 &&  (<p className='text-center mb-0'>Tidak ada Notifikasi</p>)}
+			{!loading &&
+				!!response &&
+				response.notificationResponses.length === 0 && (
+					<p className='text-center mb-0'>Tidak ada Notifikasi</p>
+				)}
 			{!loading &&
 				!!response &&
 				response.notificationResponses &&
@@ -88,11 +92,13 @@ export default function Notification() {
 						</div>
 					</div>
 				))}
-			{!loading && !!response && response.notificationResponses.length !== 0 &&  (
-				<Link className='block text-center' to={'/notification'}>
-					Lihat Semua Notification
-				</Link>
-			)}
+			{!loading &&
+				!!response &&
+				response.notificationResponses.length !== 0 && (
+					<Link className='block text-center' to={'/notification'}>
+						Lihat Semua Notification
+					</Link>
+				)}
 		</div>
 	);
 }

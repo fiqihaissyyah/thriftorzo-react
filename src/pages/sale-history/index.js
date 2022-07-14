@@ -76,48 +76,49 @@ export default function SaleHistory() {
 										<hr />
 									</>
 								))} */}
-								<h1 className='text-sm text-black font-medium leading-5 mb-6 md:block hidden'>
-									Daftar Produkmu yang Ditawar
-								</h1>
-								{!loading && !response && <Empty/> }
-								{!!response &&
-									response.map((i) => (
-										<div className=' p-4 shadow-custom rounded-2xl mb-5 flex w-full border-0 cursor-text'>
-											<img
-												className='flex-shrink-0 w-12 h-12 object-cover rounded-xl mr-4'
-												src={i.productResponse.imgUrl[0]
-												}
-												alt='product'
-											/>
-											<div className='notification-content w-full'>
-												<div className='flex justify-between items-center mb-1'>
-													<span className='text-[10px] text-neutralGray'>
-														Penawaran produk
-													</span>
-													<span className='flex items-center text-[10px] text-neutral-500'>
-													{moment(i.transactionDate).format(
-														'DD MMM, kk:mm'
-													)}
-													</span>
-												</div>
-												<p className='mb-1 text-black text-sm'>
-													{i.productResponse.name}
-												</p>
-												<p className='mb-1 text-black text-sm'>
-													{currency(i.productResponse.price)}
-												</p>
-												<p className='mb-1 text-black text-sm'>
-													Ditawar {currency(i.offerPrice)} oleh {i.buyerResponse.name}
-												</p>
-												<Link
-													to={`/penawaran/info-penawaran/${i.transactionId}`}
-												>
-													Lihat Detail
-												</Link>
+							<h1 className='text-sm text-black font-medium leading-5 mb-6 md:block hidden'>
+								Daftar Produkmu yang Ditawar
+							</h1>
+							{!loading && !response && <Empty />}
+							{!!response &&
+								response.map((i) => (
+									<div className=' p-4 shadow-custom rounded-2xl mb-5 flex w-full border-0 cursor-text'>
+										<img
+											className='flex-shrink-0 w-12 h-12 object-cover rounded-xl mr-4'
+											src={i.productResponse.imgUrl[0]}
+											alt='product'
+										/>
+										<div className='notification-content w-full'>
+											<div className='flex justify-between items-center mb-1'>
+												<span className='text-[10px] text-neutralGray'>
+													Penawaran produk
+												</span>
+												<span className='flex items-center text-[10px] text-neutral-500'>
+													{moment(
+														i.transactionDate
+													).format('DD MMM, kk:mm')}
+												</span>
 											</div>
+											<p className='mb-1 text-black text-sm'>
+												{i.productResponse.name}
+											</p>
+											<p className='mb-1 text-black text-sm'>
+												{currency(
+													i.productResponse.price
+												)}
+											</p>
+											<p className='mb-1 text-black text-sm'>
+												Ditawar {currency(i.offerPrice)}{' '}
+												oleh {i.buyerResponse.name}
+											</p>
+											<Link
+												to={`/penawaran/info-penawaran/${i.transactionId}`}
+											>
+												Lihat Detail
+											</Link>
 										</div>
-									))
-								}
+									</div>
+								))}
 						</Col>
 					</Row>
 				</div>

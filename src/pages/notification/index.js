@@ -62,7 +62,11 @@ export default function Notification() {
 							.map((i) => (
 								<Skeleton key={i} className='mb-10' active />
 							))}
-					{!loading && !!response && response.notificationResponses.length === 0 &&  (<p className='text-center'>Tidak ada Notifikasi</p>)}
+					{!loading &&
+						!!response &&
+						response.notificationResponses.length === 0 && (
+							<p className='text-center'>Tidak ada Notifikasi</p>
+						)}
 					{!loading &&
 						!!response &&
 						response.notificationResponses &&
