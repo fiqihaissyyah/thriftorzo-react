@@ -87,10 +87,10 @@ export default function CategorySidebar(props) {
 					</li>
 					<li className='border-0 pt-4'>
 						<Link
-							to='/daftar-jual/sale-history'
+							to='/daftar-jual/buy-history'
 							className={`text-black flex w-full justify-between items-center ${
 								location.pathname ===
-								'/daftar-jual/sale-history'
+								'/daftar-jual/buy-history'
 									? 'active'
 									: ''
 							}`}
@@ -159,10 +159,10 @@ export default function CategorySidebar(props) {
 						Tawaran
 					</Button>
 				</Link>
-				<Link to='/daftar-jual/sale-history'>
+				<Link to='/daftar-jual/buy-history'>
 					<Button
 						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4 ${
-							location.pathname === '/daftar-jual/sale-history'
+							location.pathname === '/daftar-jual/buy-history'
 								? 'active'
 								: ''
 						}`}

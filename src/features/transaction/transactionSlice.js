@@ -59,6 +59,34 @@ export const sendOffer = createAsyncThunk(
 	}
 );
 
+export const buyHistory = createAsyncThunk(
+	'transaction/buyHistory',
+	async (token, { rejectWithValue }) => {
+		try {
+			if (token) {
+				const response = await axios.get(
+					`${API_URL}history/buyer-history`,
+					{ headers: { Authorization: `Bearer ${token}` } }
+				);
+				return response;
+			} else {
+				const data = [
+					{
+						error: 'Token Not Found',
+						message: 'Token Not Found',
+					},
+				];
+				return rejectWithValue(...data);
+			}
+		} catch (err) {
+			if (!err.response) {
+				throw err;
+			}
+			return rejectWithValue(err.response.data);
+		}
+	}
+);
+
 export const detailOffer = createAsyncThunk(
 	'transaction/detailOffer',
 	async ({ token, id }, { rejectWithValue }) => {
@@ -136,6 +164,12 @@ const initialState = {
 		errorMessage: null,
 	},
 	showOffer: {
+		response: null,
+		loading: false,
+		error: false,
+		errorMessage: null,
+	},
+	buy: {
 		response: null,
 		loading: false,
 		error: false,
@@ -219,6 +253,24 @@ export const transactionSlice = createSlice({
 				? action.payload.message
 				: action.payload.error;
 			state.status.loading = false;
+		},
+		// =================================================== BUY HISTORY =================================================== //
+		[buyHistory.pending]: (state) => {
+			state.buy.loading = true;
+		},
+		[buyHistory.fulfilled]: (state, action) => {
+			state.buy.response = action.payload.data;
+			state.buy.error = false;
+			state.buy.errorMessage = null;
+			state.buy.loading = false;
+		},
+		[buyHistory.rejected]: (state, action) => {
+			state.buy.response = null;
+			state.buy.error = action.error.message;
+			state.buy.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
+			state.buy.loading = false;
 		},
 	},
 });

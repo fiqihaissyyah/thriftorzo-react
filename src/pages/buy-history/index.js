@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { Row, Col } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
 import moment from 'moment/moment.js';
 
 import CategorySidebar from '../../components/category-sidebar';
@@ -11,24 +10,24 @@ import SalerInformation from '../../components/saler-information';
 import Empty from '../../components/empty';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { saleHistory } from '../../features/transaction/transactionSlice';
+import { buyHistory } from '../../features/transaction/transactionSlice';
 
 export default function BuyHistory() {
 	const token = useSelector((state) => state.user.auth.token);
 	const user = useSelector((state) => state.user.user.data);
 	const { response, loading } = useSelector(
-		(state) => state.transaction.sale
+		(state) => state.transaction.buy
 	);
 	const dispatch = useDispatch();
 	const location = useLocation();
 
 	const paginationHandler = (current) => {
-		dispatch(saleHistory(token));
+		dispatch(buyHistory(token));
 		window.scrollTo(0, 0);
 	};
 
 	useEffect(() => {
-		dispatch(saleHistory(token));
+		dispatch(buyHistory(token));
 	}, [location.pathname]);
 
 	const currency = (value) =>
@@ -59,7 +58,7 @@ export default function BuyHistory() {
 						</Col>
 						<Col xs={{ span: 24 }} lg={{ span: 16 }}>
 							<h1 className='text-sm text-black font-medium leading-5 mb-6 md:block hidden'>
-								Daftar Produkmu yang Ditawar
+								Daftar Produk yang berhasil ditawar
 							</h1>
 							{!loading && !response && <Empty />}
 							{!!response &&
@@ -90,14 +89,14 @@ export default function BuyHistory() {
 												)}
 											</p>
 											<p className='mb-1 text-black text-sm'>
-												Ditawar {currency(i.offerPrice)}{' '}
-												oleh {i.buyerResponse.name}
+												Menawar {currency(i.offerPrice)}{' '}
 											</p>
-											<Link
-												to={`/penawaran/info-penawaran/${i.transactionId}`}
+											<a
+												href={`https://api.whatsapp.com/send?phone=${i.productResponse.userResponse.phone}`}
+												target='_blank'
 											>
-												Lihat Detail
-											</Link>
+												Chat Penjual
+											</a>
 										</div>
 									</div>
 								))}

@@ -22,6 +22,7 @@ import Wishlist from './pages/wishlist';
 import Terjual from './pages/terjual';
 import InfoPenawaran from './pages/info-penawaran';
 import SaleHistory from './pages/sale-history';
+import BuyHistory from './pages/buy-history';
 
 function App() {
 	return (
@@ -89,6 +90,11 @@ function App() {
 							exact
 							path='/daftar-jual/sale-history'
 							element={<SaleHistory />}
+						/>
+						<Route
+							exact
+							path='/daftar-jual/buy-history'
+							element={<BuyHistory />}
 						/>
 					</Route>
 				</Route>
