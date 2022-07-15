@@ -15,9 +15,7 @@ import { buyHistory } from '../../features/transaction/transactionSlice';
 export default function BuyHistory() {
 	const token = useSelector((state) => state.user.auth.token);
 	const user = useSelector((state) => state.user.user.data);
-	const { response, loading } = useSelector(
-		(state) => state.transaction.buy
-	);
+	const { response, loading } = useSelector((state) => state.transaction.buy);
 	const dispatch = useDispatch();
 	const location = useLocation();
 

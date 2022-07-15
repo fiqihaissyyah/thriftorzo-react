@@ -89,8 +89,7 @@ export default function CategorySidebar(props) {
 						<Link
 							to='/daftar-jual/buy-history'
 							className={`text-black flex w-full justify-between items-center ${
-								location.pathname ===
-								'/daftar-jual/buy-history'
+								location.pathname === '/daftar-jual/buy-history'
 									? 'active'
 									: ''
 							}`}
