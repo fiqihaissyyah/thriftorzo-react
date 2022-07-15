@@ -26,7 +26,7 @@ export default function Notification() {
 		dispatch(getNotification({ token, current, size }));
 		console.log(response);
 		if (title !== 'Berhasil diterbitkan') {
-			if (roles === 2) {
+			if (roles === 1) {
 				navigate('/product/detail/' + productId);
 			} else {
 				navigate('/penawaran/info-penawaran/' + transactionId);
@@ -111,7 +111,7 @@ export default function Notification() {
 									</p>
 									{i.title !== 'Berhasil diterbitkan' && (
 										<p className='mb-1 text-black text-sm'>
-											{i.roles === 2 ? 'Menawar' : 'Ditawar'} {currency(i.offerPrice)}
+											{i.roles === 1 ? 'Menawar' : 'Ditawar'} {currency(i.offerPrice)}
 										</p>
 									)}
 									<span className='text-[10px] text-neutralGray leading-[10px]'>
