@@ -72,8 +72,7 @@ export default function CategorySidebar(props) {
 						<Link
 							to='/aktivitas/tawaran'
 							className={`text-black flex w-full justify-between items-center ${
-								location.pathname ===
-								'/aktivitas/tawaran'
+								location.pathname === '/aktivitas/tawaran'
 									? 'active'
 									: ''
 							}`}

@@ -20,8 +20,8 @@ export default function InfoPenawaran() {
 	const [rejectLoading, setRejectLoading] = useState(false);
 	const [acceptLoading, setAcceptLoading] = useState(false);
 
-	const acceptEvents = { click: () => { } };
-	const statusEvents = { click: () => { } };
+	const acceptEvents = { click: () => {} };
+	const statusEvents = { click: () => {} };
 
 	const dispatch = useDispatch();
 	const token = useSelector((state) => state.user.auth.token);
@@ -29,7 +29,9 @@ export default function InfoPenawaran() {
 	const offerDetail = useSelector(
 		(state) => state.transaction.showOffer.response
 	);
-	const offerLoading = useSelector((state) => state.transaction.showOffer.loading);
+	const offerLoading = useSelector(
+		(state) => state.transaction.showOffer.loading
+	);
 	const loading = useSelector((state) => state.transaction.status.loading);
 	const { id } = useParams();
 
@@ -83,9 +85,7 @@ export default function InfoPenawaran() {
 				<h1 className='text-sm text-black font-medium leading-5 my-6 md:block hidden'>
 					Daftar Produkmu yang Ditawar
 				</h1>
-				{offerLoading && (
-					<Skeleton active />
-				)}
+				{offerLoading && <Skeleton active />}
 				{!offerLoading && (
 					<div className='notification-item flex w-full border-0 mb-0 pb-4 cursor-text'>
 						<img
@@ -103,12 +103,14 @@ export default function InfoPenawaran() {
 								</span>
 								<span className='flex items-center text-[10px] text-neutral-500'>
 									{moment(
-										!!offerDetail && offerDetail.transactionDate
+										!!offerDetail &&
+											offerDetail.transactionDate
 									).format('DD MMM, kk:mm')}
 								</span>
 							</div>
 							<p className='mb-1 text-black text-sm'>
-								{!!offerDetail && offerDetail.productResponse.name}
+								{!!offerDetail &&
+									offerDetail.productResponse.name}
 							</p>
 							<p className='mb-1 text-black text-sm'>
 								{!!offerDetail &&
@@ -116,54 +118,60 @@ export default function InfoPenawaran() {
 							</p>
 							<p className='mb-1 text-black text-sm'>
 								Ditawar{' '}
-								{!!offerDetail && currency(offerDetail.offerPrice)}
+								{!!offerDetail &&
+									currency(offerDetail.offerPrice)}
 							</p>
 						</div>
 					</div>
 				)}
 				<div className='notification-action md:w-1/2 w-full ml-auto'>
-					{!offerLoading && !!offerDetail && offerDetail.status === 1 && (
-						<>
-							<Button
-								loading={rejectLoading}
-								type='primary'
-								ghost
-								onClick={rejectOffer}
-							>
-								Tolak
-							</Button>
-							<Button
-								loading={acceptLoading}
-								type='primary'
-								className='ml-4'
-								onClick={acceptOffer}
-							>
-								Terima
-							</Button>
-						</>
-					)}
-					{!offerLoading && !!offerDetail && offerDetail.status === 3 && (
-						<>
-							<Button
-								type='primary'
-								ghost
-								onClick={() => statusEvents.click()}
-							>
-								Status
-							</Button>
-							<a
-								href={`https://api.whatsapp.com/send?phone=${offerDetail
-									? offerDetail.buyerResponse.phone
-									: ''
-								}`}
-								target='_blank'
-							>
-								<Button type='primary' className='ml-4'>
-									Hubungi di <WhatsAppOutlined />
+					{!offerLoading &&
+						!!offerDetail &&
+						offerDetail.status === 1 && (
+							<>
+								<Button
+									loading={rejectLoading}
+									type='primary'
+									ghost
+									onClick={rejectOffer}
+								>
+									Tolak
 								</Button>
-							</a>
-						</>
-					)}
+								<Button
+									loading={acceptLoading}
+									type='primary'
+									className='ml-4'
+									onClick={acceptOffer}
+								>
+									Terima
+								</Button>
+							</>
+						)}
+					{!offerLoading &&
+						!!offerDetail &&
+						offerDetail.status === 3 && (
+							<>
+								<Button
+									type='primary'
+									ghost
+									onClick={() => statusEvents.click()}
+								>
+									Status
+								</Button>
+								<a
+									href={`https://api.whatsapp.com/send?phone=${
+										offerDetail
+											? offerDetail.buyerResponse.phone
+											: ''
+									}`}
+									target='_blank'
+								>
+									<Button type='primary' className='ml-4'>
+										Hubungi di <WhatsAppOutlined />
+									</Button>
+								</a>
+							</>
+						)}
 				</div>
 			</div>
 			<ModalAcceptOffer

@@ -19,7 +19,13 @@ export default function Notification() {
 	const dispatch = useDispatch();
 	const location = useLocation();
 
-	const readNotification = async (id, transactionId, title, productId, roles) => {
+	const readNotification = async (
+		id,
+		transactionId,
+		title,
+		productId,
+		roles
+	) => {
 		await dispatch(readNotif({ token, id }));
 		const current = 0;
 		const size = 8;
@@ -73,8 +79,8 @@ export default function Notification() {
 					{!loading &&
 						!!response &&
 						response.notificationResponses.length === 0 && (
-						<p className='text-center'>Tidak ada Notifikasi</p>
-					)}
+							<p className='text-center'>Tidak ada Notifikasi</p>
+						)}
 					{!loading &&
 						!!response &&
 						response.notificationResponses &&
@@ -82,7 +88,15 @@ export default function Notification() {
 						response.notificationResponses.map((i) => (
 							<div
 								className='notification-item flex justify-between'
-								onClick={() => readNotification(i.id, i.transactionId, i.title, i.productResponse.id, i.roles)}
+								onClick={() =>
+									readNotification(
+										i.id,
+										i.transactionId,
+										i.title,
+										i.productResponse.id,
+										i.roles
+									)
+								}
 							>
 								<img
 									className='w-12 h-12 object-cover rounded-xl flex-shrink-0'
@@ -111,7 +125,10 @@ export default function Notification() {
 									</p>
 									{i.title !== 'Berhasil diterbitkan' && (
 										<p className='mb-1 text-black text-sm'>
-											{i.roles === 1 ? 'Menawar' : 'Ditawar'} {currency(i.offerPrice)}
+											{i.roles === 1
+												? 'Menawar'
+												: 'Ditawar'}{' '}
+											{currency(i.offerPrice)}
 										</p>
 									)}
 									<span className='text-[10px] text-neutralGray leading-[10px]'>
