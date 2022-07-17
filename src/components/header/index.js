@@ -21,7 +21,9 @@ import { countUnreadNotif } from '../../features/notification/notificationSlice'
 export default function Header(props) {
 	const { token, success } = useSelector((state) => state.user.auth);
 	const { error } = useSelector((state) => state.user.user);
-	const countNotification = useSelector((state) => state.notification.count.response);
+	const countNotification = useSelector(
+		(state) => state.notification.count.response
+	);
 
 	const [form] = Form.useForm();
 	const [isLogin, setLogin] = useState(false);
@@ -112,11 +114,13 @@ export default function Header(props) {
 
 	return (
 		<div
-			className={`${location.pathname === '/' ? 'on-top' : ''
-				} header py-[18px] ${location.pathname.includes(['/product'])
+			className={`${
+				location.pathname === '/' ? 'on-top' : ''
+			} header py-[18px] ${
+				location.pathname.includes(['/product'])
 					? 'md:block hidden'
 					: ''
-				}`}
+			}`}
 		>
 			<div className='container relative'>
 				{props.title && (
@@ -126,10 +130,10 @@ export default function Header(props) {
 						</h1>
 					</div>
 				)}
-				{location.pathname.includes(['/daftar-jual']) && (
+				{location.pathname.includes(['/aktivitas']) && (
 					<div className='absolute left-0 right-0 top-0 bottom-0 flex items-center md:hidden'>
 						<h1 className='text-base text-center mb-0 w-full'>
-							Daftar Jual Saya
+							Aktivitas Saya
 						</h1>
 					</div>
 				)}
@@ -216,14 +220,19 @@ export default function Header(props) {
 								<>
 									<Row gutter={24} className='header-link'>
 										<Col span={8}>
-											<Link to='/daftar-jual'>
+											<Link to='/aktivitas'>
 												<List size={24} />
 											</Link>
 										</Col>
 										<Col span={8} className='relative'>
-											{!!countNotification && countNotification.unread > 0 && (
-												<span className='text-center py-[2px] absolute top-[-5px] right-[10px] text-[8px] w-[14px] h-[14px] rounded-full text-white bg-red-500'>{!!countNotification && countNotification.unread}</span>
-											)}
+											{!!countNotification &&
+												countNotification.unread >
+													0 && (
+													<span className='text-center py-[2px] absolute top-[-5px] right-[10px] text-[8px] w-[14px] h-[14px] rounded-full text-white bg-red-500'>
+														{!!countNotification &&
+															countNotification.unread}
+													</span>
+												)}
 											<Dropdown
 												className='cursor-pointer'
 												placement='bottomRight'
@@ -292,7 +301,7 @@ export default function Header(props) {
 							</Link>
 							<Link
 								className='text-sm hover:text-[#7126B5] mb-4 block text-black'
-								to='/daftar-jual'
+								to='/aktivitas'
 							>
 								Daftar Jual
 							</Link>

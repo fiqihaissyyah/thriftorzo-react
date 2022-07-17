@@ -30,7 +30,7 @@ const ProductStatus = (props) => {
 	const deleteHandler = async (id) => {
 		await dispatch(deleteProduct({ token, id }));
 		message.success('Berhasil Menghapus Produk!');
-		navigate('/daftar-jual');
+		navigate('/aktivitas');
 	};
 
 	const publishHandler = async () => {

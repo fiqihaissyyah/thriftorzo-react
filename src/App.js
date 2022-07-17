@@ -75,27 +75,27 @@ function App() {
 					<Route element={<IsAuth />}>
 						<Route
 							exact
-							path='/daftar-jual'
+							path='/aktivitas'
 							element={<DaftarJual />}
 						/>
 						<Route
 							exact
-							path='/daftar-jual/diminati'
+							path='/aktivitas/wishlist'
 							element={<Wishlist />}
 						/>
 						<Route
 							exact
-							path='/daftar-jual/terjual'
+							path='/aktivitas/terjual'
 							element={<Terjual />}
 						/>
 						<Route
 							exact
-							path='/daftar-jual/sale-history'
+							path='/aktivitas/tawaran'
 							element={<SaleHistory />}
 						/>
 						<Route
 							exact
-							path='/daftar-jual/buy-history'
+							path='/aktivitas/pembelian'
 							element={<BuyHistory />}
 						/>
 					</Route>

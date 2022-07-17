@@ -42,7 +42,7 @@ export default function Wishlist() {
 			</Helmet>
 			<div className='container container-internal'>
 				<h1 className='text-xl text-black font-bold mb-6 md:block hidden'>
-					Daftar Jual Saya
+					Aktivitas Saya
 				</h1>
 				<SalerInformation user={user} edit />
 				<Row gutter={[32, 24]} className='pt-6'>

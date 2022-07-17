@@ -2,7 +2,7 @@ import './index.css';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment/moment.js';
 import { Helmet } from 'react-helmet';
-import { Button, message } from 'antd';
+import { Button, message, Skeleton } from 'antd';
 import { useParams } from 'react-router-dom';
 import { WhatsAppOutlined } from '@ant-design/icons';
 
@@ -28,6 +28,9 @@ export default function InfoPenawaran() {
 
 	const offerDetail = useSelector(
 		(state) => state.transaction.showOffer.response
+	);
+	const offerLoading = useSelector(
+		(state) => state.transaction.showOffer.loading
 	);
 	const loading = useSelector((state) => state.transaction.status.loading);
 	const { id } = useParams();
@@ -75,89 +78,100 @@ export default function InfoPenawaran() {
 			</Helmet>
 			<div className='container container-small'>
 				<SalerInformation
+					loading={offerLoading}
 					user={!!offerDetail && offerDetail.buyerResponse}
 					edit={false}
 				/>
 				<h1 className='text-sm text-black font-medium leading-5 my-6 md:block hidden'>
 					Daftar Produkmu yang Ditawar
 				</h1>
-				<div className='notification-item flex w-full border-0 mb-0 pb-4 cursor-text'>
-					<img
-						className='flex-shrink-0 w-12 h-12 object-cover rounded-xl mr-4'
-						src={
-							!!offerDetail &&
-							offerDetail.productResponse.imgUrl[0]
-						}
-						alt='product'
-					/>
-					<div className='notification-content w-full'>
-						<div className='flex justify-between items-center mb-1'>
-							<span className='text-[10px] text-[#8A8A8A]'>
-								Penawaran produk
-							</span>
-							<span className='flex items-center text-[10px] text-neutral-500'>
-								{moment(
-									!!offerDetail && offerDetail.transactionDate
-								).format('DD MMM, kk:mm')}
-							</span>
+				{offerLoading && <Skeleton active />}
+				{!offerLoading && (
+					<div className='notification-item flex w-full border-0 mb-0 pb-4 cursor-text'>
+						<img
+							className='flex-shrink-0 w-12 h-12 object-cover rounded-xl mr-4'
+							src={
+								!!offerDetail &&
+								offerDetail.productResponse.imgUrl[0]
+							}
+							alt='product'
+						/>
+						<div className='notification-content w-full'>
+							<div className='flex justify-between items-center mb-1'>
+								<span className='text-[10px] text-[#8A8A8A]'>
+									Penawaran produk
+								</span>
+								<span className='flex items-center text-[10px] text-neutral-500'>
+									{moment(
+										!!offerDetail &&
+											offerDetail.transactionDate
+									).format('DD MMM, kk:mm')}
+								</span>
+							</div>
+							<p className='mb-1 text-black text-sm'>
+								{!!offerDetail &&
+									offerDetail.productResponse.name}
+							</p>
+							<p className='mb-1 text-black text-sm'>
+								{!!offerDetail &&
+									currency(offerDetail.productResponse.price)}
+							</p>
+							<p className='mb-1 text-black text-sm'>
+								Ditawar{' '}
+								{!!offerDetail &&
+									currency(offerDetail.offerPrice)}
+							</p>
 						</div>
-						<p className='mb-1 text-black text-sm'>
-							{!!offerDetail && offerDetail.productResponse.name}
-						</p>
-						<p className='mb-1 text-black text-sm'>
-							{!!offerDetail &&
-								currency(offerDetail.productResponse.price)}
-						</p>
-						<p className='mb-1 text-black text-sm'>
-							Ditawar{' '}
-							{!!offerDetail && currency(offerDetail.offerPrice)}
-						</p>
 					</div>
-				</div>
+				)}
 				<div className='notification-action md:w-1/2 w-full ml-auto'>
-					{!!offerDetail && offerDetail.status === 1 && (
-						<>
-							<Button
-								loading={rejectLoading}
-								type='primary'
-								ghost
-								onClick={rejectOffer}
-							>
-								Tolak
-							</Button>
-							<Button
-								loading={acceptLoading}
-								type='primary'
-								className='ml-4'
-								onClick={acceptOffer}
-							>
-								Terima
-							</Button>
-						</>
-					)}
-					{!!offerDetail && offerDetail.status === 3 && (
-						<>
-							<Button
-								type='primary'
-								ghost
-								onClick={() => statusEvents.click()}
-							>
-								Status
-							</Button>
-							<a
-								href={`https://api.whatsapp.com/send?phone=${
-									offerDetail
-										? offerDetail.buyerResponse.phone
-										: ''
-								}`}
-								target='_blank'
-							>
-								<Button type='primary' className='ml-4'>
-									Hubungi di <WhatsAppOutlined />
+					{!offerLoading &&
+						!!offerDetail &&
+						offerDetail.status === 1 && (
+							<>
+								<Button
+									loading={rejectLoading}
+									type='primary'
+									ghost
+									onClick={rejectOffer}
+								>
+									Tolak
 								</Button>
-							</a>
-						</>
-					)}
+								<Button
+									loading={acceptLoading}
+									type='primary'
+									className='ml-4'
+									onClick={acceptOffer}
+								>
+									Terima
+								</Button>
+							</>
+						)}
+					{!offerLoading &&
+						!!offerDetail &&
+						offerDetail.status === 3 && (
+							<>
+								<Button
+									type='primary'
+									ghost
+									onClick={() => statusEvents.click()}
+								>
+									Status
+								</Button>
+								<a
+									href={`https://api.whatsapp.com/send?phone=${
+										offerDetail
+											? offerDetail.buyerResponse.phone
+											: ''
+									}`}
+									target='_blank'
+								>
+									<Button type='primary' className='ml-4'>
+										Hubungi di <WhatsAppOutlined />
+									</Button>
+								</a>
+							</>
+						)}
 				</div>
 			</div>
 			<ModalAcceptOffer
