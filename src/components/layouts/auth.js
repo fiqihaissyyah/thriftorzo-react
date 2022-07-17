@@ -1,10 +1,12 @@
-import React from "react";
+import React from 'react';
 import { Outlet } from 'react-router-dom';
 
 export default function AuthLayout(props) {
-    return (
-        <>
-            <Outlet {...props} />
-        </>
-    );
+	return (
+		<>
+			<div className='main-content no-header'>
+				<Outlet {...props} />
+			</div>
+		</>
+	);
 }
