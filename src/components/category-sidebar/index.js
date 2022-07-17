@@ -7,6 +7,7 @@ import {
 	DollarSign,
 	ChevronRight,
 	ShoppingCart,
+	Users,
 } from 'react-feather';
 
 import './index.css';
@@ -67,7 +68,7 @@ export default function CategorySidebar(props) {
 							<ChevronRight size={24} />
 						</Link>
 					</li>
-					<li className='border-0 pt-4'>
+					<li className='border-0 py-4'>
 						<Link
 							to='/daftar-jual/sale-history'
 							className={`text-black flex w-full justify-between items-center ${
@@ -78,8 +79,24 @@ export default function CategorySidebar(props) {
 							}`}
 						>
 							<span className='flex items-center'>
+								<Users size={24} />
+								<span className='ml-2'>Tawaran</span>
+							</span>{' '}
+							<ChevronRight size={24} />
+						</Link>
+					</li>
+					<li className='border-0 pt-4'>
+						<Link
+							to='/daftar-jual/buy-history'
+							className={`text-black flex w-full justify-between items-center ${
+								location.pathname === '/daftar-jual/buy-history'
+									? 'active'
+									: ''
+							}`}
+						>
+							<span className='flex items-center'>
 								<ShoppingCart size={24} />
-								<span className='ml-2'>Transaksi</span>
+								<span className='ml-2'>Pembelian</span>
 							</span>{' '}
 							<ChevronRight size={24} />
 						</Link>
@@ -135,10 +152,24 @@ export default function CategorySidebar(props) {
 								: ''
 						}`}
 						type='primary'
+						icon={<Users className='mr-2' />}
+						size='large'
+					>
+						Tawaran
+					</Button>
+				</Link>
+				<Link to='/daftar-jual/buy-history'>
+					<Button
+						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4 ${
+							location.pathname === '/daftar-jual/buy-history'
+								? 'active'
+								: ''
+						}`}
+						type='primary'
 						icon={<ShoppingCart className='mr-2' />}
 						size='large'
 					>
-						Transaksi
+						Pembelian
 					</Button>
 				</Link>
 			</div>
