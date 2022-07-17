@@ -16,10 +16,12 @@ import './index.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, reset } from '../../features/user/userSlice';
 import { getProduct } from '../../features/product/productSlice';
+import { countUnreadNotif } from '../../features/notification/notificationSlice';
 
 export default function Header(props) {
 	const { token, success } = useSelector((state) => state.user.auth);
 	const { error } = useSelector((state) => state.user.user);
+	const countNotification = useSelector((state) => state.notification.count.response);
 
 	const [form] = Form.useForm();
 	const [isLogin, setLogin] = useState(false);
@@ -85,8 +87,9 @@ export default function Header(props) {
 		if (success === true) {
 			setLogin(true);
 			dispatch(getUser(token));
+			dispatch(countUnreadNotif(token));
 		}
-	}, [token, success]);
+	}, [token, success, location.pathname]);
 
 	useEffect(() => {
 		if (error == 'Rejected') {
@@ -97,7 +100,7 @@ export default function Header(props) {
 	const userMenu = (
 		<Menu onClick={handleClick} className='mt-3'>
 			<Menu.Item key='item-1'>
-				<Link to='/profile'>Akun Saya</Link>
+				<Link to='/setting'>Akun Saya</Link>
 			</Menu.Item>
 			<Menu.Item key='item-2' onClick={handleLogout}>
 				Logout
@@ -109,13 +112,11 @@ export default function Header(props) {
 
 	return (
 		<div
-			className={`${
-				location.pathname === '/' ? 'on-top' : ''
-			} header py-[18px] ${
-				location.pathname.includes(['/product'])
+			className={`${location.pathname === '/' ? 'on-top' : ''
+				} header py-[18px] ${location.pathname.includes(['/product'])
 					? 'md:block hidden'
 					: ''
-			}`}
+				}`}
 		>
 			<div className='container relative'>
 				{props.title && (
@@ -219,7 +220,10 @@ export default function Header(props) {
 												<List size={24} />
 											</Link>
 										</Col>
-										<Col span={8}>
+										<Col span={8} className='relative'>
+											{!!countNotification && countNotification.unread > 0 && (
+												<span className='text-center py-[2px] absolute top-[-5px] right-[10px] text-[8px] w-[14px] h-[14px] rounded-full text-white bg-red-500'>{!!countNotification && countNotification.unread}</span>
+											)}
 											<Dropdown
 												className='cursor-pointer'
 												placement='bottomRight'
