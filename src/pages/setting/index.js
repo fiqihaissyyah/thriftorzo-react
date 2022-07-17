@@ -1,7 +1,6 @@
 import './index.css';
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Button, Form, Input, Select, Alert, Upload, message } from 'antd';
+import { Avatar } from 'antd';
 import { Helmet } from 'react-helmet';
 import {
 	Edit3,
@@ -37,7 +36,15 @@ export default function Setting() {
 			</Helmet>
 			<div className='update-profile-wrapper max-w-[568px] md:pt-10 pt-6 w-full mx-auto'>
 				<div className='profile-avatar text-center w-full mb-8'>
-					<img className='w-24 h-24 rounded-2xl object-cover' src={!!profileUser && profileUser.imgUrl} />
+					<Avatar
+						size={96}
+						className='rounded-xl'
+						src={
+							profileUser.imgUrl
+								? profileUser.imgUrl
+								: `https://ui-avatars.com/api/?name=${profileUser.name}`
+						}
+					/>
 				</div>
 				<div className='seeting-nav'>
 					<Link to={'/profile'} className='flex items-center mb-4'><Edit3 size={24} className='text-purplePrimary' /><span className='text-black ml-4 inline-block'>Ubah Akun</span></Link>

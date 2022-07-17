@@ -1,6 +1,6 @@
 import './index.css';
 import React, { useEffect } from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Skeleton } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import moment from 'moment/moment.js';
@@ -47,7 +47,7 @@ export default function BuyHistory() {
 				</Helmet>
 				<div className='container container-internal'>
 					<h1 className='text-xl text-black font-bold mb-6 md:block hidden'>
-						Daftar Jual Saya
+						Aktivitas Saya
 					</h1>
 					<SalerInformation user={user} edit />
 					<Row gutter={[32, 24]} className='pt-6'>
@@ -58,6 +58,14 @@ export default function BuyHistory() {
 							<h1 className='text-sm text-black font-medium leading-5 mb-6 md:block hidden'>
 								Daftar Produk yang berhasil ditawar
 							</h1>
+							{loading &&
+								Array(8)
+									.fill('a')
+									.map((i) => (
+										<div className='p-4 shadow-custom rounded-2xl mb-4 flex w-full border-0 cursor-text'>
+											<Skeleton active />
+										</div>
+									))}
 							{!loading && !response && <Empty />}
 							{!!response &&
 								response.map((i) => (

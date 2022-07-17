@@ -22,7 +22,7 @@ export default function SalerInformation(props) {
 						size={48}
 						className='rounded-xl'
 						src={
-							props.user
+							props.user.imgUrl
 								? props.user.imgUrl
 								: `https://ui-avatars.com/api/?name=${props.user.name}`
 						}

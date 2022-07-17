@@ -169,7 +169,7 @@ export default function ProductForm() {
 				message.success('Berhasil Menambah Produk!');
 				if (submitType === 1) {
 					setloadingPublish(false);
-					navigate('/daftar-jual');
+					navigate('/aktivitas');
 				}
 				if (submitType === 2) {
 					setloadingPreview(false);

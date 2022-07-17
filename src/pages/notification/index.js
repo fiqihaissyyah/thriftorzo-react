@@ -73,8 +73,8 @@ export default function Notification() {
 					{!loading &&
 						!!response &&
 						response.notificationResponses.length === 0 && (
-							<p className='text-center'>Tidak ada Notifikasi</p>
-						)}
+						<p className='text-center'>Tidak ada Notifikasi</p>
+					)}
 					{!loading &&
 						!!response &&
 						response.notificationResponses &&
