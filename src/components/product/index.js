@@ -20,10 +20,17 @@ export default function Product(props) {
 						alt={props.title}
 					/>
 					{props.publish === 0 && (
-						<Tag className='absolute bottom-1 left-1' color="orange">Draft</Tag>
+						<Tag
+							className='absolute bottom-1 left-1'
+							color='orange'
+						>
+							Draft
+						</Tag>
 					)}
 					{props.publish === 1 && (
-						<Tag className='absolute bottom-1 left-1' color="green">Live</Tag>
+						<Tag className='absolute bottom-1 left-1' color='green'>
+							Live
+						</Tag>
 					)}
 				</div>
 				<h4 className='text-sm text-black mb-1'>{props.title}</h4>
