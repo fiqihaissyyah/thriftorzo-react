@@ -16,7 +16,7 @@ export default function checkUserProfile(props) {
 	) {
 		message.error('Lengkapi profile anda terlebih dahulu!');
 		message.destroy();
-		return <Navigate to='/profile' state={{ from: location }} />;
+		return <Navigate to='/setting/profile' state={{ from: location }} />;
 	}
 
 	return <Outlet {...props} />;
