@@ -72,6 +72,7 @@ export default function DaftarJual() {
 										lg={{ span: 8 }}
 									>
 										<Product
+											publish={i.publish}
 											img={i.imgUrl[0]}
 											title={i.name}
 											category={i.category}

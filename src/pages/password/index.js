@@ -5,14 +5,17 @@ import { Button, Form, Input, Alert, message } from 'antd';
 import { Helmet } from 'react-helmet';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { changePassword, afterResetPassword } from '../../features/user/userSlice';
+import {
+	changePassword,
+	afterResetPassword,
+} from '../../features/user/userSlice';
 
 export default function Password() {
 	const { success, error, errorMessage, loading } = useSelector(
 		(state) => state.user.password
 	);
 	const dispatch = useDispatch();
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 	const [form] = Form.useForm();
 
 	const onFinish = async (values) => {
@@ -24,7 +27,7 @@ export default function Password() {
 			dispatch(afterResetPassword());
 			message.success('Update Password Berhasil');
 			form.resetFields();
-			navigate('/setting')
+			navigate('/setting');
 		}
 	}, [success]);
 

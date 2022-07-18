@@ -43,13 +43,19 @@ export default function Setting() {
 					/>
 				</div>
 				<div className='seeting-nav'>
-					<Link to={'/setting/profile'} className='flex items-center mb-4'>
+					<Link
+						to={'/setting/profile'}
+						className='flex items-center mb-4'
+					>
 						<Edit3 size={24} className='text-purplePrimary' />
 						<span className='text-black ml-4 inline-block'>
 							Ubah Akun
 						</span>
 					</Link>
-					<Link to={'/setting/password'} className='flex items-center mb-4'>
+					<Link
+						to={'/setting/password'}
+						className='flex items-center mb-4'
+					>
 						<Settings size={24} className='text-purplePrimary' />
 						<span className='text-black ml-4 inline-block'>
 							Pengaturan Akun
