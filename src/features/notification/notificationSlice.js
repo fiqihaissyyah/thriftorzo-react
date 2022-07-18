@@ -87,6 +87,35 @@ export const readNotif = createAsyncThunk(
 	}
 );
 
+export const allReadNotif = createAsyncThunk(
+	'notification/allReadNotif',
+	async (token, { rejectWithValue }) => {
+		try {
+			if (token) {
+				console.log(token);
+				const response = await axios.put(
+					`${API_URL}notification/mark-all-read`, {body : 'test'},
+					{ headers: { Authorization: `Bearer ${token}` } }
+				);
+				return response;
+			} else {
+				const data = [
+					{
+						error: 'Token Not Found',
+						message: 'Token Not Found',
+					},
+				];
+				return rejectWithValue(...data);
+			}
+		} catch (err) {
+			if (!err.response) {
+				throw err;
+			}
+			return rejectWithValue(err.response.data);
+		}
+	}
+);
+
 const initialState = {
 	notif: {
 		response: null,
@@ -101,6 +130,12 @@ const initialState = {
 		errorMessage: null,
 	},
 	read: {
+		response: null,
+		loading: false,
+		error: false,
+		errorMessage: null,
+	},
+	all: {
 		response: null,
 		loading: false,
 		error: false,
@@ -166,6 +201,24 @@ export const notificationSlice = createSlice({
 				? action.payload.message
 				: action.payload.error;
 			state.read.loading = false;
+		},
+		// =================================================== ALL READ NOTIFICATION =================================================== //
+		[allReadNotif.pending]: (state) => {
+			state.all.loading = true;
+		},
+		[allReadNotif.fulfilled]: (state, action) => {
+			state.all.response = action.payload.data;
+			state.all.error = false;
+			state.all.errorMessage = null;
+			state.all.loading = false;
+		},
+		[allReadNotif.rejected]: (state, action) => {
+			state.all.response = null;
+			state.all.error = action.error.message;
+			state.all.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
+			state.all.loading = false;
 		},
 	},
 });
