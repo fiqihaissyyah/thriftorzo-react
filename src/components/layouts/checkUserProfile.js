@@ -20,7 +20,7 @@ export default function checkUserProfile(props) {
 			duration: 10,
 		});
 		message.destroy();
-		return <Navigate to='/profile' state={{ from: location }} />;
+		return <Navigate to='/setting/profile' state={{ from: location }} />;
 	}
 
 	return <Outlet {...props} />;

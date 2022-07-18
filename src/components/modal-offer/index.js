@@ -35,7 +35,7 @@ export default function ModalOffer(props) {
 				className: 'global-alert-error',
 				duration: 10,
 			});
-			navigate('/profile');
+			navigate('/setting/profile');
 		} else {
 			values = { ...values, status: 1, productId: props.id };
 			await dispatch(sendOffer({ token, userId, values }));

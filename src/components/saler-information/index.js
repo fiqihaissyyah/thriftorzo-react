@@ -7,7 +7,7 @@ export default function SalerInformation(props) {
 	const navigate = useNavigate();
 
 	const handleProfile = () => {
-		navigate('/profile');
+		navigate('/setting/profile');
 	};
 
 	return (
@@ -22,7 +22,7 @@ export default function SalerInformation(props) {
 						size={48}
 						className='rounded-xl'
 						src={
-							props.user
+							props.user.imgUrl
 								? props.user.imgUrl
 								: `https://ui-avatars.com/api/?name=${props.user.name}`
 						}
@@ -31,7 +31,7 @@ export default function SalerInformation(props) {
 						<p className='text-sm text-black mb-1'>
 							{props.user.name}
 						</p>
-						<span className='text-[10px] text-[#8A8A8A] block leading-[14px]'>
+						<span className='text-[10px] text-neutralGray block leading-[14px]'>
 							{props.user.cityName}
 						</span>
 					</div>

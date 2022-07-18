@@ -6,7 +6,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { auth } from '../../features/user/userSlice';
 
+import { GoogleOutlined } from '@ant-design/icons';
 import { ArrowLeft } from 'react-feather';
+import { useGoogleLogin } from '@react-oauth/google';
 
 export default function Login() {
 	const { success, error, errorMessage, loading } = useSelector(
@@ -21,16 +23,20 @@ export default function Login() {
 		dispatch(auth(values));
 	};
 
+	const login = useGoogleLogin({
+		onSuccess: tokenResponse => console.log(tokenResponse),
+	});
+
+	const onFinishFailed = (errorInfo) => {
+		console.log('Failed:', errorInfo);
+	};
+
 	useEffect(() => {
 		if (success === true) {
 			form.resetFields();
 			navigate('/');
 		}
 	}, [success]);
-
-	const onFinishFailed = (errorInfo) => {
-		console.log('Failed:', errorInfo);
-	};
 
 	return (
 		<>
@@ -97,7 +103,7 @@ export default function Login() {
 							>
 								<Input.Password placeholder='Masukkan password' />
 							</Form.Item>
-							<Form.Item className='mb-10'>
+							<Form.Item className='mb-3'>
 								<Button
 									loading={loading}
 									type='primary'
@@ -107,6 +113,9 @@ export default function Login() {
 									Masuk
 								</Button>
 							</Form.Item>
+							<Button type='primary' className='w-full btn-custom mb-10' icon={<GoogleOutlined />} onClick={() => login()} ghost>
+								Sign in with Google
+							</Button>;
 							<p className='text-sm text-black text-center lg:relative fixed left-0 right-0 bottom-6 lg:bottom-0'>
 								Belum punya akun?{' '}
 								<Link className='font-bold' to='/register'>

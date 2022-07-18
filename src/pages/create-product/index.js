@@ -193,7 +193,7 @@ export default function ProductForm() {
 				});
 				if (submitType === 1) {
 					setloadingPublish(false);
-					navigate('/daftar-jual');
+					navigate('/aktivitas');
 				}
 				if (submitType === 2) {
 					setloadingPreview(false);

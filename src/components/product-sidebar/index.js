@@ -34,7 +34,7 @@ const ProductStatus = (props) => {
 			className: 'global-alert',
 			duration: 10,
 		});
-		navigate('/daftar-jual');
+		navigate('/aktivitas');
 	};
 
 	const publishHandler = async () => {

@@ -36,12 +36,12 @@ export default function DaftarJual() {
 	return (
 		<div className='page-daftar-jual md:py-10 py-4'>
 			<Helmet>
-				<title>Daftar Jual Saya</title>
+				<title>Aktivitas Saya</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='container container-internal'>
 				<h1 className='text-xl text-black font-bold mb-6 md:block hidden'>
-					Daftar Jual Saya
+					Aktivitas Saya
 				</h1>
 				<SalerInformation user={user} edit />
 				<Row gutter={[32, 24]} className='pt-6'>
@@ -72,6 +72,7 @@ export default function DaftarJual() {
 										lg={{ span: 8 }}
 									>
 										<Product
+											publish={i.publish}
 											img={i.imgUrl[0]}
 											title={i.name}
 											category={i.category}

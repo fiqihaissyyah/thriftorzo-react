@@ -7,6 +7,7 @@ import {
 	DollarSign,
 	ChevronRight,
 	ShoppingCart,
+	Users,
 } from 'react-feather';
 
 import './index.css';
@@ -21,9 +22,9 @@ export default function CategorySidebar(props) {
 				<ul className='p-0 list-none divide-y divide-solid divide-[#D0D0D0]'>
 					<li className='border-0 pb-4'>
 						<Link
-							to='/daftar-jual'
+							to='/aktivitas'
 							className={`text-black flex w-full justify-between items-center ${
-								location.pathname === '/daftar-jual'
+								location.pathname === '/aktivitas'
 									? 'active'
 									: ''
 							}`}
@@ -37,25 +38,25 @@ export default function CategorySidebar(props) {
 					</li>
 					<li className='border-0 py-4'>
 						<Link
-							to='/daftar-jual/diminati'
+							to='/aktivitas/wishlist'
 							className={`text-black flex w-full justify-between items-center ${
-								location.pathname === '/daftar-jual/diminati'
+								location.pathname === '/aktivitas/wishlist'
 									? 'active'
 									: ''
 							}`}
 						>
 							<span className='flex items-center'>
 								<Heart size={24} />
-								<span className='ml-2'>Diminati</span>
+								<span className='ml-2'>Wishlist</span>
 							</span>{' '}
 							<ChevronRight size={24} />
 						</Link>
 					</li>
 					<li className='border-0 py-4'>
 						<Link
-							to='/daftar-jual/terjual'
+							to='/aktivitas/terjual'
 							className={`text-black flex w-full justify-between items-center ${
-								location.pathname === '/daftar-jual/terjual'
+								location.pathname === '/aktivitas/terjual'
 									? 'active'
 									: ''
 							}`}
@@ -67,19 +68,34 @@ export default function CategorySidebar(props) {
 							<ChevronRight size={24} />
 						</Link>
 					</li>
+					<li className='border-0 py-4'>
+						<Link
+							to='/aktivitas/tawaran'
+							className={`text-black flex w-full justify-between items-center ${
+								location.pathname === '/aktivitas/tawaran'
+									? 'active'
+									: ''
+							}`}
+						>
+							<span className='flex items-center'>
+								<Users size={24} />
+								<span className='ml-2'>Tawaran</span>
+							</span>{' '}
+							<ChevronRight size={24} />
+						</Link>
+					</li>
 					<li className='border-0 pt-4'>
 						<Link
-							to='/daftar-jual/sale-history'
+							to='/aktivitas/pembelian'
 							className={`text-black flex w-full justify-between items-center ${
-								location.pathname ===
-								'/daftar-jual/sale-history'
+								location.pathname === '/aktivitas/pembelian'
 									? 'active'
 									: ''
 							}`}
 						>
 							<span className='flex items-center'>
 								<ShoppingCart size={24} />
-								<span className='ml-2'>Transaksi</span>
+								<span className='ml-2'>Pembelian</span>
 							</span>{' '}
 							<ChevronRight size={24} />
 						</Link>
@@ -87,10 +103,10 @@ export default function CategorySidebar(props) {
 				</ul>
 			</div>
 			<div className='md:hidden flex w-full md:overflow-auto overflow-x-scroll category-warpper'>
-				<Link to='/daftar-jual'>
+				<Link to='/aktivitas'>
 					<Button
 						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4 ${
-							location.pathname === '/daftar-jual' ? 'active' : ''
+							location.pathname === '/aktivitas' ? 'active' : ''
 						}`}
 						type='primary'
 						icon={<Box className='mr-2' />}
@@ -99,10 +115,10 @@ export default function CategorySidebar(props) {
 						Produk
 					</Button>
 				</Link>
-				<Link to='/daftar-jual/diminati'>
+				<Link to='/aktivitas/wishlist'>
 					<Button
 						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4 ${
-							location.pathname === '/daftar-jual/diminati'
+							location.pathname === '/aktivitas/wishlist'
 								? 'active'
 								: ''
 						}`}
@@ -110,13 +126,13 @@ export default function CategorySidebar(props) {
 						icon={<Heart className='mr-2' />}
 						size='large'
 					>
-						Diminati
+						Wishlist
 					</Button>
 				</Link>
-				<Link to='/daftar-jual/terjual'>
+				<Link to='/aktivitas/terjual'>
 					<Button
 						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4 ${
-							location.pathname === '/daftar-jual/terjual'
+							location.pathname === '/aktivitas/terjual'
 								? 'active'
 								: ''
 						}`}
@@ -127,10 +143,24 @@ export default function CategorySidebar(props) {
 						Terjual
 					</Button>
 				</Link>
-				<Link to='/daftar-jual/sale-history'>
+				<Link to='/aktivitas/tawaran'>
 					<Button
 						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4 ${
-							location.pathname === '/daftar-jual/sale-history'
+							location.pathname === '/aktivitas/tawaran'
+								? 'active'
+								: ''
+						}`}
+						type='primary'
+						icon={<Users className='mr-2' />}
+						size='large'
+					>
+						Tawaran
+					</Button>
+				</Link>
+				<Link to='/aktivitas/pembelian'>
+					<Button
+						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4 ${
+							location.pathname === '/aktivitas/pembelian'
 								? 'active'
 								: ''
 						}`}
@@ -138,7 +168,7 @@ export default function CategorySidebar(props) {
 						icon={<ShoppingCart className='mr-2' />}
 						size='large'
 					>
-						Transaksi
+						Pembelian
 					</Button>
 				</Link>
 			</div>

@@ -130,10 +130,10 @@ export default function Header(props) {
 						</h1>
 					</div>
 				)}
-				{location.pathname.includes(['/daftar-jual']) && (
+				{location.pathname.includes(['/aktivitas']) && (
 					<div className='absolute left-0 right-0 top-0 bottom-0 flex items-center md:hidden'>
 						<h1 className='text-base text-center mb-0 w-full'>
-							Daftar Jual Saya
+							Aktivitas Saya
 						</h1>
 					</div>
 				)}
@@ -220,7 +220,7 @@ export default function Header(props) {
 								<>
 									<Row gutter={24} className='header-link'>
 										<Col span={8}>
-											<Link to='/daftar-jual'>
+											<Link to='/aktivitas'>
 												<List size={24} />
 											</Link>
 										</Col>
@@ -301,7 +301,7 @@ export default function Header(props) {
 							</Link>
 							<Link
 								className='text-sm hover:text-[#7126B5] mb-4 block text-black'
-								to='/daftar-jual'
+								to='/aktivitas'
 							>
 								Daftar Jual
 							</Link>
