@@ -29,7 +29,11 @@ const ProductStatus = (props) => {
 
 	const deleteHandler = async (id) => {
 		await dispatch(deleteProduct({ token, id }));
-		message.success('Berhasil Menghapus Produk!');
+		message.success({
+			content: 'Berhasil Menghapus Produk!',
+			className: 'global-alert',
+			duration: 10,
+		});
 		navigate('/daftar-jual');
 	};
 
@@ -37,7 +41,11 @@ const ProductStatus = (props) => {
 		const values = { ...response, publish: 1 };
 		await dispatch(publishProduct({ token, values }));
 		await dispatch(getProductDetail(values.id));
-		message.success('Berhasil Menerbitkan Produk!');
+		message.success({
+			content: 'Berhasil Menerbitkan Produk!',
+			className: 'global-alert',
+			duration: 10,
+		});
 	};
 
 	return (
@@ -112,13 +120,21 @@ export default function ProductSidebar(props) {
 
 	const addWishlistHandler = async (productId) => {
 		await dispatch(addToWishlist({ token, productId }));
-		message.success('Berhasil Menambah Wishlist!');
+		message.success({
+			content: 'Berhasil Menambah Wishlist!',
+			className: 'global-alert',
+			duration: 10,
+		});
 		checkWishlistHandler(productId);
 	};
 
 	const removeWishlistHandler = async (productId) => {
 		await dispatch(removeWishlist({ token, productId }));
-		message.success('Berhasil Menghapus Wishlist!');
+		message.success({
+			content: 'Berhasil Menghapus Wishlist!',
+			className: 'global-alert',
+			duration: 10,
+		});
 		checkWishlistHandler(productId);
 	};
 

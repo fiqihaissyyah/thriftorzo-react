@@ -49,16 +49,28 @@ export default function ProductForm() {
 			const isJpgOrPng =
 				file.type === 'image/jpeg' || file.type === 'image/png';
 			if (!isJpgOrPng) {
-				message.error('Gambar harus berformat JPG/PNG!');
+				message.error({
+					content: 'Gambar harus berformat JPG/PNG!',
+					className: 'global-alert-error',
+					duration: 10,
+				});
 			}
 
 			const isLt2M = file.size / 1024 / 1024 < 2;
 			if (!isLt2M) {
-				message.error('Gambar tidak boleh lebih dari 2MB!');
+				message.error({
+					content: 'Gambar tidak boleh lebih dari 2MB!',
+					className: 'global-alert-error',
+					duration: 10,
+				});
 			}
 
 			if (fileList.length > 3) {
-				message.error('Gambar tidak boleh lebih dari 4!');
+				message.error({
+					content: 'Gambar tidak boleh lebih dari 4!',
+					className: 'global-alert-error',
+					duration: 10,
+				});
 			}
 			console.log(fileList.length);
 
@@ -133,14 +145,22 @@ export default function ProductForm() {
 				bodyFormData.append('category', values.category);
 
 				if (!values.imageFiles.length) {
-					message.error('Gambar tidak boleh kosong!');
+					message.error({
+						content: 'Gambar tidak boleh kosong!',
+						className: 'global-alert-error',
+						duration: 10,
+					});
 					setloadingPreview(false);
 					setloadingPublish(false);
 					return 0;
 				}
 
 				if (values.imageFiles.length > 4) {
-					message.error('Gambar tidak boleh lebih dari 4!');
+					message.error({
+						content: 'Gambar tidak boleh lebih dari 4!',
+						className: 'global-alert-error',
+						duration: 10,
+					});
 					setloadingPreview(false);
 					setloadingPublish(false);
 					console.log(values.imageFiles.length);
@@ -166,7 +186,11 @@ export default function ProductForm() {
 					},
 				});
 
-				message.success('Berhasil Menambah Produk!');
+				message.success({
+					content: 'Berhasil Menambah Produk!',
+					className: 'global-alert',
+					duration: 10,
+				});
 				if (submitType === 1) {
 					setloadingPublish(false);
 					navigate('/daftar-jual');

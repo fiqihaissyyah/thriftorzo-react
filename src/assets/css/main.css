@@ -126,8 +126,39 @@ textarea.ant-input {
 	flex-flow: row !important;
 }
 
+.global-alert .ant-message-notice-content {
+	width: 500px !important;
+	height: 52px !important;
+	color: #ffffff !important;
+	background-color: #73CA5C !important;
+	border-radius: 12px !important;
+	position: relative !important;
+	padding: 16px 24px 16px 24px !important;
+	margin-top: 100px !important;
+}
+
+.global-alert-error .ant-message-notice-content {
+	width: 500px !important;
+	height: 52px !important;
+	color: #ffffff !important;
+	background-color: red !important;
+	border-radius: 12px !important;
+	position: relative !important;
+	padding: 16px 24px 16px 24px !important;
+	margin-top: 54px !important;
+}
+
 @media screen and (max-width: 767px) {
 	.main-content {
 		padding-bottom: 152px;
+	}
+
+	.global-alert .ant-message-notice-content {
+		width: 75% !important;
+	}
+
+	.global-alert-error .ant-message-notice-content {
+		width: 75% !important;
+		height: 72px !important;
 	}
 }
