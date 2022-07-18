@@ -8,11 +8,14 @@ import './index.css';
 import {
 	getNotification,
 	readNotif,
+	allReadNotif,
+	countUnreadNotif,
 } from '../../features/notification/notificationSlice';
 
 export default function Notification() {
 	const navigate = useNavigate();
 	const token = useSelector((state) => state.user.auth.token);
+	const userid = useSelector((state) => state.user.user.data.id);
 	const { response, loading } = useSelector(
 		(state) => state.notification.notif
 	);
@@ -42,11 +45,18 @@ export default function Notification() {
 		}
 	};
 
+	const allNotif = async () => {
+		await dispatch(allReadNotif(token));
+		const current = 0;
+		const size = 4;
+		dispatch(getNotification({ token, current, size }));
+		dispatch(countUnreadNotif(token));
+	};
+
 	useEffect(() => {
 		const current = 0;
 		const size = 4;
 		dispatch(getNotification({ token, current, size }));
-		console.log(response);
 	}, [location.pathname]);
 
 	const currency = (value) =>
@@ -72,6 +82,7 @@ export default function Notification() {
 				response.notificationResponses.length > 0 &&
 				response.notificationResponses.map((i) => (
 					<div
+						key={i.id}
 						className='notification-item flex'
 						onClick={() =>
 							readNotification(
@@ -120,6 +131,7 @@ export default function Notification() {
 						</div>
 					</div>
 				))}
+
 			{!loading &&
 				!!response &&
 				response.notificationResponses.length !== 0 && (
@@ -127,6 +139,14 @@ export default function Notification() {
 						Lihat Semua Notification
 					</Link>
 				)}
+			<div className='flex justify-center m-2'>
+				<button
+					className=' text-purplePrimary cursor-pointer border-none bg-transparent'
+					onClick={allNotif}
+				>
+					Tandai semua dibaca
+				</button>
+			</div>
 		</div>
 	);
 }
