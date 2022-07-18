@@ -21,7 +21,9 @@ import { countUnreadNotif } from '../../features/notification/notificationSlice'
 export default function Header(props) {
 	const { token, success } = useSelector((state) => state.user.auth);
 	const { error } = useSelector((state) => state.user.user);
-	const countNotification = useSelector((state) => state.notification.count.response);
+	const countNotification = useSelector(
+		(state) => state.notification.count.response
+	);
 
 	const [form] = Form.useForm();
 	const [isLogin, setLogin] = useState(false);
@@ -112,11 +114,13 @@ export default function Header(props) {
 
 	return (
 		<div
-			className={`${location.pathname === '/' ? 'on-top' : ''
-				} header py-[18px] ${location.pathname.includes(['/product'])
+			className={`${
+				location.pathname === '/' ? 'on-top' : ''
+			} header py-[18px] ${
+				location.pathname.includes(['/product'])
 					? 'md:block hidden'
 					: ''
-				}`}
+			}`}
 		>
 			<div className='container relative'>
 				{props.title && (
@@ -221,9 +225,14 @@ export default function Header(props) {
 											</Link>
 										</Col>
 										<Col span={8} className='relative'>
-											{!!countNotification && countNotification.unread > 0 && (
-												<span className='text-center py-[2px] absolute top-[-5px] right-[10px] text-[8px] w-[14px] h-[14px] rounded-full text-white bg-red-500'>{!!countNotification && countNotification.unread}</span>
-											)}
+											{!!countNotification &&
+												countNotification.unread >
+													0 && (
+													<span className='text-center py-[2px] absolute top-[-5px] right-[10px] text-[8px] w-[14px] h-[14px] rounded-full text-white bg-red-500'>
+														{!!countNotification &&
+															countNotification.unread}
+													</span>
+												)}
 											<Dropdown
 												className='cursor-pointer'
 												placement='bottomRight'
