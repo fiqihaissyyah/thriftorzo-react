@@ -44,8 +44,16 @@ function App() {
 					</Route>
 					<Route element={<DefaultLayoutWithNavigation />}>
 						<Route exact path='/setting' element={<Setting />} />
-						<Route exact path='/setting/profile' element={<Profile />} />
-						<Route exact path='/setting/password' element={<Password />} />
+						<Route
+							exact
+							path='/setting/profile'
+							element={<Profile />}
+						/>
+						<Route
+							exact
+							path='/setting/password'
+							element={<Password />}
+						/>
 						<Route
 							exact
 							path='/penawaran/info-penawaran/:id'

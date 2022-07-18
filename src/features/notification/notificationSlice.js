@@ -94,7 +94,8 @@ export const allReadNotif = createAsyncThunk(
 			if (token) {
 				console.log(token);
 				const response = await axios.put(
-					`${API_URL}notification/mark-all-read`, {body : 'test'},
+					`${API_URL}notification/mark-all-read`,
+					{ body: 'test' },
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;

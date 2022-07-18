@@ -9,7 +9,7 @@ import {
 	getNotification,
 	readNotif,
 	allReadNotif,
-	countUnreadNotif
+	countUnreadNotif,
 } from '../../features/notification/notificationSlice';
 
 export default function Notification() {
@@ -46,12 +46,12 @@ export default function Notification() {
 	};
 
 	const allNotif = async () => {
-		await dispatch(allReadNotif( token ));
+		await dispatch(allReadNotif(token));
 		const current = 0;
 		const size = 4;
 		dispatch(getNotification({ token, current, size }));
 		dispatch(countUnreadNotif(token));
-	}
+	};
 
 	useEffect(() => {
 		const current = 0;
@@ -131,18 +131,22 @@ export default function Notification() {
 						</div>
 					</div>
 				))}
-				
-					{!loading &&
-						!!response &&
-						response.notificationResponses.length !== 0 && (
-							<Link className='block text-center' to={'/notification'}>
-								Lihat Semua Notification
-							</Link>
-						)}
-						<div className='flex justify-center m-2'>
-							<button className=' text-purplePrimary cursor-pointer border-none bg-transparent' onClick={allNotif}>Tandai semua dibaca</button>
-						</div>
-				
+
+			{!loading &&
+				!!response &&
+				response.notificationResponses.length !== 0 && (
+					<Link className='block text-center' to={'/notification'}>
+						Lihat Semua Notification
+					</Link>
+				)}
+			<div className='flex justify-center m-2'>
+				<button
+					className=' text-purplePrimary cursor-pointer border-none bg-transparent'
+					onClick={allNotif}
+				>
+					Tandai semua dibaca
+				</button>
+			</div>
 		</div>
 	);
 }

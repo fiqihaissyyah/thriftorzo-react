@@ -9,7 +9,7 @@ import {
 	getNotification,
 	readNotif,
 	allReadNotif,
-	countUnreadNotif
+	countUnreadNotif,
 } from '../../features/notification/notificationSlice';
 
 export default function Notification() {
@@ -45,12 +45,12 @@ export default function Notification() {
 	};
 
 	const allNotif = async () => {
-		await dispatch(allReadNotif( token ));
+		await dispatch(allReadNotif(token));
 		const current = 0;
 		const size = 4;
 		dispatch(getNotification({ token, current, size }));
 		dispatch(countUnreadNotif(token));
-	}
+	};
 
 	const paginationHandler = (current) => {
 		const size = 8;
@@ -80,7 +80,12 @@ export default function Notification() {
 			</Helmet>
 			<div className='notifiation-page md:pt-8'>
 				<div className='flex justify-center m-2 pb-5 md:pb-3'>
-					<button className='text-purplePrimary cursor-pointer border-none bg-transparent' onClick={allNotif}>Tandai semua dibaca</button>
+					<button
+						className='text-purplePrimary cursor-pointer border-none bg-transparent'
+						onClick={allNotif}
+					>
+						Tandai semua dibaca
+					</button>
 				</div>
 				<div className='container container-internal'>
 					{loading &&
