@@ -31,7 +31,7 @@ export default function ModalOffer(props) {
 			user.imgUrl == null
 		) {
 			message.error('Lengkapi profile anda sebelum menawar!');
-			navigate('/profile');
+			navigate('/setting/profile');
 		} else {
 			values = { ...values, status: 1, productId: props.id };
 			await dispatch(sendOffer({ token, userId, values }));

@@ -24,6 +24,7 @@ import InfoPenawaran from './pages/info-penawaran';
 import SaleHistory from './pages/sale-history';
 import BuyHistory from './pages/buy-history';
 import Setting from './pages/setting';
+import Password from './pages/password';
 
 function App() {
 	return (
@@ -43,7 +44,8 @@ function App() {
 					</Route>
 					<Route element={<DefaultLayoutWithNavigation />}>
 						<Route exact path='/setting' element={<Setting />} />
-						<Route exact path='/profile' element={<Profile />} />
+						<Route exact path='/setting/profile' element={<Profile />} />
+						<Route exact path='/setting/password' element={<Password />} />
 						<Route
 							exact
 							path='/penawaran/info-penawaran/:id'
