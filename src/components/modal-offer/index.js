@@ -30,13 +30,21 @@ export default function ModalOffer(props) {
 			user.cityName == null &&
 			user.imgUrl == null
 		) {
-			message.error('Lengkapi profile anda sebelum menawar!');
+			message.error({
+				content: 'Lengkapi profile anda sebelum menawar!',
+				className: 'global-alert-error',
+				duration: 10,
+			});
 			navigate('/setting/profile');
 		} else {
 			values = { ...values, status: 1, productId: props.id };
 			await dispatch(sendOffer({ token, userId, values }));
 			setIsModalVisible(false);
-			message.success('Berhasil Mengirimkan Tawaran!');
+			message.success({
+				content: 'Berhasil Mengirimkan Tawaran!',
+				className: 'global-alert',
+				duration: 10,
+			});
 		}
 	};
 

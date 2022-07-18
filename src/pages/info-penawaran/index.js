@@ -42,7 +42,11 @@ export default function InfoPenawaran() {
 		await dispatch(detailOffer({ token, id }));
 		await setAcceptLoading(false);
 		acceptEvents.click();
-		message.success('Berhasil Menerima Tawaran!');
+		message.success({
+			content: 'Berhasil Menerima Tawaran!',
+			className: 'global-alert',
+			duration: 10,
+		});
 	};
 
 	const rejectOffer = async () => {
@@ -51,13 +55,21 @@ export default function InfoPenawaran() {
 		await dispatch(updateStatus({ token, id, status }));
 		await dispatch(detailOffer({ token, id }));
 		await setRejectLoading(false);
-		message.success('Berhasil Menolak Tawaran!');
+		message.success({
+			content: 'Berhasil Menolak Tawaran!',
+			className: 'global-alert',
+			duration: 10,
+		});
 	};
 
 	const updateOfferStatus = async (status) => {
 		await dispatch(updateStatus({ token, id, status }));
 		await dispatch(detailOffer({ token, id }));
-		message.success('Status produk berhasil diperbarui!');
+		message.success({
+			content: 'Status produk berhasil diperbarui!',
+			className: 'global-alert',
+			duration: 10,
+		});
 	};
 
 	useEffect(() => {

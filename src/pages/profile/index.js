@@ -25,7 +25,11 @@ export default function Profile() {
 		await dispatch(updateUser(values));
 		await dispatch(getUser());
 		form.setFieldsValue(values);
-		message.success('Update Profile Berhasil');
+		message.success({
+			content: 'Update Profile Berhasil',
+			className: 'global-alert',
+			duration: 10,
+		});
 	};
 
 	const { Option } = Select;
@@ -33,12 +37,20 @@ export default function Profile() {
 		const isJpgOrPng =
 			file.type === 'image/jpeg' || file.type === 'image/png';
 		if (!isJpgOrPng) {
-			message.error('Gambar harus berformat JPG/PNG!');
+			message.error({
+				content: 'Gambar harus berformat JPG/PNG!',
+				className: 'global-alert-error',
+				duration: 10,
+			});
 		}
 
 		const isLt2M = file.size / 1024 / 1024 < 2;
 		if (!isLt2M) {
-			message.error('Gambar tidak boleh lebih dari 2MB!');
+			message.error({
+				content: 'Gambar tidak boleh lebih dari 2MB!',
+				className: 'global-alert-error',
+				duration: 10,
+			});
 		}
 
 		return isJpgOrPng && isLt2M;

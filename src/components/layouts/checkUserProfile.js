@@ -14,7 +14,11 @@ export default function checkUserProfile(props) {
 		profileUser.cityName == null &&
 		profileUser.imgUrl == null
 	) {
-		message.error('Lengkapi profile anda terlebih dahulu!');
+		message.error({
+			content: 'Lengkapi profile anda terlebih dahulu!',
+			className: 'global-alert-error',
+			duration: 10,
+		});
 		message.destroy();
 		return <Navigate to='/setting/profile' state={{ from: location }} />;
 	}
