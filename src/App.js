@@ -8,6 +8,7 @@ import DefaultLayoutWithTitle from './components/layouts/default-title';
 import DefaultLayoutWithNavigation from './components/layouts/default-navigation';
 import DefaultLayoutBlank from './components/layouts/default-blank';
 import IsAuth from './components/layouts/isAuth';
+import IsGuest from './components/layouts/isGuest';
 import CheckUserProfile from './components/layouts/checkUserProfile';
 
 import Home from './pages/home/index';
@@ -26,6 +27,7 @@ import SaleHistory from './pages/sale-history';
 import BuyHistory from './pages/buy-history';
 import Setting from './pages/setting';
 import Password from './pages/password';
+import PageNotFound from './pages/404';
 
 function App() {
 	return (
@@ -33,8 +35,14 @@ function App() {
 			<BrowserRouter>
 				<Routes>
 					<Route element={<AuthLayout />}>
-						<Route exact path='/login' element={<Login />} />
-						<Route exact path='/register' element={<Register />} />
+						<Route element={<IsGuest />}>
+							<Route exact path='/login' element={<Login />} />
+							<Route
+								exact
+								path='/register'
+								element={<Register />}
+							/>
+						</Route>
 					</Route>
 					<Route element={<IsAuth />}>
 						<Route element={<DefaultLayoutWithTitle />}>
@@ -82,6 +90,7 @@ function App() {
 						</Route>
 					</Route>
 					<Route element={<DefaultLayout />}>
+						<Route exact path='/*' element={<PageNotFound />} />
 						<Route exact path='/' element={<Home />} />
 						<Route
 							exact

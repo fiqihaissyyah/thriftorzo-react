@@ -75,22 +75,24 @@ export default function Notification() {
 	return (
 		<>
 			<Helmet>
-				<title>Notifikasi</title>
+				<title>Notifikasi - Thriftorzo</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='notifiation-page md:pt-8'>
-				<div className='flex justify-center m-2 pb-5 md:pb-3'>
-					<button
-						className='text-purplePrimary cursor-pointer border-none bg-transparent'
-						onClick={allNotif}
-					>
-						Tandai semua dibaca
-					</button>
-				</div>
+				{!loading && (
+					<div className='flex justify-center m-2 pb-5 md:pb-3'>
+						<button
+							className='text-purplePrimary cursor-pointer border-none bg-transparent'
+							onClick={allNotif}
+						>
+							Tandai semua dibaca
+						</button>
+					</div>
+				)}
 				<div className='container container-internal'>
 					{loading &&
 						Array(10)
-							.fill('a')
+							.fill()
 							.map((i) => (
 								<Skeleton key={i} className='mb-10' active />
 							))}

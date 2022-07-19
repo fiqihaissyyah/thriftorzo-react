@@ -112,7 +112,7 @@ export default function ProductSidebar(props) {
 
 	const checkWishlistHandler = async (productId) => {
 		const response = await axios.get(
-			`https://staging-secondhand-bej3.herokuapp.com/wishlist/get-status-wishlist?productId=${productId}`,
+			`https://staging-secondhand-bej3.herokuapp.com/wishlist/status?productId=${productId}`,
 			{ headers: { Authorization: `Bearer ${token}` } }
 		);
 		setWishlist(response.data.wishlistStatus);
@@ -120,7 +120,7 @@ export default function ProductSidebar(props) {
 
 	const checkStatusTransaction = async (productId) => {
 		const response = await axios.get(
-			`https://staging-secondhand-bej3.herokuapp.com/transaction/get-status-transaction?productId=${productId}`,
+			`https://staging-secondhand-bej3.herokuapp.com/transaction/status?productId=${productId}`,
 			{ headers: { Authorization: `Bearer ${token}` } }
 		);
 		setOffered(response.data.status);

@@ -186,7 +186,7 @@ export default function ProductFormUpdate() {
 
 				const response = await axios({
 					method: 'put',
-					url: 'https://staging-secondhand-bej3.herokuapp.com/product/update-product',
+					url: 'https://staging-secondhand-bej3.herokuapp.com/product/update',
 					data: bodyFormData,
 					headers: {
 						'Content-Type':
@@ -242,7 +242,7 @@ export default function ProductFormUpdate() {
 	return (
 		<div className='container'>
 			<Helmet>
-				<title>Tambah Produk</title>
+				<title>Update Produk - Thriftorzo</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='update-profile-wrapper max-w-[568px] md:py-10 py-6 w-full mx-auto'>
@@ -340,7 +340,7 @@ export default function ProductFormUpdate() {
 						<Upload
 							{...uploadProps}
 							listType='picture-card'
-							className='product-upload relative mb-6 w-full h-24'
+							className='product-upload relative mb-6 w-full'
 							accept='image/*'
 							fileList={fileList}
 							onPreview={handlePreview}
@@ -375,6 +375,7 @@ export default function ProductFormUpdate() {
 										width={102}
 										height={102}
 										src={item}
+										className='rounded-2xl'
 									/>
 									<Button
 										onClick={() =>

@@ -5,7 +5,7 @@ import './index.css';
 
 export default function Footer() {
 	return (
-		<div className='footer bg-[#7126B5] py-9'>
+		<div className='footer bg-[#7126B5] py-9 hidden md:block'>
 			<div className='container'>
 				<Row gutter={24}>
 					<Col

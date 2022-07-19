@@ -69,13 +69,13 @@ export default function Notification() {
 		<div className='notification p-6 bg-white rounded-2xl w-[376px] mt-4'>
 			{loading &&
 				Array(3)
-					.fill('a')
+					.fill()
 					.map((i) => <Skeleton key={i} className='mb-3' active />)}
 			{!loading &&
 				!!response &&
 				response.notificationResponses.length === 0 && (
-					<p className='text-center mb-0'>Tidak ada Notifikasi</p>
-				)}
+				<p className='text-center mb-0'>Tidak ada Notifikasi</p>
+			)}
 			{!loading &&
 				!!response &&
 				response.notificationResponses &&
@@ -135,18 +135,20 @@ export default function Notification() {
 			{!loading &&
 				!!response &&
 				response.notificationResponses.length !== 0 && (
+				<>
 					<Link className='block text-center' to={'/notification'}>
 						Lihat Semua Notification
 					</Link>
-				)}
-			<div className='flex justify-center m-2'>
-				<button
-					className=' text-purplePrimary cursor-pointer border-none bg-transparent'
-					onClick={allNotif}
-				>
-					Tandai semua dibaca
-				</button>
-			</div>
+					<div className='flex justify-center m-2'>
+						<button
+							className=' text-purplePrimary cursor-pointer border-none bg-transparent'
+							onClick={allNotif}
+						>
+							Tandai semua dibaca
+						</button>
+					</div>
+				</>
+			)}
 		</div>
 	);
 }
