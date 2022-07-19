@@ -7,10 +7,9 @@ export const saleHistory = createAsyncThunk(
 	async (token, { rejectWithValue }) => {
 		try {
 			if (token) {
-				const response = await axios.get(
-					`${API_URL}history/seller`,
-					{ headers: { Authorization: `Bearer ${token}` } }
-				);
+				const response = await axios.get(`${API_URL}history/seller`, {
+					headers: { Authorization: `Bearer ${token}` },
+				});
 				return response;
 			} else {
 				const data = [
@@ -64,10 +63,9 @@ export const buyHistory = createAsyncThunk(
 	async (token, { rejectWithValue }) => {
 		try {
 			if (token) {
-				const response = await axios.get(
-					`${API_URL}history/buyer`,
-					{ headers: { Authorization: `Bearer ${token}` } }
-				);
+				const response = await axios.get(`${API_URL}history/buyer`, {
+					headers: { Authorization: `Bearer ${token}` },
+				});
 				return response;
 			} else {
 				const data = [

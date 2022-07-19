@@ -29,7 +29,7 @@ export default function Detail() {
 	return (
 		<>
 			<Helmet>
-				<title>{ `${ response ? response.name : '' } - Thriftorzo` }</title>
+				<title>{`${response ? response.name : ''} - Thriftorzo`}</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='container container-internal md:py-10 pt-0 pb-6'>

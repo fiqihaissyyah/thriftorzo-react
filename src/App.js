@@ -37,7 +37,11 @@ function App() {
 					<Route element={<AuthLayout />}>
 						<Route element={<IsGuest />}>
 							<Route exact path='/login' element={<Login />} />
-							<Route exact path='/register' element={<Register />} />
+							<Route
+								exact
+								path='/register'
+								element={<Register />}
+							/>
 						</Route>
 					</Route>
 					<Route element={<IsAuth />}>

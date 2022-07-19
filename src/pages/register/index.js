@@ -34,7 +34,7 @@ export default function Register() {
 				},
 			});
 			form.resetFields();
-			dispatch(afterRegister())
+			dispatch(afterRegister());
 			navigate('/login');
 		}
 	}, [success]);
