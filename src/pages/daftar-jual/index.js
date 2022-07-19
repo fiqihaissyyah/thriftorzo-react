@@ -24,7 +24,8 @@ export default function DaftarJual() {
 	const location = useLocation();
 
 	const paginationHandler = (current) => {
-		dispatch(getProductByUserId(token, current - 1));
+		current = current - 1;
+		dispatch(getProductByUserId({ token, current }));
 		window.scrollTo(0, 0);
 	};
 
