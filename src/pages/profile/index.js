@@ -1,7 +1,7 @@
 import './index.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Button, Form, Input, Select, Alert, Upload, message } from 'antd';
+import { Button, Form, Input, Select, Alert, Upload, notification } from 'antd';
 import { CameraOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
 
@@ -25,10 +25,14 @@ export default function Profile() {
 		await dispatch(updateUser(values));
 		await dispatch(getUser());
 		form.setFieldsValue(values);
-		message.success({
-			content: 'Update Profile Berhasil',
-			className: 'global-alert',
-			duration: 10,
+		notification.open({
+			message: 'Update profile Berhasil',
+			className: 'global-alert-success',
+			placement: 'top',
+			duration: 3,
+			style: {
+				color: '#ffffff',
+			},
 		});
 	};
 
@@ -37,19 +41,27 @@ export default function Profile() {
 		const isJpgOrPng =
 			file.type === 'image/jpeg' || file.type === 'image/png';
 		if (!isJpgOrPng) {
-			message.error({
-				content: 'Gambar harus berformat JPG/PNG!',
+			notification.open({
+				message: 'Gambar harus berformat JPG/PNG!',
 				className: 'global-alert-error',
-				duration: 10,
+				placement: 'top',
+				duration: 3,
+				style: {
+					color: '#ffffff',
+				},
 			});
 		}
 
 		const isLt2M = file.size / 1024 / 1024 < 2;
 		if (!isLt2M) {
-			message.error({
-				content: 'Gambar tidak boleh lebih dari 2MB!',
+			notification.open({
+				message: 'Gambar tidak boleh lebih dari 2MB!',
 				className: 'global-alert-error',
-				duration: 10,
+				placement: 'top',
+				duration: 3,
+				style: {
+					color: '#ffffff',
+				},
 			});
 		}
 

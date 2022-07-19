@@ -12,7 +12,7 @@ import {
 	Col,
 	Upload,
 	Modal,
-	message,
+	notification,
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons';
@@ -49,27 +49,39 @@ export default function ProductForm() {
 			const isJpgOrPng =
 				file.type === 'image/jpeg' || file.type === 'image/png';
 			if (!isJpgOrPng) {
-				message.error({
-					content: 'Gambar harus berformat JPG/PNG!',
+				notification.open({
+					message: 'Gambar harus berformat JPG/PNG!',
 					className: 'global-alert-error',
-					duration: 10,
+					placement: 'top',
+					duration: 3,
+					style: {
+						color: '#ffffff',
+					},
 				});
 			}
 
 			const isLt2M = file.size / 1024 / 1024 < 2;
 			if (!isLt2M) {
-				message.error({
-					content: 'Gambar tidak boleh lebih dari 2MB!',
+				notification.open({
+					message: 'Gambar tidak boleh lebih dari 2MB!',
 					className: 'global-alert-error',
-					duration: 10,
+					placement: 'top',
+					duration: 3,
+					style: {
+						color: '#ffffff',
+					},
 				});
 			}
 
 			if (fileList.length > 3) {
-				message.error({
-					content: 'Gambar tidak boleh lebih dari 4!',
+				notification.open({
+					message: 'Gambar tidak boleh lebih dari 4!',
 					className: 'global-alert-error',
-					duration: 10,
+					placement: 'top',
+					duration: 3,
+					style: {
+						color: '#ffffff',
+					},
 				});
 			}
 			console.log(fileList.length);
@@ -145,10 +157,14 @@ export default function ProductForm() {
 				bodyFormData.append('category', values.category);
 
 				if (!values.imageFiles.length) {
-					message.error({
-						content: 'Gambar tidak boleh kosong!',
+					notification.open({
+						message: 'Gambar tidak boleh kosong!',
 						className: 'global-alert-error',
-						duration: 10,
+						placement: 'top',
+						duration: 3,
+						style: {
+							color: '#ffffff',
+						},
 					});
 					setloadingPreview(false);
 					setloadingPublish(false);
@@ -156,10 +172,14 @@ export default function ProductForm() {
 				}
 
 				if (values.imageFiles.length > 4) {
-					message.error({
-						content: 'Gambar tidak boleh lebih dari 4!',
+					notification.open({
+						message: 'Gambar tidak boleh lebih dari 4!',
 						className: 'global-alert-error',
-						duration: 10,
+						placement: 'top',
+						duration: 3,
+						style: {
+							color: '#ffffff',
+						},
 					});
 					setloadingPreview(false);
 					setloadingPublish(false);
@@ -186,10 +206,14 @@ export default function ProductForm() {
 					},
 				});
 
-				message.success({
-					content: 'Berhasil Menambah Produk!',
-					className: 'global-alert',
-					duration: 10,
+				notification.open({
+					message: 'Berhasil Menambah Produk!',
+					className: 'global-alert-success',
+					placement: 'top',
+					duration: 3,
+					style: {
+						color: '#ffffff',
+					},
 				});
 				if (submitType === 1) {
 					setloadingPublish(false);

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './index.css';
-import { Col, Row, Form, Input, Button, message, Alert } from 'antd';
+import { Col, Row, Form, Input, Button, notification, Alert } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,7 +23,15 @@ export default function Register() {
 
 	useEffect(() => {
 		if (success === true) {
-			message.success('Registrasi Berhasil!');
+			notification.open({
+				message: 'Registrasi Berhasil!',
+				className: 'global-alert-success',
+				placement: 'top',
+				duration: 3,
+				style: {
+					color: '#ffffff',
+				},
+			});
 			form.resetFields();
 			navigate('/login');
 		}

@@ -13,7 +13,7 @@ import {
 	Upload,
 	Image,
 	Modal,
-	message,
+	notification,
 } from 'antd';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
@@ -55,16 +55,40 @@ export default function ProductFormUpdate() {
 			const isJpgOrPng =
 				file.type === 'image/jpeg' || file.type === 'image/png';
 			if (!isJpgOrPng) {
-				message.error('Gambar harus berformat JPG/PNG!');
+				notification.open({
+					message: 'Gambar harus berformat JPG/PNG!',
+					className: 'global-alert-error',
+					placement: 'top',
+					duration: 3,
+					style: {
+						color: '#ffffff',
+					},
+				});
 			}
 
 			const isLt2M = file.size / 1024 / 1024 < 2;
 			if (!isLt2M) {
-				message.error('Gambar tidak boleh lebih dari 2MB!');
+				notification.open({
+					message: 'Gambar tidak boleh lebih dari 2MB!',
+					className: 'global-alert-error',
+					placement: 'top',
+					duration: 3,
+					style: {
+						color: '#ffffff',
+					},
+				});
 			}
 
 			if (detail.imgUrl.length + fileList.length > 3) {
-				message.error('Gambar tidak boleh lebih dari 4!');
+				notification.open({
+					message: 'Gambar tidak boleh lebih dari 4!',
+					className: 'global-alert-error',
+					placement: 'top',
+					duration: 3,
+					style: {
+						color: '#ffffff',
+					},
+				});
 			}
 
 			if (
@@ -133,7 +157,15 @@ export default function ProductFormUpdate() {
 				bodyFormData.append('category', values.category);
 
 				if (detail.imgUrl.length + values.imageFiles.length > 4) {
-					message.error('Gambar tidak boleh lebih dari 4!');
+					notification.open({
+						message: 'Gambar tidak boleh lebih dari 4!',
+						className: 'global-alert-error',
+						placement: 'top',
+						duration: 3,
+						style: {
+							color: '#ffffff',
+						},
+					});
 					setLoading(false);
 					console.log(values.imageFiles.length);
 					return 0;
@@ -164,7 +196,15 @@ export default function ProductFormUpdate() {
 					},
 				});
 
-				message.success('Berhasil Mengubah Produk!');
+				notification.open({
+					message: 'Berhasil Mengubah Produk!',
+					className: 'global-alert-success',
+					placement: 'top',
+					duration: 3,
+					style: {
+						color: '#ffffff',
+					},
+				});
 				setLoading(false);
 				navigate('/product/detail/' + response.data.id);
 			}
@@ -179,7 +219,15 @@ export default function ProductFormUpdate() {
 	const deleteImage = async (url, productId) => {
 		await dispatch(deleteProductImage({ token, url, productId }));
 		await dispatch(getProductDetail(id));
-		message.success('Berhasil Menghapus Foto Produk!');
+		notification.open({
+			message: 'Berhasil Menghapus Foto Produk!',
+			className: 'global-alert-success',
+			placement: 'top',
+			duration: 3,
+			style: {
+				color: '#ffffff',
+			},
+		});
 	};
 
 	const navigateBack = () => {
