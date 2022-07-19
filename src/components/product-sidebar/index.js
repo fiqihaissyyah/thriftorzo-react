@@ -133,9 +133,6 @@ export default function ProductSidebar(props) {
 			className: 'global-alert-success',
 			placement: 'top',
 			duration: 3,
-			style: {
-				color: '#ffffff',
-			},
 		});
 		checkWishlistHandler(productId);
 	};
@@ -147,9 +144,6 @@ export default function ProductSidebar(props) {
 			className: 'global-alert-success',
 			placement: 'top',
 			duration: 3,
-			style: {
-				color: '#ffffff',
-			},
 		});
 		checkWishlistHandler(productId);
 	};
