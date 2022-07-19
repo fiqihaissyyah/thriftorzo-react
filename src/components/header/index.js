@@ -15,11 +15,15 @@ import Notification from '../notification';
 import './index.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, reset } from '../../features/user/userSlice';
-import { getProduct } from '../../features/product/productSlice';
+import {
+	searchProduct,
+	resetSearch,
+} from '../../features/product/productSlice';
 import { countUnreadNotif } from '../../features/notification/notificationSlice';
 
 export default function Header(props) {
 	const { token, success } = useSelector((state) => state.user.auth);
+	const { isSearch } = useSelector((state) => state.product.get);
 	const { error } = useSelector((state) => state.user.user);
 	const countNotification = useSelector(
 		(state) => state.notification.count.response
@@ -36,14 +40,12 @@ export default function Header(props) {
 
 	const onFinish = async (values) => {
 		if (values.search) {
-			if (location.pathname !== '/') {
-				await navigate('/');
-			}
 			const page = 0;
-			const category = '';
 			const productName = values.search;
-
-			dispatch(getProduct({ productName, category, page }));
+			await dispatch(searchProduct({ productName, page }));
+			if (location.pathname !== '/') {
+				navigate('/');
+			}
 			window.scrollTo(0, 0);
 		}
 	};
@@ -83,6 +85,9 @@ export default function Header(props) {
 	useEffect(() => {
 		onClose();
 		form.resetFields();
+		if (isSearch && location.pathname !== '/') {
+			dispatch(resetSearch());
+		}
 	}, [location.pathname]);
 
 	useEffect(() => {
@@ -117,7 +122,7 @@ export default function Header(props) {
 			className={`${
 				location.pathname === '/' ? 'on-top' : ''
 			} header py-[18px] ${
-				location.pathname.includes(['/product'])
+				location.pathname.includes(['/product/detail/'])
 					? 'md:block hidden'
 					: ''
 			}`}

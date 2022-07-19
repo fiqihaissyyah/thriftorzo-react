@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import './index.css';
-import { Col, Row, Form, Input, Button, message, Alert } from 'antd';
+import { Col, Row, Form, Input, Button, notification, Alert } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { register } from '../../features/user/userSlice';
+import { register, afterRegister } from '../../features/user/userSlice';
 
 import { ArrowLeft } from 'react-feather';
+import { Helmet } from 'react-helmet';
 
 export default function Register() {
 	const { success, error, errorMessage, loading } = useSelector(
@@ -23,8 +24,17 @@ export default function Register() {
 
 	useEffect(() => {
 		if (success === true) {
-			message.success('Registrasi Berhasil!');
+			notification.open({
+				message: 'Registrasi Berhasil!',
+				className: 'global-alert-success',
+				placement: 'top',
+				duration: 3,
+				style: {
+					color: '#ffffff',
+				},
+			});
 			form.resetFields();
+			dispatch(afterRegister());
 			navigate('/login');
 		}
 	}, [success]);
@@ -35,6 +45,10 @@ export default function Register() {
 
 	return (
 		<>
+			<Helmet>
+				<title>Register - Thriftorzo</title>
+				<meta name='description' content='Helmet application' />
+			</Helmet>
 			<Link className='py-[14px] px-4 block md:hidden' to='/'>
 				<ArrowLeft size={24} className='text-black' />
 			</Link>

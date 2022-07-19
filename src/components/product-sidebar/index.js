@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Button, Popconfirm, message, Skeleton } from 'antd';
+import { Button, Popconfirm, notification, Skeleton } from 'antd';
 
 import ModalOffer from '../modal-offer';
 import { useNavigate } from 'react-router-dom';
@@ -29,7 +29,15 @@ const ProductStatus = (props) => {
 
 	const deleteHandler = async (id) => {
 		await dispatch(deleteProduct({ token, id }));
-		message.success('Berhasil Menghapus Produk!');
+		notification.open({
+			message: 'Berhasil Menghapus Produk!',
+			className: 'global-alert-success',
+			placement: 'top',
+			duration: 3,
+			style: {
+				color: '#ffffff',
+			},
+		});
 		navigate('/aktivitas');
 	};
 
@@ -37,7 +45,15 @@ const ProductStatus = (props) => {
 		const values = { ...response, publish: 1 };
 		await dispatch(publishProduct({ token, values }));
 		await dispatch(getProductDetail(values.id));
-		message.success('Berhasil Menerbitkan Produk!');
+		notification.open({
+			message: 'Berhasil Menerbitkan Produk!',
+			className: 'global-alert-success',
+			placement: 'top',
+			duration: 3,
+			style: {
+				color: '#ffffff',
+			},
+		});
 	};
 
 	return (
@@ -96,7 +112,7 @@ export default function ProductSidebar(props) {
 
 	const checkWishlistHandler = async (productId) => {
 		const response = await axios.get(
-			`https://staging-secondhand-bej3.herokuapp.com/wishlist/get-status-wishlist?productId=${productId}`,
+			`https://staging-secondhand-bej3.herokuapp.com/wishlist/status?productId=${productId}`,
 			{ headers: { Authorization: `Bearer ${token}` } }
 		);
 		setWishlist(response.data.wishlistStatus);
@@ -104,7 +120,7 @@ export default function ProductSidebar(props) {
 
 	const checkStatusTransaction = async (productId) => {
 		const response = await axios.get(
-			`https://staging-secondhand-bej3.herokuapp.com/transaction/get-status-transaction?productId=${productId}`,
+			`https://staging-secondhand-bej3.herokuapp.com/transaction/status?productId=${productId}`,
 			{ headers: { Authorization: `Bearer ${token}` } }
 		);
 		setOffered(response.data.status);
@@ -112,13 +128,23 @@ export default function ProductSidebar(props) {
 
 	const addWishlistHandler = async (productId) => {
 		await dispatch(addToWishlist({ token, productId }));
-		message.success('Berhasil Menambah Wishlist!');
+		notification.open({
+			message: 'Berhasil Menambah Wishlist!',
+			className: 'global-alert-success',
+			placement: 'top',
+			duration: 3,
+		});
 		checkWishlistHandler(productId);
 	};
 
 	const removeWishlistHandler = async (productId) => {
 		await dispatch(removeWishlist({ token, productId }));
-		message.success('Berhasil Menghapus Wishlist!');
+		notification.open({
+			message: 'Berhasil Menghapus Wishlist!',
+			className: 'global-alert-success',
+			placement: 'top',
+			duration: 3,
+		});
 		checkWishlistHandler(productId);
 	};
 

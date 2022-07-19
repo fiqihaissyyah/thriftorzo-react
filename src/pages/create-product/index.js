@@ -12,7 +12,7 @@ import {
 	Col,
 	Upload,
 	Modal,
-	message,
+	notification,
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons';
@@ -49,16 +49,40 @@ export default function ProductForm() {
 			const isJpgOrPng =
 				file.type === 'image/jpeg' || file.type === 'image/png';
 			if (!isJpgOrPng) {
-				message.error('Gambar harus berformat JPG/PNG!');
+				notification.open({
+					message: 'Gambar harus berformat JPG/PNG!',
+					className: 'global-alert-error',
+					placement: 'top',
+					duration: 3,
+					style: {
+						color: '#ffffff',
+					},
+				});
 			}
 
 			const isLt2M = file.size / 1024 / 1024 < 2;
 			if (!isLt2M) {
-				message.error('Gambar tidak boleh lebih dari 2MB!');
+				notification.open({
+					message: 'Gambar tidak boleh lebih dari 2MB!',
+					className: 'global-alert-error',
+					placement: 'top',
+					duration: 3,
+					style: {
+						color: '#ffffff',
+					},
+				});
 			}
 
 			if (fileList.length > 3) {
-				message.error('Gambar tidak boleh lebih dari 4!');
+				notification.open({
+					message: 'Gambar tidak boleh lebih dari 4!',
+					className: 'global-alert-error',
+					placement: 'top',
+					duration: 3,
+					style: {
+						color: '#ffffff',
+					},
+				});
 			}
 			console.log(fileList.length);
 
@@ -133,14 +157,30 @@ export default function ProductForm() {
 				bodyFormData.append('category', values.category);
 
 				if (!values.imageFiles.length) {
-					message.error('Gambar tidak boleh kosong!');
+					notification.open({
+						message: 'Gambar tidak boleh kosong!',
+						className: 'global-alert-error',
+						placement: 'top',
+						duration: 3,
+						style: {
+							color: '#ffffff',
+						},
+					});
 					setloadingPreview(false);
 					setloadingPublish(false);
 					return 0;
 				}
 
 				if (values.imageFiles.length > 4) {
-					message.error('Gambar tidak boleh lebih dari 4!');
+					notification.open({
+						message: 'Gambar tidak boleh lebih dari 4!',
+						className: 'global-alert-error',
+						placement: 'top',
+						duration: 3,
+						style: {
+							color: '#ffffff',
+						},
+					});
 					setloadingPreview(false);
 					setloadingPublish(false);
 					console.log(values.imageFiles.length);
@@ -156,7 +196,7 @@ export default function ProductForm() {
 
 				const response = await axios({
 					method: 'post',
-					url: 'https://staging-secondhand-bej3.herokuapp.com/product/add-product',
+					url: 'https://staging-secondhand-bej3.herokuapp.com/product/add',
 					data: bodyFormData,
 					headers: {
 						'Content-Type':
@@ -166,7 +206,15 @@ export default function ProductForm() {
 					},
 				});
 
-				message.success('Berhasil Menambah Produk!');
+				notification.open({
+					message: 'Berhasil Menambah Produk!',
+					className: 'global-alert-success',
+					placement: 'top',
+					duration: 3,
+					style: {
+						color: '#ffffff',
+					},
+				});
 				if (submitType === 1) {
 					setloadingPublish(false);
 					navigate('/aktivitas');
@@ -187,7 +235,7 @@ export default function ProductForm() {
 	return (
 		<div className='container'>
 			<Helmet>
-				<title>Update Produk</title>
+				<title>Tambah Produk - Thriftorzo</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='update-profile-wrapper max-w-[568px] md:py-10 py-6 w-full mx-auto'>
@@ -285,7 +333,7 @@ export default function ProductForm() {
 						<Upload
 							{...uploadProps}
 							listType='picture-card'
-							className='product-upload relative mb-6 w-full h-24'
+							className='product-upload relative mb-6 w-full'
 							accept='image/*'
 							fileList={fileList}
 							onPreview={handlePreview}

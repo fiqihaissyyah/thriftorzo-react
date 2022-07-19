@@ -13,16 +13,14 @@ export default function SellButton() {
 	};
 
 	return (
-		<div className='fixed bottom-[24px] left-0 right-0 z-10'>
-			<Button
-				onClick={createProduct}
-				className='bg-[#7126b5] text-[#ffffff] py-3 px-6 h-[52px] flex items-center rounded-xl sell-btn mx-auto shadow-buttonSell'
-				type='primary'
-				icon={<Plus className='mr-4' />}
-				size='large'
-			>
-				Jual
-			</Button>
-		</div>
+		<Button
+			onClick={createProduct}
+			className='bg-[#7126b5] text-[#ffffff] py-3 px-6 h-[52px] flex items-center rounded-xl sell-btn mx-auto shadow-buttonSell fixed bottom-[24px] left-1/2 z-10'
+			type='primary'
+			icon={<Plus className='mr-4' />}
+			size='large'
+		>
+			Jual
+		</Button>
 	);
 }
