@@ -285,7 +285,7 @@ export default function ProductForm() {
 						<Upload
 							{...uploadProps}
 							listType='picture-card'
-							className='product-upload relative mb-6 w-full h-24'
+							className='product-upload relative mb-6 w-full'
 							accept='image/*'
 							fileList={fileList}
 							onPreview={handlePreview}

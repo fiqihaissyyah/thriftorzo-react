@@ -10,7 +10,7 @@ import LoadingProduct from '../../components/loadingProduct';
 
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProduct } from '../../features/product/productSlice';
+import { getProduct, resetSearch } from '../../features/product/productSlice';
 
 import './index.css';
 
@@ -19,7 +19,7 @@ export default function Home() {
 	const [filterCategory, setCategory] = useState('');
 	const [search, setSearch] = useState('');
 
-	const { response, loading } = useSelector((state) => state.product.get);
+	const { isSearch, response, loading } = useSelector((state) => state.product.get);
 	const dispatch = useDispatch();
 
 	const paginationHandler = (current) => {
@@ -31,13 +31,13 @@ export default function Home() {
 		window.scrollTo(0, 0);
 	};
 
-	const getAllProduct = () => {
+	const getAllProduct = async () => {
 		const page = 0;
 		const productName = '';
 		const category = '';
 
-		setCategory('');
-		setSearch('');
+		await setCategory('');
+		await setSearch('');
 
 		dispatch(getProduct({ productName, category, page }));
 	};
@@ -54,10 +54,12 @@ export default function Home() {
 	};
 
 	useEffect(() => {
-		if (!response) {
+		if (!isSearch) {
+			console.log('reseting');
 			getAllProduct();
 		}
-	}, []);
+		console.log('not reset');
+	}, [isSearch]);
 
 	return (
 		<>

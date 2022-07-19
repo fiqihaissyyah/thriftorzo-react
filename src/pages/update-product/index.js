@@ -292,7 +292,7 @@ export default function ProductFormUpdate() {
 						<Upload
 							{...uploadProps}
 							listType='picture-card'
-							className='product-upload relative mb-6 w-full h-24'
+							className='product-upload relative mb-6 w-full'
 							accept='image/*'
 							fileList={fileList}
 							onPreview={handlePreview}
@@ -327,6 +327,7 @@ export default function ProductFormUpdate() {
 										width={102}
 										height={102}
 										src={item}
+										className='rounded-2xl'
 									/>
 									<Button
 										onClick={() =>

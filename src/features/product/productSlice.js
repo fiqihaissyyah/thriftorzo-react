@@ -7,10 +7,28 @@ export const getProduct = createAsyncThunk(
 	async ({ productName, category, page }, { rejectWithValue }) => {
 		try {
 			const response = await axios.get(
-				`${API_URL}public/get-all-product-search-filter-paginated?${
-					productName ? `productName=${productName}&` : ''
+				`${API_URL}public/get-all-product-search-filter-paginated?${productName ? `productName=${productName}&` : ''
 				}${category ? `category=${category}&` : ''}page=${page}&size=18`
 			);
+			return response;
+		} catch (err) {
+			if (!err.response) {
+				throw err;
+			}
+			return rejectWithValue(err.response.data);
+		}
+	}
+);
+
+export const searchProduct = createAsyncThunk(
+	'product/searchProduct',
+	async ({ productName, page }, { rejectWithValue }) => {
+		try {
+			const response = await axios.get(
+				`${API_URL}public/get-all-product-search-filter-paginated?${productName ? `productName=${productName}&` : ''
+				}page=${page}&size=18`
+			);
+			console.log(response)
 			return response;
 		} catch (err) {
 			if (!err.response) {
@@ -283,6 +301,7 @@ const initialState = {
 	get: {
 		response: null,
 		loading: false,
+		isSearch: false,
 		error: false,
 		errorMessage: null,
 	},
@@ -339,7 +358,11 @@ const initialState = {
 export const productSlice = createSlice({
 	name: 'product',
 	initialState,
-	reducers: {},
+	reducers: {
+		resetSearch: (state, payload) => {
+			state.get.isSearch = false;
+		},
+	},
 	extraReducers: {
 		// =================================================== GET PRODUCT =================================================== //
 		[getProduct.pending]: (state) => {
@@ -350,6 +373,7 @@ export const productSlice = createSlice({
 			state.get.error = false;
 			state.get.errorMessage = null;
 			state.get.loading = false;
+			state.get.isSearch = false;
 		},
 		[getProduct.rejected]: (state, action) => {
 			state.get.response = null;
@@ -358,6 +382,27 @@ export const productSlice = createSlice({
 				? action.payload.message
 				: action.payload.error;
 			state.get.loading = false;
+			state.get.isSearch = false;
+		},
+		// =================================================== GET PRODUCT =================================================== //
+		[searchProduct.pending]: (state) => {
+			state.get.loading = true;
+		},
+		[searchProduct.fulfilled]: (state, action) => {
+			state.get.response = action.payload.data;
+			state.get.error = false;
+			state.get.errorMessage = null;
+			state.get.loading = false;
+			state.get.isSearch = true;
+		},
+		[searchProduct.rejected]: (state, action) => {
+			state.get.response = null;
+			state.get.error = action.error.message;
+			state.get.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
+			state.get.loading = false;
+			state.get.isSearch = false;
 		},
 		// =================================================== GET PRODUCT DETAIL =================================================== //
 		[getProductDetail.pending]: (state) => {
@@ -517,6 +562,6 @@ export const productSlice = createSlice({
 	},
 });
 
-export const { reset } = productSlice.actions;
+export const { resetSearch } = productSlice.actions;
 
 export default productSlice.reducer;
