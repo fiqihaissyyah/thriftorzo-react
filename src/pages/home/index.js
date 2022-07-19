@@ -19,7 +19,9 @@ export default function Home() {
 	const [filterCategory, setCategory] = useState('');
 	const [search, setSearch] = useState('');
 
-	const { isSearch, response, loading } = useSelector((state) => state.product.get);
+	const { isSearch, response, loading } = useSelector(
+		(state) => state.product.get
+	);
 	const dispatch = useDispatch();
 
 	const paginationHandler = (current) => {

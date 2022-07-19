@@ -15,7 +15,10 @@ import Notification from '../notification';
 import './index.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, reset } from '../../features/user/userSlice';
-import { searchProduct, resetSearch } from '../../features/product/productSlice';
+import {
+	searchProduct,
+	resetSearch,
+} from '../../features/product/productSlice';
 import { countUnreadNotif } from '../../features/notification/notificationSlice';
 
 export default function Header(props) {
@@ -82,8 +85,8 @@ export default function Header(props) {
 	useEffect(() => {
 		onClose();
 		form.resetFields();
-		if(isSearch && location.pathname !== '/'){
-			dispatch(resetSearch())
+		if (isSearch && location.pathname !== '/') {
+			dispatch(resetSearch());
 		}
 	}, [location.pathname]);
 

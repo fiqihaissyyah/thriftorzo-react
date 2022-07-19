@@ -7,7 +7,8 @@ export const getProduct = createAsyncThunk(
 	async ({ productName, category, page }, { rejectWithValue }) => {
 		try {
 			const response = await axios.get(
-				`${API_URL}public/get-all-product-search-filter-paginated?${productName ? `productName=${productName}&` : ''
+				`${API_URL}public/get-all-product-search-filter-paginated?${
+					productName ? `productName=${productName}&` : ''
 				}${category ? `category=${category}&` : ''}page=${page}&size=18`
 			);
 			return response;
@@ -25,10 +26,11 @@ export const searchProduct = createAsyncThunk(
 	async ({ productName, page }, { rejectWithValue }) => {
 		try {
 			const response = await axios.get(
-				`${API_URL}public/get-all-product-search-filter-paginated?${productName ? `productName=${productName}&` : ''
+				`${API_URL}public/get-all-product-search-filter-paginated?${
+					productName ? `productName=${productName}&` : ''
 				}page=${page}&size=18`
 			);
-			console.log(response)
+			console.log(response);
 			return response;
 		} catch (err) {
 			if (!err.response) {
