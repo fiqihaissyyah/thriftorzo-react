@@ -7,7 +7,7 @@ export default function SalerInformation(props) {
 	const navigate = useNavigate();
 
 	const handleProfile = () => {
-		navigate('/profile');
+		navigate('/setting/profile');
 	};
 
 	return (

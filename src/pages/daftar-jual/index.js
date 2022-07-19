@@ -24,7 +24,8 @@ export default function DaftarJual() {
 	const location = useLocation();
 
 	const paginationHandler = (current) => {
-		dispatch(getProductByUserId(token, current - 1));
+		current = current - 1;
+		dispatch(getProductByUserId({ token, current }));
 		window.scrollTo(0, 0);
 	};
 
@@ -36,7 +37,7 @@ export default function DaftarJual() {
 	return (
 		<div className='page-daftar-jual md:py-10 py-4'>
 			<Helmet>
-				<title>Aktivitas Saya</title>
+				<title>Aktivitas Saya - Thriftorzo</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='container container-internal'>
@@ -72,6 +73,7 @@ export default function DaftarJual() {
 										lg={{ span: 8 }}
 									>
 										<Product
+											publish={i.publish}
 											img={i.imgUrl[0]}
 											title={i.name}
 											category={i.category}

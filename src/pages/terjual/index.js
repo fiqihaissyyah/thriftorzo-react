@@ -33,7 +33,7 @@ export default function Terjual() {
 	return (
 		<div className='page-daftar-jual md:py-10 py-4'>
 			<Helmet>
-				<title>Daftar Terjual</title>
+				<title>Daftar Terjual - Thriftorzo</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='container container-internal'>

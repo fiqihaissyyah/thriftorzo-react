@@ -2,7 +2,7 @@ import './index.css';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment/moment.js';
 import { Helmet } from 'react-helmet';
-import { Button, message, Skeleton } from 'antd';
+import { Button, notification, Skeleton } from 'antd';
 import { useParams } from 'react-router-dom';
 import { WhatsAppOutlined } from '@ant-design/icons';
 
@@ -42,7 +42,15 @@ export default function InfoPenawaran() {
 		await dispatch(detailOffer({ token, id }));
 		await setAcceptLoading(false);
 		acceptEvents.click();
-		message.success('Berhasil Menerima Tawaran!');
+		notification.open({
+			message: 'Berhasil Menerima Tawaran!',
+			className: 'global-alert-success',
+			placement: 'top',
+			duration: 3,
+			style: {
+				color: '#ffffff',
+			},
+		});
 	};
 
 	const rejectOffer = async () => {
@@ -51,13 +59,29 @@ export default function InfoPenawaran() {
 		await dispatch(updateStatus({ token, id, status }));
 		await dispatch(detailOffer({ token, id }));
 		await setRejectLoading(false);
-		message.success('Berhasil Menolak Tawaran!');
+		notification.open({
+			message: 'Berhasil Menolak Tawaran!',
+			className: 'global-alert-success',
+			placement: 'top',
+			duration: 3,
+			style: {
+				color: '#ffffff',
+			},
+		});
 	};
 
 	const updateOfferStatus = async (status) => {
 		await dispatch(updateStatus({ token, id, status }));
 		await dispatch(detailOffer({ token, id }));
-		message.success('Status produk berhasil diperbarui!');
+		notification.open({
+			message: 'Status produk berhasil diperbarui!',
+			className: 'global-alert-success',
+			placement: 'top',
+			duration: 3,
+			style: {
+				color: '#ffffff',
+			},
+		});
 	};
 
 	useEffect(() => {
@@ -73,7 +97,7 @@ export default function InfoPenawaran() {
 	return (
 		<div className='page-info-penawaran md:py-10 py-4'>
 			<Helmet>
-				<title>Info Penawaran</title>
+				<title>Info Penawaran - Thriftorzo</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='container container-small'>

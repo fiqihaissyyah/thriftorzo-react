@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal, Avatar, Form, InputNumber, message } from 'antd';
+import { Button, Modal, Avatar, Form, InputNumber, notification } from 'antd';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { sendOffer } from '../../features/transaction/transactionSlice';
@@ -30,13 +30,29 @@ export default function ModalOffer(props) {
 			user.cityName == null &&
 			user.imgUrl == null
 		) {
-			message.error('Lengkapi profile anda sebelum menawar!');
-			navigate('/profile');
+			notification.open({
+				message: 'Lengkapi profile anda sebelum menawar!',
+				className: 'global-alert-error',
+				placement: 'top',
+				duration: 3,
+				style: {
+					color: '#ffffff',
+				},
+			});
+			navigate('/setting/profile');
 		} else {
 			values = { ...values, status: 1, productId: props.id };
 			await dispatch(sendOffer({ token, userId, values }));
 			setIsModalVisible(false);
-			message.success('Berhasil Mengirimkan Tawaran!');
+			notification.open({
+				message: 'Berhasil Mengirimkan Tawaran!',
+				className: 'global-alert-success',
+				placement: 'top',
+				duration: 3,
+				style: {
+					color: '#ffffff',
+				},
+			});
 		}
 	};
 

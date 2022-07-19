@@ -52,7 +52,7 @@ export const getUser = createAsyncThunk(
 	async (_, { rejectWithValue }) => {
 		try {
 			if (TOKEN) {
-				const response = await axios.get(`${API_URL}user/get-user`, {
+				const response = await axios.get(`${API_URL}user/get`, {
 					headers: { Authorization: `Bearer ${TOKEN}` },
 				});
 				return response;
@@ -103,6 +103,35 @@ export const updateUser = createAsyncThunk(
 	}
 );
 
+export const changePassword = createAsyncThunk(
+	'user/changePassword',
+	async (values, { rejectWithValue }) => {
+		try {
+			if (TOKEN) {
+				const response = await axios.put(
+					`${API_URL}user/password`,
+					values,
+					{ headers: { Authorization: `Bearer ${TOKEN}` } }
+				);
+				return response;
+			} else {
+				const data = [
+					{
+						error: 'Token Not Found',
+						message: 'Token Not Found',
+					},
+				];
+				return rejectWithValue(...data);
+			}
+		} catch (err) {
+			if (!err.response) {
+				throw err;
+			}
+			return rejectWithValue(err.response.data);
+		}
+	}
+);
+
 const initialState = {
 	auth: {
 		token: TOKEN || null,
@@ -131,6 +160,13 @@ const initialState = {
 		errorMessage: null,
 		success: false,
 	},
+	password: {
+		response: null,
+		loading: false,
+		error: false,
+		errorMessage: null,
+		success: false,
+	},
 };
 
 const logoutState = {
@@ -151,11 +187,34 @@ const logoutState = {
 	},
 };
 
+const resetPasswordState = {
+	...initialState,
+	password: {
+		response: null,
+		loading: false,
+		error: false,
+		errorMessage: null,
+		success: false,
+	},
+};
+
+const afterRegisterState = {
+	...initialState,
+	register: {
+		loading: false,
+		error: false,
+		errorMessage: null,
+		success: false,
+	},
+};
+
 export const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
 		reset: () => logoutState,
+		afterResetPassword: () => resetPasswordState,
+		afterRegister: () => afterRegisterState,
 	},
 	extraReducers: {
 		// =================================================== LOGIN =================================================== //
@@ -234,9 +293,30 @@ export const userSlice = createSlice({
 				: action.payload.error;
 			state.update.loading = false;
 		},
+
+		// =================================================== UPDATE USER =================================================== //
+		[changePassword.pending]: (state) => {
+			state.password.loading = true;
+		},
+		[changePassword.fulfilled]: (state, action) => {
+			state.password.response = action.payload.data;
+			state.password.success = true;
+			state.password.error = false;
+			state.password.errorMessage = null;
+			state.password.loading = false;
+		},
+		[changePassword.rejected]: (state, action) => {
+			state.password.response = null;
+			state.password.success = false;
+			state.password.error = action.error.message;
+			state.password.errorMessage = action.payload.message
+				? action.payload.message
+				: action.payload.error;
+			state.password.loading = false;
+		},
 	},
 });
 
-export const { reset } = userSlice.actions;
+export const { reset, afterResetPassword, afterRegister } = userSlice.actions;
 
 export default userSlice.reducer;
