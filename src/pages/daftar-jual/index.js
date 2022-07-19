@@ -36,7 +36,7 @@ export default function DaftarJual() {
 	return (
 		<div className='page-daftar-jual md:py-10 py-4'>
 			<Helmet>
-				<title>Aktivitas Saya</title>
+				<title>Aktivitas Saya - Thriftorzo</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='container container-internal'>

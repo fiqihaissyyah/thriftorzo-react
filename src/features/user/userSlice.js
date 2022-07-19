@@ -52,7 +52,7 @@ export const getUser = createAsyncThunk(
 	async (_, { rejectWithValue }) => {
 		try {
 			if (TOKEN) {
-				const response = await axios.get(`${API_URL}user/get-user`, {
+				const response = await axios.get(`${API_URL}user/get`, {
 					headers: { Authorization: `Bearer ${TOKEN}` },
 				});
 				return response;
@@ -109,7 +109,7 @@ export const changePassword = createAsyncThunk(
 		try {
 			if (TOKEN) {
 				const response = await axios.put(
-					`${API_URL}user/change-password`,
+					`${API_URL}user/password`,
 					values,
 					{ headers: { Authorization: `Bearer ${TOKEN}` } }
 				);
@@ -198,12 +198,23 @@ const resetPasswordState = {
 	},
 };
 
+const afterRegisterState = {
+	...initialState,
+	register: {
+		loading: false,
+		error: false,
+		errorMessage: null,
+		success: false,
+	},
+};
+
 export const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
 		reset: () => logoutState,
 		afterResetPassword: () => resetPasswordState,
+		afterRegister: () => afterRegisterState,
 	},
 	extraReducers: {
 		// =================================================== LOGIN =================================================== //
@@ -306,6 +317,6 @@ export const userSlice = createSlice({
 	},
 });
 
-export const { reset, afterResetPassword } = userSlice.actions;
+export const { reset, afterResetPassword, afterRegister } = userSlice.actions;
 
 export default userSlice.reducer;

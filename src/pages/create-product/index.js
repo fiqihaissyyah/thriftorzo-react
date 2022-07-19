@@ -196,7 +196,7 @@ export default function ProductForm() {
 
 				const response = await axios({
 					method: 'post',
-					url: 'https://staging-secondhand-bej3.herokuapp.com/product/add-product',
+					url: 'https://staging-secondhand-bej3.herokuapp.com/product/add',
 					data: bodyFormData,
 					headers: {
 						'Content-Type':
@@ -235,7 +235,7 @@ export default function ProductForm() {
 	return (
 		<div className='container'>
 			<Helmet>
-				<title>Update Produk</title>
+				<title>Tambah Produk - Thriftorzo</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='update-profile-wrapper max-w-[568px] md:py-10 py-6 w-full mx-auto'>

@@ -36,7 +36,7 @@ export const countUnreadNotif = createAsyncThunk(
 		try {
 			if (token) {
 				const response = await axios.get(
-					`${API_URL}notification/unread-count`,
+					`${API_URL}notification/unread`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
@@ -94,7 +94,7 @@ export const allReadNotif = createAsyncThunk(
 			if (token) {
 				console.log(token);
 				const response = await axios.put(
-					`${API_URL}notification/mark-all-read`,
+					`${API_URL}notification/all-read`,
 					{ body: 'test' },
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);

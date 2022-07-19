@@ -8,7 +8,7 @@ export const saleHistory = createAsyncThunk(
 		try {
 			if (token) {
 				const response = await axios.get(
-					`${API_URL}history/seller-history`,
+					`${API_URL}history/seller`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
@@ -36,7 +36,7 @@ export const sendOffer = createAsyncThunk(
 		try {
 			if (token) {
 				const response = await axios.post(
-					`${API_URL}transaction/buy-transaction`,
+					`${API_URL}transaction/buy`,
 					values,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
@@ -65,7 +65,7 @@ export const buyHistory = createAsyncThunk(
 		try {
 			if (token) {
 				const response = await axios.get(
-					`${API_URL}history/buyer-history`,
+					`${API_URL}history/buyer`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
@@ -93,7 +93,7 @@ export const detailOffer = createAsyncThunk(
 		try {
 			if (token) {
 				const response = await axios.get(
-					`${API_URL}transaction/get-transaction?offerId=${id}`,
+					`${API_URL}transaction/get?offerId=${id}`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
@@ -121,7 +121,7 @@ export const updateStatus = createAsyncThunk(
 		try {
 			if (token) {
 				const response = await axios.put(
-					`${API_URL}transaction/update-transaction`,
+					`${API_URL}transaction/update`,
 					{ offerId: id, status: status },
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);

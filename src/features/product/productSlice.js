@@ -7,7 +7,7 @@ export const getProduct = createAsyncThunk(
 	async ({ productName, category, page }, { rejectWithValue }) => {
 		try {
 			const response = await axios.get(
-				`${API_URL}public/get-all-product-search-filter-paginated?${
+				`${API_URL}public/all?${
 					productName ? `productName=${productName}&` : ''
 				}${category ? `category=${category}&` : ''}page=${page}&size=18`
 			);
@@ -26,7 +26,7 @@ export const searchProduct = createAsyncThunk(
 	async ({ productName, page }, { rejectWithValue }) => {
 		try {
 			const response = await axios.get(
-				`${API_URL}public/get-all-product-search-filter-paginated?${
+				`${API_URL}public/all?${
 					productName ? `productName=${productName}&` : ''
 				}page=${page}&size=18`
 			);
@@ -46,7 +46,7 @@ export const getProductDetail = createAsyncThunk(
 	async (id, { rejectWithValue }) => {
 		try {
 			const response = await axios.get(
-				`${API_URL}public/get-product/${id}`
+				`${API_URL}public/product/${id}`
 			);
 			return response;
 		} catch (err) {
@@ -64,7 +64,7 @@ export const deleteProduct = createAsyncThunk(
 		try {
 			if (token) {
 				const response = await axios.delete(
-					`${API_URL}product/delete-product?productId=${id}`,
+					`${API_URL}product/delete?productId=${id}`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
@@ -130,7 +130,7 @@ export const publishProduct = createAsyncThunk(
 
 				const response = await axios({
 					method: 'put',
-					url: `${API_URL}product/update-product`,
+					url: `${API_URL}product/update`,
 					data: bodyFormData,
 					headers: {
 						'Content-Type':
@@ -164,7 +164,7 @@ export const getWishlist = createAsyncThunk(
 		try {
 			if (token) {
 				const response = await axios.get(
-					`${API_URL}wishlist/get-user-wishlist?page=${current}&size=14`,
+					`${API_URL}wishlist/get?page=${current}&size=14`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
@@ -192,7 +192,7 @@ export const addToWishlist = createAsyncThunk(
 		try {
 			if (token) {
 				const response = await axios.post(
-					`${API_URL}wishlist/add-wishlist`,
+					`${API_URL}wishlist/add`,
 					{ productId: productId },
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
@@ -221,7 +221,7 @@ export const removeWishlist = createAsyncThunk(
 		try {
 			if (token) {
 				const response = await axios.delete(
-					`${API_URL}wishlist/delete-wishlist?productId=${productId}`,
+					`${API_URL}wishlist/delete?productId=${productId}`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
@@ -249,7 +249,7 @@ export const getProductByUserId = createAsyncThunk(
 		try {
 			if (token) {
 				const response = await axios.get(
-					`${API_URL}product/get-products-by-userid?page=${current}&size=14`,
+					`${API_URL}product/products?page=${current}&size=14`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
@@ -277,7 +277,7 @@ export const getSold = createAsyncThunk(
 		try {
 			if (token) {
 				const response = await axios.get(
-					`${API_URL}product/get-sold-products?page=${current}&size=14`,
+					`${API_URL}product/sold?page=${current}&size=14`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;

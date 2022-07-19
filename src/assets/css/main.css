@@ -138,12 +138,14 @@ textarea.ant-input {
 	padding: 16px 24px 16px 24px !important;
 }
 
-.global-alert-success .ant-notification-notice-message, .global-alert-success .anticon-close {
+.global-alert-success .ant-notification-notice-message,
+.global-alert-success .anticon-close {
 	color: #ffffff !important;
 	margin-bottom: 0 !important;
 }
 
-.global-alert-error .ant-notification-notice-message, .global-alert-error .anticon-close {
+.global-alert-error .ant-notification-notice-message,
+.global-alert-error .anticon-close {
 	color: #ffffff !important;
 	margin-bottom: 0 !important;
 }
