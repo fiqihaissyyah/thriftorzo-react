@@ -4,11 +4,11 @@ export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
 
 export const saleHistory = createAsyncThunk(
 	'transaction/saleHistory',
-	async (token, { rejectWithValue }) => {
+	async ({token, current} , { rejectWithValue }) => {
 		try {
 			if (token) {
 				const response = await axios.get(
-					`${API_URL}history/seller-history`,
+					`${API_URL}history/seller-history?page=${current}&size=10`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;
@@ -61,11 +61,11 @@ export const sendOffer = createAsyncThunk(
 
 export const buyHistory = createAsyncThunk(
 	'transaction/buyHistory',
-	async (token, { rejectWithValue }) => {
+	async ({token , current}, { rejectWithValue }) => {
 		try {
 			if (token) {
 				const response = await axios.get(
-					`${API_URL}history/buyer-history`,
+					`${API_URL}history/buyer-history?page=${current}&size=10`,
 					{ headers: { Authorization: `Bearer ${token}` } }
 				);
 				return response;

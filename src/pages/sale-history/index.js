@@ -1,6 +1,6 @@
 import './index.css';
 import React, { useEffect } from 'react';
-import { Row, Col, Skeleton } from 'antd';
+import { Row, Col, Skeleton, Pagination } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
@@ -12,6 +12,7 @@ import Empty from '../../components/empty';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { saleHistory } from '../../features/transaction/transactionSlice';
+import { current } from '@reduxjs/toolkit';
 
 export default function BuyHistory() {
 	const token = useSelector((state) => state.user.auth.token);
@@ -23,12 +24,14 @@ export default function BuyHistory() {
 	const location = useLocation();
 
 	const paginationHandler = (current) => {
-		dispatch(saleHistory(token));
+		current = current-1
+		dispatch(saleHistory({ token, current } ));
 		window.scrollTo(0, 0);
 	};
 
 	useEffect(() => {
-		dispatch(saleHistory(token));
+		const current = 0;
+		dispatch(saleHistory({token, current}));
 	}, [location.pathname]);
 
 	const currency = (value) =>
@@ -69,9 +72,9 @@ export default function BuyHistory() {
 											<Skeleton active />
 										</div>
 									))}
-							{!loading && !response && <Empty />}
+							{!loading && !!response && !response.historyResponse && <Empty />}
 							{!!response &&
-								response.map((i) => (
+								response.historyResponse.map((i) => (
 									<div className=' p-4 shadow-custom rounded-2xl mb-4 flex w-full border-0 cursor-text'>
 										<img
 											className='flex-shrink-0 w-12 h-12 object-cover rounded-xl mr-4'
@@ -109,6 +112,16 @@ export default function BuyHistory() {
 										</div>
 									</div>
 								))}
+							{!loading && !!response && response.totalPage > 1 && (
+										<Pagination
+											className='mb-10'
+											onChange={paginationHandler}
+											defaultCurrent={1}
+											current={!!response && response.currentPage + 1}
+											total={!!response && response.totalElement}
+											pageSize={10}
+										/>
+									)}
 						</Col>
 					</Row>
 				</div>
