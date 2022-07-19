@@ -74,8 +74,8 @@ export default function Notification() {
 			{!loading &&
 				!!response &&
 				response.notificationResponses.length === 0 && (
-				<p className='text-center mb-0'>Tidak ada Notifikasi</p>
-			)}
+					<p className='text-center mb-0'>Tidak ada Notifikasi</p>
+				)}
 			{!loading &&
 				!!response &&
 				response.notificationResponses &&
@@ -135,20 +135,23 @@ export default function Notification() {
 			{!loading &&
 				!!response &&
 				response.notificationResponses.length !== 0 && (
-				<>
-					<Link className='block text-center' to={'/notification'}>
-						Lihat Semua Notification
-					</Link>
-					<div className='flex justify-center m-2'>
-						<button
-							className=' text-purplePrimary cursor-pointer border-none bg-transparent'
-							onClick={allNotif}
+					<>
+						<Link
+							className='block text-center'
+							to={'/notification'}
 						>
-							Tandai semua dibaca
-						</button>
-					</div>
-				</>
-			)}
+							Lihat Semua Notification
+						</Link>
+						<div className='flex justify-center m-2'>
+							<button
+								className=' text-purplePrimary cursor-pointer border-none bg-transparent'
+								onClick={allNotif}
+							>
+								Tandai semua dibaca
+							</button>
+						</div>
+					</>
+				)}
 		</div>
 	);
 }
