@@ -1,7 +1,7 @@
 import './index.css';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, Input, Alert, message } from 'antd';
+import { Button, Form, Input, Alert, notification } from 'antd';
 import { Helmet } from 'react-helmet';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,7 +25,15 @@ export default function Password() {
 	useEffect(() => {
 		if (success === true) {
 			dispatch(afterResetPassword());
-			message.success('Update Password Berhasil');
+			notification.open({
+				message: 'Update Password Berhasil',
+				className: 'global-alert-success',
+				placement: 'top',
+				duration: 3,
+				style: {
+					color: '#ffffff',
+				},
+			});
 			form.resetFields();
 			navigate('/setting');
 		}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { message } from 'antd';
+import { message, notification } from 'antd';
 import { Navigate, useLocation, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -14,7 +14,15 @@ export default function checkUserProfile(props) {
 		profileUser.cityName == null &&
 		profileUser.imgUrl == null
 	) {
-		message.error('Lengkapi profile anda terlebih dahulu!');
+		notification.open({
+			message: 'Lengkapi profile anda terlebih dahulu!',
+			className: 'global-alert-error',
+			placement: 'top',
+			duration: 3,
+			style: {
+				color: '#ffffff',
+			},
+		});
 		message.destroy();
 		return <Navigate to='/setting/profile' state={{ from: location }} />;
 	}
