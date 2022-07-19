@@ -24,7 +24,7 @@ export default function Login() {
 	};
 
 	const login = useGoogleLogin({
-		onSuccess: tokenResponse => console.log(tokenResponse),
+		onSuccess: (tokenResponse) => console.log(tokenResponse),
 	});
 
 	const onFinishFailed = (errorInfo) => {
@@ -113,9 +113,16 @@ export default function Login() {
 									Masuk
 								</Button>
 							</Form.Item>
-							<Button type='primary' className='w-full btn-custom mb-10' icon={<GoogleOutlined />} onClick={() => login()} ghost>
+							<Button
+								type='primary'
+								className='w-full btn-custom mb-10'
+								icon={<GoogleOutlined />}
+								onClick={() => login()}
+								ghost
+							>
 								Sign in with Google
-							</Button>;
+							</Button>
+							;
 							<p className='text-sm text-black text-center lg:relative fixed left-0 right-0 bottom-6 lg:bottom-0'>
 								Belum punya akun?{' '}
 								<Link className='font-bold' to='/register'>

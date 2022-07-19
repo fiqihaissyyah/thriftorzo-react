@@ -4,7 +4,7 @@ export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
 
 export const saleHistory = createAsyncThunk(
 	'transaction/saleHistory',
-	async ({token, current} , { rejectWithValue }) => {
+	async ({ token, current }, { rejectWithValue }) => {
 		try {
 			if (token) {
 				const response = await axios.get(
@@ -61,7 +61,7 @@ export const sendOffer = createAsyncThunk(
 
 export const buyHistory = createAsyncThunk(
 	'transaction/buyHistory',
-	async ({token , current}, { rejectWithValue }) => {
+	async ({ token, current }, { rejectWithValue }) => {
 		try {
 			if (token) {
 				const response = await axios.get(

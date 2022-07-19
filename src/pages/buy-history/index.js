@@ -20,14 +20,14 @@ export default function BuyHistory() {
 	const location = useLocation();
 
 	const paginationHandler = (current) => {
-		current = current-1;
-		dispatch(buyHistory({token, current}));
+		current = current - 1;
+		dispatch(buyHistory({ token, current }));
 		window.scrollTo(0, 0);
 	};
 
 	useEffect(() => {
 		const current = 0;
-		dispatch(buyHistory({token, current}));
+		dispatch(buyHistory({ token, current }));
 	}, [location.pathname]);
 
 	const currency = (value) =>
@@ -68,7 +68,9 @@ export default function BuyHistory() {
 											<Skeleton active />
 										</div>
 									))}
-							{!loading && !!response && !response.historyResponse && <Empty />}
+							{!loading &&
+								!!response &&
+								!response.historyResponse && <Empty />}
 							{!!response &&
 								response.historyResponse.map((i) => (
 									<div className=' p-4 shadow-custom rounded-2xl mb-4 flex w-full border-0 cursor-text'>
@@ -108,16 +110,23 @@ export default function BuyHistory() {
 										</div>
 									</div>
 								))}
-								{!loading && !!response && response.totalPage > 1 && (
-										<Pagination
-											className='mb-10'
-											onChange={paginationHandler}
-											defaultCurrent={1}
-											current={!!response && response.currentPage + 1}
-											total={!!response && response.totalElement}
-											pageSize={10}
-										/>
-									)}
+							{!loading &&
+								!!response &&
+								response.totalPage > 1 && (
+									<Pagination
+										className='mb-10'
+										onChange={paginationHandler}
+										defaultCurrent={1}
+										current={
+											!!response &&
+											response.currentPage + 1
+										}
+										total={
+											!!response && response.totalElement
+										}
+										pageSize={10}
+									/>
+								)}
 						</Col>
 					</Row>
 				</div>
