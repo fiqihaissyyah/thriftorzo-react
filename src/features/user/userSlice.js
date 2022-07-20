@@ -5,132 +5,113 @@ export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
 export let TOKEN = localStorage.getItem('token');
 export let USER = JSON.parse(localStorage.getItem('user'));
 
-export const auth = createAsyncThunk(
-	'user/auth',
-	async (values, { rejectWithValue }) => {
-		try {
-			const response = await axios.post(`${API_URL}auth/signin`, values);
-			if (response.status === 200) {
-				localStorage.setItem('token', response.data.token);
-				localStorage.setItem('user', JSON.stringify(response.data));
-				TOKEN = response.data.token;
-				USER = response.data;
-				return response;
-			} else {
-				rejectWithValue(response);
-			}
-		} catch (err) {
-			if (!err.response) {
-				throw err;
-			}
-			return rejectWithValue(err.response.data);
+export const auth = createAsyncThunk('user/auth', async (values, { rejectWithValue }) => {
+	try {
+		const response = await axios.post(`${API_URL}auth/signin`, values);
+		if (response.status === 200) {
+			localStorage.setItem('token', response.data.token);
+			localStorage.setItem('user', JSON.stringify(response.data));
+			TOKEN = response.data.token;
+			USER = response.data;
+			return response;
+		} else {
+			rejectWithValue(response);
 		}
+	} catch (err) {
+		if (!err.response) {
+			throw err;
+		}
+		return rejectWithValue(err.response.data);
 	}
-);
+});
 
-export const register = createAsyncThunk(
-	'user/register',
-	async (values, { rejectWithValue }) => {
-		try {
-			const response = await axios.post(`${API_URL}auth/signup`, values);
-			if (response.status === 200) {
-				return response;
-			} else {
-				rejectWithValue(response);
-			}
-		} catch (err) {
-			if (!err.response) {
-				throw err;
-			}
-			return rejectWithValue(err.response.data);
+export const register = createAsyncThunk('user/register', async (values, { rejectWithValue }) => {
+	try {
+		const response = await axios.post(`${API_URL}auth/signup`, values);
+		if (response.status === 200) {
+			return response;
+		} else {
+			rejectWithValue(response);
 		}
+	} catch (err) {
+		if (!err.response) {
+			throw err;
+		}
+		return rejectWithValue(err.response.data);
 	}
-);
+});
 
-export const getUser = createAsyncThunk(
-	'user/getUser',
-	async (_, { rejectWithValue }) => {
-		try {
-			if (TOKEN) {
-				const response = await axios.get(`${API_URL}user/get`, {
-					headers: { Authorization: `Bearer ${TOKEN}` },
-				});
-				return response;
-			} else {
-				const data = [
-					{
-						error: 'Token Not Found',
-						message: 'Token Not Found',
-					},
-				];
-				return rejectWithValue(...data);
-			}
-		} catch (err) {
-			if (!err.response) {
-				throw err;
-			}
-			return rejectWithValue(err.response.data);
+export const getUser = createAsyncThunk('user/getUser', async (_, { rejectWithValue }) => {
+	try {
+		if (TOKEN) {
+			const response = await axios.get(`${API_URL}user/get`, {
+				headers: { Authorization: `Bearer ${TOKEN}` },
+			});
+			return response;
+		} else {
+			const data = [
+				{
+					error: 'Token Not Found',
+					message: 'Token Not Found',
+				},
+			];
+			return rejectWithValue(...data);
 		}
+	} catch (err) {
+		if (!err.response) {
+			throw err;
+		}
+		return rejectWithValue(err.response.data);
 	}
-);
+});
 
-export const updateUser = createAsyncThunk(
-	'user/updateUser',
-	async (values, { rejectWithValue }) => {
-		try {
-			if (TOKEN) {
-				const response = await axios.put(
-					`${API_URL}user/update-data`,
-					values,
-					{ headers: { Authorization: `Bearer ${TOKEN}` } }
-				);
-				return response;
-			} else {
-				const data = [
-					{
-						error: 'Token Not Found',
-						message: 'Token Not Found',
-					},
-				];
-				return rejectWithValue(...data);
-			}
-		} catch (err) {
-			if (!err.response) {
-				throw err;
-			}
-			return rejectWithValue(err.response.data);
+export const updateUser = createAsyncThunk('user/updateUser', async (values, { rejectWithValue }) => {
+	try {
+		if (TOKEN) {
+			const response = await axios.put(`${API_URL}user/update-data`, values, {
+				headers: { Authorization: `Bearer ${TOKEN}` },
+			});
+			return response;
+		} else {
+			const data = [
+				{
+					error: 'Token Not Found',
+					message: 'Token Not Found',
+				},
+			];
+			return rejectWithValue(...data);
 		}
+	} catch (err) {
+		if (!err.response) {
+			throw err;
+		}
+		return rejectWithValue(err.response.data);
 	}
-);
+});
 
-export const changePassword = createAsyncThunk(
-	'user/changePassword',
-	async (values, { rejectWithValue }) => {
-		try {
-			if (TOKEN) {
-				const response = await axios.put(
-					`${API_URL}user/password`,
-					values,
-					{ headers: { Authorization: `Bearer ${TOKEN}` } }
-				);
-				return response;
-			} else {
-				const data = [
-					{
-						error: 'Token Not Found',
-						message: 'Token Not Found',
-					},
-				];
-				return rejectWithValue(...data);
-			}
-		} catch (err) {
-			if (!err.response) {
-				throw err;
-			}
-			return rejectWithValue(err.response.data);
+export const changePassword = createAsyncThunk('user/changePassword', async (values, { rejectWithValue }) => {
+	try {
+		if (TOKEN) {
+			const response = await axios.put(`${API_URL}user/password`, values, {
+				headers: { Authorization: `Bearer ${TOKEN}` },
+			});
+			return response;
+		} else {
+			const data = [
+				{
+					error: 'Token Not Found',
+					message: 'Token Not Found',
+				},
+			];
+			return rejectWithValue(...data);
 		}
+	} catch (err) {
+		if (!err.response) {
+			throw err;
+		}
+		return rejectWithValue(err.response.data);
 	}
-);
+});
 
 const initialState = {
 	auth: {
@@ -231,9 +212,7 @@ export const userSlice = createSlice({
 		[auth.rejected]: (state, action) => {
 			state.auth.success = false;
 			state.auth.error = action.error.message;
-			state.auth.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.auth.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.auth.loading = false;
 		},
 		// =================================================== REGISTER =================================================== //
@@ -248,9 +227,7 @@ export const userSlice = createSlice({
 		},
 		[register.rejected]: (state, action) => {
 			state.register.error = action.error.message;
-			state.register.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.register.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.register.loading = false;
 			state.register.success = false;
 		},
@@ -268,9 +245,7 @@ export const userSlice = createSlice({
 		[getUser.rejected]: (state, action) => {
 			state.user.success = false;
 			state.user.error = action.error.message;
-			state.user.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.user.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.user.loading = false;
 		},
 
@@ -288,9 +263,7 @@ export const userSlice = createSlice({
 		[updateUser.rejected]: (state, action) => {
 			state.update.success = false;
 			state.update.error = action.error.message;
-			state.update.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.update.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.update.loading = false;
 		},
 
@@ -309,9 +282,7 @@ export const userSlice = createSlice({
 			state.password.response = null;
 			state.password.success = false;
 			state.password.error = action.error.message;
-			state.password.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.password.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.password.loading = false;
 		},
 	},

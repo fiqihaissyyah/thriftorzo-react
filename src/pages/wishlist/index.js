@@ -17,9 +17,7 @@ import './index.css';
 export default function Wishlist() {
 	const token = useSelector((state) => state.user.auth.token);
 	const user = useSelector((state) => state.user.user.data);
-	const { response, loading } = useSelector(
-		(state) => state.product.userWishlist
-	);
+	const { response, loading } = useSelector((state) => state.product.userWishlist);
 	const dispatch = useDispatch();
 	const userId = user ? user.id : '';
 	const location = useLocation();
@@ -41,9 +39,7 @@ export default function Wishlist() {
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='container container-internal'>
-				<h1 className='text-xl text-black font-bold mb-6 md:block hidden'>
-					Aktivitas Saya
-				</h1>
+				<h1 className='text-xl text-black font-bold mb-6 md:block hidden'>Aktivitas Saya</h1>
 				<SalerInformation user={user} edit />
 				<Row gutter={[32, 24]} className='pt-6'>
 					<Col xs={{ span: 24 }} lg={{ span: 8 }}>
@@ -58,12 +54,7 @@ export default function Wishlist() {
 								response.productResponses &&
 								response.productResponses.length > 0 &&
 								response.productResponses.map((i, index) => (
-									<Col
-										key={index}
-										xs={{ span: 12 }}
-										md={{ span: 8 }}
-										lg={{ span: 8 }}
-									>
+									<Col key={index} xs={{ span: 12 }} md={{ span: 8 }} lg={{ span: 8 }}>
 										<Product
 											img={i.imgUrl[0]}
 											title={i.name}

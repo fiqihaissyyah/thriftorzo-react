@@ -14,7 +14,8 @@
 	},
 	"rules": {
 		"no-unused-vars": "off",
-		"indent": ["warn", "tab"],
+		"no-mixed-spaces-and-tabs": "off",
+		"indent": "off",
 		"quotes": ["error", "single"]
 	},
 	"ignorePatterns": ["*.spec.js", "*.test.js"]

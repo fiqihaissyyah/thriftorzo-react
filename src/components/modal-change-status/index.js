@@ -42,15 +42,8 @@ export default function ModalChangeStatus(props) {
 				visible={isModalVisible}
 				onCancel={handleCancel}
 			>
-				<p className='text-sm text-black font-medium mb-[26px]'>
-					Perbarui status penjualan produkmu
-				</p>
-				<Form
-					layout='vertical'
-					form={form}
-					name='control-hooks'
-					onFinish={onFinish}
-				>
+				<p className='text-sm text-black font-medium mb-[26px]'>Perbarui status penjualan produkmu</p>
+				<Form layout='vertical' form={form} name='control-hooks' onFinish={onFinish}>
 					<Form.Item
 						className='mb-8'
 						name='status'
@@ -61,38 +54,23 @@ export default function ModalChangeStatus(props) {
 							},
 						]}
 					>
-						<Radio.Group
-							onChange={onChange}
-							value={value}
-							className='mb-0'
-						>
+						<Radio.Group onChange={onChange} value={value} className='mb-0'>
 							<Radio value={4}>
-								<span className='text-sm text-black mb-2 block'>
-									Berhasil terjual
-								</span>{' '}
+								<span className='text-sm text-black mb-2 block'>Berhasil terjual</span>{' '}
 								<p className='mb-[26px] text-sm text-neutralGray'>
-									Kamu telah sepakat menjual produk ini kepada
-									pembeli
+									Kamu telah sepakat menjual produk ini kepada pembeli
 								</p>
 							</Radio>
 							<Radio value={2}>
-								<span className='text-sm text-black mb-2 block'>
-									Batalkan transaksi
-								</span>{' '}
+								<span className='text-sm text-black mb-2 block'>Batalkan transaksi</span>{' '}
 								<p className='mb-0 text-sm text-neutralGray'>
-									Kamu telah sepakat menjual produk ini kepada
-									pembeli
+									Kamu telah sepakat menjual produk ini kepada pembeli
 								</p>
 							</Radio>
 						</Radio.Group>
 					</Form.Item>
 					<Form.Item>
-						<Button
-							loading={props.loading}
-							htmlType='submit'
-							type='primary'
-							className='btn-custom w-full'
-						>
+						<Button loading={props.loading} htmlType='submit' type='primary' className='btn-custom w-full'>
 							Kirim
 						</Button>
 					</Form.Item>

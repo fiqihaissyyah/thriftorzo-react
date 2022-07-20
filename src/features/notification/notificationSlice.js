@@ -7,10 +7,9 @@ export const getNotification = createAsyncThunk(
 	async ({ token, current, size }, { rejectWithValue }) => {
 		try {
 			if (token) {
-				const response = await axios.get(
-					`${API_URL}notification/get?page=${current}&size=${size}`,
-					{ headers: { Authorization: `Bearer ${token}` } }
-				);
+				const response = await axios.get(`${API_URL}notification/get?page=${current}&size=${size}`, {
+					headers: { Authorization: `Bearer ${token}` },
+				});
 				return response;
 			} else {
 				const data = [
@@ -35,10 +34,9 @@ export const countUnreadNotif = createAsyncThunk(
 	async (token, { rejectWithValue }) => {
 		try {
 			if (token) {
-				const response = await axios.get(
-					`${API_URL}notification/unread`,
-					{ headers: { Authorization: `Bearer ${token}` } }
-				);
+				const response = await axios.get(`${API_URL}notification/unread`, {
+					headers: { Authorization: `Bearer ${token}` },
+				});
 				return response;
 			} else {
 				const data = [
@@ -58,64 +56,58 @@ export const countUnreadNotif = createAsyncThunk(
 	}
 );
 
-export const readNotif = createAsyncThunk(
-	'notification/readNotif',
-	async ({ token, id }, { rejectWithValue }) => {
-		try {
-			if (token) {
-				const response = await axios.put(
-					`${API_URL}notification/read`,
-					{ id: id },
-					{ headers: { Authorization: `Bearer ${token}` } }
-				);
-				return response;
-			} else {
-				const data = [
-					{
-						error: 'Token Not Found',
-						message: 'Token Not Found',
-					},
-				];
-				return rejectWithValue(...data);
-			}
-		} catch (err) {
-			if (!err.response) {
-				throw err;
-			}
-			return rejectWithValue(err.response.data);
+export const readNotif = createAsyncThunk('notification/readNotif', async ({ token, id }, { rejectWithValue }) => {
+	try {
+		if (token) {
+			const response = await axios.put(
+				`${API_URL}notification/read`,
+				{ id: id },
+				{ headers: { Authorization: `Bearer ${token}` } }
+			);
+			return response;
+		} else {
+			const data = [
+				{
+					error: 'Token Not Found',
+					message: 'Token Not Found',
+				},
+			];
+			return rejectWithValue(...data);
 		}
+	} catch (err) {
+		if (!err.response) {
+			throw err;
+		}
+		return rejectWithValue(err.response.data);
 	}
-);
+});
 
-export const allReadNotif = createAsyncThunk(
-	'notification/allReadNotif',
-	async (token, { rejectWithValue }) => {
-		try {
-			if (token) {
-				console.log(token);
-				const response = await axios.put(
-					`${API_URL}notification/all-read`,
-					{ body: 'test' },
-					{ headers: { Authorization: `Bearer ${token}` } }
-				);
-				return response;
-			} else {
-				const data = [
-					{
-						error: 'Token Not Found',
-						message: 'Token Not Found',
-					},
-				];
-				return rejectWithValue(...data);
-			}
-		} catch (err) {
-			if (!err.response) {
-				throw err;
-			}
-			return rejectWithValue(err.response.data);
+export const allReadNotif = createAsyncThunk('notification/allReadNotif', async (token, { rejectWithValue }) => {
+	try {
+		if (token) {
+			console.log(token);
+			const response = await axios.put(
+				`${API_URL}notification/all-read`,
+				{ body: 'test' },
+				{ headers: { Authorization: `Bearer ${token}` } }
+			);
+			return response;
+		} else {
+			const data = [
+				{
+					error: 'Token Not Found',
+					message: 'Token Not Found',
+				},
+			];
+			return rejectWithValue(...data);
 		}
+	} catch (err) {
+		if (!err.response) {
+			throw err;
+		}
+		return rejectWithValue(err.response.data);
 	}
-);
+});
 
 const initialState = {
 	notif: {
@@ -162,9 +154,7 @@ export const notificationSlice = createSlice({
 		[getNotification.rejected]: (state, action) => {
 			state.notif.response = null;
 			state.notif.error = action.error.message;
-			state.notif.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.notif.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.notif.loading = false;
 		},
 		// =================================================== COUNT NOTIFICATION =================================================== //
@@ -180,9 +170,7 @@ export const notificationSlice = createSlice({
 		[countUnreadNotif.rejected]: (state, action) => {
 			state.count.response = null;
 			state.count.error = action.error.message;
-			state.count.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.count.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.count.loading = false;
 		},
 		// =================================================== READ NOTIFICATION =================================================== //
@@ -198,9 +186,7 @@ export const notificationSlice = createSlice({
 		[readNotif.rejected]: (state, action) => {
 			state.read.response = null;
 			state.read.error = action.error.message;
-			state.read.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.read.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.read.loading = false;
 		},
 		// =================================================== ALL READ NOTIFICATION =================================================== //
@@ -216,9 +202,7 @@ export const notificationSlice = createSlice({
 		[allReadNotif.rejected]: (state, action) => {
 			state.all.response = null;
 			state.all.error = action.error.message;
-			state.all.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.all.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.all.loading = false;
 		},
 	},

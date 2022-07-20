@@ -86,36 +86,20 @@ export default function ModalOffer(props) {
 				visible={isModalVisible}
 				onCancel={handleCancel}
 			>
-				<p className='text-sm text-black font-medium mb-2'>
-					Masukkan Harga Tawarmu
-				</p>
+				<p className='text-sm text-black font-medium mb-2'>Masukkan Harga Tawarmu</p>
 				<p className='text-sm text-[#8A8A8A] mb-4'>
-					Harga tawaranmu akan diketahui penjual, jika penjual cocok
-					kamu akan segera dihubungi penjual.
+					Harga tawaranmu akan diketahui penjual, jika penjual cocok kamu akan segera dihubungi penjual.
 				</p>
 				<div className='product-match p-4 md:bg-[#EEEEEE] md:shadow-none shadow-custom bg-white rounded-2xl mb-6'>
 					<div className='product flex'>
-						<Avatar
-							size={48}
-							className='rounded-xl mr-4 flex-shrink-0'
-							src={props.image}
-						/>
+						<Avatar size={48} className='rounded-xl mr-4 flex-shrink-0' src={props.image} />
 						<div className='product-info w-full flex flex-col justify-center'>
-							<p className='text-sm text-black font-medium mb-1'>
-								{props.name}
-							</p>
-							<p className='text-sm text-black mb-1'>
-								{currency(props.price)}
-							</p>
+							<p className='text-sm text-black font-medium mb-1'>{props.name}</p>
+							<p className='text-sm text-black mb-1'>{currency(props.price)}</p>
 						</div>
 					</div>
 				</div>
-				<Form
-					layout='vertical'
-					form={form}
-					name='control-hooks'
-					onFinish={onFinish}
-				>
+				<Form layout='vertical' form={form} name='control-hooks' onFinish={onFinish}>
 					<Form.Item
 						className='mb-4'
 						name='offerPrice'
@@ -132,15 +116,10 @@ export default function ModalOffer(props) {
 							},
 						]}
 					>
-						<InputNumber placeholder='Rp 0,00' />
+						<InputNumber step='5000' placeholder='Rp 0,00' />
 					</Form.Item>
 					<Form.Item className='mb-0'>
-						<Button
-							loading={loading}
-							type='primary'
-							htmlType='submit'
-							className='btn-custom w-full'
-						>
+						<Button loading={loading} type='primary' htmlType='submit' className='btn-custom w-full'>
 							Kirim
 						</Button>
 					</Form.Item>

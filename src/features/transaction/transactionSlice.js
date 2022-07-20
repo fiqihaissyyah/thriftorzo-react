@@ -7,10 +7,9 @@ export const saleHistory = createAsyncThunk(
 	async ({ token, current }, { rejectWithValue }) => {
 		try {
 			if (token) {
-				const response = await axios.get(
-					`${API_URL}history/seller?page=${current}&size=10`,
-					{ headers: { Authorization: `Bearer ${token}` } }
-				);
+				const response = await axios.get(`${API_URL}history/seller?page=${current}&size=10`, {
+					headers: { Authorization: `Bearer ${token}` },
+				});
 				return response;
 			} else {
 				const data = [
@@ -35,11 +34,9 @@ export const sendOffer = createAsyncThunk(
 	async ({ token, userId, values }, { rejectWithValue }) => {
 		try {
 			if (token) {
-				const response = await axios.post(
-					`${API_URL}transaction/buy`,
-					values,
-					{ headers: { Authorization: `Bearer ${token}` } }
-				);
+				const response = await axios.post(`${API_URL}transaction/buy`, values, {
+					headers: { Authorization: `Bearer ${token}` },
+				});
 				return response;
 			} else {
 				const data = [
@@ -64,10 +61,9 @@ export const buyHistory = createAsyncThunk(
 	async ({ token, current }, { rejectWithValue }) => {
 		try {
 			if (token) {
-				const response = await axios.get(
-					`${API_URL}history/buyer?page=${current}&size=10`,
-					{ headers: { Authorization: `Bearer ${token}` } }
-				);
+				const response = await axios.get(`${API_URL}history/buyer?page=${current}&size=10`, {
+					headers: { Authorization: `Bearer ${token}` },
+				});
 				return response;
 			} else {
 				const data = [
@@ -87,33 +83,29 @@ export const buyHistory = createAsyncThunk(
 	}
 );
 
-export const detailOffer = createAsyncThunk(
-	'transaction/detailOffer',
-	async ({ token, id }, { rejectWithValue }) => {
-		try {
-			if (token) {
-				const response = await axios.get(
-					`${API_URL}transaction/get?offerId=${id}`,
-					{ headers: { Authorization: `Bearer ${token}` } }
-				);
-				return response;
-			} else {
-				const data = [
-					{
-						error: 'Token Not Found',
-						message: 'Token Not Found',
-					},
-				];
-				return rejectWithValue(...data);
-			}
-		} catch (err) {
-			if (!err.response) {
-				throw err;
-			}
-			return rejectWithValue(err.response.data);
+export const detailOffer = createAsyncThunk('transaction/detailOffer', async ({ token, id }, { rejectWithValue }) => {
+	try {
+		if (token) {
+			const response = await axios.get(`${API_URL}transaction/get?offerId=${id}`, {
+				headers: { Authorization: `Bearer ${token}` },
+			});
+			return response;
+		} else {
+			const data = [
+				{
+					error: 'Token Not Found',
+					message: 'Token Not Found',
+				},
+			];
+			return rejectWithValue(...data);
 		}
+	} catch (err) {
+		if (!err.response) {
+			throw err;
+		}
+		return rejectWithValue(err.response.data);
 	}
-);
+});
 
 export const updateStatus = createAsyncThunk(
 	'transaction/updateStatus',
@@ -195,9 +187,7 @@ export const transactionSlice = createSlice({
 		[saleHistory.rejected]: (state, action) => {
 			state.sale.response = null;
 			state.sale.error = action.error.message;
-			state.sale.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.sale.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.sale.loading = false;
 		},
 		// =================================================== SEND OFFER =================================================== //
@@ -213,9 +203,7 @@ export const transactionSlice = createSlice({
 		[sendOffer.rejected]: (state, action) => {
 			state.offer.response = null;
 			state.offer.error = action.error.message;
-			state.offer.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.offer.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.offer.loading = false;
 		},
 		// =================================================== SEND OFFER =================================================== //
@@ -231,9 +219,7 @@ export const transactionSlice = createSlice({
 		[detailOffer.rejected]: (state, action) => {
 			state.showOffer.response = null;
 			state.showOffer.error = action.error.message;
-			state.showOffer.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.showOffer.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.showOffer.loading = false;
 		},
 		// =================================================== STATUS OFFER =================================================== //
@@ -249,9 +235,7 @@ export const transactionSlice = createSlice({
 		[updateStatus.rejected]: (state, action) => {
 			state.status.response = null;
 			state.status.error = action.error.message;
-			state.status.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.status.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.status.loading = false;
 		},
 		// =================================================== BUY HISTORY =================================================== //
@@ -267,9 +251,7 @@ export const transactionSlice = createSlice({
 		[buyHistory.rejected]: (state, action) => {
 			state.buy.response = null;
 			state.buy.error = action.error.message;
-			state.buy.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.buy.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.buy.loading = false;
 		},
 	},
