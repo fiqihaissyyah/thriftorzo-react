@@ -29,7 +29,7 @@ export default function SliderHome() {
 				<div className='slider-item md:bg-[#FFE9CA] md:py-[50px] md:px-20 px-4 pt-[118px] pb-[160px] md:rounded-[20px] rounded-none relative'>
 					<div className='slider-content relative z-10'>
 						<h2 className='text-[#151515] md:text-4xl text-xl md:leading-[54px] leading-[30px] font-bold mb-4'>
-							Bulan Ramadhan <br /> Banyak diskon!
+							Hari Raya <br /> Banyak diskon!
 						</h2>
 						<p className='text-sm text-[#151515] mb-2'>Diskon Hingga</p>
 						<span className='text-[#FA2C5A] md:text-[32px] text-lg md:leading-9 leading-[26px]'>60%</span>
@@ -48,10 +48,10 @@ export default function SliderHome() {
 				<div className='slider-item purple md:bg-[#F8D6D5] md:py-[50px] md:px-20 px-4 pt-[118px] pb-[160px] md:rounded-[20px] rounded-none relative'>
 					<div className='slider-content relative z-10'>
 						<h2 className='text-[#151515] md:text-4xl text-xl md:leading-[54px] leading-[30px] font-bold mb-4'>
-							Spesial Hari Valentine <br /> Banyak diskon!
+							Spesial 17 Agustus <br /> Banyak diskon!
 						</h2>
 						<p className='text-sm text-[#151515] mb-2'>Flash Sale Hingga</p>
-						<span className='text-[#FA2C5A] md:text-[32px] text-lg md:leading-9 leading-[26px]'>90%</span>
+						<span className='text-[#FA2C5A] md:text-[32px] text-lg md:leading-9 leading-[26px]'>70%</span>
 					</div>
 					<div className='slider-bg absolute right-0 top-0 purple'>
 						<img src={SliderBgC} alt='Background' />

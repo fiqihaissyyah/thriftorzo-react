@@ -117,9 +117,7 @@ export default function Empty(props) {
 					fill='#4B1979'
 				/>
 			</svg>
-			<p className='text-sm text-[#151515] mt-6 text-center'>
-				{Parser(props.message)}
-			</p>
+			<p className='text-sm text-[#151515] mt-6 text-center'>{Parser(props.message)}</p>
 		</div>
 	);
 }
