@@ -185,7 +185,10 @@ export default function InfoPenawaran() {
 								<a
 									href={`https://api.whatsapp.com/send?phone=${
 										offerDetail
-											? offerDetail.buyerResponse.phone.replace(/^0/,'62')
+											? offerDetail.buyerResponse.phone.replace(
+													/^0/,
+													'62'
+											  )
 											: ''
 									}`}
 									target='_blank'
