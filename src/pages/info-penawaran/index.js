@@ -97,7 +97,7 @@ export default function InfoPenawaran() {
 	return (
 		<div className='page-info-penawaran md:py-10 py-4'>
 			<Helmet>
-				<title>Info Penawaran - Thriftorzo</title>
+				<title>Info Penawaran</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='container container-small'>

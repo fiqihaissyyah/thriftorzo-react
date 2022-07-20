@@ -46,7 +46,7 @@ export default function Register() {
 	return (
 		<>
 			<Helmet>
-				<title>Register - Thriftorzo</title>
+				<title>Register</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<Link className='py-[14px] px-4 block md:hidden' to='/'>
