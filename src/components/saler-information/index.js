@@ -28,28 +28,17 @@ export default function SalerInformation(props) {
 						}
 					/>
 					<div className='ml-4'>
-						<p className='text-sm text-black mb-1'>
-							{props.user.name}
-						</p>
-						<span className='text-[10px] text-neutralGray block leading-[14px]'>
-							{props.user.cityName}
-						</span>
+						<p className='text-sm text-black mb-1'>{props.user.name}</p>
+						<span className='text-[10px] text-neutralGray block leading-[14px]'>{props.user.cityName}</span>
 					</div>
 				</div>
 			)}
 			{!props.loading && props.edit && (
-				<Button
-					onClick={handleProfile}
-					className='text-xs py-1 px-3 rounded-lg'
-					type='primary'
-					ghost
-				>
+				<Button onClick={handleProfile} className='text-xs py-1 px-3 rounded-lg' type='primary' ghost>
 					Edit
 				</Button>
 			)}
-			{props.loading && (
-				<Skeleton active avatar paragraph={{ rows: 1 }} />
-			)}
+			{props.loading && <Skeleton active avatar paragraph={{ rows: 1 }} />}
 		</div>
 	);
 }

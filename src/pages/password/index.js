@@ -5,15 +5,10 @@ import { Button, Form, Input, Alert, notification } from 'antd';
 import { Helmet } from 'react-helmet';
 
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	changePassword,
-	afterResetPassword,
-} from '../../features/user/userSlice';
+import { changePassword, afterResetPassword } from '../../features/user/userSlice';
 
 export default function Password() {
-	const { success, error, errorMessage, loading } = useSelector(
-		(state) => state.user.password
-	);
+	const { success, error, errorMessage, loading } = useSelector((state) => state.user.password);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [form] = Form.useForm();
@@ -46,21 +41,8 @@ export default function Password() {
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='update-profile-wrapper max-w-[568px] md:pt-10 pt-6 w-full mx-auto'>
-				{!!error && (
-					<Alert
-						className='mb-6'
-						message='Error'
-						description={errorMessage}
-						type='error'
-						showIcon
-					/>
-				)}
-				<Form
-					form={form}
-					layout='vertical'
-					name='control-hooks'
-					onFinish={onFinish}
-				>
+				{!!error && <Alert className='mb-6' message='Error' description={errorMessage} type='error' showIcon />}
+				<Form form={form} layout='vertical' name='control-hooks' onFinish={onFinish}>
 					<Form.Item
 						className='mb-4'
 						name='oldPassword'
@@ -104,12 +86,7 @@ export default function Password() {
 						<Input.Password placeholder='Konfirmasi Password' />
 					</Form.Item>
 					<Form.Item>
-						<Button
-							loading={loading}
-							className='w-full btn-custom'
-							type='primary'
-							htmlType='submit'
-						>
+						<Button loading={loading} className='w-full btn-custom' type='primary' htmlType='submit'>
 							Simpan
 						</Button>
 					</Form.Item>

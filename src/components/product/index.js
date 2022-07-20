@@ -4,11 +4,14 @@ import { Link } from 'react-router-dom';
 import './index.css';
 
 export default function Product(props) {
-	const currency = (value) =>
-		new Intl.NumberFormat('en-ID', {
+	const currency = (number) => {
+		return new Intl.NumberFormat('id-ID', {
 			style: 'currency',
-			currency: 'IDR',
-		}).format(value);
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 0,
+			currency: 'IDR'
+		}).format(number);
+	}
 
 	return (
 		<Link to={`/product/detail/${props.link}`}>
@@ -20,10 +23,7 @@ export default function Product(props) {
 						alt={props.title}
 					/>
 					{props.publish === 0 && (
-						<Tag
-							className='absolute bottom-1 left-1'
-							color='orange'
-						>
+						<Tag className='absolute bottom-1 left-1' color='orange'>
 							Draft
 						</Tag>
 					)}
@@ -34,12 +34,8 @@ export default function Product(props) {
 					)}
 				</div>
 				<h4 className='text-sm text-black mb-1'>{props.title}</h4>
-				<span className='block mb-2 text-[10px] text-[#8A8A8A]'>
-					{props.category}
-				</span>
-				<span className='block text-sm text-black'>
-					{currency(props.price)}
-				</span>
+				<span className='block mb-2 text-[10px] text-[#8A8A8A]'>{props.category}</span>
+				<span className='block text-sm text-black'>{currency(props.price)}</span>
 			</div>
 		</Link>
 	);

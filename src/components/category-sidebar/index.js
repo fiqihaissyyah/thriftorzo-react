@@ -1,14 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from 'antd';
-import {
-	Box,
-	Heart,
-	DollarSign,
-	ChevronRight,
-	ShoppingCart,
-	Users,
-} from 'react-feather';
+import { Box, Heart, DollarSign, ChevronRight, ShoppingCart, Users } from 'react-feather';
 
 import './index.css';
 
@@ -24,9 +17,7 @@ export default function CategorySidebar(props) {
 						<Link
 							to='/aktivitas'
 							className={`text-black flex w-full justify-between items-center ${
-								location.pathname === '/aktivitas'
-									? 'active'
-									: ''
+								location.pathname === '/aktivitas' ? 'active' : ''
 							}`}
 						>
 							<span className='flex items-center'>
@@ -40,9 +31,7 @@ export default function CategorySidebar(props) {
 						<Link
 							to='/aktivitas/wishlist'
 							className={`text-black flex w-full justify-between items-center ${
-								location.pathname === '/aktivitas/wishlist'
-									? 'active'
-									: ''
+								location.pathname === '/aktivitas/wishlist' ? 'active' : ''
 							}`}
 						>
 							<span className='flex items-center'>
@@ -56,9 +45,7 @@ export default function CategorySidebar(props) {
 						<Link
 							to='/aktivitas/terjual'
 							className={`text-black flex w-full justify-between items-center ${
-								location.pathname === '/aktivitas/terjual'
-									? 'active'
-									: ''
+								location.pathname === '/aktivitas/terjual' ? 'active' : ''
 							}`}
 						>
 							<span className='flex items-center'>
@@ -72,9 +59,7 @@ export default function CategorySidebar(props) {
 						<Link
 							to='/aktivitas/tawaran'
 							className={`text-black flex w-full justify-between items-center ${
-								location.pathname === '/aktivitas/tawaran'
-									? 'active'
-									: ''
+								location.pathname === '/aktivitas/tawaran' ? 'active' : ''
 							}`}
 						>
 							<span className='flex items-center'>
@@ -88,9 +73,7 @@ export default function CategorySidebar(props) {
 						<Link
 							to='/aktivitas/pembelian'
 							className={`text-black flex w-full justify-between items-center ${
-								location.pathname === '/aktivitas/pembelian'
-									? 'active'
-									: ''
+								location.pathname === '/aktivitas/pembelian' ? 'active' : ''
 							}`}
 						>
 							<span className='flex items-center'>
@@ -118,9 +101,7 @@ export default function CategorySidebar(props) {
 				<Link to='/aktivitas/wishlist'>
 					<Button
 						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4 ${
-							location.pathname === '/aktivitas/wishlist'
-								? 'active'
-								: ''
+							location.pathname === '/aktivitas/wishlist' ? 'active' : ''
 						}`}
 						type='primary'
 						icon={<Heart className='mr-2' />}
@@ -132,9 +113,7 @@ export default function CategorySidebar(props) {
 				<Link to='/aktivitas/terjual'>
 					<Button
 						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4 ${
-							location.pathname === '/aktivitas/terjual'
-								? 'active'
-								: ''
+							location.pathname === '/aktivitas/terjual' ? 'active' : ''
 						}`}
 						type='primary'
 						icon={<DollarSign className='mr-2' />}
@@ -146,9 +125,7 @@ export default function CategorySidebar(props) {
 				<Link to='/aktivitas/tawaran'>
 					<Button
 						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4 ${
-							location.pathname === '/aktivitas/tawaran'
-								? 'active'
-								: ''
+							location.pathname === '/aktivitas/tawaran' ? 'active' : ''
 						}`}
 						type='primary'
 						icon={<Users className='mr-2' />}
@@ -160,9 +137,7 @@ export default function CategorySidebar(props) {
 				<Link to='/aktivitas/pembelian'>
 					<Button
 						className={`bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4 ${
-							location.pathname === '/aktivitas/pembelian'
-								? 'active'
-								: ''
+							location.pathname === '/aktivitas/pembelian' ? 'active' : ''
 						}`}
 						type='primary'
 						icon={<ShoppingCart className='mr-2' />}

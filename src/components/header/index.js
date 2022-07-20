@@ -1,37 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Col, Row, Button, Form, Input, Dropdown, Menu, Drawer } from 'antd';
-import {
-	LogIn,
-	Search,
-	List,
-	Bell,
-	User,
-	Menu as MenuIcon,
-	X,
-	ArrowLeft,
-} from 'react-feather';
+import { LogIn, Search, List, Bell, User, Menu as MenuIcon, X, ArrowLeft } from 'react-feather';
 import Notification from '../notification';
 import './index.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, reset } from '../../features/user/userSlice';
-import {
-	searchProduct,
-	resetSearch,
-} from '../../features/product/productSlice';
+import { searchProduct, resetSearch } from '../../features/product/productSlice';
 import { countUnreadNotif } from '../../features/notification/notificationSlice';
-import Logo from '../../assets/images/logo-new-3.svg';
+import Logo from '../../assets/images/logo.svg';
 
 export default function Header(props) {
 	const { token, success } = useSelector((state) => state.user.auth);
 	const { isSearch } = useSelector((state) => state.product.get);
-	const { error } = useSelector((state) => state.user.user);
-	const countNotification = useSelector(
-		(state) => state.notification.count.response
-	);
+	const { data, error } = useSelector((state) => state.user.user);
+	const countNotification = useSelector((state) => state.notification.count.response);
 
 	const [form] = Form.useForm();
-	const [isLogin, setLogin] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const [placement, setPlacement] = useState('left');
 
@@ -72,7 +57,17 @@ export default function Header(props) {
 	};
 
 	const navigateBack = () => {
-		navigate(-1);
+		if (
+			data.address == null &&
+			data.phone == null &&
+			data.phone == null &&
+			data.cityName == null &&
+			data.imgUrl == null
+		) {
+			navigate('/');
+		} else {
+			navigate(-1);
+		}
 	};
 
 	const handleLogout = async () => {
@@ -80,7 +75,6 @@ export default function Header(props) {
 		await localStorage.removeItem('token');
 		await localStorage.removeItem('user');
 		dispatch(reset());
-		setLogin(false);
 	};
 
 	useEffect(() => {
@@ -93,7 +87,6 @@ export default function Header(props) {
 
 	useEffect(() => {
 		if (success === true) {
-			setLogin(true);
 			dispatch(getUser(token));
 			dispatch(countUnreadNotif(token));
 		}
@@ -120,12 +113,8 @@ export default function Header(props) {
 
 	return (
 		<div
-			className={`${
-				location.pathname === '/' ? 'on-top' : ''
-			} header py-[14px] ${
-				location.pathname.includes(['/product/detail/'])
-					? 'md:block hidden'
-					: ''
+			className={`${location.pathname === '/' ? 'on-top' : ''} header py-[14px] ${
+				location.pathname.includes(['/product/detail/']) ? 'md:block hidden' : ''
 			}`}
 		>
 			<div className='container relative'>
@@ -138,24 +127,15 @@ export default function Header(props) {
 				)}
 				{location.pathname.includes(['/aktivitas']) && (
 					<div className='absolute left-0 right-0 top-0 bottom-0 flex items-center md:hidden'>
-						<h1 className='text-base text-center mb-0 w-full'>
-							Aktivitas Saya
-						</h1>
+						<h1 className='text-base text-center mb-0 w-full'>Aktivitas Saya</h1>
 					</div>
 				)}
 				<Row gutter={24}>
 					<Col xs={{ span: 24 }} md={{ span: 12 }}>
 						<Row gutter={24} className='row-on-mobile'>
 							<Col className='flex items-center'>
-								<Link
-									to={'/'}
-									className='text-lg font-bold leading-5 text-[#7126B5] md:block hidden'
-								>
-									<img
-										className='h-[56px]'
-										src={Logo}
-										alt='Thriftorzo'
-									/>
+								<Link to={'/'} className='text-lg font-bold leading-5 text-[#7126B5] md:block hidden'>
+									<img className='h-[56px]' src={Logo} alt='Thriftorzo' />
 								</Link>
 								{props.navigation && (
 									<button
@@ -178,9 +158,7 @@ export default function Header(props) {
 								<Col
 									flex='auto'
 									className={`${
-										location.pathname !== '/'
-											? 'hidden'
-											: 'md:flex items-center'
+										location.pathname !== '/' ? 'hidden' : 'md:flex items-center'
 									} items-center`}
 								>
 									<Form
@@ -191,17 +169,16 @@ export default function Header(props) {
 										onFinishFailed={onFinishFailed}
 										autoComplete='off'
 									>
-										<Form.Item
-											name='search'
-											className='mb-0'
-										>
+										<Form.Item name='search' className='mb-0'>
 											<Input
 												className='search-bar'
 												placeholder='Cari di sini ...'
 												suffix={
 													<Search
+														onClick={() => form.submit()}
 														color='#8A8A8A'
 														size={24}
+														className='cursor-pointer'
 													/>
 												}
 											/>
@@ -212,11 +189,8 @@ export default function Header(props) {
 						</Row>
 					</Col>
 					{!props.title && !props.blank && (
-						<Col
-							span={12}
-							className='hidden md:flex justify-end items-center'
-						>
-							{!isLogin && (
+						<Col span={12} className='hidden md:flex justify-end items-center'>
+							{!token && (
 								<Button
 									className='py-[14px] px-4 h-12 text-sm flex items-center rounded-xl'
 									onClick={handleLogin}
@@ -227,7 +201,7 @@ export default function Header(props) {
 									Masuk
 								</Button>
 							)}
-							{isLogin && (
+							{token && (
 								<>
 									<Row gutter={24} className='header-link'>
 										<Col span={8}>
@@ -236,14 +210,11 @@ export default function Header(props) {
 											</Link>
 										</Col>
 										<Col span={8} className='relative'>
-											{!!countNotification &&
-												countNotification.unread >
-													0 && (
-													<span className='text-center py-[2px] absolute top-[-5px] right-[10px] text-[8px] w-[14px] h-[14px] rounded-full text-white bg-red-500'>
-														{!!countNotification &&
-															countNotification.unread}
-													</span>
-												)}
+											{!!countNotification && countNotification.unread > 0 && (
+												<span className='text-center py-[2px] absolute top-[-5px] right-[10px] text-[8px] w-[14px] h-[14px] rounded-full text-white bg-red-500'>
+													{!!countNotification && countNotification.unread}
+												</span>
+											)}
 											<Dropdown
 												className='cursor-pointer'
 												placement='bottomRight'
@@ -279,13 +250,11 @@ export default function Header(props) {
 				contentWrapperStyle={{ width: '180px' }}
 			>
 				<div className='sidebar-top flex justify-between items-center'>
-					<span className='mobile-brand text-sm font-bold'>
-						Thriftorzo
-					</span>
+					<span className='mobile-brand text-sm font-bold'>Thriftorzo</span>
 					<X onClick={onClose} />
 				</div>
 				<div className='sidebar-menu mt-5'>
-					{!isLogin && (
+					{!token && (
 						<Button
 							className='py-[14px] px-4 h-12 text-sm flex items-center rounded-xl'
 							onClick={handleLogin}
@@ -296,36 +265,21 @@ export default function Header(props) {
 							Masuk
 						</Button>
 					)}
-					{isLogin && (
+					{token && (
 						<>
-							<Link
-								className='text-sm hover:text-[#7126B5] mb-4 block text-black'
-								to='/'
-							>
+							<Link className='text-sm hover:text-[#7126B5] mb-4 block text-black' to='/'>
 								Home
 							</Link>
-							<Link
-								className='text-sm hover:text-[#7126B5] mb-4 block text-black'
-								to='/notification'
-							>
+							<Link className='text-sm hover:text-[#7126B5] mb-4 block text-black' to='/notification'>
 								Notifikasi
 							</Link>
-							<Link
-								className='text-sm hover:text-[#7126B5] mb-4 block text-black'
-								to='/aktivitas'
-							>
+							<Link className='text-sm hover:text-[#7126B5] mb-4 block text-black' to='/aktivitas'>
 								Daftar Jual
 							</Link>
-							<Link
-								className='text-sm hover:text-[#7126B5] mb-4 block text-black'
-								to='/profile'
-							>
+							<Link className='text-sm hover:text-[#7126B5] mb-4 block text-black' to='/setting'>
 								Akun Saya
 							</Link>
-							<span
-								className='text-sm hover:text-[#7126B5] mb-4 block text-black'
-								onClick={handleLogout}
-							>
+							<span className='text-sm hover:text-[#7126B5] mb-4 block text-black' onClick={handleLogout}>
 								Logout
 							</span>
 						</>

@@ -23,9 +23,7 @@ const ProductStatus = (props) => {
 	const token = useSelector((state) => state.user.auth.token);
 	const { loading } = useSelector((state) => state.product.delete);
 	const { response } = useSelector((state) => state.product.detail);
-	const publishLoading = useSelector(
-		(state) => state.product.publish.loading
-	);
+	const publishLoading = useSelector((state) => state.product.publish.loading);
 
 	const deleteHandler = async (id) => {
 		await dispatch(deleteProduct({ token, id }));
@@ -94,15 +92,11 @@ const ProductStatus = (props) => {
 export default function ProductSidebar(props) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const offerDetail = useSelector(
-		(state) => state.transaction.offer.response
-	);
+	const offerDetail = useSelector((state) => state.transaction.offer.response);
 	const profileUser = useSelector((state) => state.user.user.data);
-	const loadingWishlist = useSelector(
-		(state) => state.product.wishlist.loading
-	);
+	const loadingWishlist = useSelector((state) => state.product.wishlist.loading);
 	const token = useSelector((state) => state.user.auth.token);
-	const offersEvents = { click: () => {} };
+	const offersEvents = { click: () => { } };
 	const [isWishlist, setWishlist] = useState(false);
 	const [isOffered, setOffered] = useState(false);
 
@@ -163,100 +157,78 @@ export default function ProductSidebar(props) {
 		}
 	}, [offerDetail]);
 
-	const currency = (value) =>
-		new Intl.NumberFormat('en-ID', {
+	const currency = (number) => {
+		return new Intl.NumberFormat('id-ID', {
 			style: 'currency',
-			currency: 'IDR',
-		}).format(value);
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 0,
+			currency: 'IDR'
+		}).format(number);
+	}
 
 	return (
 		<>
 			<div
-				className={`sidebar-product p-4 shadow-custom md:mb-6 mb-4 rounded-2xl ${
-					!props.mobile ? 'md:block hidden' : 'md:hidden block'
-				} z-10 relative bg-white`}
+				className={`sidebar-product p-4 shadow-custom md:mb-6 mb-4 rounded-2xl ${!props.mobile ? 'md:block hidden' : 'md:hidden block'
+					} z-10 relative bg-white`}
 			>
 				{!props.loading && (
 					<>
-						<h4 className='text-base text-black mb-2'>
-							{props.name}
-						</h4>
-						<p className='text-sm text-[#8A8A8A] mb-4'>
-							{props.category}
-						</p>
-						<p
-							className={`text-base text-black ${
-								props.mobile || !profileUser ? 'mb-0' : 'mb-6'
-							}`}
-						>
-							{currency(props.price)}
-						</p>
+						<h4 className='text-base text-black mb-2'>{props.name}</h4>
+						<p className='text-sm text-[#8A8A8A] mb-4'>{props.category}</p>
+						{!!props.price && (
+							<p className={`text-base text-black ${props.mobile || !profileUser ? 'mb-0' : 'mb-6'}`}>
+								{currency(props.price)}
+							</p>
+						)}
 					</>
 				)}
 				{props.loading && <Skeleton active paragraph={{ rows: 4 }} />}
 				<div className='md:static md:block fixed flex justify-between md:left-auto md:bottom-auto left-4 right-4 bottom-4'>
-					{!props.loading &&
-						!!profileUser &&
-						profileUser.id === props.userId && (
-							<>
-								<ProductStatus
-									id={props.id}
-									publish={props.publish}
-								/>
-								<Button
-									onClick={handleEdit}
-									ghost
-									className='w-full btn-custom'
-									type='primary'
-								>
-									Edit
-								</Button>
-							</>
-						)}
-					{!props.loading &&
-						!!profileUser &&
-						profileUser.id !== props.userId && (
-							<Button
-								disabled={isOffered}
-								onClick={() => offersEvents.click()}
-								className='w-full btn-custom border border-solid border-[#9f42f3]'
-								type='primary'
-								htmlType='submit'
-							>
-								Saya tertarik dan ingin nego
+					{!props.loading && !!profileUser && profileUser.id === props.userId && (
+						<>
+							<ProductStatus id={props.id} publish={props.publish} />
+							<Button onClick={handleEdit} ghost className='w-full btn-custom' type='primary'>
+								Edit
 							</Button>
-						)}
+						</>
+					)}
+					{!props.loading && !!profileUser && profileUser.id !== props.userId && (
+						<Button
+							disabled={isOffered}
+							onClick={() => offersEvents.click()}
+							className='w-full btn-custom border border-solid border-[#9f42f3]'
+							type='primary'
+							htmlType='submit'
+						>
+							Saya tertarik dan ingin nego
+						</Button>
+					)}
 				</div>
-				{!props.loading &&
-					!!profileUser &&
-					profileUser.id !== props.userId &&
-					!isWishlist && (
-						<Button
-							loading={loadingWishlist}
-							onClick={() => addWishlistHandler(props.id)}
-							className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
-							type='primary'
-							htmlType='submit'
-							ghost
-						>
-							Tambah ke wishlist
-						</Button>
-					)}
-				{!props.loading &&
-					!!profileUser &&
-					profileUser.id !== props.userId &&
-					isWishlist && (
-						<Button
-							loading={loadingWishlist}
-							onClick={() => removeWishlistHandler(props.id)}
-							className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
-							type='primary'
-							htmlType='submit'
-							ghost
-						>
-							Hapus dari wishlist
-						</Button>
-					)}
+				{!props.loading && !!profileUser && profileUser.id !== props.userId && !isWishlist && (
+					<Button
+						loading={loadingWishlist}
+						onClick={() => addWishlistHandler(props.id)}
+						className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
+						type='primary'
+						htmlType='submit'
+						ghost
+					>
+						Tambah ke wishlist
+					</Button>
+				)}
+				{!props.loading && !!profileUser && profileUser.id !== props.userId && isWishlist && (
+					<Button
+						loading={loadingWishlist}
+						onClick={() => removeWishlistHandler(props.id)}
+						className='mt-4 w-full btn-custom border border-solid border-[#9f42f3]'
+						type='primary'
+						htmlType='submit'
+						ghost
+					>
+						Hapus dari wishlist
+					</Button>
+				)}
 			</div>
 			<ModalOffer
 				name={props.name}

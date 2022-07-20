@@ -40,79 +40,31 @@ function App() {
 				</Route>
 				<Route element={<IsAuth />}>
 					<Route element={<DefaultLayoutWithTitle />}>
-						<Route
-							exact
-							path='/notification'
-							element={<Notification />}
-						/>
+						<Route exact path='/notification' element={<Notification />} />
 					</Route>
 					<Route element={<DefaultLayoutWithNavigation />}>
 						<Route exact path='/setting' element={<Setting />} />
-						<Route
-							exact
-							path='/setting/profile'
-							element={<Profile />}
-						/>
-						<Route
-							exact
-							path='/setting/password'
-							element={<Password />}
-						/>
-						<Route
-							exact
-							path='/penawaran/info-penawaran/:id'
-							element={<InfoPenawaran />}
-						/>
+						<Route exact path='/setting/profile' element={<Profile />} />
+						<Route exact path='/setting/password' element={<Password />} />
+						<Route exact path='/penawaran/info-penawaran/:id' element={<InfoPenawaran />} />
 					</Route>
 					<Route element={<DefaultLayoutBlank />}>
 						<Route element={<CheckUserProfile />}>
-							<Route
-								exact
-								path='/create/product'
-								element={<ProductForm />}
-							/>
-							<Route
-								exact
-								path='/update/product/:id'
-								element={<ProductFormUpdate />}
-							/>
+							<Route exact path='/create/product' element={<ProductForm />} />
+							<Route exact path='/update/product/:id' element={<ProductFormUpdate />} />
 						</Route>
 					</Route>
 				</Route>
 				<Route element={<DefaultLayout />}>
 					<Route exact path='/*' element={<PageNotFound />} />
 					<Route exact path='/' element={<Home />} />
-					<Route
-						exact
-						path='/product/detail/:id'
-						element={<Detail />}
-					/>
+					<Route exact path='/product/detail/:id' element={<Detail />} />
 					<Route element={<IsAuth />}>
-						<Route
-							exact
-							path='/aktivitas'
-							element={<DaftarJual />}
-						/>
-						<Route
-							exact
-							path='/aktivitas/wishlist'
-							element={<Wishlist />}
-						/>
-						<Route
-							exact
-							path='/aktivitas/terjual'
-							element={<Terjual />}
-						/>
-						<Route
-							exact
-							path='/aktivitas/tawaran'
-							element={<SaleHistory />}
-						/>
-						<Route
-							exact
-							path='/aktivitas/pembelian'
-							element={<BuyHistory />}
-						/>
+						<Route exact path='/aktivitas' element={<DaftarJual />} />
+						<Route exact path='/aktivitas/wishlist' element={<Wishlist />} />
+						<Route exact path='/aktivitas/terjual' element={<Terjual />} />
+						<Route exact path='/aktivitas/tawaran' element={<SaleHistory />} />
+						<Route exact path='/aktivitas/pembelian' element={<BuyHistory />} />
 					</Route>
 				</Route>
 			</Routes>
