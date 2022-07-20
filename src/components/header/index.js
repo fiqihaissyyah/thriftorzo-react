@@ -20,18 +20,17 @@ import {
 	resetSearch,
 } from '../../features/product/productSlice';
 import { countUnreadNotif } from '../../features/notification/notificationSlice';
-import Logo from '../../assets/images/logo-new-3.svg';
+import Logo from '../../assets/images/logo.svg';
 
 export default function Header(props) {
 	const { token, success } = useSelector((state) => state.user.auth);
 	const { isSearch } = useSelector((state) => state.product.get);
-	const { error } = useSelector((state) => state.user.user);
+	const { data, error } = useSelector((state) => state.user.user);
 	const countNotification = useSelector(
 		(state) => state.notification.count.response
 	);
 
 	const [form] = Form.useForm();
-	const [isLogin, setLogin] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const [placement, setPlacement] = useState('left');
 
@@ -72,7 +71,15 @@ export default function Header(props) {
 	};
 
 	const navigateBack = () => {
-		navigate(-1);
+		if (data.address == null &&
+			data.phone == null &&
+			data.phone == null &&
+			data.cityName == null &&
+			data.imgUrl == null) {
+			navigate('/');
+		} else {
+			navigate(-1);
+		}
 	};
 
 	const handleLogout = async () => {
@@ -80,7 +87,6 @@ export default function Header(props) {
 		await localStorage.removeItem('token');
 		await localStorage.removeItem('user');
 		dispatch(reset());
-		setLogin(false);
 	};
 
 	useEffect(() => {
@@ -93,7 +99,6 @@ export default function Header(props) {
 
 	useEffect(() => {
 		if (success === true) {
-			setLogin(true);
 			dispatch(getUser(token));
 			dispatch(countUnreadNotif(token));
 		}
@@ -120,12 +125,10 @@ export default function Header(props) {
 
 	return (
 		<div
-			className={`${
-				location.pathname === '/' ? 'on-top' : ''
-			} header py-[14px] ${
-				location.pathname.includes(['/product/detail/'])
-					? 'md:block hidden'
-					: ''
+			className={`${location.pathname === '/' ? 'on-top' : ''
+			} header py-[14px] ${location.pathname.includes(['/product/detail/'])
+				? 'md:block hidden'
+				: ''
 			}`}
 		>
 			<div className='container relative'>
@@ -177,10 +180,9 @@ export default function Header(props) {
 							{!props.title && !props.blank && (
 								<Col
 									flex='auto'
-									className={`${
-										location.pathname !== '/'
-											? 'hidden'
-											: 'md:flex items-center'
+									className={`${location.pathname !== '/'
+										? 'hidden'
+										: 'md:flex items-center'
 									} items-center`}
 								>
 									<Form
@@ -200,8 +202,10 @@ export default function Header(props) {
 												placeholder='Cari di sini ...'
 												suffix={
 													<Search
+														onClick={() => form.submit()}
 														color='#8A8A8A'
 														size={24}
+														className='cursor-pointer'
 													/>
 												}
 											/>
@@ -216,7 +220,7 @@ export default function Header(props) {
 							span={12}
 							className='hidden md:flex justify-end items-center'
 						>
-							{!isLogin && (
+							{!token && (
 								<Button
 									className='py-[14px] px-4 h-12 text-sm flex items-center rounded-xl'
 									onClick={handleLogin}
@@ -227,7 +231,7 @@ export default function Header(props) {
 									Masuk
 								</Button>
 							)}
-							{isLogin && (
+							{token && (
 								<>
 									<Row gutter={24} className='header-link'>
 										<Col span={8}>
@@ -238,7 +242,7 @@ export default function Header(props) {
 										<Col span={8} className='relative'>
 											{!!countNotification &&
 												countNotification.unread >
-													0 && (
+												0 && (
 													<span className='text-center py-[2px] absolute top-[-5px] right-[10px] text-[8px] w-[14px] h-[14px] rounded-full text-white bg-red-500'>
 														{!!countNotification &&
 															countNotification.unread}
@@ -285,7 +289,7 @@ export default function Header(props) {
 					<X onClick={onClose} />
 				</div>
 				<div className='sidebar-menu mt-5'>
-					{!isLogin && (
+					{!token && (
 						<Button
 							className='py-[14px] px-4 h-12 text-sm flex items-center rounded-xl'
 							onClick={handleLogin}
@@ -296,7 +300,7 @@ export default function Header(props) {
 							Masuk
 						</Button>
 					)}
-					{isLogin && (
+					{token && (
 						<>
 							<Link
 								className='text-sm hover:text-[#7126B5] mb-4 block text-black'
@@ -318,7 +322,7 @@ export default function Header(props) {
 							</Link>
 							<Link
 								className='text-sm hover:text-[#7126B5] mb-4 block text-black'
-								to='/profile'
+								to='/setting'
 							>
 								Akun Saya
 							</Link>

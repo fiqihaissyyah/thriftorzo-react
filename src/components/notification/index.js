@@ -34,7 +34,7 @@ export default function Notification() {
 		const size = 4;
 		dispatch(getNotification({ token, current, size }));
 		console.log(response);
-		if (title !== 'Berhasil diterbitkan') {
+		if (title !== 'Produk Diterbitkan') {
 			if (roles === 1) {
 				navigate('/product/detail/' + productId);
 			} else {

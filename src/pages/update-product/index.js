@@ -291,7 +291,7 @@ export default function ProductFormUpdate() {
 							},
 						]}
 					>
-						<InputNumber placeholder='Rp 0,00' />
+						<InputNumber step='5000' placeholder='Rp 0,00' />
 					</Form.Item>
 					<Form.Item
 						className='mb-4'

@@ -14,10 +14,10 @@ export default function Setting() {
 	const navigate = useNavigate();
 
 	const handleLogout = async () => {
+		await navigate('/');
 		await localStorage.removeItem('token');
 		await localStorage.removeItem('user');
 		await dispatch(reset());
-		navigate('/');
 	};
 
 	useEffect(() => {
