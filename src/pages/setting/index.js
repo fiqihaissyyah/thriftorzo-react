@@ -14,10 +14,10 @@ export default function Setting() {
 	const navigate = useNavigate();
 
 	const handleLogout = async () => {
+		await navigate('/');
 		await localStorage.removeItem('token');
 		await localStorage.removeItem('user');
 		await dispatch(reset());
-		navigate('/');
 	};
 
 	useEffect(() => {
@@ -43,37 +43,20 @@ export default function Setting() {
 					/>
 				</div>
 				<div className='seeting-nav'>
-					<Link
-						to={'/setting/profile'}
-						className='flex items-center mb-4'
-					>
+					<Link to={'/setting/profile'} className='flex items-center mb-4'>
 						<Edit3 size={24} className='text-purplePrimary' />
-						<span className='text-black ml-4 inline-block'>
-							Ubah Akun
-						</span>
+						<span className='text-black ml-4 inline-block'>Ubah Akun</span>
 					</Link>
-					<Link
-						to={'/setting/password'}
-						className='flex items-center mb-4'
-					>
+					<Link to={'/setting/password'} className='flex items-center mb-4'>
 						<Settings size={24} className='text-purplePrimary' />
-						<span className='text-black ml-4 inline-block'>
-							Pengaturan Akun
-						</span>
+						<span className='text-black ml-4 inline-block'>Pengaturan Akun</span>
 					</Link>
-					<div
-						onClick={handleLogout}
-						className='flex items-center mb-4 cursor-pointer'
-					>
+					<div onClick={handleLogout} className='flex items-center mb-4 cursor-pointer'>
 						<LogOut size={24} className='text-purplePrimary' />
-						<span className='text-black ml-4 inline-block'>
-							Keluar
-						</span>
+						<span className='text-black ml-4 inline-block'>Keluar</span>
 					</div>
 				</div>
-				<p className='text-xs text-[#8A8A8A] mt-4 text-center'>
-					Version 1.0.0
-				</p>
+				<p className='text-xs text-[#8A8A8A] mt-4 text-center'>Version 1.0.0</p>
 			</div>
 		</div>
 	);

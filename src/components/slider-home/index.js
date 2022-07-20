@@ -31,12 +31,8 @@ export default function SliderHome() {
 						<h2 className='text-[#151515] md:text-4xl text-xl md:leading-[54px] leading-[30px] font-bold mb-4'>
 							Bulan Ramadhan <br /> Banyak diskon!
 						</h2>
-						<p className='text-sm text-[#151515] mb-2'>
-							Diskon Hingga
-						</p>
-						<span className='text-[#FA2C5A] md:text-[32px] text-lg md:leading-9 leading-[26px]'>
-							60%
-						</span>
+						<p className='text-sm text-[#151515] mb-2'>Diskon Hingga</p>
+						<span className='text-[#FA2C5A] md:text-[32px] text-lg md:leading-9 leading-[26px]'>60%</span>
 					</div>
 					<div className='slider-bg absolute right-0 top-0'>
 						<img src={SliderBgA} alt='Background' />
@@ -54,12 +50,8 @@ export default function SliderHome() {
 						<h2 className='text-[#151515] md:text-4xl text-xl md:leading-[54px] leading-[30px] font-bold mb-4'>
 							Spesial Hari Valentine <br /> Banyak diskon!
 						</h2>
-						<p className='text-sm text-[#151515] mb-2'>
-							Flash Sale Hingga
-						</p>
-						<span className='text-[#FA2C5A] md:text-[32px] text-lg md:leading-9 leading-[26px]'>
-							90%
-						</span>
+						<p className='text-sm text-[#151515] mb-2'>Flash Sale Hingga</p>
+						<span className='text-[#FA2C5A] md:text-[32px] text-lg md:leading-9 leading-[26px]'>90%</span>
 					</div>
 					<div className='slider-bg absolute right-0 top-0 purple'>
 						<img src={SliderBgC} alt='Background' />
@@ -77,12 +69,8 @@ export default function SliderHome() {
 						<h2 className='text-[#151515] md:text-4xl text-xl md:leading-[54px] leading-[30px] font-bold mb-4'>
 							Brand Festival Week <br /> Banyak diskon!
 						</h2>
-						<p className='text-sm text-[#151515] mb-2'>
-							Diskon Hingga
-						</p>
-						<span className='text-[#FA2C5A] md:text-[32px] text-lg md:leading-9 leading-[26px]'>
-							99%
-						</span>
+						<p className='text-sm text-[#151515] mb-2'>Diskon Hingga</p>
+						<span className='text-[#FA2C5A] md:text-[32px] text-lg md:leading-9 leading-[26px]'>99%</span>
 					</div>
 					<div className='slider-bg absolute right-0 top-0 green'>
 						<img src={SliderBgB} alt='Background' />

@@ -10,9 +10,7 @@ import { ArrowLeft } from 'react-feather';
 import { Helmet } from 'react-helmet';
 
 export default function Register() {
-	const { success, error, errorMessage, loading } = useSelector(
-		(state) => state.user.register
-	);
+	const { success, error, errorMessage, loading } = useSelector((state) => state.user.register);
 
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
@@ -54,23 +52,11 @@ export default function Register() {
 			</Link>
 			<Row>
 				<Col span={12} className='bg-auth hidden lg:block'></Col>
-				<Col
-					xs={{ span: 24 }}
-					lg={{ span: 12 }}
-					className='lg:py-0 pt-6 flex justify-center items-center'
-				>
+				<Col xs={{ span: 24 }} lg={{ span: 12 }} className='lg:py-0 pt-6 flex justify-center items-center'>
 					<div className='max-w-[452px] w-full mx-4'>
-						<h1 className='text-2xl text-black mb-6 font-bold'>
-							Daftar
-						</h1>
+						<h1 className='text-2xl text-black mb-6 font-bold'>Daftar</h1>
 						{!!error && (
-							<Alert
-								className='mb-6'
-								message='Error'
-								description={errorMessage}
-								type='error'
-								showIcon
-							/>
+							<Alert className='mb-6' message='Error' description={errorMessage} type='error' showIcon />
 						)}
 						<Form
 							form={form}

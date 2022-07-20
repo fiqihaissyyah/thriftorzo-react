@@ -19,9 +19,7 @@ export default function Home() {
 	const [filterCategory, setCategory] = useState('');
 	const [search, setSearch] = useState('');
 
-	const { isSearch, response, loading } = useSelector(
-		(state) => state.product.get
-	);
+	const { isSearch, response, loading } = useSelector((state) => state.product.get);
 	const dispatch = useDispatch();
 
 	const paginationHandler = (current) => {
@@ -72,9 +70,7 @@ export default function Home() {
 			<SliderHome />
 			<div className='product-section'>
 				<div className='container'>
-					<h2 className='text-base font-bold mt-10 mb-4'>
-						Telusuri Kategori!
-					</h2>
+					<h2 className='text-base font-bold mt-10 mb-4'>Telusuri Kategori!</h2>
 					<div className='flex mb-10 w-full md:overflow-auto overflow-x-scroll category-warpper'>
 						<Button
 							className={`${
@@ -146,19 +142,14 @@ export default function Home() {
 						</Button>
 					</div>
 					<Row gutter={[16, 16]} className='mb-10'>
-						{!loading && !response && <Empty />}
+						{!loading && !response && <Empty message='Produk yang kamu cari tidak tersedia nih' />}
 						{loading && <LoadingProduct />}
 						{!loading &&
 							!!response &&
 							response.productResponses &&
 							response.productResponses.length > 0 &&
 							response.productResponses.map((i, index) => (
-								<Col
-									key={index}
-									xs={{ span: 12 }}
-									md={{ span: 6 }}
-									lg={{ span: 4 }}
-								>
+								<Col key={index} xs={{ span: 12 }} md={{ span: 6 }} lg={{ span: 4 }}>
 									<Product
 										img={i.imgUrl[0]}
 										title={i.name}

@@ -39,27 +39,15 @@
 	}
 
 	.slider-item {
-		background: linear-gradient(
-			180deg,
-			#ffe9c9 59.55%,
-			rgba(255, 233, 202, 0) 100%
-		);
+		background: linear-gradient(180deg, #ffe9c9 59.55%, rgba(255, 233, 202, 0) 100%);
 	}
 
 	.slider-item.purple {
-		background: linear-gradient(
-			180deg,
-			#f8d6d5 59.55%,
-			rgba(255, 233, 202, 0) 100%
-		);
+		background: linear-gradient(180deg, #f8d6d5 59.55%, rgba(255, 233, 202, 0) 100%);
 	}
 
 	.slider-item.green {
-		background: linear-gradient(
-			180deg,
-			#b6d4a8 59.55%,
-			rgba(255, 233, 202, 0) 100%
-		);
+		background: linear-gradient(180deg, #b6d4a8 59.55%, rgba(255, 233, 202, 0) 100%);
 	}
 
 	.home-slider .swiper-slide .slider-item,
