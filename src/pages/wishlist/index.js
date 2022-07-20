@@ -37,7 +37,7 @@ export default function Wishlist() {
 	return (
 		<div className='page-daftar-jual md:py-10 py-4'>
 			<Helmet>
-				<title>Wishlist - Thriftorzo</title>
+				<title>Wishlist</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='container container-internal'>

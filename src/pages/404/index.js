@@ -9,7 +9,7 @@ export default function PageNotFound() {
 	return (
 		<>
 			<Helmet>
-				<title>Page Not Found - Thriftorzo</title>
+				<title>Page Not Found</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='error-section mt-24'>

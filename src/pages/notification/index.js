@@ -75,7 +75,7 @@ export default function Notification() {
 	return (
 		<>
 			<Helmet>
-				<title>Notifikasi - Thriftorzo</title>
+				<title>Notifikasi</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='notifiation-page md:pt-8'>
