@@ -17,8 +17,8 @@ export default function InfoPenawaran() {
 	const [rejectLoading, setRejectLoading] = useState(false);
 	const [acceptLoading, setAcceptLoading] = useState(false);
 
-	const acceptEvents = { click: () => {} };
-	const statusEvents = { click: () => {} };
+	const acceptEvents = { click: () => { } };
+	const statusEvents = { click: () => { } };
 
 	const dispatch = useDispatch();
 	const token = useSelector((state) => state.user.auth.token);
@@ -146,9 +146,8 @@ export default function InfoPenawaran() {
 								Status
 							</Button>
 							<a
-								href={`https://api.whatsapp.com/send?phone=${
-									offerDetail ? offerDetail.buyerResponse.phone.replace(/^0/, '62') : ''
-								}`}
+								href={`https://api.whatsapp.com/send?phone=${offerDetail ? offerDetail.buyerResponse.phone.replace(/^0/, '62') : ''
+									}`}
 								target='_blank'
 							>
 								<Button type='primary' className='ml-4'>
