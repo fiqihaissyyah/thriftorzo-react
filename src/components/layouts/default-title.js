@@ -12,9 +12,7 @@ export default function DefaultLayoutWithTitle(props) {
 	return (
 		<>
 			<div className='main-content'>
-				<Helmet
-					onChangeClientState={(newState) => setTitle(newState.title)}
-				/>
+				<Helmet onChangeClientState={(newState) => setTitle(newState.title)} />
 				<Header title={title} />
 				<Outlet {...props} />
 				<Footer />

@@ -11,9 +11,7 @@ import { getUser, updateUser } from '../../features/user/userSlice';
 export default function Profile() {
 	const profileUser = useSelector((state) => state.user.user.data);
 	const successGetUser = useSelector((state) => state.user.user.success);
-	const { error, errorMessage, loading } = useSelector(
-		(state) => state.user.update
-	);
+	const { error, errorMessage, loading } = useSelector((state) => state.user.update);
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [imageLoading, setLoading] = useState(false);
@@ -38,8 +36,7 @@ export default function Profile() {
 
 	const { Option } = Select;
 	const beforeUpload = (file) => {
-		const isJpgOrPng =
-			file.type === 'image/jpeg' || file.type === 'image/png';
+		const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
 		if (!isJpgOrPng) {
 			notification.open({
 				message: 'Gambar harus berformat JPG/PNG!',
@@ -75,18 +72,12 @@ export default function Profile() {
 		bodyFormData.append('imageFile', info.file.originFileObj);
 
 		await axios
-			.post(
-				'https://staging-secondhand-bej3.herokuapp.com/user/avatar',
-				bodyFormData,
-				{
-					headers: {
-						ContentType: 'multipart/form-data',
-						Authorization: `Bearer ${localStorage.getItem(
-							'token'
-						)}`,
-					},
-				}
-			)
+			.post('https://staging-secondhand-bej3.herokuapp.com/user/avatar', bodyFormData, {
+				headers: {
+					ContentType: 'multipart/form-data',
+					Authorization: `Bearer ${localStorage.getItem('token')}`,
+				},
+			})
 			.then((res) => {
 				setLoading(false);
 				setImageUrl(res.data);
@@ -99,10 +90,7 @@ export default function Profile() {
 	const getCity = async () => {
 		const country = { country: 'indonesia' };
 		await axios
-			.post(
-				'https://countriesnow.space/api/v0.1/countries/cities',
-				country
-			)
+			.post('https://countriesnow.space/api/v0.1/countries/cities', country)
 			.then((res) => {
 				const data = res.data.data;
 				setCity(data);
@@ -125,13 +113,9 @@ export default function Profile() {
 	const uploadButton = (
 		<div>
 			{imageLoading ? (
-				<LoadingOutlined
-					style={{ fontSize: '30px', color: '#7126B5' }}
-				/>
+				<LoadingOutlined style={{ fontSize: '30px', color: '#7126B5' }} />
 			) : (
-				<CameraOutlined
-					style={{ fontSize: '24px', color: '#7126B5' }}
-				/>
+				<CameraOutlined style={{ fontSize: '24px', color: '#7126B5' }} />
 			)}
 		</div>
 	);
@@ -167,21 +151,8 @@ export default function Profile() {
 						uploadButton
 					)}
 				</Upload>
-				{!!error && (
-					<Alert
-						className='mb-6'
-						message='Error'
-						description={errorMessage}
-						type='error'
-						showIcon
-					/>
-				)}
-				<Form
-					form={form}
-					layout='vertical'
-					name='control-hooks'
-					onFinish={onFinish}
-				>
+				{!!error && <Alert className='mb-6' message='Error' description={errorMessage} type='error' showIcon />}
+				<Form form={form} layout='vertical' name='control-hooks' onFinish={onFinish}>
 					<Form.Item
 						className='mb-4'
 						name='name'
@@ -209,9 +180,7 @@ export default function Profile() {
 						]}
 					>
 						<Select placeholder='Pilih Kota' allowClear showSearch>
-							{!cities && cities.length < 0 && (
-								<Option value=''>Loading</Option>
-							)}
+							{!cities && cities.length < 0 && <Option value=''>Loading</Option>}
 							{!!cities &&
 								cities.length > 0 &&
 								cities.map((item, index) => (
@@ -250,12 +219,7 @@ export default function Profile() {
 						<Input placeholder='contoh: +628123456789' />
 					</Form.Item>
 					<Form.Item>
-						<Button
-							loading={loading}
-							className='w-full btn-custom'
-							type='primary'
-							htmlType='submit'
-						>
+						<Button loading={loading} className='w-full btn-custom' type='primary' htmlType='submit'>
 							Simpan
 						</Button>
 					</Form.Item>

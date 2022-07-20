@@ -17,9 +17,7 @@ import { getProductByUserId } from '../../features/product/productSlice';
 export default function DaftarJual() {
 	const token = useSelector((state) => state.user.auth.token);
 	const user = useSelector((state) => state.user.user.data);
-	const { response, error, errorMessage, loading } = useSelector(
-		(state) => state.product.productByUserId
-	);
+	const { response, error, errorMessage, loading } = useSelector((state) => state.product.productByUserId);
 	const dispatch = useDispatch();
 	const location = useLocation();
 
@@ -41,9 +39,7 @@ export default function DaftarJual() {
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='container container-internal'>
-				<h1 className='text-xl text-black font-bold mb-6 md:block hidden'>
-					Aktivitas Saya
-				</h1>
+				<h1 className='text-xl text-black font-bold mb-6 md:block hidden'>Aktivitas Saya</h1>
 				<SalerInformation user={user} edit />
 				<Row gutter={[32, 24]} className='pt-6'>
 					<Col xs={{ span: 24 }} lg={{ span: 8 }}>
@@ -52,11 +48,7 @@ export default function DaftarJual() {
 					<Col xs={{ span: 24 }} lg={{ span: 16 }}>
 						<Row gutter={[24, 24]} className='mb-10'>
 							{!loading && (
-								<Col
-									xs={{ span: 12 }}
-									md={{ span: 8 }}
-									lg={{ span: 8 }}
-								>
+								<Col xs={{ span: 12 }} md={{ span: 8 }} lg={{ span: 8 }}>
 									<NewProduct />
 								</Col>
 							)}
@@ -66,12 +58,7 @@ export default function DaftarJual() {
 								response.productResponses &&
 								response.productResponses.length > 0 &&
 								response.productResponses.map((i, index) => (
-									<Col
-										key={index}
-										xs={{ span: 12 }}
-										md={{ span: 8 }}
-										lg={{ span: 8 }}
-									>
+									<Col key={index} xs={{ span: 12 }} md={{ span: 8 }} lg={{ span: 8 }}>
 										<Product
 											publish={i.publish}
 											img={i.imgUrl[0]}

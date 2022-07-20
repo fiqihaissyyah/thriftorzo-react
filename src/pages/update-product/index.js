@@ -1,27 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import {
-	Alert,
-	InputNumber,
-	Button,
-	Form,
-	Input,
-	Select,
-	Row,
-	Col,
-	Upload,
-	Image,
-	Modal,
-	notification,
-} from 'antd';
+import { Alert, InputNumber, Button, Form, Input, Select, Row, Col, Upload, Image, Modal, notification } from 'antd';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	getProductDetail,
-	deleteProductImage,
-} from '../../features/product/productSlice';
+import { getProductDetail, deleteProductImage } from '../../features/product/productSlice';
 
 import './index.css';
 
@@ -52,8 +36,7 @@ export default function ProductFormUpdate() {
 		},
 		beforeUpload: async (file) => {
 			console.log(fileList);
-			const isJpgOrPng =
-				file.type === 'image/jpeg' || file.type === 'image/png';
+			const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
 			if (!isJpgOrPng) {
 				notification.open({
 					message: 'Gambar harus berformat JPG/PNG!',
@@ -91,11 +74,7 @@ export default function ProductFormUpdate() {
 				});
 			}
 
-			if (
-				isLt2M &&
-				detail.imgUrl.length + fileList.length <= 3 &&
-				isJpgOrPng
-			) {
+			if (isLt2M && detail.imgUrl.length + fileList.length <= 3 && isJpgOrPng) {
 				setFileList([...fileList, file]);
 				return false;
 			}
@@ -120,14 +99,11 @@ export default function ProductFormUpdate() {
 
 		setPreviewImage(file.url || file.preview);
 		setPreviewVisible(true);
-		setPreviewTitle(
-			file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
-		);
+		setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
 	};
 
 	const handleCancel = () => setPreviewVisible(false);
-	const handleChange = ({ fileList: newFileList }) =>
-		setFileList(newFileList);
+	const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
 
 	const getFile = (e) => {
 		if (Array.isArray(e)) {
@@ -172,15 +148,8 @@ export default function ProductFormUpdate() {
 				}
 
 				if (values.imageFiles.length > 0) {
-					for (
-						let index = 0;
-						index < values.imageFiles.length;
-						index++
-					) {
-						bodyFormData.append(
-							'imageFiles',
-							values.imageFiles[index].originFileObj
-						);
+					for (let index = 0; index < values.imageFiles.length; index++) {
+						bodyFormData.append('imageFiles', values.imageFiles[index].originFileObj);
 					}
 				}
 
@@ -189,8 +158,7 @@ export default function ProductFormUpdate() {
 					url: 'https://staging-secondhand-bej3.herokuapp.com/product/update',
 					data: bodyFormData,
 					headers: {
-						'Content-Type':
-							'multipart/form-data; boundary=<calculated when request is sent>',
+						'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
 						Accept: '*/*',
 						Authorization: `Bearer ${token}`,
 					},
@@ -246,21 +214,8 @@ export default function ProductFormUpdate() {
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='update-profile-wrapper max-w-[568px] md:py-10 py-6 w-full mx-auto'>
-				{!!error && (
-					<Alert
-						className='mb-6'
-						message='Error'
-						description={error}
-						type='error'
-						showIcon
-					/>
-				)}
-				<Form
-					layout='vertical'
-					form={form}
-					name='control-hooks'
-					onFinish={onFinish}
-				>
+				{!!error && <Alert className='mb-6' message='Error' description={error} type='error' showIcon />}
+				<Form layout='vertical' form={form} name='control-hooks' onFinish={onFinish}>
 					<Form.Item
 						className='mb-4'
 						name='name'
@@ -325,10 +280,7 @@ export default function ProductFormUpdate() {
 							},
 						]}
 					>
-						<Input.TextArea
-							rows={2}
-							placeholder='Tentang produk yang anda jual'
-						/>
+						<Input.TextArea rows={2} placeholder='Tentang produk yang anda jual' />
 					</Form.Item>
 					<Form.Item
 						className='mb-0'
@@ -346,16 +298,9 @@ export default function ProductFormUpdate() {
 							onPreview={handlePreview}
 							onChange={handleChange}
 						>
-							<PlusOutlined
-								style={{ fontSize: '24px', color: '#8A8A8A' }}
-							/>
+							<PlusOutlined style={{ fontSize: '24px', color: '#8A8A8A' }} />
 						</Upload>
-						<Modal
-							visible={previewVisible}
-							title={previewTitle}
-							footer={null}
-							onCancel={handleCancel}
-						>
+						<Modal visible={previewVisible} title={previewTitle} footer={null} onCancel={handleCancel}>
 							<img
 								alt='example'
 								style={{
@@ -371,16 +316,9 @@ export default function ProductFormUpdate() {
 							detail.imgUrl.length > 0 &&
 							detail.imgUrl.map((item) => (
 								<div className='product-image-item flex flex-col items-center'>
-									<Image
-										width={102}
-										height={102}
-										src={item}
-										className='rounded-2xl'
-									/>
+									<Image width={102} height={102} src={item} className='rounded-2xl' />
 									<Button
-										onClick={() =>
-											deleteImage(item, id ? id : '')
-										}
+										onClick={() => deleteImage(item, id ? id : '')}
 										type='primary'
 										danger
 										shape='circle'
@@ -394,12 +332,7 @@ export default function ProductFormUpdate() {
 					<Form.Item>
 						<Row gutter={16}>
 							<Col span={12}>
-								<Button
-									onClick={navigateBack}
-									ghost
-									className='w-full btn-custom'
-									type='primary'
-								>
+								<Button onClick={navigateBack} ghost className='w-full btn-custom' type='primary'>
 									Batal
 								</Button>
 							</Col>

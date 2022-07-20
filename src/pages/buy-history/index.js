@@ -48,9 +48,7 @@ export default function BuyHistory() {
 					<meta name='description' content='Helmet application' />
 				</Helmet>
 				<div className='container container-internal'>
-					<h1 className='text-xl text-black font-bold mb-6 md:block hidden'>
-						Aktivitas Saya
-					</h1>
+					<h1 className='text-xl text-black font-bold mb-6 md:block hidden'>Aktivitas Saya</h1>
 					<SalerInformation user={user} edit />
 					<Row gutter={[32, 24]} className='pt-6'>
 						<Col xs={{ span: 24 }} lg={{ span: 8 }}>
@@ -68,9 +66,7 @@ export default function BuyHistory() {
 											<Skeleton active />
 										</div>
 									))}
-							{!loading &&
-								!!response &&
-								!response.historyResponse && <Empty />}
+							{!loading && !!response && !response.historyResponse && <Empty />}
 							{!!response &&
 								response.historyResponse.map((i) => (
 									<div className=' p-4 shadow-custom rounded-2xl mb-4 flex w-full border-0 cursor-text'>
@@ -81,26 +77,16 @@ export default function BuyHistory() {
 										/>
 										<div className='notification-content w-full'>
 											<div className='flex justify-between items-center mb-1'>
-												<span className='text-[10px] text-neutralGray'>
-													Penawaran produk
-												</span>
+												<span className='text-[10px] text-neutralGray'>Penawaran produk</span>
 												<span className='flex items-center text-[10px] text-neutral-500'>
-													{moment(
-														i.transactionDate
-													).format('DD MMM, kk:mm')}
+													{moment(i.transactionDate).format('DD MMM, kk:mm')}
 												</span>
 											</div>
+											<p className='mb-1 text-black text-sm'>{i.productResponse.name}</p>
 											<p className='mb-1 text-black text-sm'>
-												{i.productResponse.name}
+												{currency(i.productResponse.price)}
 											</p>
-											<p className='mb-1 text-black text-sm'>
-												{currency(
-													i.productResponse.price
-												)}
-											</p>
-											<p className='mb-1 text-black text-sm'>
-												Menawar {currency(i.offerPrice)}{' '}
-											</p>
+											<p className='mb-1 text-black text-sm'>Menawar {currency(i.offerPrice)} </p>
 											<a
 												href={`https://api.whatsapp.com/send?phone=${i.productResponse.userResponse.phone.replace(
 													/^0/,
@@ -113,23 +99,16 @@ export default function BuyHistory() {
 										</div>
 									</div>
 								))}
-							{!loading &&
-								!!response &&
-								response.totalPage > 1 && (
-									<Pagination
-										className='mb-10'
-										onChange={paginationHandler}
-										defaultCurrent={1}
-										current={
-											!!response &&
-											response.currentPage + 1
-										}
-										total={
-											!!response && response.totalElement
-										}
-										pageSize={10}
-									/>
-								)}
+							{!loading && !!response && response.totalPage > 1 && (
+								<Pagination
+									className='mb-10'
+									onChange={paginationHandler}
+									defaultCurrent={1}
+									current={!!response && response.currentPage + 1}
+									total={!!response && response.totalElement}
+									pageSize={10}
+								/>
+							)}
 						</Col>
 					</Row>
 				</div>

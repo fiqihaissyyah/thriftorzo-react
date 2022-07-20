@@ -67,10 +67,7 @@ textarea.ant-input {
 	max-height: unset !important;
 }
 
-.select-city
-	.ant-select-single
-	.ant-select-selector
-	.ant-select-selection-search {
+.select-city .ant-select-single .ant-select-selector .ant-select-selection-search {
 	left: 16px;
 }
 

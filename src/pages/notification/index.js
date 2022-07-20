@@ -15,19 +15,11 @@ import {
 export default function Notification() {
 	const navigate = useNavigate();
 	const token = useSelector((state) => state.user.auth.token);
-	const { response, loading } = useSelector(
-		(state) => state.notification.notif
-	);
+	const { response, loading } = useSelector((state) => state.notification.notif);
 	const dispatch = useDispatch();
 	const location = useLocation();
 
-	const readNotification = async (
-		id,
-		transactionId,
-		title,
-		productId,
-		roles
-	) => {
+	const readNotification = async (id, transactionId, title, productId, roles) => {
 		await dispatch(readNotif({ token, id }));
 		const current = 0;
 		const size = 8;
@@ -93,14 +85,10 @@ export default function Notification() {
 					{loading &&
 						Array(10)
 							.fill()
-							.map((i) => (
-								<Skeleton key={i} className='mb-10' active />
-							))}
-					{!loading &&
-						!!response &&
-						response.notificationResponses.length === 0 && (
-							<p className='text-center'>Tidak ada Notifikasi</p>
-						)}
+							.map((i) => <Skeleton key={i} className='mb-10' active />)}
+					{!loading && !!response && response.notificationResponses.length === 0 && (
+						<p className='text-center'>Tidak ada Notifikasi</p>
+					)}
 					{!loading &&
 						!!response &&
 						response.notificationResponses &&
@@ -109,13 +97,7 @@ export default function Notification() {
 							<div
 								className='notification-item flex justify-between'
 								onClick={() =>
-									readNotification(
-										i.id,
-										i.transactionId,
-										i.title,
-										i.productResponse.id,
-										i.roles
-									)
+									readNotification(i.id, i.transactionId, i.title, i.productResponse.id, i.roles)
 								}
 							>
 								<img
@@ -125,35 +107,22 @@ export default function Notification() {
 								/>
 								<div className='notification-content w-full ml-4'>
 									<div className='flex justify-between items-center mb-1'>
-										<span className='text-[10px] text-neutralGray'>
-											{i.title}
-										</span>
+										<span className='text-[10px] text-neutralGray'>{i.title}</span>
 										<span className='flex items-center text-[10px] text-neutral-500'>
-											{moment(i.lastUpdated).format(
-												'DD MMM, kk:mm'
-											)}
+											{moment(i.lastUpdated).format('DD MMM, kk:mm')}
 											{!i.isRead && (
 												<span className='h-2 w-2 rounded-full bg-red-600 inline-block ml-2'></span>
 											)}
 										</span>
 									</div>
-									<p className='mb-1 text-black text-sm'>
-										{i.productResponse.name}
-									</p>
-									<p className='mb-1 text-black text-sm'>
-										{currency(i.productResponse.price)}
-									</p>
+									<p className='mb-1 text-black text-sm'>{i.productResponse.name}</p>
+									<p className='mb-1 text-black text-sm'>{currency(i.productResponse.price)}</p>
 									{i.title !== 'Berhasil diterbitkan' && (
 										<p className='mb-1 text-black text-sm'>
-											{i.roles === 1
-												? 'Menawar'
-												: 'Ditawar'}{' '}
-											{currency(i.offerPrice)}
+											{i.roles === 1 ? 'Menawar' : 'Ditawar'} {currency(i.offerPrice)}
 										</p>
 									)}
-									<span className='text-[10px] text-neutralGray leading-[10px]'>
-										{i.info}
-									</span>
+									<span className='text-[10px] text-neutralGray leading-[10px]'>{i.info}</span>
 								</div>
 							</div>
 						))}

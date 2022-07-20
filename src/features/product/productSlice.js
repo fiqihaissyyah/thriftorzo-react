@@ -7,9 +7,9 @@ export const getProduct = createAsyncThunk(
 	async ({ productName, category, page }, { rejectWithValue }) => {
 		try {
 			const response = await axios.get(
-				`${API_URL}public/all?${
-					productName ? `productName=${productName}&` : ''
-				}${category ? `category=${category}&` : ''}page=${page}&size=18`
+				`${API_URL}public/all?${productName ? `productName=${productName}&` : ''}${
+					category ? `category=${category}&` : ''
+				}page=${page}&size=18`
 			);
 			return response;
 		} catch (err) {
@@ -26,9 +26,7 @@ export const searchProduct = createAsyncThunk(
 	async ({ productName, page }, { rejectWithValue }) => {
 		try {
 			const response = await axios.get(
-				`${API_URL}public/all?${
-					productName ? `productName=${productName}&` : ''
-				}page=${page}&size=18`
+				`${API_URL}public/all?${productName ? `productName=${productName}&` : ''}page=${page}&size=18`
 			);
 			console.log(response);
 			return response;
@@ -41,48 +39,41 @@ export const searchProduct = createAsyncThunk(
 	}
 );
 
-export const getProductDetail = createAsyncThunk(
-	'product/getProductDetail',
-	async (id, { rejectWithValue }) => {
-		try {
-			const response = await axios.get(`${API_URL}public/product/${id}`);
-			return response;
-		} catch (err) {
-			if (!err.response) {
-				throw err;
-			}
-			return rejectWithValue(err.response.data);
+export const getProductDetail = createAsyncThunk('product/getProductDetail', async (id, { rejectWithValue }) => {
+	try {
+		const response = await axios.get(`${API_URL}public/product/${id}`);
+		return response;
+	} catch (err) {
+		if (!err.response) {
+			throw err;
 		}
+		return rejectWithValue(err.response.data);
 	}
-);
+});
 
-export const deleteProduct = createAsyncThunk(
-	'product/deleteProduct',
-	async ({ token, id }, { rejectWithValue }) => {
-		try {
-			if (token) {
-				const response = await axios.delete(
-					`${API_URL}product/delete?productId=${id}`,
-					{ headers: { Authorization: `Bearer ${token}` } }
-				);
-				return response;
-			} else {
-				const data = [
-					{
-						error: 'Token Not Found',
-						message: 'Token Not Found',
-					},
-				];
-				return rejectWithValue(...data);
-			}
-		} catch (err) {
-			if (!err.response) {
-				throw err;
-			}
-			return rejectWithValue(err.response.data);
+export const deleteProduct = createAsyncThunk('product/deleteProduct', async ({ token, id }, { rejectWithValue }) => {
+	try {
+		if (token) {
+			const response = await axios.delete(`${API_URL}product/delete?productId=${id}`, {
+				headers: { Authorization: `Bearer ${token}` },
+			});
+			return response;
+		} else {
+			const data = [
+				{
+					error: 'Token Not Found',
+					message: 'Token Not Found',
+				},
+			];
+			return rejectWithValue(...data);
 		}
+	} catch (err) {
+		if (!err.response) {
+			throw err;
+		}
+		return rejectWithValue(err.response.data);
 	}
-);
+});
 
 export const deleteProductImage = createAsyncThunk(
 	'product/deleteProductImage',
@@ -131,8 +122,7 @@ export const publishProduct = createAsyncThunk(
 					url: `${API_URL}product/update`,
 					data: bodyFormData,
 					headers: {
-						'Content-Type':
-							'multipart/form-data; boundary=<calculated when request is sent>',
+						'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
 						Accept: '*/*',
 						Authorization: `Bearer ${token}`,
 					},
@@ -156,33 +146,29 @@ export const publishProduct = createAsyncThunk(
 	}
 );
 
-export const getWishlist = createAsyncThunk(
-	'product/getWishlist',
-	async ({ token, current }, { rejectWithValue }) => {
-		try {
-			if (token) {
-				const response = await axios.get(
-					`${API_URL}wishlist/get?page=${current}&size=14`,
-					{ headers: { Authorization: `Bearer ${token}` } }
-				);
-				return response;
-			} else {
-				const data = [
-					{
-						error: 'Token Not Found',
-						message: 'Token Not Found',
-					},
-				];
-				return rejectWithValue(...data);
-			}
-		} catch (err) {
-			if (!err.response) {
-				throw err;
-			}
-			return rejectWithValue(err.response.data);
+export const getWishlist = createAsyncThunk('product/getWishlist', async ({ token, current }, { rejectWithValue }) => {
+	try {
+		if (token) {
+			const response = await axios.get(`${API_URL}wishlist/get?page=${current}&size=14`, {
+				headers: { Authorization: `Bearer ${token}` },
+			});
+			return response;
+		} else {
+			const data = [
+				{
+					error: 'Token Not Found',
+					message: 'Token Not Found',
+				},
+			];
+			return rejectWithValue(...data);
 		}
+	} catch (err) {
+		if (!err.response) {
+			throw err;
+		}
+		return rejectWithValue(err.response.data);
 	}
-);
+});
 
 export const addToWishlist = createAsyncThunk(
 	'product/addToWishlist',
@@ -218,10 +204,9 @@ export const removeWishlist = createAsyncThunk(
 	async ({ token, productId }, { rejectWithValue }) => {
 		try {
 			if (token) {
-				const response = await axios.delete(
-					`${API_URL}wishlist/delete?productId=${productId}`,
-					{ headers: { Authorization: `Bearer ${token}` } }
-				);
+				const response = await axios.delete(`${API_URL}wishlist/delete?productId=${productId}`, {
+					headers: { Authorization: `Bearer ${token}` },
+				});
 				return response;
 			} else {
 				const data = [
@@ -246,10 +231,9 @@ export const getProductByUserId = createAsyncThunk(
 	async ({ token, current }, { rejectWithValue }) => {
 		try {
 			if (token) {
-				const response = await axios.get(
-					`${API_URL}product/products?page=${current}&size=14`,
-					{ headers: { Authorization: `Bearer ${token}` } }
-				);
+				const response = await axios.get(`${API_URL}product/products?page=${current}&size=14`, {
+					headers: { Authorization: `Bearer ${token}` },
+				});
 				return response;
 			} else {
 				const data = [
@@ -269,33 +253,29 @@ export const getProductByUserId = createAsyncThunk(
 	}
 );
 
-export const getSold = createAsyncThunk(
-	'product/getSold',
-	async ({ token, current }, { rejectWithValue }) => {
-		try {
-			if (token) {
-				const response = await axios.get(
-					`${API_URL}product/sold?page=${current}&size=14`,
-					{ headers: { Authorization: `Bearer ${token}` } }
-				);
-				return response;
-			} else {
-				const data = [
-					{
-						error: 'Token Not Found',
-						message: 'Token Not Found',
-					},
-				];
-				return rejectWithValue(...data);
-			}
-		} catch (err) {
-			if (!err.response) {
-				throw err;
-			}
-			return rejectWithValue(err.response.data);
+export const getSold = createAsyncThunk('product/getSold', async ({ token, current }, { rejectWithValue }) => {
+	try {
+		if (token) {
+			const response = await axios.get(`${API_URL}product/sold?page=${current}&size=14`, {
+				headers: { Authorization: `Bearer ${token}` },
+			});
+			return response;
+		} else {
+			const data = [
+				{
+					error: 'Token Not Found',
+					message: 'Token Not Found',
+				},
+			];
+			return rejectWithValue(...data);
 		}
+	} catch (err) {
+		if (!err.response) {
+			throw err;
+		}
+		return rejectWithValue(err.response.data);
 	}
-);
+});
 
 const initialState = {
 	get: {
@@ -378,9 +358,7 @@ export const productSlice = createSlice({
 		[getProduct.rejected]: (state, action) => {
 			state.get.response = null;
 			state.get.error = action.error.message;
-			state.get.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.get.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.get.loading = false;
 			state.get.isSearch = false;
 		},
@@ -398,9 +376,7 @@ export const productSlice = createSlice({
 		[searchProduct.rejected]: (state, action) => {
 			state.get.response = null;
 			state.get.error = action.error.message;
-			state.get.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.get.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.get.loading = false;
 			state.get.isSearch = false;
 		},
@@ -416,9 +392,7 @@ export const productSlice = createSlice({
 		},
 		[getProductDetail.rejected]: (state, action) => {
 			state.detail.error = action.error.message;
-			state.detail.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.detail.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.detail.loading = false;
 		},
 		// =================================================== DELETE PRODUCT =================================================== //
@@ -433,9 +407,7 @@ export const productSlice = createSlice({
 		},
 		[deleteProduct.rejected]: (state, action) => {
 			state.delete.error = action.error.message;
-			state.delete.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.delete.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.delete.loading = false;
 		},
 		// =================================================== DELETE PRODUCT IMAGE =================================================== //
@@ -450,9 +422,7 @@ export const productSlice = createSlice({
 		},
 		[deleteProductImage.rejected]: (state, action) => {
 			state.deleteImage.error = action.error.message;
-			state.deleteImage.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.deleteImage.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.deleteImage.loading = false;
 		},
 		// =================================================== PUBLISH PRODUCT =================================================== //
@@ -467,9 +437,7 @@ export const productSlice = createSlice({
 		},
 		[publishProduct.rejected]: (state, action) => {
 			state.publish.error = action.error.message;
-			state.publish.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.publish.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.publish.loading = false;
 		},
 		// =================================================== GET WISHLIST =================================================== //
@@ -485,9 +453,7 @@ export const productSlice = createSlice({
 		[getWishlist.rejected]: (state, action) => {
 			state.userWishlist.response = null;
 			state.userWishlist.error = action.error.message;
-			state.userWishlist.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.userWishlist.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.userWishlist.loading = false;
 		},
 		// =================================================== ADD WISHLIST =================================================== //
@@ -502,9 +468,7 @@ export const productSlice = createSlice({
 		},
 		[addToWishlist.rejected]: (state, action) => {
 			state.wishlist.error = action.error.message;
-			state.wishlist.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.wishlist.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.wishlist.loading = false;
 		},
 		// =================================================== REMOVE WISHLIST =================================================== //
@@ -519,9 +483,7 @@ export const productSlice = createSlice({
 		},
 		[removeWishlist.rejected]: (state, action) => {
 			state.wishlist.error = action.error.message;
-			state.wishlist.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.wishlist.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.wishlist.loading = false;
 		},
 		// =================================================== PRODUCT BY USER ID =================================================== //
@@ -536,9 +498,7 @@ export const productSlice = createSlice({
 		},
 		[getProductByUserId.rejected]: (state, action) => {
 			state.productByUserId.error = action.error.message;
-			state.productByUserId.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.productByUserId.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.productByUserId.loading = false;
 		},
 		// =================================================== GET SOLD PRODUCT =================================================== //
@@ -554,9 +514,7 @@ export const productSlice = createSlice({
 		[getSold.rejected]: (state, action) => {
 			state.sold.response = null;
 			state.sold.error = action.error.message;
-			state.sold.errorMessage = action.payload.message
-				? action.payload.message
-				: action.payload.error;
+			state.sold.errorMessage = action.payload.message ? action.payload.message : action.payload.error;
 			state.sold.loading = false;
 		},
 	},

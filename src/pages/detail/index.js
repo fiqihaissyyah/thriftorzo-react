@@ -41,10 +41,7 @@ export default function Detail() {
 				</div>
 				<Row gutter={[32, 16]}>
 					<Col xs={{ span: 24 }} md={{ span: 16 }}>
-						<SliderProduct
-							loading={loading}
-							item={!!response && response.imgUrl}
-						/>
+						<SliderProduct loading={loading} item={!!response && response.imgUrl} />
 						<ProductSidebar
 							loading={loading}
 							mobile
@@ -54,11 +51,7 @@ export default function Detail() {
 							category={!!response && response.category}
 							price={!!response && response.price}
 							imgUrl={!!response && response.imgUrl}
-							userId={
-								!!response &&
-								response.userResponse &&
-								response.userResponse.id
-							}
+							userId={!!response && response.userResponse && response.userResponse.id}
 						/>
 						<SalerInformation
 							user={!!response && response.userResponse}
@@ -68,24 +61,16 @@ export default function Detail() {
 						/>
 						<div className='shadow-custom md:mt-6 mt-4 rounded-2xl'>
 							<div className='p-4'>
-								<h4 className='text-sm text-black mb-4'>
-									Deskripsi
-								</h4>
+								<h4 className='text-sm text-black mb-4'>Deskripsi</h4>
 								{!loading && !!response ? (
-									<p className='text-neutralGray text-sm'>
-										{response.description}
-									</p>
+									<p className='text-neutralGray text-sm'>{response.description}</p>
 								) : (
 									<Skeleton active />
 								)}
 							</div>
 						</div>
 					</Col>
-					<Col
-						className='md:block hidden'
-						xs={{ span: 24 }}
-						md={{ span: 8 }}
-					>
+					<Col className='md:block hidden' xs={{ span: 24 }} md={{ span: 8 }}>
 						<ProductSidebar
 							loading={loading}
 							id={id}
@@ -94,17 +79,9 @@ export default function Detail() {
 							category={!!response && response.category}
 							price={!!response && response.price}
 							imgUrl={!!response && response.imgUrl}
-							userId={
-								!!response &&
-								response.userResponse &&
-								response.userResponse.id
-							}
+							userId={!!response && response.userResponse && response.userResponse.id}
 						/>
-						<SalerInformation
-							loading={loading}
-							user={!!response && response.userResponse}
-							edit={false}
-						/>
+						<SalerInformation loading={loading} user={!!response && response.userResponse} edit={false} />
 					</Col>
 				</Row>
 			</div>

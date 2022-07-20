@@ -1,19 +1,7 @@
 import './index.css';
 import React, { useState } from 'react';
 import axios from 'axios';
-import {
-	Alert,
-	InputNumber,
-	Button,
-	Form,
-	Input,
-	Select,
-	Row,
-	Col,
-	Upload,
-	Modal,
-	notification,
-} from 'antd';
+import { Alert, InputNumber, Button, Form, Input, Select, Row, Col, Upload, Modal, notification } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons';
 import { Helmet } from 'react-helmet';
@@ -46,8 +34,7 @@ export default function ProductForm() {
 		},
 		beforeUpload: async (file) => {
 			console.log(fileList);
-			const isJpgOrPng =
-				file.type === 'image/jpeg' || file.type === 'image/png';
+			const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
 			if (!isJpgOrPng) {
 				notification.open({
 					message: 'Gambar harus berformat JPG/PNG!',
@@ -111,14 +98,11 @@ export default function ProductForm() {
 
 		setPreviewImage(file.url || file.preview);
 		setPreviewVisible(true);
-		setPreviewTitle(
-			file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
-		);
+		setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
 	};
 
 	const handleCancel = () => setPreviewVisible(false);
-	const handleChange = ({ fileList: newFileList }) =>
-		setFileList(newFileList);
+	const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
 
 	const getFile = (e) => {
 		if (Array.isArray(e)) {
@@ -188,10 +172,7 @@ export default function ProductForm() {
 				}
 
 				for (let index = 0; index < values.imageFiles.length; index++) {
-					bodyFormData.append(
-						'imageFiles',
-						values.imageFiles[index].originFileObj
-					);
+					bodyFormData.append('imageFiles', values.imageFiles[index].originFileObj);
 				}
 
 				const response = await axios({
@@ -199,8 +180,7 @@ export default function ProductForm() {
 					url: 'https://staging-secondhand-bej3.herokuapp.com/product/add',
 					data: bodyFormData,
 					headers: {
-						'Content-Type':
-							'multipart/form-data; boundary=<calculated when request is sent>',
+						'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
 						Accept: '*/*',
 						Authorization: `Bearer ${token}`,
 					},
@@ -239,21 +219,8 @@ export default function ProductForm() {
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='update-profile-wrapper max-w-[568px] md:py-10 py-6 w-full mx-auto'>
-				{!!error && (
-					<Alert
-						className='mb-6'
-						message='Error'
-						description={error}
-						type='error'
-						showIcon
-					/>
-				)}
-				<Form
-					layout='vertical'
-					form={form}
-					name='control-hooks'
-					onFinish={onFinish}
-				>
+				{!!error && <Alert className='mb-6' message='Error' description={error} type='error' showIcon />}
+				<Form layout='vertical' form={form} name='control-hooks' onFinish={onFinish}>
 					<Form.Item
 						className='mb-4'
 						name='name'
@@ -318,10 +285,7 @@ export default function ProductForm() {
 							},
 						]}
 					>
-						<Input.TextArea
-							rows={2}
-							placeholder='Tentang produk yang anda jual'
-						/>
+						<Input.TextArea rows={2} placeholder='Tentang produk yang anda jual' />
 					</Form.Item>
 					<Form.Item
 						className='mb-4'
@@ -339,16 +303,9 @@ export default function ProductForm() {
 							onPreview={handlePreview}
 							onChange={handleChange}
 						>
-							<PlusOutlined
-								style={{ fontSize: '24px', color: '#8A8A8A' }}
-							/>
+							<PlusOutlined style={{ fontSize: '24px', color: '#8A8A8A' }} />
 						</Upload>
-						<Modal
-							visible={previewVisible}
-							title={previewTitle}
-							footer={null}
-							onCancel={handleCancel}
-						>
+						<Modal visible={previewVisible} title={previewTitle} footer={null} onCancel={handleCancel}>
 							<img
 								alt='example'
 								style={{
