@@ -14,7 +14,7 @@ export default function checkUserProfile(props) {
 		profileUser.cityName == null &&
 		profileUser.imgUrl == null
 	) {
-		notification.destroy()
+		notification.destroy();
 		notification.open({
 			message: 'Lengkapi profile anda terlebih dahulu!',
 			className: 'global-alert-error',

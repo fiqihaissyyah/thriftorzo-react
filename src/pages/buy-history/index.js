@@ -102,7 +102,10 @@ export default function BuyHistory() {
 												Menawar {currency(i.offerPrice)}{' '}
 											</p>
 											<a
-												href={`https://api.whatsapp.com/send?phone=${i.productResponse.userResponse.phone.replace(/^0/,'62')}`}
+												href={`https://api.whatsapp.com/send?phone=${i.productResponse.userResponse.phone.replace(
+													/^0/,
+													'62'
+												)}`}
 												target='_blank'
 											>
 												Chat Penjual
@@ -113,20 +116,20 @@ export default function BuyHistory() {
 							{!loading &&
 								!!response &&
 								response.totalPage > 1 && (
-								<Pagination
-									className='mb-10'
-									onChange={paginationHandler}
-									defaultCurrent={1}
-									current={
-										!!response &&
-										response.currentPage + 1
-									}
-									total={
-										!!response && response.totalElement
-									}
-									pageSize={10}
-								/>
-							)}
+									<Pagination
+										className='mb-10'
+										onChange={paginationHandler}
+										defaultCurrent={1}
+										current={
+											!!response &&
+											response.currentPage + 1
+										}
+										total={
+											!!response && response.totalElement
+										}
+										pageSize={10}
+									/>
+								)}
 						</Col>
 					</Row>
 				</div>

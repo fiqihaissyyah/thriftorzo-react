@@ -88,7 +88,7 @@ export default function ModalAcceptOffer(props) {
 				</div>
 				<a
 					href={`https://api.whatsapp.com/send?phone=${
-						props.user ? props.user.phone.replace(/^0/,'62') : ''
+						props.user ? props.user.phone.replace(/^0/, '62') : ''
 					}`}
 					target='_blank'
 				>

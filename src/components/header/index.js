@@ -71,11 +71,13 @@ export default function Header(props) {
 	};
 
 	const navigateBack = () => {
-		if (data.address == null &&
+		if (
+			data.address == null &&
 			data.phone == null &&
 			data.phone == null &&
 			data.cityName == null &&
-			data.imgUrl == null) {
+			data.imgUrl == null
+		) {
 			navigate('/');
 		} else {
 			navigate(-1);
@@ -125,10 +127,12 @@ export default function Header(props) {
 
 	return (
 		<div
-			className={`${location.pathname === '/' ? 'on-top' : ''
-			} header py-[14px] ${location.pathname.includes(['/product/detail/'])
-				? 'md:block hidden'
-				: ''
+			className={`${
+				location.pathname === '/' ? 'on-top' : ''
+			} header py-[14px] ${
+				location.pathname.includes(['/product/detail/'])
+					? 'md:block hidden'
+					: ''
 			}`}
 		>
 			<div className='container relative'>
@@ -180,9 +184,10 @@ export default function Header(props) {
 							{!props.title && !props.blank && (
 								<Col
 									flex='auto'
-									className={`${location.pathname !== '/'
-										? 'hidden'
-										: 'md:flex items-center'
+									className={`${
+										location.pathname !== '/'
+											? 'hidden'
+											: 'md:flex items-center'
 									} items-center`}
 								>
 									<Form
@@ -202,7 +207,9 @@ export default function Header(props) {
 												placeholder='Cari di sini ...'
 												suffix={
 													<Search
-														onClick={() => form.submit()}
+														onClick={() =>
+															form.submit()
+														}
 														color='#8A8A8A'
 														size={24}
 														className='cursor-pointer'
@@ -242,7 +249,7 @@ export default function Header(props) {
 										<Col span={8} className='relative'>
 											{!!countNotification &&
 												countNotification.unread >
-												0 && (
+													0 && (
 													<span className='text-center py-[2px] absolute top-[-5px] right-[10px] text-[8px] w-[14px] h-[14px] rounded-full text-white bg-red-500'>
 														{!!countNotification &&
 															countNotification.unread}
