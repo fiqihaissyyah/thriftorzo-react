@@ -96,7 +96,7 @@ export default function ProductSidebar(props) {
 	const profileUser = useSelector((state) => state.user.user.data);
 	const loadingWishlist = useSelector((state) => state.product.wishlist.loading);
 	const token = useSelector((state) => state.user.auth.token);
-	const offersEvents = { click: () => {} };
+	const offersEvents = { click: () => { } };
 	const [isWishlist, setWishlist] = useState(false);
 	const [isOffered, setOffered] = useState(false);
 
@@ -157,26 +157,30 @@ export default function ProductSidebar(props) {
 		}
 	}, [offerDetail]);
 
-	const currency = (value) =>
-		new Intl.NumberFormat('en-ID', {
+	const currency = (number) => {
+		return new Intl.NumberFormat('id-ID', {
 			style: 'currency',
-			currency: 'IDR',
-		}).format(value);
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 0,
+			currency: 'IDR'
+		}).format(number);
+	}
 
 	return (
 		<>
 			<div
-				className={`sidebar-product p-4 shadow-custom md:mb-6 mb-4 rounded-2xl ${
-					!props.mobile ? 'md:block hidden' : 'md:hidden block'
-				} z-10 relative bg-white`}
+				className={`sidebar-product p-4 shadow-custom md:mb-6 mb-4 rounded-2xl ${!props.mobile ? 'md:block hidden' : 'md:hidden block'
+					} z-10 relative bg-white`}
 			>
 				{!props.loading && (
 					<>
 						<h4 className='text-base text-black mb-2'>{props.name}</h4>
 						<p className='text-sm text-[#8A8A8A] mb-4'>{props.category}</p>
-						<p className={`text-base text-black ${props.mobile || !profileUser ? 'mb-0' : 'mb-6'}`}>
-							{currency(props.price)}
-						</p>
+						{!!props.price && (
+							<p className={`text-base text-black ${props.mobile || !profileUser ? 'mb-0' : 'mb-6'}`}>
+								{currency(props.price)}
+							</p>
+						)}
 					</>
 				)}
 				{props.loading && <Skeleton active paragraph={{ rows: 4 }} />}

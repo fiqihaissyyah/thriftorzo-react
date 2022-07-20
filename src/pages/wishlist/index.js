@@ -47,7 +47,7 @@ export default function Wishlist() {
 					</Col>
 					<Col xs={{ span: 24 }} lg={{ span: 16 }}>
 						<Row gutter={[24, 24]} className='mb-10'>
-							{!loading && !response && <Empty />}
+							{!loading && !response && <Empty message='Kamu belum menambahkan produk kedalam wishlist kamu, <br /> ayo tambah sekarang' />}
 							{loading && <LoadingProductSold />}
 							{!loading &&
 								!!response &&

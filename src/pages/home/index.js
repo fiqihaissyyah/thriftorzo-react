@@ -142,7 +142,7 @@ export default function Home() {
 						</Button>
 					</div>
 					<Row gutter={[16, 16]} className='mb-10'>
-						{!loading && !response && <Empty />}
+						{!loading && !response && <Empty message='Produk yang kamu cari tidak tersedia nih' />}
 						{loading && <LoadingProduct />}
 						{!loading &&
 							!!response &&
