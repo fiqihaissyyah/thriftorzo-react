@@ -4,11 +4,14 @@ import { Link } from 'react-router-dom';
 import './index.css';
 
 export default function Product(props) {
-	const currency = (value) =>
-		new Intl.NumberFormat('en-ID', {
+	const currency = (number) => {
+		return new Intl.NumberFormat('id-ID', {
 			style: 'currency',
-			currency: 'IDR',
-		}).format(value);
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 0,
+			currency: 'IDR'
+		}).format(number);
+	}
 
 	return (
 		<Link to={`/product/detail/${props.link}`}>

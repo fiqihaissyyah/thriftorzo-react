@@ -32,11 +32,14 @@ export default function BuyHistory() {
 		dispatch(saleHistory({ token, current }));
 	}, [location.pathname]);
 
-	const currency = (value) =>
-		new Intl.NumberFormat('en-ID', {
+	const currency = (number) => {
+		return new Intl.NumberFormat('id-ID', {
 			style: 'currency',
-			currency: 'IDR',
-		}).format(value);
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 0,
+			currency: 'IDR'
+		}).format(number);
+	}
 
 	return (
 		<>
@@ -58,7 +61,7 @@ export default function BuyHistory() {
 						</Col>
 						<Col xs={{ span: 24 }} lg={{ span: 16 }}>
 							<h1 className='text-sm text-black font-medium leading-5 mb-6 md:block hidden'>
-								Daftar Produkmu yang Ditawar
+								Daftar produkmu yang ditawar
 							</h1>
 							{loading &&
 								Array(8)
@@ -68,7 +71,7 @@ export default function BuyHistory() {
 											<Skeleton active />
 										</div>
 									))}
-							{!loading && !!response && !response.historyResponse && <Empty />}
+							{!loading && !!response && !response.historyResponse && <Empty message='Belum ada produkmu yang diminati nih, <br /> sabar ya rejeki nggak kemana kok' />}
 							{!!response &&
 								response.historyResponse.map((i) => (
 									<div className=' p-4 shadow-custom rounded-2xl mb-4 flex w-full border-0 cursor-text'>

@@ -51,11 +51,14 @@ export default function Notification() {
 		dispatch(getNotification({ token, current, size }));
 	}, [location.pathname]);
 
-	const currency = (value) =>
-		new Intl.NumberFormat('en-ID', {
+	const currency = (number) => {
+		return new Intl.NumberFormat('id-ID', {
 			style: 'currency',
-			currency: 'IDR',
-		}).format(value);
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 0,
+			currency: 'IDR'
+		}).format(number);
+	}
 
 	return (
 		<div className='notification p-6 bg-white rounded-2xl w-[376px] mt-4'>

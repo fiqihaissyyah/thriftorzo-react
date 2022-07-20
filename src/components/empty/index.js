@@ -1,4 +1,5 @@
 import React from 'react';
+import Parser from 'html-react-parser';
 
 import './index.css';
 
@@ -117,8 +118,7 @@ export default function Empty(props) {
 				/>
 			</svg>
 			<p className='text-sm text-[#151515] mt-6 text-center'>
-				Belum ada produkmu yang diminati nih,
-				<br /> sabar ya rejeki nggak kemana kok
+				{Parser(props.message)}
 			</p>
 		</div>
 	);
