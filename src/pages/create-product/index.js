@@ -266,11 +266,11 @@ export default function ProductForm() {
 						]}
 					>
 						<Select placeholder='Pilih Kategori' allowClear>
-							<Option value='Hobi'>Hobi</Option>
-							<Option value='Kendaraan'>Kendaraan</Option>
-							<Option value='Baju'>Baju</Option>
-							<Option value='Elektronik'>Elektronik</Option>
-							<Option value='Kesehatan'>Kesehatan</Option>
+							<Option value='Kaos'>Kaos</Option>
+							<Option value='Celana'>Celana</Option>
+							<Option value='Sweater'>Sweater</Option>
+							<Option value='Outer'>Outer</Option>
+							<Option value='Kemeja'>Kemeja</Option>
 						</Select>
 					</Form.Item>
 					<Form.Item
