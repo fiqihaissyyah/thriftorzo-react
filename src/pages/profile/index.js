@@ -139,7 +139,7 @@ export default function Profile() {
 	return (
 		<div className='container'>
 			<Helmet>
-				<title>Lengkapi Info Akun - Thriftorzo</title>
+				<title>Lengkapi Info Akun</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='update-profile-wrapper max-w-[568px] md:pt-10 pt-6 w-full mx-auto'>

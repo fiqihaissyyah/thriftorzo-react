@@ -242,7 +242,7 @@ export default function ProductFormUpdate() {
 	return (
 		<div className='container'>
 			<Helmet>
-				<title>Update Produk - Thriftorzo</title>
+				<title>Update Produk</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='update-profile-wrapper max-w-[568px] md:py-10 py-6 w-full mx-auto'>

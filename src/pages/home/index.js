@@ -66,7 +66,7 @@ export default function Home() {
 	return (
 		<>
 			<Helmet>
-				<title>Home - Thriftorzo</title>
+				<title>Marketplace - Thriftorzo</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<SliderHome />

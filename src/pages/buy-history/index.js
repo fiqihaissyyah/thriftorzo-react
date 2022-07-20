@@ -39,7 +39,7 @@ export default function BuyHistory() {
 	return (
 		<>
 			<Helmet>
-				<title>Pembelian - Thriftorzo</title>
+				<title>Pembelian</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='page-daftar-jual md:py-10 py-4'>
