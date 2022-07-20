@@ -56,9 +56,9 @@ export default function Notification() {
 			style: 'currency',
 			minimumFractionDigits: 0,
 			maximumFractionDigits: 0,
-			currency: 'IDR'
+			currency: 'IDR',
 		}).format(number);
-	}
+	};
 
 	return (
 		<div className='notification p-6 bg-white rounded-2xl w-[376px] mt-4'>

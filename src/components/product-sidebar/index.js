@@ -96,7 +96,7 @@ export default function ProductSidebar(props) {
 	const profileUser = useSelector((state) => state.user.user.data);
 	const loadingWishlist = useSelector((state) => state.product.wishlist.loading);
 	const token = useSelector((state) => state.user.auth.token);
-	const offersEvents = { click: () => { } };
+	const offersEvents = { click: () => {} };
 	const [isWishlist, setWishlist] = useState(false);
 	const [isOffered, setOffered] = useState(false);
 
@@ -162,15 +162,16 @@ export default function ProductSidebar(props) {
 			style: 'currency',
 			minimumFractionDigits: 0,
 			maximumFractionDigits: 0,
-			currency: 'IDR'
+			currency: 'IDR',
 		}).format(number);
-	}
+	};
 
 	return (
 		<>
 			<div
-				className={`sidebar-product p-4 shadow-custom md:mb-6 mb-4 rounded-2xl ${!props.mobile ? 'md:block hidden' : 'md:hidden block'
-					} z-10 relative bg-white`}
+				className={`sidebar-product p-4 shadow-custom md:mb-6 mb-4 rounded-2xl ${
+					!props.mobile ? 'md:block hidden' : 'md:hidden block'
+				} z-10 relative bg-white`}
 			>
 				{!props.loading && (
 					<>
