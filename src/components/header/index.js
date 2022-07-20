@@ -20,8 +20,7 @@ import {
 	resetSearch,
 } from '../../features/product/productSlice';
 import { countUnreadNotif } from '../../features/notification/notificationSlice';
-import Logo from '../../assets/images/logo-new.svg'
-import Logo2 from '../../assets/images/logo-new-3.svg'
+import Logo from '../../assets/images/logo-new-3.svg';
 
 export default function Header(props) {
 	const { token, success } = useSelector((state) => state.user.auth);
@@ -152,10 +151,11 @@ export default function Header(props) {
 									to={'/'}
 									className='text-lg font-bold leading-5 text-[#7126B5] md:block hidden'
 								>
-									{/* Second <br />
-									Hand. */}
-									{/* <img className='h-12' src={Logo} alt='Thriftorzo'/> */}
-									<img className='h-[56px]' src={Logo2} alt='Thriftorzo'/>
+									<img
+										className='h-[56px]'
+										src={Logo}
+										alt='Thriftorzo'
+									/>
 								</Link>
 								{props.navigation && (
 									<button
@@ -177,7 +177,11 @@ export default function Header(props) {
 							{!props.title && !props.blank && (
 								<Col
 									flex='auto'
-									className={ `${location.pathname !== '/' ? 'hidden' : 'md:flex items-center'} items-center`}
+									className={`${
+										location.pathname !== '/'
+											? 'hidden'
+											: 'md:flex items-center'
+									} items-center`}
 								>
 									<Form
 										className='flex-shrink-0 w-full'
@@ -276,7 +280,7 @@ export default function Header(props) {
 			>
 				<div className='sidebar-top flex justify-between items-center'>
 					<span className='mobile-brand text-sm font-bold'>
-						Second Hand
+						Thriftorzo
 					</span>
 					<X onClick={onClose} />
 				</div>
