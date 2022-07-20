@@ -8,7 +8,6 @@ import { auth } from '../../features/user/userSlice';
 
 import { GoogleOutlined } from '@ant-design/icons';
 import { ArrowLeft } from 'react-feather';
-import { useGoogleLogin } from '@react-oauth/google';
 import { Helmet } from 'react-helmet';
 
 export default function Login() {
@@ -24,10 +23,6 @@ export default function Login() {
 		dispatch(auth(values));
 	};
 
-	const login = useGoogleLogin({
-		onSuccess: (tokenResponse) => console.log(tokenResponse),
-	});
-
 	const onFinishFailed = (errorInfo) => {
 		console.log('Failed:', errorInfo);
 	};
@@ -42,7 +37,7 @@ export default function Login() {
 	return (
 		<>
 			<Helmet>
-				<title>Login - Thriftorzo</title>
+				<title>Login</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<Link className='py-[14px] px-4 block md:hidden' to='/'>
@@ -118,15 +113,6 @@ export default function Login() {
 									Masuk
 								</Button>
 							</Form.Item>
-							<Button
-								type='primary'
-								className='w-full btn-custom mb-10'
-								icon={<GoogleOutlined />}
-								onClick={() => login()}
-								ghost
-							>
-								Sign in with Google
-							</Button>
 							<p className='text-sm text-black text-center lg:relative fixed left-0 right-0 bottom-6 lg:bottom-0'>
 								Belum punya akun?{' '}
 								<Link className='font-bold' to='/register'>

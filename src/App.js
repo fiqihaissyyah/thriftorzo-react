@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { GoogleOAuthProvider } from '@react-oauth/google';
 
 import AuthLayout from './components/layouts/auth';
 import DefaultLayout from './components/layouts/default';
@@ -31,103 +30,93 @@ import PageNotFound from './pages/404';
 
 function App() {
 	return (
-		<GoogleOAuthProvider clientId='436786306485-d6n7npb54cjpr77iaq8s08d2uid6nnrk.apps.googleusercontent.com'>
-			<BrowserRouter>
-				<Routes>
-					<Route element={<AuthLayout />}>
-						<Route element={<IsGuest />}>
-							<Route exact path='/login' element={<Login />} />
-							<Route
-								exact
-								path='/register'
-								element={<Register />}
-							/>
-						</Route>
+		<BrowserRouter>
+			<Routes>
+				<Route element={<AuthLayout />}>
+					<Route element={<IsGuest />}>
+						<Route exact path='/login' element={<Login />} />
+						<Route exact path='/register' element={<Register />} />
 					</Route>
-					<Route element={<IsAuth />}>
-						<Route element={<DefaultLayoutWithTitle />}>
-							<Route
-								exact
-								path='/notification'
-								element={<Notification />}
-							/>
-						</Route>
-						<Route element={<DefaultLayoutWithNavigation />}>
-							<Route
-								exact
-								path='/setting'
-								element={<Setting />}
-							/>
-							<Route
-								exact
-								path='/setting/profile'
-								element={<Profile />}
-							/>
-							<Route
-								exact
-								path='/setting/password'
-								element={<Password />}
-							/>
-							<Route
-								exact
-								path='/penawaran/info-penawaran/:id'
-								element={<InfoPenawaran />}
-							/>
-						</Route>
-						<Route element={<DefaultLayoutBlank />}>
-							<Route element={<CheckUserProfile />}>
-								<Route
-									exact
-									path='/create/product'
-									element={<ProductForm />}
-								/>
-								<Route
-									exact
-									path='/update/product/:id'
-									element={<ProductFormUpdate />}
-								/>
-							</Route>
-						</Route>
-					</Route>
-					<Route element={<DefaultLayout />}>
-						<Route exact path='/*' element={<PageNotFound />} />
-						<Route exact path='/' element={<Home />} />
+				</Route>
+				<Route element={<IsAuth />}>
+					<Route element={<DefaultLayoutWithTitle />}>
 						<Route
 							exact
-							path='/product/detail/:id'
-							element={<Detail />}
+							path='/notification'
+							element={<Notification />}
 						/>
-						<Route element={<IsAuth />}>
+					</Route>
+					<Route element={<DefaultLayoutWithNavigation />}>
+						<Route exact path='/setting' element={<Setting />} />
+						<Route
+							exact
+							path='/setting/profile'
+							element={<Profile />}
+						/>
+						<Route
+							exact
+							path='/setting/password'
+							element={<Password />}
+						/>
+						<Route
+							exact
+							path='/penawaran/info-penawaran/:id'
+							element={<InfoPenawaran />}
+						/>
+					</Route>
+					<Route element={<DefaultLayoutBlank />}>
+						<Route element={<CheckUserProfile />}>
 							<Route
 								exact
-								path='/aktivitas'
-								element={<DaftarJual />}
+								path='/create/product'
+								element={<ProductForm />}
 							/>
 							<Route
 								exact
-								path='/aktivitas/wishlist'
-								element={<Wishlist />}
-							/>
-							<Route
-								exact
-								path='/aktivitas/terjual'
-								element={<Terjual />}
-							/>
-							<Route
-								exact
-								path='/aktivitas/tawaran'
-								element={<SaleHistory />}
-							/>
-							<Route
-								exact
-								path='/aktivitas/pembelian'
-								element={<BuyHistory />}
+								path='/update/product/:id'
+								element={<ProductFormUpdate />}
 							/>
 						</Route>
 					</Route>
-				</Routes>
-			</BrowserRouter>
-		</GoogleOAuthProvider>
+				</Route>
+				<Route element={<DefaultLayout />}>
+					<Route exact path='/*' element={<PageNotFound />} />
+					<Route exact path='/' element={<Home />} />
+					<Route
+						exact
+						path='/product/detail/:id'
+						element={<Detail />}
+					/>
+					<Route element={<IsAuth />}>
+						<Route
+							exact
+							path='/aktivitas'
+							element={<DaftarJual />}
+						/>
+						<Route
+							exact
+							path='/aktivitas/wishlist'
+							element={<Wishlist />}
+						/>
+						<Route
+							exact
+							path='/aktivitas/terjual'
+							element={<Terjual />}
+						/>
+						<Route
+							exact
+							path='/aktivitas/tawaran'
+							element={<SaleHistory />}
+						/>
+						<Route
+							exact
+							path='/aktivitas/pembelian'
+							element={<BuyHistory />}
+						/>
+					</Route>
+				</Route>
+			</Routes>
+		</BrowserRouter>
 	);
 }
 

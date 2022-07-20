@@ -27,7 +27,7 @@ export default function Setting() {
 	return (
 		<div className='container'>
 			<Helmet>
-				<title>Akun Saya - Thriftorzo</title>
+				<title>Akun Saya</title>
 				<meta name='description' content='Helmet application' />
 			</Helmet>
 			<div className='update-profile-wrapper max-w-[568px] md:pt-10 pt-6 w-full mx-auto'>
