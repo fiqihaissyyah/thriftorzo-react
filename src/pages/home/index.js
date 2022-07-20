@@ -87,58 +87,58 @@ export default function Home() {
 						</Button>
 						<Button
 							className={`${
-								categoryActive == 'Hobi' ? 'active' : ''
+								categoryActive == 'Kaos' ? 'active' : ''
 							} bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4`}
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => categoryHandler('Hobi')}
+							onClick={() => categoryHandler('Kaos')}
 						>
-							Hobi
+							Kaos
 						</Button>
 						<Button
 							className={`${
-								categoryActive == 'Kendaraan' ? 'active' : ''
+								categoryActive == 'Celana' ? 'active' : ''
 							} bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4`}
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => categoryHandler('Kendaraan')}
+							onClick={() => categoryHandler('Celana')}
 						>
-							Kendaraan
+							Celana
 						</Button>
 						<Button
 							className={`${
-								categoryActive == 'Baju' ? 'active' : ''
+								categoryActive == 'Sweater' ? 'active' : ''
 							} bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4`}
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => categoryHandler('Baju')}
+							onClick={() => categoryHandler('Sweater')}
 						>
-							Baju
+							Sweater
 						</Button>
 						<Button
 							className={`${
-								categoryActive == 'Elektronik' ? 'active' : ''
+								categoryActive == 'Outer' ? 'active' : ''
 							} bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4`}
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => categoryHandler('Elektronik')}
+							onClick={() => categoryHandler('Outer')}
 						>
-							Elektronik
+							Outer
 						</Button>
 						<Button
 							className={`${
-								categoryActive == 'Kesehatan' ? 'active' : ''
+								categoryActive == 'Kemeja' ? 'active' : ''
 							} bg-[#E2D4F0] text-[#3C3C3C] border-0 py-3 px-6 h-12 flex items-center rounded-xl btn-category mr-4`}
 							type='primary'
 							icon={<Search className='mr-2' />}
 							size='large'
-							onClick={() => categoryHandler('Kesehatan')}
+							onClick={() => categoryHandler('Kemeja')}
 						>
-							Kesehatan
+							Kemeja
 						</Button>
 					</div>
 					<Row gutter={[16, 16]} className='mb-10'>

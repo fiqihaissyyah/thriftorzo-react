@@ -37,9 +37,9 @@ export default function BuyHistory() {
 			style: 'currency',
 			minimumFractionDigits: 0,
 			maximumFractionDigits: 0,
-			currency: 'IDR'
+			currency: 'IDR',
 		}).format(number);
-	}
+	};
 
 	return (
 		<>
@@ -71,7 +71,9 @@ export default function BuyHistory() {
 											<Skeleton active />
 										</div>
 									))}
-							{!loading && !!response && !response.historyResponse && <Empty message='Belum ada produkmu yang diminati nih, <br /> sabar ya rejeki nggak kemana kok' />}
+							{!loading && !!response && !response.historyResponse && (
+								<Empty message='Belum ada produkmu yang diminati nih, <br /> sabar ya rejeki nggak kemana kok' />
+							)}
 							{!!response &&
 								response.historyResponse.map((i) => (
 									<div className=' p-4 shadow-custom rounded-2xl mb-4 flex w-full border-0 cursor-text'>

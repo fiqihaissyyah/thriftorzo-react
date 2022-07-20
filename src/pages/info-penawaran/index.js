@@ -86,9 +86,9 @@ export default function InfoPenawaran() {
 			style: 'currency',
 			minimumFractionDigits: 0,
 			maximumFractionDigits: 0,
-			currency: 'IDR'
+			currency: 'IDR',
 		}).format(number);
-	}
+	};
 
 	return (
 		<div className='page-info-penawaran md:py-10 py-4'>

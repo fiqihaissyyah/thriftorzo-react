@@ -45,7 +45,9 @@ export default function Terjual() {
 					</Col>
 					<Col xs={{ span: 24 }} lg={{ span: 16 }}>
 						<Row gutter={[24, 24]} className='mb-10'>
-							{!loading && !response && <Empty message='Belum ada produkmu yang kamu tawar nih, <br /> ayo tawar produk sekarang' />}
+							{!loading && !response && (
+								<Empty message='Belum ada produkmu yang kamu tawar nih, <br /> ayo tawar produk sekarang' />
+							)}
 							{loading && <LoadingProductSold />}
 							{!loading &&
 								!!response &&

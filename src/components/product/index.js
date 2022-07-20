@@ -9,9 +9,9 @@ export default function Product(props) {
 			style: 'currency',
 			minimumFractionDigits: 0,
 			maximumFractionDigits: 0,
-			currency: 'IDR'
+			currency: 'IDR',
 		}).format(number);
-	}
+	};
 
 	return (
 		<Link to={`/product/detail/${props.link}`}>
