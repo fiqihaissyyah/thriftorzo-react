@@ -15,8 +15,8 @@
 	@apply text-center text-lg bg-white flex justify-center items-center;
 }
 
-.slider-product .swiper-slide img {
-	@apply block w-full h-full object-cover;
+.slider-product .swiper-slide .ant-image {
+	@apply block w-full h-full overflow-hidden md:rounded-2xl rounded-none;
 }
 
 .slider-product .swiper {
