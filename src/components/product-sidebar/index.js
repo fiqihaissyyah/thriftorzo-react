@@ -64,7 +64,7 @@ const ProductStatus = (props) => {
 					type='primary'
 					htmlType='submit'
 				>
-					Terbitakan
+					Terbitkan
 				</Button>
 			)}
 			{props.publish === 1 && (
