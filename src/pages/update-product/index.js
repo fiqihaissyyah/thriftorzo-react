@@ -155,7 +155,7 @@ export default function ProductFormUpdate() {
 
 				const response = await axios({
 					method: 'put',
-					url: 'https://staging-secondhand-bej3.herokuapp.com/product/update',
+					url: 'https://thriftorzo-api.herokuapp.com/product/update',
 					data: bodyFormData,
 					headers: {
 						'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',

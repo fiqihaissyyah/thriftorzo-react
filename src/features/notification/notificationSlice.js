@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
+export const API_URL = 'https://thriftorzo-api.herokuapp.com/';
 
 export const getNotification = createAsyncThunk(
 	'notification/getnotification',
