@@ -65,7 +65,7 @@ export default function Register() {
 							onFinish={onFinish}
 							onFinishFailed={onFinishFailed}
 							autoComplete='off'
-							className='h-[85vh] md:h-auto'
+							className='h-[85vh] lg:h-auto'
 						>
 							<Form.Item
 								className='mb-4'
