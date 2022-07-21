@@ -65,6 +65,7 @@ export default function Register() {
 							onFinish={onFinish}
 							onFinishFailed={onFinishFailed}
 							autoComplete='off'
+							className='h-[85vh] md:h-auto'
 						>
 							<Form.Item
 								className='mb-4'
@@ -122,7 +123,7 @@ export default function Register() {
 									Masuk
 								</Button>
 							</Form.Item>
-							<p className='text-sm text-black text-center lg:relative fixed left-0 right-0 bottom-6 lg:bottom-0'>
+							<p className='text-sm text-black text-center lg:relative absolute left-0 right-0 bottom-6 lg:bottom-0'>
 								Sudah punya akun?{' '}
 								<Link className='font-bold' to='/login'>
 									Masuk di sini
