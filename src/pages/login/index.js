@@ -62,6 +62,7 @@ export default function Login() {
 							onFinish={onFinish}
 							onFinishFailed={onFinishFailed}
 							autoComplete='off'
+							className='h-[85vh] md:h-auto'
 						>
 							<Form.Item
 								className='mb-4'
@@ -105,7 +106,7 @@ export default function Login() {
 									Masuk
 								</Button>
 							</Form.Item>
-							<p className='text-sm text-black text-center lg:relative fixed left-0 right-0 bottom-6 lg:bottom-0'>
+							<p className='text-sm text-black text-center lg:relative absolute left-0 right-0 bottom-6 lg:bottom-0'>
 								Belum punya akun?{' '}
 								<Link className='font-bold' to='/register'>
 									Daftar di sini
