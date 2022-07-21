@@ -15,7 +15,6 @@ import {
 export default function Notification() {
 	const navigate = useNavigate();
 	const token = useSelector((state) => state.user.auth.token);
-	const userid = useSelector((state) => state.user.user.data.id);
 	const { response, loading } = useSelector((state) => state.notification.notif);
 	const dispatch = useDispatch();
 	const location = useLocation();
@@ -26,7 +25,7 @@ export default function Notification() {
 		const size = 4;
 		dispatch(getNotification({ token, current, size }));
 		console.log(response);
-		if (title !== 'Produk Diterbitkan') {
+		if (title != 'Produk Diterbitkan') {
 			if (roles === 1) {
 				navigate('/product/detail/' + productId);
 			} else {
@@ -96,7 +95,7 @@ export default function Notification() {
 							</div>
 							<p className='mb-1 text-black text-sm'>{i.productResponse.name}</p>
 							<p className='mb-1 text-black text-sm'>{currency(i.productResponse.price)}</p>
-							{i.title !== 'Berhasil diterbitkan' && (
+							{i.title !== 'Produk Diterbitkan' && (
 								<p className='mb-1 text-black text-sm'>
 									{i.roles === 1 ? 'Menawar' : 'Ditawar'} {currency(i.offerPrice)}
 								</p>

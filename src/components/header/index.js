@@ -158,8 +158,8 @@ export default function Header(props) {
 								<Col
 									flex='auto'
 									className={`${
-										location.pathname !== '/' ? 'hidden' : 'md:flex items-center'
-									} items-center`}
+										location.pathname !== '/' ? 'hidden md:flex items-center' : ''
+									} md:flex items-center`}
 								>
 									<Form
 										className='flex-shrink-0 w-full'
