@@ -104,7 +104,7 @@ textarea.ant-input {
 
 .main-content {
 	min-height: 100vh;
-	padding-bottom: 112px;
+	padding-bottom: 128px;
 	position: relative;
 }
 
@@ -149,6 +149,6 @@ textarea.ant-input {
 
 @media screen and (max-width: 767px) {
 	.main-content {
-		padding-bottom: 10px;
+		padding-bottom: 60px;
 	}
 }
