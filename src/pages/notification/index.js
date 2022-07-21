@@ -25,7 +25,7 @@ export default function Notification() {
 		const size = 8;
 		dispatch(getNotification({ token, current, size }));
 		console.log(response);
-		if (title !== 'Produk Diterbitkan' || title !== 'Berhasil Diterbitkan') {
+		if (title != 'Produk Diterbitkan') {
 			if (roles === 1) {
 				navigate('/product/detail/' + productId);
 			} else {
@@ -120,7 +120,7 @@ export default function Notification() {
 									</div>
 									<p className='mb-1 text-black text-sm'>{i.productResponse.name}</p>
 									<p className='mb-1 text-black text-sm'>{currency(i.productResponse.price)}</p>
-									{i.title !== 'Berhasil diterbitkan' || i.title !== 'Produk diterbitkan' && (
+									{i.title !== 'Produk Diterbitkan' && (
 										<p className='mb-1 text-black text-sm'>
 											{i.roles === 1 ? 'Menawar' : 'Ditawar'} {currency(i.offerPrice)}
 										</p>
