@@ -24,10 +24,7 @@ export default function SliderProduct(props) {
 					{!!props.item &&
 						props.item.map((i, index) => (
 							<SwiperSlide key={index}>
-								<Image
-									className='w-full h-full md:rounded-2xl object-cover rounded-none'
-									src={i}
-								/>
+								<Image className='w-full h-full md:rounded-2xl object-cover rounded-none' src={i} />
 								{/* <img className='md:rounded-2xl rounded-none' src={i} /> */}
 							</SwiperSlide>
 						))}

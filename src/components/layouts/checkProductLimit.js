@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { notification } from 'antd';
 import { Navigate, useLocation, Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -6,8 +6,8 @@ import { getProductByUserId } from '../../features/product/productSlice';
 
 export default function CheckProductLimit(props) {
 	const location = useLocation();
-    const token = useSelector((state) => state.user.auth.token);
-    
+	const token = useSelector((state) => state.user.auth.token);
+
 	const { response } = useSelector((state) => state.product.productByUserId);
 	const dispatch = useDispatch();
 
