@@ -6,7 +6,7 @@ it('renders empty correctly', () => {
 	const tree = renderer
 		.create(
 			<MemoryRouter>
-				<Empty message='produk tidak ditemukan'/>
+				<Empty message='produk tidak ditemukan' />
 			</MemoryRouter>
 		)
 		.toJSON();
