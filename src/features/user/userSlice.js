@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const API_URL = 'https://staging-secondhand-bej3.herokuapp.com/';
+export const API_URL = 'https://thriftorzo-api.herokuapp.com/';
 export let TOKEN = localStorage.getItem('token');
 export let USER = JSON.parse(localStorage.getItem('user'));
 
@@ -181,6 +181,13 @@ const resetPasswordState = {
 
 const afterRegisterState = {
 	...initialState,
+	auth: {
+		token: null,
+		loading: false,
+		error: false,
+		errorMessage: null,
+		success: false,
+	},
 	register: {
 		loading: false,
 		error: false,

@@ -72,7 +72,7 @@ export default function Profile() {
 		bodyFormData.append('imageFile', info.file.originFileObj);
 
 		await axios
-			.post('https://staging-secondhand-bej3.herokuapp.com/user/avatar', bodyFormData, {
+			.post('https://thriftorzo-api.herokuapp.com/user/avatar', bodyFormData, {
 				headers: {
 					ContentType: 'multipart/form-data',
 					Authorization: `Bearer ${localStorage.getItem('token')}`,

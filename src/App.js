@@ -9,6 +9,7 @@ import DefaultLayoutBlank from './components/layouts/default-blank';
 import IsAuth from './components/layouts/isAuth';
 import IsGuest from './components/layouts/isGuest';
 import CheckUserProfile from './components/layouts/checkUserProfile';
+import CheckProductLimit from './components/layouts/checkProductLimit';
 
 import Home from './pages/home/index';
 import Login from './pages/login/index';
@@ -50,7 +51,9 @@ function App() {
 					</Route>
 					<Route element={<DefaultLayoutBlank />}>
 						<Route element={<CheckUserProfile />}>
-							<Route exact path='/create/product' element={<ProductForm />} />
+							<Route element={<CheckProductLimit />}>
+								<Route exact path='/create/product' element={<ProductForm />} />
+							</Route>
 							<Route exact path='/update/product/:id' element={<ProductFormUpdate />} />
 						</Route>
 					</Route>
