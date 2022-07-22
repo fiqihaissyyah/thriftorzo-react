@@ -181,6 +181,13 @@ const resetPasswordState = {
 
 const afterRegisterState = {
 	...initialState,
+	auth: {
+		token: null,
+		loading: false,
+		error: false,
+		errorMessage: null,
+		success: false,
+	},
 	register: {
 		loading: false,
 		error: false,
