@@ -1,6 +1,6 @@
 import './index.css';
 import React, { useEffect } from 'react';
-import { Row, Col, Skeleton, Pagination } from 'antd';
+import { Row, Col, Skeleton, Pagination, Tag } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
@@ -89,6 +89,26 @@ export default function BuyHistory() {
 													{moment(i.transactionDate).format('DD MMM, kk:mm')}
 												</span>
 											</div>
+											{i.status === 1 && (
+												<Tag color='orange' className='mb-1'>
+													Pending
+												</Tag>
+											)}
+											{i.status === 2 && (
+												<Tag color='red' className='mb-1'>
+													Ditolak
+												</Tag>
+											)}
+											{i.status === 3 && (
+												<Tag color='blue' className='mb-1'>
+													Diterima
+												</Tag>
+											)}
+											{i.status === 4 && (
+												<Tag color='green' className='mb-1'>
+													Selesai
+												</Tag>
+											)}
 											<p className='mb-1 text-black text-sm'>{i.productResponse.name}</p>
 											<p className='mb-1 text-black text-sm'>
 												{currency(i.productResponse.price)}
