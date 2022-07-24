@@ -2,7 +2,7 @@ import { MemoryRouter } from 'react-router-dom';
 import renderer from 'react-test-renderer';
 import Category from '../../components/category';
 
-it('renders product card correctly', () => {
+it('renders category correctly', () => {
 	const tree = renderer
 		.create(
 			<MemoryRouter>
