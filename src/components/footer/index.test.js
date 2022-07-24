@@ -1,13 +1,12 @@
 import { MemoryRouter } from 'react-router-dom';
 import renderer from 'react-test-renderer';
-import Category from '../../components/category';
+import Footer from './index.js';
 
-it('renders category correctly', () => {
+it('renders footer correctly', () => {
 	const tree = renderer
 		.create(
 			<MemoryRouter>
-				<Category category='Hobi' active />
-				<Category category='Kendaraan' />
+				<Footer />
 			</MemoryRouter>
 		)
 		.toJSON();
